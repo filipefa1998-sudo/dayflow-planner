@@ -674,6 +674,223 @@
   .hc-sky { background: var(--sky-pale); }
   .hc-lav { background: var(--lav-pale); }
   .hc-rose { background: var(--rose-pale); }
+
+  /* ── DARK MODE ── */
+  body.dark {
+    --cream:      #1A1210;
+    --warm-white: #221A16;
+    --border:     #3A2820;
+    --shadow:     rgba(0,0,0,0.3);
+    --shadow-md:  rgba(0,0,0,0.45);
+    --ink:        #F5EDE6;
+    --ink-light:  #C9B5A8;
+    --ink-muted:  #7A6058;
+    --peach-pale: rgba(255,140,107,0.15);
+    --gold-pale:  rgba(245,166,35,0.12);
+    --sage-pale:  rgba(107,175,140,0.15);
+    --sky-pale:   rgba(91,155,213,0.15);
+    --lav-pale:   rgba(155,127,212,0.15);
+    --rose-pale:  rgba(232,113,138,0.15);
+  }
+  body.dark .sidebar { background: rgba(34,26,22,0.92); }
+  body.dark .task-card { background: var(--warm-white); }
+  body.dark .modal { background: #2A1E18; }
+  body.dark .form-input, body.dark .form-textarea, body.dark .form-select { background: #1A1210; color: var(--ink); border-color: var(--border); }
+  body.dark .panel-card, body.dark .pomo-widget, body.dark .time-grid, body.dark .habit-card { background: var(--warm-white); }
+  body.dark .settings-card { background: var(--warm-white); }
+  body.dark .settings-card-header { background: #1A1210; }
+  body.dark .settings-info-box { background: #1A1210; }
+  body.dark .stat-card { background: var(--warm-white); }
+  body.dark .ai-brief { background: rgba(255,140,107,0.08); border-color: rgba(255,140,107,0.2); }
+  body.dark .quick-add-input { background: var(--warm-white); color: var(--ink); }
+  body.dark .kanban-col { background: var(--warm-white); }
+  body.dark .kanban-card { background: #2A1E18; }
+  body.dark .filter-bar { background: var(--warm-white); }
+  body.dark .filter-chip { background: #2A1E18; }
+
+  /* ── DARK MODE TOGGLE ── */
+  .dark-toggle {
+    position: fixed; bottom: 24px; right: 24px; z-index: 500;
+    width: 44px; height: 44px; border-radius: 50%;
+    background: white; border: 1px solid var(--border);
+    box-shadow: 0 4px 16px var(--shadow-md);
+    cursor: pointer; font-size: 20px;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.3s; color: var(--ink);
+  }
+  .dark-toggle:hover { transform: scale(1.1); }
+  body.dark .dark-toggle { background: var(--warm-white); }
+
+  /* ── TASK COMPLETION ANIMATION ── */
+  @keyframes checkPop {
+    0%   { transform: scale(1); }
+    40%  { transform: scale(1.3); }
+    70%  { transform: scale(0.9); }
+    100% { transform: scale(1); }
+  }
+  @keyframes taskFade {
+    0%   { opacity:1; transform:translateX(0); }
+    100% { opacity:0; transform:translateX(20px); }
+  }
+  .task-check.popping { animation: checkPop 0.4s cubic-bezier(0.34,1.56,0.64,1); }
+  .task-card.completing { animation: taskFade 0.4s ease forwards; }
+
+  /* ── CONFETTI ── */
+  .confetti-piece {
+    position: fixed; width: 8px; height: 8px; border-radius: 2px;
+    pointer-events: none; z-index: 9999;
+    animation: confettiFall 0.8s ease forwards;
+  }
+  @keyframes confettiFall {
+    0%   { opacity:1; transform: translateY(0) rotate(0deg); }
+    100% { opacity:0; transform: translateY(80px) rotate(360deg); }
+  }
+
+  /* ── VIEW TOGGLE (List / Kanban) ── */
+  .view-toggle {
+    display: flex; gap: 4px; background: var(--border);
+    padding: 3px; border-radius: 10px;
+  }
+  .view-toggle-btn {
+    padding: 6px 14px; border-radius: 8px; border: none; background: transparent;
+    font-size: 13px; font-weight: 500; color: var(--ink-muted); cursor: pointer;
+    transition: all 0.2s; display: flex; align-items: center; gap: 5px;
+  }
+  .view-toggle-btn.active { background: white; color: var(--ink); box-shadow: 0 1px 4px var(--shadow); }
+  body.dark .view-toggle-btn.active { background: var(--warm-white); }
+
+  /* ── FILTER BAR ── */
+  .filter-bar {
+    background: white; border-radius: var(--radius); padding: 12px 16px;
+    margin-bottom: 20px; border: 1px solid var(--border);
+    display: flex; gap: 10px; align-items: center; flex-wrap: wrap;
+    box-shadow: 0 1px 4px var(--shadow);
+  }
+  .filter-label { font-size: 12px; font-weight: 600; color: var(--ink-muted); white-space: nowrap; }
+  .filter-chips { display: flex; gap: 6px; flex-wrap: wrap; flex: 1; }
+  .filter-chip {
+    padding: 4px 12px; border-radius: 20px; border: 1.5px solid var(--border);
+    font-size: 12px; font-weight: 500; color: var(--ink-muted); cursor: pointer;
+    transition: all 0.2s; background: var(--cream); white-space: nowrap;
+  }
+  .filter-chip:hover { border-color: var(--peach); color: var(--peach); }
+  .filter-chip.active { background: var(--peach); border-color: var(--peach); color: white; }
+  .filter-chip.p1-chip.active { background: var(--p1); border-color: var(--p1); }
+  .filter-chip.p2-chip.active { background: var(--p2); border-color: var(--p2); color: #5A3A00; }
+  .filter-chip.p3-chip.active { background: var(--p3); border-color: var(--p3); }
+  .filter-search {
+    padding: 6px 12px; border-radius: 20px; border: 1.5px solid var(--border);
+    font-family: 'DM Sans', sans-serif; font-size: 13px; outline: none;
+    transition: border 0.2s; background: var(--cream); color: var(--ink); min-width: 160px;
+  }
+  .filter-search:focus { border-color: var(--peach); }
+
+  /* ── KANBAN ── */
+  .kanban-board {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px;
+    align-items: start;
+  }
+  .kanban-col {
+    background: var(--cream); border-radius: var(--radius);
+    border: 1px solid var(--border); overflow: hidden;
+    min-height: 200px;
+  }
+  .kanban-col-header {
+    padding: 12px 14px; border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; gap: 8px;
+  }
+  .kanban-col-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+  .kanban-col-title { font-weight: 700; font-size: 13px; }
+  .kanban-col-count {
+    margin-left: auto; font-size: 11px; font-weight: 600;
+    background: var(--border); color: var(--ink-muted);
+    padding: 2px 8px; border-radius: 20px;
+  }
+  .kanban-cards { padding: 10px; display: flex; flex-direction: column; gap: 8px; min-height: 100px; }
+  .kanban-card {
+    background: white; border-radius: var(--radius-sm); padding: 12px;
+    border: 1px solid var(--border); cursor: grab;
+    box-shadow: 0 1px 4px var(--shadow); transition: all 0.2s;
+    position: relative; overflow: hidden;
+  }
+  .kanban-card:hover { box-shadow: 0 4px 12px var(--shadow-md); transform: translateY(-1px); }
+  .kanban-card.dragging { opacity: 0.5; cursor: grabbing; }
+  .kanban-card .kc-title { font-size: 13px; font-weight: 500; margin-bottom: 6px; }
+  .kanban-card .kc-meta { display: flex; gap: 5px; flex-wrap: wrap; }
+  .kanban-card .kc-bar { position: absolute; left:0;top:0;bottom:0;width:3px; }
+  .kanban-col.drag-over { background: var(--peach-pale); border-color: var(--peach-soft); }
+
+  /* ── TAG INPUT ── */
+  .tag-input-wrap {
+    display: flex; gap: 6px; flex-wrap: wrap; padding: 8px 10px;
+    border-radius: var(--radius-sm); border: 1.5px solid var(--border);
+    background: white; cursor: text; min-height: 42px; align-items: center;
+    transition: border 0.2s;
+  }
+  .tag-input-wrap:focus-within { border-color: var(--peach); }
+  .tag-pill {
+    padding: 3px 10px; border-radius: 20px; background: var(--lav-pale);
+    color: var(--lavender); font-size: 12px; font-weight: 600;
+    display: flex; align-items: center; gap: 5px;
+  }
+  .tag-pill-remove { cursor: pointer; opacity: 0.6; }
+  .tag-pill-remove:hover { opacity: 1; }
+  .tag-raw-input {
+    border: none; outline: none; font-family: 'DM Sans', sans-serif;
+    font-size: 13px; color: var(--ink); background: transparent; min-width: 80px; flex: 1;
+  }
+
+  /* ── KARMA ── */
+  .karma-widget {
+    background: linear-gradient(135deg, var(--lavender), #7B5EA7);
+    border-radius: var(--radius); padding: 16px 18px; color: white;
+    display: flex; align-items: center; gap: 14px;
+    box-shadow: 0 4px 16px rgba(155,127,212,0.3);
+  }
+  .karma-icon { font-size: 32px; }
+  .karma-info { flex: 1; }
+  .karma-score { font-family: 'Fraunces', serif; font-size: 28px; font-weight: 700; line-height:1; }
+  .karma-label { font-size: 11px; opacity: 0.85; margin-top: 2px; }
+  .karma-level { font-size: 12px; font-weight: 600; margin-top: 4px; opacity: 0.9; }
+
+  /* ── AI FOCUS PANEL ── */
+  .ai-focus-panel {
+    background: linear-gradient(135deg, #EDE5FF, #FFE8DF);
+    border: 1px solid rgba(155,127,212,0.25);
+    border-radius: var(--radius); padding: 16px 18px; margin-bottom: 20px;
+  }
+  .ai-focus-header { display:flex; align-items:center; gap:8px; margin-bottom:8px; }
+  .ai-focus-title { font-weight: 700; font-size: 14px; color: var(--lavender); }
+  .ai-focus-content { font-size: 14px; color: var(--ink-light); line-height: 1.6; }
+  .ai-focus-actions { display:flex; gap:8px; margin-top:10px; flex-wrap:wrap; }
+  .ai-focus-btn {
+    padding: 6px 14px; border-radius: 20px; border: none; font-size: 12px; font-weight: 600;
+    cursor: pointer; transition: all 0.2s;
+  }
+  .ai-focus-btn-primary { background: var(--lavender); color: white; }
+  .ai-focus-btn-primary:hover { background: #7B5EA7; }
+  .ai-focus-btn-secondary { background: rgba(155,127,212,0.15); color: var(--lavender); }
+  .ai-focus-btn-secondary:hover { background: var(--lavender); color: white; }
+
+  /* ── DRAG HANDLE ── */
+  .drag-handle {
+    cursor: grab; color: var(--border); font-size: 16px; padding: 0 2px;
+    opacity: 0; transition: opacity 0.2s; flex-shrink: 0;
+  }
+  .task-card:hover .drag-handle { opacity: 1; }
+
+  /* ── KARMA TOAST ── */
+  .karma-toast {
+    position: fixed; top: 24px; right: 24px; z-index: 9999;
+    background: linear-gradient(135deg, var(--lavender), #7B5EA7);
+    color: white; padding: 10px 18px; border-radius: 50px;
+    font-size: 13px; font-weight: 600;
+    box-shadow: 0 8px 24px rgba(155,127,212,0.4);
+    transform: translateY(-60px); opacity: 0;
+    transition: all 0.4s cubic-bezier(0.34,1.56,0.64,1);
+    pointer-events: none;
+  }
+  .karma-toast.show { transform: translateY(0); opacity: 1; }
 </style>
 </head>
 <body>
@@ -683,6 +900,9 @@
   <div class="blob blob-2"></div>
   <div class="blob blob-3"></div>
 </div>
+
+<button class="dark-toggle" onclick="toggleDarkMode()" id="dark-btn" title="Toggle dark mode">🌙</button>
+<div class="karma-toast" id="karma-toast">+10 karma ⚡</div>
 
 <div id="app">
 
@@ -748,6 +968,13 @@
           <div class="page-title" id="today-greeting">Good morning ☀️</div>
           <div class="page-date" id="today-date"></div>
         </div>
+        <div style="display:flex;gap:10px;align-items:center;">
+          <div class="view-toggle">
+            <button class="view-toggle-btn active" id="list-view-btn" onclick="setTaskView('list')">☰ List</button>
+            <button class="view-toggle-btn" id="kanban-view-btn" onclick="setTaskView('kanban')">⬛ Board</button>
+          </div>
+          <button class="btn-primary" onclick="openAddTask()">+ New Task</button>
+        </div>
       </div>
 
       <!-- AI Daily Brief -->
@@ -765,6 +992,20 @@
         </div>
       </div>
 
+      <!-- AI Focus Panel -->
+      <div class="ai-focus-panel" id="ai-focus-panel" style="display:none;">
+        <div class="ai-focus-header">
+          <span style="font-size:18px;">🎯</span>
+          <div class="ai-focus-title">AI Focus Suggestion</div>
+        </div>
+        <div class="ai-focus-content" id="ai-focus-content">Analyzing your tasks...</div>
+        <div class="ai-focus-actions">
+          <button class="ai-focus-btn ai-focus-btn-primary" onclick="aiFocusSuggestion()">🔄 New Suggestion</button>
+          <button class="ai-focus-btn ai-focus-btn-secondary" onclick="aiBrainstorm()">💡 Brainstorm with AI</button>
+          <button class="ai-focus-btn ai-focus-btn-secondary" onclick="document.getElementById('ai-focus-panel').style.display='none'">✕ Dismiss</button>
+        </div>
+      </div>
+
       <!-- Quick Add -->
       <div class="quick-add-bar">
         <input class="quick-add-input" id="quick-add-input" placeholder="Add a task... or type naturally like 'Call John Friday at 2pm p1'" onkeydown="handleQuickAdd(event)">
@@ -772,8 +1013,23 @@
         <button class="quick-add-btn" onclick="quickAddTask()">+ Add</button>
       </div>
 
-      <!-- Stats -->
-      <div class="stats-row">
+      <!-- Filter Bar -->
+      <div class="filter-bar">
+        <span class="filter-label">Filter:</span>
+        <div class="filter-chips" id="filter-chips">
+          <div class="filter-chip active" data-filter="all" onclick="setFilter('all')">All</div>
+          <div class="filter-chip p1-chip" data-filter="p1" onclick="setFilter('p1')">🔴 P1</div>
+          <div class="filter-chip p2-chip" data-filter="p2" onclick="setFilter('p2')">🟡 P2</div>
+          <div class="filter-chip p3-chip" data-filter="p3" onclick="setFilter('p3')">🔵 P3</div>
+          <div class="filter-chip" data-filter="done" onclick="setFilter('done')">✅ Done</div>
+          <div class="filter-chip" data-filter="overdue" onclick="setFilter('overdue')">🔴 Overdue</div>
+        </div>
+        <input class="filter-search" id="filter-search" placeholder="🔍 Search tasks..." oninput="renderTodayTasks()">
+        <button class="ai-focus-btn ai-focus-btn-secondary" style="white-space:nowrap;" onclick="showAiFocus()">🎯 AI Focus</button>
+      </div>
+
+      <!-- Stats + Karma -->
+      <div class="stats-row" style="grid-template-columns: repeat(4,1fr);">
         <div class="stat-card">
           <div class="stat-icon">✅</div>
           <div class="stat-value" id="stat-done">0</div>
@@ -789,10 +1045,19 @@
           <div class="stat-value" id="stat-pct">0%</div>
           <div class="stat-label">Progress</div>
         </div>
+        <div class="karma-widget">
+          <div class="karma-icon">⚡</div>
+          <div class="karma-info">
+            <div class="karma-score" id="karma-display">0</div>
+            <div class="karma-label">Karma Points</div>
+            <div class="karma-level" id="karma-level">Beginner</div>
+          </div>
+        </div>
       </div>
 
-      <!-- Task Sections -->
+      <!-- Task List / Kanban -->
       <div id="today-tasks-container"></div>
+      <div id="today-kanban-container" style="display:none;"></div>
     </div>
 
     <!-- UPCOMING VIEW -->
@@ -1130,6 +1395,13 @@
         </div>
       </div>
       <div class="form-group">
+        <label class="form-label">Tags</label>
+        <div class="tag-input-wrap" id="tag-input-wrap" onclick="document.getElementById('tag-raw').focus()">
+          <div id="tag-pills" style="display:contents;"></div>
+          <input class="tag-raw-input" id="tag-raw" placeholder="Type a tag & press Enter..." onkeydown="handleTagInput(event)">
+        </div>
+      </div>
+      <div class="form-group">
         <label class="form-label">Priority</label>
         <div class="priority-select" id="priority-select">
           <div class="priority-opt" data-p="1" onclick="selectPriority(1)">🔴 P1</div>
@@ -1356,6 +1628,7 @@ function switchView(name) {
 // ─────────────────────────────────────────────
 function renderAll() {
   renderTodayTasks();
+  if (taskViewMode === 'kanban') renderKanban();
   renderUpcoming();
   renderInbox();
   renderHabits();
@@ -1364,6 +1637,7 @@ function renderAll() {
   updateNavCounts();
   renderMiniUpcoming();
   renderTimeSlotsForDate();
+  updateKarmaDisplay();
 }
 
 function todayStr() { return new Date().toISOString().slice(0,10); }
@@ -1376,15 +1650,14 @@ function getTodayTasks() {
 
 function renderTodayTasks() {
   const today = todayStr();
-  const todayTasks = tasks.filter(t => t.date === today);
-  const overdue = tasks.filter(t => t.date && t.date < today && !t.done);
+  const overdue = getFilteredTasks(tasks.filter(t => t.date && t.date < today && !t.done));
+  const todayTasks = getFilteredTasks(tasks.filter(t => t.date === today));
   const c = document.getElementById('today-tasks-container');
   let html = '';
 
   if (overdue.length > 0) {
     html += renderSection('Overdue 🔴', overdue, 'overdue');
   }
-  // Group by priority
   const p1 = todayTasks.filter(t => t.priority === 1);
   const p2 = todayTasks.filter(t => t.priority === 2);
   const p3 = todayTasks.filter(t => t.priority === 3);
@@ -1398,8 +1671,8 @@ function renderTodayTasks() {
   if (!todayTasks.length && !overdue.length) {
     html = `<div class="empty-state">
       <div class="empty-state-icon">🎉</div>
-      <div class="empty-state-title">All clear!</div>
-      <div class="empty-state-sub">No tasks for today. Add one above!</div>
+      <div class="empty-state-title">${activeFilter === 'all' ? 'All clear!' : 'No tasks match this filter'}</div>
+      <div class="empty-state-sub">${activeFilter === 'all' ? 'No tasks for today. Add one above!' : 'Try a different filter.'}</div>
     </div>`;
   }
   c.innerHTML = html;
@@ -1428,9 +1701,15 @@ function renderTaskCard(task) {
   if (task.recurring) metaTags.push(`<span class="task-tag tag-recurring">🔄 ${task.recurring}</span>`);
   if (task.priority === 1) metaTags.push(`<span class="task-tag tag-p1">🔴 P1</span>`);
   if (subtasksTotal > 0) metaTags.push(`<span class="task-subtask-count">✔ ${subtasksDone}/${subtasksTotal}</span>`);
+  (task.tags||[]).forEach(tag => metaTags.push(`<span class="task-tag" style="background:var(--lav-pale);color:var(--lavender);">#${tag}</span>`));
 
-  return `<div class="task-card ${pClass} ${doneClass}" id="task-${task.id}">
+  return `<div class="task-card ${pClass} ${doneClass}" id="task-${task.id}"
+      draggable="true"
+      ondragstart="onTaskDragStart(event,'${task.id}')"
+      ondragover="onTaskDragOver(event,'${task.id}')"
+      ondragend="onTaskDragEnd()">
     <div class="priority-bar"></div>
+    <div class="drag-handle" title="Drag to reorder">⋮⋮</div>
     <div class="task-check" onclick="toggleTask('${task.id}')">
       <span class="task-check-icon">✓</span>
     </div>
@@ -1480,6 +1759,7 @@ function renderInbox() {
 function openAddTask(date='') {
   editingTaskId = null;
   modalSubtasks = [];
+  modalTags = [];
   document.getElementById('modal-task-title').textContent = 'New Task';
   document.getElementById('task-title-input').value = '';
   document.getElementById('task-notes-input').value = '';
@@ -1490,6 +1770,7 @@ function openAddTask(date='') {
   document.getElementById('ai-parse-result').style.display = 'none';
   selectPriority(4);
   renderModalSubtasks();
+  renderTagPills();
   openModal('modal-task');
   setTimeout(() => document.getElementById('task-title-input').focus(), 100);
 }
@@ -1499,6 +1780,7 @@ function openEditTask(id) {
   if (!t) return;
   editingTaskId = id;
   modalSubtasks = JSON.parse(JSON.stringify(t.subtasks || []));
+  modalTags = [...(t.tags || [])];
   document.getElementById('modal-task-title').textContent = 'Edit Task';
   document.getElementById('task-title-input').value = t.title;
   document.getElementById('task-notes-input').value = t.notes || '';
@@ -1509,6 +1791,7 @@ function openEditTask(id) {
   document.getElementById('ai-parse-result').style.display = 'none';
   selectPriority(t.priority || 4);
   renderModalSubtasks();
+  renderTagPills();
   openModal('modal-task');
 }
 
@@ -1526,6 +1809,7 @@ function saveTask() {
     recurring: document.getElementById('task-recurring-input').value,
     priority: selectedPriority,
     subtasks: modalSubtasks,
+    tags: [...modalTags],
     done: editingTaskId ? (tasks.find(t=>t.id===editingTaskId)||{}).done : false,
     createdAt: editingTaskId ? (tasks.find(t=>t.id===editingTaskId)||{}).createdAt : new Date().toISOString(),
   };
@@ -1546,13 +1830,21 @@ function saveTask() {
 async function toggleTask(id) {
   const t = tasks.find(x => x.id === id);
   if (!t) return;
+  const wasNotDone = !t.done;
+  if (wasNotDone) animateTaskComplete(id);
   t.done = !t.done;
   if (t.done) {
     t.completedAt = new Date().toISOString();
+    const karmaPoints = t.priority === 1 ? 30 : t.priority === 2 ? 20 : t.priority === 3 ? 15 : 10;
+    addKarma(karmaPoints, t.priority <= 2 ? 'high-priority task! 🔥' : 'task complete!');
     showToast('🎉 Task completed!');
+  } else {
+    karma = Math.max(0, karma - 5);
+    localStorage.setItem('df_karma', karma);
+    updateKarmaDisplay();
   }
   await saveToStorage('tasks', tasks);
-  renderAll();
+  setTimeout(() => renderAll(), 350);
   updateStreak();
 }
 
@@ -1617,6 +1909,21 @@ function updateNavCounts() {
   const inboxCount = tasks.filter(t => !t.date).length;
   document.getElementById('nav-count-today').textContent = todayCount;
   document.getElementById('nav-count-inbox').textContent = inboxCount;
+
+  // Refresh tag filter chips with all unique tags
+  const allTags = [...new Set(tasks.flatMap(t => t.tags || []))];
+  const chipsContainer = document.getElementById('filter-chips');
+  if (!chipsContainer) return;
+  // Remove any existing tag chips (keep base filters)
+  chipsContainer.querySelectorAll('.filter-chip[data-filter^="tag:"]').forEach(c => c.remove());
+  allTags.forEach(tag => {
+    const chip = document.createElement('div');
+    chip.className = `filter-chip ${activeFilter === 'tag:' + tag ? 'active' : ''}`;
+    chip.dataset.filter = 'tag:' + tag;
+    chip.textContent = '#' + tag;
+    chip.onclick = () => setFilter('tag:' + tag);
+    chipsContainer.appendChild(chip);
+  });
 }
 
 function updateStreak() {
@@ -2367,6 +2674,301 @@ function clearAllData() {
 }
 
 // ─────────────────────────────────────────────
+// DARK MODE
+// ─────────────────────────────────────────────
+function toggleDarkMode() {
+  document.body.classList.toggle('dark');
+  const isDark = document.body.classList.contains('dark');
+  document.getElementById('dark-btn').textContent = isDark ? '☀️' : '🌙';
+  localStorage.setItem('df_dark', isDark ? '1' : '0');
+}
+function initDarkMode() {
+  if (localStorage.getItem('df_dark') === '1') {
+    document.body.classList.add('dark');
+    document.getElementById('dark-btn').textContent = '☀️';
+  }
+}
+
+// ─────────────────────────────────────────────
+// VIEW TOGGLE (List / Kanban)
+// ─────────────────────────────────────────────
+let taskViewMode = 'list'; // 'list' | 'kanban'
+
+function setTaskView(mode) {
+  taskViewMode = mode;
+  document.getElementById('list-view-btn').classList.toggle('active', mode === 'list');
+  document.getElementById('kanban-view-btn').classList.toggle('active', mode === 'kanban');
+  document.getElementById('today-tasks-container').style.display = mode === 'list' ? 'block' : 'none';
+  document.getElementById('today-kanban-container').style.display = mode === 'kanban' ? 'block' : 'none';
+  if (mode === 'kanban') renderKanban();
+  else renderTodayTasks();
+}
+
+function renderKanban() {
+  const today = todayStr();
+  const todayTasks = getFilteredTasks(tasks.filter(t => t.date === today || !t.date));
+  const cols = [
+    { id:'todo',   label:'To Do',       dot:'#9B7E6E', tasks: todayTasks.filter(t => !t.done && (!t.kanbanCol || t.kanbanCol==='todo')) },
+    { id:'doing',  label:'In Progress', dot:'#F5A623', tasks: todayTasks.filter(t => t.kanbanCol==='doing') },
+    { id:'review', label:'Review',      dot:'#5B9BD5', tasks: todayTasks.filter(t => t.kanbanCol==='review') },
+    { id:'done',   label:'Done',        dot:'#6BAF8C', tasks: todayTasks.filter(t => t.done || t.kanbanCol==='done') },
+  ];
+
+  const c = document.getElementById('today-kanban-container');
+  c.innerHTML = `<div class="kanban-board">${cols.map(col => `
+    <div class="kanban-col" id="kcol-${col.id}"
+         ondragover="event.preventDefault();this.classList.add('drag-over')"
+         ondragleave="this.classList.remove('drag-over')"
+         ondrop="dropOnKanban(event,'${col.id}')">
+      <div class="kanban-col-header">
+        <div class="kanban-col-dot" style="background:${col.dot};"></div>
+        <div class="kanban-col-title">${col.label}</div>
+        <div class="kanban-col-count">${col.tasks.length}</div>
+      </div>
+      <div class="kanban-cards" id="kcards-${col.id}">
+        ${col.tasks.map(t => renderKanbanCard(t)).join('')}
+        ${col.tasks.length === 0 ? `<div style="text-align:center;padding:20px;font-size:12px;color:var(--ink-muted);">Drop tasks here</div>` : ''}
+      </div>
+    </div>
+  `).join('')}</div>`;
+}
+
+function renderKanbanCard(t) {
+  const pColors = ['','#E8533A','#F5A623','#5B9BD5','#9B7E6E'];
+  return `<div class="kanban-card" draggable="true"
+      ondragstart="dragKanbanCard(event,'${t.id}')"
+      ondragend="document.querySelectorAll('.kanban-col').forEach(c=>c.classList.remove('drag-over'))"
+      onclick="openEditTask('${t.id}')">
+    <div class="kc-bar" style="background:${pColors[t.priority||4]};"></div>
+    <div class="kc-title" style="padding-left:8px;">${t.title}</div>
+    <div class="kc-meta" style="padding-left:8px;">
+      ${t.project ? `<span class="task-tag tag-project" style="font-size:10px;">📁 ${t.project}</span>` : ''}
+      ${t.time ? `<span class="task-tag tag-time" style="font-size:10px;">🕐 ${t.time}</span>` : ''}
+      ${(t.tags||[]).map(tag=>`<span class="task-tag" style="background:var(--lav-pale);color:var(--lavender);font-size:10px;">#${tag}</span>`).join('')}
+    </div>
+  </div>`;
+}
+
+function dragKanbanCard(e, id) {
+  e.dataTransfer.setData('taskId', id);
+  document.getElementById('task-' + id) && document.getElementById('task-' + id).classList.add('dragging');
+}
+
+function dropOnKanban(e, colId) {
+  e.preventDefault();
+  document.querySelectorAll('.kanban-col').forEach(c => c.classList.remove('drag-over'));
+  const id = e.dataTransfer.getData('taskId');
+  const t = tasks.find(x => x.id === id);
+  if (!t) return;
+  t.kanbanCol = colId;
+  if (colId === 'done') t.done = true;
+  else if (colId !== 'done') t.done = false;
+  saveToStorage('tasks', tasks);
+  renderKanban();
+  showToast(`📌 Moved to ${colId}`);
+}
+
+// ─────────────────────────────────────────────
+// FILTERS
+// ─────────────────────────────────────────────
+let activeFilter = 'all';
+
+function setFilter(f) {
+  activeFilter = f;
+  document.querySelectorAll('.filter-chip').forEach(c => c.classList.toggle('active', c.dataset.filter === f));
+  renderTodayTasks();
+}
+
+function getFilteredTasks(taskList) {
+  const search = (document.getElementById('filter-search')?.value || '').toLowerCase();
+  return taskList.filter(t => {
+    if (search && !t.title.toLowerCase().includes(search) &&
+        !(t.project||'').toLowerCase().includes(search) &&
+        !(t.tags||[]).join(' ').toLowerCase().includes(search)) return false;
+    if (activeFilter === 'all') return true;
+    if (activeFilter === 'p1') return t.priority === 1;
+    if (activeFilter === 'p2') return t.priority === 2;
+    if (activeFilter === 'p3') return t.priority === 3;
+    if (activeFilter === 'done') return t.done;
+    if (activeFilter === 'overdue') return t.date && t.date < todayStr() && !t.done;
+    if (activeFilter.startsWith('tag:')) return (t.tags||[]).includes(activeFilter.slice(4));
+    return true;
+  });
+}
+
+// ─────────────────────────────────────────────
+// KARMA / PRODUCTIVITY SCORE
+// ─────────────────────────────────────────────
+let karma = parseInt(localStorage.getItem('df_karma') || '0');
+
+const KARMA_LEVELS = [
+  [0, '🌱 Beginner'], [100, '⚡ Productive'], [300, '🔥 On Fire'],
+  [600, '🚀 Unstoppable'], [1000, '💎 Legendary'], [2000, '🌟 DayFlow Master']
+];
+
+function addKarma(pts, reason) {
+  karma += pts;
+  localStorage.setItem('df_karma', karma);
+  updateKarmaDisplay();
+  showKarmaToast(`+${pts} karma — ${reason}`);
+}
+
+function updateKarmaDisplay() {
+  const el = document.getElementById('karma-display');
+  const lvlEl = document.getElementById('karma-level');
+  if (!el) return;
+  el.textContent = karma.toLocaleString();
+  const level = [...KARMA_LEVELS].reverse().find(([pts]) => karma >= pts);
+  if (lvlEl) lvlEl.textContent = level ? level[1] : '🌱 Beginner';
+}
+
+function showKarmaToast(msg) {
+  const t = document.getElementById('karma-toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+// ─────────────────────────────────────────────
+// TASK COMPLETION ANIMATION + CONFETTI
+// ─────────────────────────────────────────────
+function animateTaskComplete(taskId) {
+  const card = document.getElementById('task-' + taskId);
+  const check = card?.querySelector('.task-check');
+  if (check) check.classList.add('popping');
+  setTimeout(() => check?.classList.remove('popping'), 400);
+
+  // Confetti burst
+  const rect = check?.getBoundingClientRect();
+  if (rect) {
+    const colors = ['#FF8C6B','#F5A623','#6BAF8C','#9B7FD4','#5B9BD5','#E8718A'];
+    for (let i = 0; i < 12; i++) {
+      const piece = document.createElement('div');
+      piece.className = 'confetti-piece';
+      piece.style.cssText = `
+        left:${rect.left + rect.width/2 + (Math.random()-0.5)*60}px;
+        top:${rect.top}px;
+        background:${colors[Math.floor(Math.random()*colors.length)]};
+        transform:rotate(${Math.random()*360}deg);
+        animation-delay:${Math.random()*0.2}s;
+      `;
+      document.body.appendChild(piece);
+      setTimeout(() => piece.remove(), 1000);
+    }
+  }
+}
+
+// ─────────────────────────────────────────────
+// DRAG AND DROP (List view reorder)
+// ─────────────────────────────────────────────
+let dragSrcId = null;
+
+function onTaskDragStart(e, id) {
+  dragSrcId = id;
+  e.dataTransfer.effectAllowed = 'move';
+}
+
+function onTaskDragOver(e, id) {
+  e.preventDefault();
+  if (dragSrcId === id) return;
+  const srcIdx = tasks.findIndex(t => t.id === dragSrcId);
+  const dstIdx = tasks.findIndex(t => t.id === id);
+  if (srcIdx < 0 || dstIdx < 0) return;
+  const reordered = [...tasks];
+  const [moved] = reordered.splice(srcIdx, 1);
+  reordered.splice(dstIdx, 0, moved);
+  tasks = reordered;
+  renderTodayTasks();
+}
+
+function onTaskDragEnd() {
+  dragSrcId = null;
+  saveToStorage('tasks', tasks);
+}
+
+// ─────────────────────────────────────────────
+// TAGS
+// ─────────────────────────────────────────────
+let modalTags = [];
+
+function handleTagInput(e) {
+  if (e.key === 'Enter' || e.key === ',') {
+    e.preventDefault();
+    const val = e.target.value.trim().replace(/^#/, '').replace(/,/g,'');
+    if (val && !modalTags.includes(val)) {
+      modalTags.push(val);
+      renderTagPills();
+    }
+    e.target.value = '';
+  } else if (e.key === 'Backspace' && !e.target.value && modalTags.length) {
+    modalTags.pop();
+    renderTagPills();
+  }
+}
+
+function renderTagPills() {
+  const wrap = document.getElementById('tag-pills');
+  if (!wrap) return;
+  wrap.innerHTML = modalTags.map((tag, i) => `
+    <span class="tag-pill">#${tag}<span class="tag-pill-remove" onclick="removeTag(${i})">✕</span></span>
+  `).join('');
+}
+
+function removeTag(i) { modalTags.splice(i, 1); renderTagPills(); }
+
+// ─────────────────────────────────────────────
+// AI FOCUS SUGGESTION
+// ─────────────────────────────────────────────
+async function showAiFocus() {
+  document.getElementById('ai-focus-panel').style.display = 'block';
+  document.getElementById('ai-focus-content').innerHTML = '<div class="loading-dots"><span>●</span><span>●</span><span>●</span></div>';
+  await aiFocusSuggestion();
+}
+
+async function aiFocusSuggestion() {
+  const today = todayStr();
+  const pending = tasks.filter(t => t.date === today && !t.done);
+  if (!pending.length) {
+    document.getElementById('ai-focus-content').textContent = '🎉 All tasks done! Add something new to work on.';
+    return;
+  }
+  const list = pending.map(t => `- [P${t.priority||4}] ${t.title}${t.project?' ('+t.project+')':''}`).join('\n');
+  const prompt = `You are a productivity coach. Based on these pending tasks, tell the user in 2-3 sentences which ONE task they should focus on right now and exactly why. Be specific, energetic, and direct. No bullet points.
+
+Tasks:
+${list}
+
+Current time: ${new Date().toLocaleTimeString()}`;
+
+  try {
+    const text = await callClaude(prompt, 150);
+    document.getElementById('ai-focus-content').textContent = text || 'Start with your highest priority task and give it 25 focused minutes!';
+  } catch(e) {
+    document.getElementById('ai-focus-content').textContent = 'Start with your P1 task — it needs your best energy first!';
+  }
+}
+
+async function aiBrainstorm() {
+  const today = todayStr();
+  const done = tasks.filter(t => t.completedAt && t.completedAt.slice(0,10) === today).map(t=>t.title);
+  const pending = tasks.filter(t => t.date === today && !t.done).map(t=>t.title);
+
+  const prompt = `You are a creative productivity brainstormer. The user has these tasks today:
+Done: ${done.join(', ') || 'none yet'}
+Still to do: ${pending.join(', ') || 'nothing scheduled'}
+
+Suggest 3-5 additional high-value tasks they might be overlooking, based on what they're already working on. Format as a simple numbered list. Be specific and actionable. Keep it short.`;
+
+  document.getElementById('ai-focus-content').innerHTML = '<div class="loading-dots"><span>●</span><span>●</span><span>●</span></div>';
+  try {
+    const text = await callClaude(prompt, 250);
+    document.getElementById('ai-focus-content').innerHTML = text.replace(/\n/g, '<br>') || 'Try reviewing your email, checking in with your team, or planning tomorrow!';
+  } catch(e) {
+    document.getElementById('ai-focus-content').textContent = 'Try reviewing your email, planning tomorrow, or doing a quick 5-min brain dump!';
+  }
+}
+
+// ─────────────────────────────────────────────
 // KEYBOARD
 // ─────────────────────────────────────────────
 document.addEventListener('keydown', e => {
@@ -2378,6 +2980,7 @@ document.addEventListener('keydown', e => {
 // START
 // ─────────────────────────────────────────────
 init();
+initDarkMode();
 </script>
 </body>
 </html>
