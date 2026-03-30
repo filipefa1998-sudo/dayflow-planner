@@ -1171,30 +1171,33 @@
       <!-- AI Section -->
       <div class="settings-card">
         <div class="settings-card-header">
-          <div class="settings-card-icon" style="background:linear-gradient(135deg,var(--lavender),#7B5EA7);">✨</div>
+          <div class="settings-card-icon" style="background:linear-gradient(135deg,#4285F4,#34A853);">✨</div>
           <div>
             <div class="settings-card-title">AI Features</div>
-            <div class="settings-card-sub">Powered by Claude (Anthropic)</div>
+            <div class="settings-card-sub">Powered by Google Gemini — <strong style="color:var(--sage);">Free, no credit card needed</strong></div>
           </div>
           <div id="ai-badge" class="settings-badge settings-badge-off">Not Connected</div>
         </div>
 
         <div class="settings-body">
-          <div class="settings-info-box">
-            <div class="settings-info-title">🔑 How to get your API key</div>
+          <div class="settings-info-box" style="background:linear-gradient(135deg,#f0f9f4,#e8f4fd);border-color:#b8e0ca;">
+            <div class="settings-info-title">🎉 This is 100% free — here's how to get your key</div>
             <ol class="settings-steps">
-              <li>Go to <strong>console.anthropic.com</strong> and sign in</li>
-              <li>Click <strong>"API Keys"</strong> in the left sidebar</li>
-              <li>Click <strong>"Create Key"</strong> and give it a name like "DayFlow"</li>
-              <li>Copy the key (starts with <code>sk-ant-api03-...</code>)</li>
-              <li>Paste it below and click <strong>Save</strong></li>
+              <li>Go to <strong>aistudio.google.com</strong> and sign in with your Google account</li>
+              <li>Click <strong>"Get API key"</strong> in the top left</li>
+              <li>Click <strong>"Create API key"</strong> → select any project (or create new)</li>
+              <li>Copy the key (looks like <code>AIzaSy...</code>)</li>
+              <li>Paste it below and click <strong>Save & Connect</strong></li>
             </ol>
+            <div style="margin-top:10px;padding:8px 12px;background:rgba(52,168,83,0.1);border-radius:8px;font-size:12px;color:#2D7A52;font-weight:500;">
+              ✅ Free tier: 1,500 requests/day · No credit card · No expiry
+            </div>
           </div>
 
           <div class="form-group" style="margin-top:16px;">
-            <label class="form-label">Anthropic API Key</label>
+            <label class="form-label">Google Gemini API Key</label>
             <div style="display:flex;gap:10px;align-items:center;">
-              <input class="form-input" id="settings-api-key" type="password" placeholder="sk-ant-api03-..." style="flex:1;font-family:monospace;font-size:13px;">
+              <input class="form-input" id="settings-api-key" type="password" placeholder="AIzaSy..." style="flex:1;font-family:monospace;font-size:13px;">
               <button class="settings-toggle-btn" onclick="toggleApiKeyVisibility()" id="toggle-key-btn" title="Show/hide key">👁️</button>
             </div>
           </div>
@@ -1204,27 +1207,34 @@
               <span class="settings-feature-icon">📋</span>
               <div>
                 <div class="settings-feature-name">Daily Brief</div>
-                <div class="settings-feature-desc">Claude reads your tasks every morning and writes you a personalized briefing</div>
+                <div class="settings-feature-desc">Gemini reads your tasks every morning and writes you a personalized briefing</div>
               </div>
             </div>
             <div class="settings-feature-item">
               <span class="settings-feature-icon">🧠</span>
               <div>
                 <div class="settings-feature-name">Natural Language Task Parsing</div>
-                <div class="settings-feature-desc">Type "Call Loa Thursday 3pm P1 Solo Passport" — Claude fills out the whole form</div>
+                <div class="settings-feature-desc">Type "Call Loa Thursday 3pm P1 Solo Passport" — AI fills out the whole form</div>
               </div>
             </div>
             <div class="settings-feature-item">
               <span class="settings-feature-icon">⚡</span>
               <div>
                 <div class="settings-feature-name">AI Subtask Breakdown</div>
-                <div class="settings-feature-desc">Give Claude a big task and it generates a ready-to-go subtask list</div>
+                <div class="settings-feature-desc">Give it a big task and AI generates a ready-to-go subtask list</div>
+              </div>
+            </div>
+            <div class="settings-feature-item">
+              <span class="settings-feature-icon">🎯</span>
+              <div>
+                <div class="settings-feature-name">AI Focus & Brainstorm</div>
+                <div class="settings-feature-desc">Get a smart suggestion on what to tackle next, or brainstorm new tasks</div>
               </div>
             </div>
           </div>
 
           <div style="display:flex;gap:10px;margin-top:20px;flex-wrap:wrap;">
-            <button class="btn-primary" onclick="saveApiKey()">💾 Save API Key</button>
+            <button class="btn-primary" onclick="saveApiKey()">💾 Save & Connect</button>
             <button class="btn-secondary" onclick="testApiKey()">🧪 Test Connection</button>
             <button class="btn-secondary" onclick="clearApiKey()" style="color:var(--coral);">🗑️ Remove Key</button>
           </div>
@@ -1526,7 +1536,7 @@ let selectedHabitColor = 'peach';
 let selectedTBHour = 9;
 let tbViewDate = new Date();
 let modalSubtasks = [];
-let ANTHROPIC_API_KEY = ''; // will be set from UI or env
+let modalTags = [];
 
 // Pomodoro state
 let pomoMode = 'work';
@@ -1582,22 +1592,22 @@ async function init() {
   renderTimeSlots();
 
   // Load data
-  const [t, h, hl, tb, ak] = await Promise.all([
+  const [t, h, hl, tb] = await Promise.all([
     loadFromStorage('tasks'),
     loadFromStorage('habits'),
     loadFromStorage('habitLogs'),
     loadFromStorage('timeBlocks'),
-    loadFromStorage('apiKey'),
   ]);
   tasks = t || getSampleTasks();
   habits = h || getSampleHabits();
   habitLogs = hl || {};
   timeBlocks = tb || [];
-  if (ak) ANTHROPIC_API_KEY = ak;
 
   renderAll();
   generateDailyBrief();
   updateStreak();
+  // Show AI status on load
+  setTimeout(() => updateAiStatus(!!GEMINI_API_KEY), 100);
 }
 
 // ─────────────────────────────────────────────
@@ -1980,34 +1990,33 @@ function quickAddTask() {
 // ─────────────────────────────────────────────
 // AI FEATURES
 // ─────────────────────────────────────────────
-async function callClaude(prompt, maxTokens=500) {
-  const key = ANTHROPIC_API_KEY || localStorage.getItem('df_apiKey_raw') || '';
-  if (!key) {
-    const k = prompt_apiKey();
-    if (!k) return null;
-  }
-  const apiKey = ANTHROPIC_API_KEY || localStorage.getItem('df_apiKey_raw');
-  const res = await fetch('https://api.anthropic.com/v1/messages', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json', 'x-api-key': apiKey, 'anthropic-version': '2023-06-01', 'anthropic-dangerous-direct-browser-access': 'true' },
-    body: JSON.stringify({
-      model: 'claude-sonnet-4-20250514',
-      max_tokens: maxTokens,
-      messages: [{ role: 'user', content: prompt }]
-    })
-  });
-  const data = await res.json();
-  return data.content?.[0]?.text || null;
-}
+// ─────────────────────────────────────────────
+// AI — GOOGLE GEMINI (FREE)
+// ─────────────────────────────────────────────
+let GEMINI_API_KEY = localStorage.getItem('df_gemini_key') || '';
 
-function prompt_apiKey() {
-  const k = window.prompt('Enter your Anthropic API key to enable AI features:');
-  if (k) {
-    ANTHROPIC_API_KEY = k;
-    localStorage.setItem('df_apiKey_raw', k);
-    saveToStorage('apiKey', k);
+async function callClaude(prompt, maxTokens=500) {
+  // Named callClaude for compatibility but uses Gemini free API
+  const key = GEMINI_API_KEY;
+  if (!key) {
+    showToast('⚙️ Add your free Gemini key in Settings first!');
+    switchView('settings');
+    return null;
   }
-  return k;
+  const res = await fetch(
+    `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${key}`,
+    {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        contents: [{ parts: [{ text: prompt }] }],
+        generationConfig: { maxOutputTokens: maxTokens, temperature: 0.7 }
+      })
+    }
+  );
+  const data = await res.json();
+  if (data.error) throw new Error(data.error.message);
+  return data.candidates?.[0]?.content?.parts?.[0]?.text || null;
 }
 
 async function generateDailyBrief() {
@@ -2472,12 +2481,9 @@ function getSampleHabits() {
 // SETTINGS
 // ─────────────────────────────────────────────
 function loadSettingsView() {
-  // Populate API key field
-  const key = ANTHROPIC_API_KEY || localStorage.getItem('df_apiKey_raw') || '';
-  document.getElementById('settings-api-key').value = key;
-  updateAiStatus(!!key);
+  document.getElementById('settings-api-key').value = GEMINI_API_KEY;
+  updateAiStatus(!!GEMINI_API_KEY);
 
-  // Populate Firebase fields
   const fbConfig = JSON.parse(localStorage.getItem('df_fbConfig') || '{}');
   if (fbConfig.projectId) document.getElementById('fb-project-id').value = fbConfig.projectId;
   if (fbConfig.apiKey) document.getElementById('fb-api-key').value = fbConfig.apiKey;
@@ -2486,7 +2492,6 @@ function loadSettingsView() {
   if (fbConfig.authDomain) document.getElementById('fb-auth-domain').value = fbConfig.authDomain;
   updateFirebaseStatus(window._firebase && window._firebase.useFirebase);
 
-  // Data summary
   document.getElementById('data-summary').textContent =
     `📦 ${tasks.length} tasks · ${habits.length} habits · ${timeBlocks.length} time blocks stored locally`;
 }
@@ -2495,7 +2500,7 @@ function updateAiStatus(connected) {
   const badge = document.getElementById('ai-badge');
   const dot = document.getElementById('ai-status-dot');
   if (connected) {
-    badge.textContent = '✅ Connected';
+    badge.textContent = '✅ Connected — Free';
     badge.className = 'settings-badge settings-badge-on';
     dot.textContent = '✓';
     dot.style.background = 'var(--sage-pale)';
@@ -2524,28 +2529,21 @@ function updateFirebaseStatus(connected) {
 function toggleApiKeyVisibility() {
   const input = document.getElementById('settings-api-key');
   const btn = document.getElementById('toggle-key-btn');
-  if (input.type === 'password') {
-    input.type = 'text';
-    btn.textContent = '🙈';
-  } else {
-    input.type = 'password';
-    btn.textContent = '👁️';
-  }
+  input.type = input.type === 'password' ? 'text' : 'password';
+  btn.textContent = input.type === 'password' ? '👁️' : '🙈';
 }
 
 function saveApiKey() {
   const key = document.getElementById('settings-api-key').value.trim();
-  if (!key) { showToast('⚠️ Please enter an API key'); return; }
-  if (!key.startsWith('sk-ant-')) {
-    showToast('⚠️ Key should start with sk-ant-...');
+  if (!key) { showToast('⚠️ Please enter your Gemini API key'); return; }
+  if (!key.startsWith('AIza')) {
+    showToast('⚠️ Gemini keys start with AIza...');
     return;
   }
-  ANTHROPIC_API_KEY = key;
-  localStorage.setItem('df_apiKey_raw', key);
-  saveToStorage('apiKey', key);
+  GEMINI_API_KEY = key;
+  localStorage.setItem('df_gemini_key', key);
   updateAiStatus(true);
-  showToast('✅ API key saved!');
-  // Re-run daily brief now that we have a key
+  showToast('✅ Gemini key saved! AI features are ready.');
   generateDailyBrief();
 }
 
@@ -2559,42 +2557,38 @@ async function testApiKey() {
   resultEl.textContent = '⏳ Testing connection...';
 
   try {
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-api-key': key,
-        'anthropic-version': '2023-06-01',
-        'anthropic-dangerous-direct-browser-access': 'true'
-      },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 20,
-        messages: [{ role: 'user', content: 'Reply with: OK' }]
-      })
-    });
+    const res = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${key}`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          contents: [{ parts: [{ text: 'Reply with exactly: OK' }] }],
+          generationConfig: { maxOutputTokens: 10 }
+        })
+      }
+    );
     const data = await res.json();
-    if (data.content?.[0]?.text) {
+    if (data.candidates?.[0]?.content) {
       resultEl.className = 'test-success';
-      resultEl.textContent = '✅ Connection successful! AI features are ready to use.';
-      // Auto-save on success
-      ANTHROPIC_API_KEY = key;
-      localStorage.setItem('df_apiKey_raw', key);
+      resultEl.textContent = '✅ Connected! Gemini AI is working. All features are free and ready to use.';
+      GEMINI_API_KEY = key;
+      localStorage.setItem('df_gemini_key', key);
       updateAiStatus(true);
     } else {
       resultEl.className = 'test-error';
-      resultEl.textContent = '❌ ' + (data.error?.message || 'Invalid key or API error. Double-check your key.');
+      resultEl.textContent = '❌ ' + (data.error?.message || 'Invalid key. Double-check and try again.');
     }
   } catch(e) {
     resultEl.className = 'test-error';
-    resultEl.textContent = '❌ Connection failed. Check your key and try again.';
+    resultEl.textContent = '❌ Connection failed. Check your key at aistudio.google.com';
   }
 }
 
 function clearApiKey() {
-  if (!confirm('Remove your API key? AI features will stop working.')) return;
-  ANTHROPIC_API_KEY = '';
-  localStorage.removeItem('df_apiKey_raw');
+  if (!confirm('Remove your Gemini API key? AI features will stop working.')) return;
+  GEMINI_API_KEY = '';
+  localStorage.removeItem('df_gemini_key');
   document.getElementById('settings-api-key').value = '';
   document.getElementById('api-test-result').style.display = 'none';
   updateAiStatus(false);
