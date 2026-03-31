@@ -483,16 +483,29 @@ body.dark .sinfo{background:var(--warm)}
 
 <!-- ═══════════════════ AUTH SCREEN ═══════════════════ -->
 <div id="auth-screen">
-  <div class="auth-card">
-    <div class="auth-logo">Day<span>Flow</span></div>
+  <div class="auth-card" style="max-width:480px;">
+    <div class="auth-logo">Day<span>Flow</span> <span style="font-size:16px;color:var(--ink-m);font-family:'Nunito',sans-serif;font-weight:600;">2.0</span></div>
     <div class="auth-tagline">Live with intention. Begin with the end in mind.</div>
 
+    <!-- Profile picker -->
     <div id="auth-main">
-      <button class="google-btn" onclick="signInGoogle()">
-        <svg width="20" height="20" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.18 1.48-4.97 2.36-8.16 2.36-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/><path fill="none" d="M0 0h48v48H0z"/></svg>
-        Continue with Google
-      </button>
-      <button class="guest-btn" onclick="signInGuest()">Continue as Guest (local only)</button>
+      <div style="font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:var(--ink-m);margin-bottom:14px;">Who's planning today?</div>
+      <div id="profile-grid" style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:16px;"></div>
+      <button onclick="openAddProfile()" style="width:100%;padding:11px;background:transparent;border:2px dashed var(--border);border-radius:14px;font-family:'Nunito',sans-serif;font-size:13px;font-weight:700;color:var(--ink-m);cursor:pointer;transition:all .2s;" onmouseover="this.style.borderColor='var(--peach)';this.style.color='var(--peach)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--ink-m)'">+ Add New User</button>
+    </div>
+
+    <!-- Add profile form -->
+    <div id="add-profile-form" style="display:none;">
+      <div style="font-size:13px;font-weight:700;margin-bottom:14px;color:var(--ink-l);">Create New Profile</div>
+      <input id="np-name" style="width:100%;padding:11px 14px;border-radius:12px;border:2px solid var(--border);font-family:'Nunito',sans-serif;font-size:15px;outline:none;margin-bottom:10px;" placeholder="Your name" onkeydown="if(event.key==='Enter')createProfile()">
+      <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;" id="np-emoji-pick">
+        <span style="font-size:11px;font-weight:700;color:var(--ink-m);width:100%;">Pick your avatar:</span>
+        ${['👨🏽','👩🏽','👨🏻','👩🏻','👨🏿','👩🏿','🧑','🦁','🐯','🦊','🌟','🔥','⚡','🎯'].map(e=>`<div onclick="selectEmoji('${e}')" style="width:36px;height:36px;border-radius:10px;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:20px;cursor:pointer;transition:all .2s;" class="emoji-opt">${e}</div>`).join('')}
+      </div>
+      <div style="display:flex;gap:8px;">
+        <button onclick="document.getElementById('add-profile-form').style.display='none';document.getElementById('auth-main').style.display='block';" style="flex:1;padding:11px;background:var(--cream);border:1.5px solid var(--border);border-radius:12px;font-family:'Nunito',sans-serif;font-size:14px;font-weight:700;cursor:pointer;color:var(--ink-l);">Cancel</button>
+        <button onclick="createProfile()" style="flex:1;padding:11px;background:var(--peach);border:none;border-radius:12px;font-family:'Nunito',sans-serif;font-size:14px;font-weight:700;cursor:pointer;color:#fff;">Create Profile</button>
+      </div>
     </div>
 
     <!-- Setup Wizard -->
@@ -549,12 +562,15 @@ body.dark .sinfo{background:var(--warm)}
     <div class="ni" data-v="timeblock" onclick="nav('timeblock')"><span class="ni-icon">⏱️</span>Time Blocks</div>
     <div class="ni" data-v="habits" onclick="nav('habits')"><span class="ni-icon">🔥</span>Habits</div>
     <div class="ni" data-v="pomodoro" onclick="nav('pomodoro')"><span class="ni-icon">🍅</span>Pomodoro</div>
+    <div class="ni" data-v="notes" onclick="nav('notes')"><span class="ni-icon">📓</span>Notes & Journal<span class="ni-badge" id="nb-notes">0</span></div>
+    <div class="ni" data-v="analytics" onclick="nav('analytics')"><span class="ni-icon">📊</span>Analytics</div>
   </div>
 
   <div class="sb-section">
     <span class="sb-label">Account</span>
     <div class="ni" data-v="settings" onclick="nav('settings')"><span class="ni-icon">⚙️</span>Settings<span class="ni-badge" id="nb-ai" style="background:var(--border);color:var(--ink-m);">–</span></div>
-    <div class="ni" onclick="signOut()" style="color:var(--ink-m);"><span class="ni-icon">🚪</span>Sign Out</div>
+    <div class="ni" data-v="deploy" onclick="nav('deploy')"><span class="ni-icon">🚀</span>Go Live</div>
+    <div class="ni" onclick="signOut()" style="color:var(--ink-m);"><span class="ni-icon">🔀</span>Switch User</div>
   </div>
 
   <!-- Mission teaser -->
@@ -935,6 +951,131 @@ body.dark .sinfo{background:var(--warm)}
   </div>
 </div>
 
+<!-- ══ NOTES & JOURNAL ══ -->
+<div class="view" id="view-notes" style="padding:28px 32px;">
+  <div class="pg-hdr">
+    <div><div class="pg-title">Notes & Journal 📓</div><div class="pg-sub">Brain dumps, reflections, ideas — captured here</div></div>
+    <button class="btn btn-p" onclick="openNewNote()">+ New Note</button>
+  </div>
+
+  <!-- Note type tabs -->
+  <div style="display:flex;gap:8px;margin-bottom:20px;">
+    <button class="vtbtn on" id="nt-all" onclick="setNoteTab('all')" style="background:var(--peach);color:#fff;padding:7px 16px;border-radius:20px;border:none;font-family:'Nunito',sans-serif;font-weight:700;font-size:13px;cursor:pointer;">All</button>
+    <button class="vtbtn" id="nt-journal" onclick="setNoteTab('journal')" style="padding:7px 16px;border-radius:20px;border:1.5px solid var(--border);font-family:'Nunito',sans-serif;font-weight:700;font-size:13px;cursor:pointer;background:var(--surface);color:var(--ink-m);">📔 Daily Journal</button>
+    <button class="vtbtn" id="nt-idea" onclick="setNoteTab('idea')" style="padding:7px 16px;border-radius:20px;border:1.5px solid var(--border);font-family:'Nunito',sans-serif;font-weight:700;font-size:13px;cursor:pointer;background:var(--surface);color:var(--ink-m);">💡 Ideas</button>
+    <button class="vtbtn" id="nt-brain" onclick="setNoteTab('brain')" style="padding:7px 16px;border-radius:20px;border:1.5px solid var(--border);font-family:'Nunito',sans-serif;font-weight:700;font-size:13px;cursor:pointer;background:var(--surface);color:var(--ink-m);">🧠 Brain Dump</button>
+    <button class="vtbtn" id="nt-reflect" onclick="setNoteTab('reflect')" style="padding:7px 16px;border-radius:20px;border:1.5px solid var(--border);font-family:'Nunito',sans-serif;font-weight:700;font-size:13px;cursor:pointer;background:var(--surface);color:var(--ink-m);">🪞 Reflections</button>
+  </div>
+
+  <div id="notes-grid" style="display:grid;grid-template-columns:repeat(2,1fr);gap:14px;"></div>
+</div>
+
+<!-- ══ ANALYTICS ══ -->
+<div class="view" id="view-analytics" style="padding:28px 32px;">
+  <div class="pg-hdr">
+    <div><div class="pg-title">Analytics 📊</div><div class="pg-sub">Your productivity patterns and progress</div></div>
+    <div style="font-size:13px;color:var(--ink-m);font-weight:600;" id="analytics-period">Last 30 days</div>
+  </div>
+
+  <!-- Top stat cards -->
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px;" id="analytics-stats"></div>
+
+  <!-- Quadrant breakdown -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px;">
+    <div class="pcrd">
+      <div class="pcrd-t">🎯 Quadrant Distribution</div>
+      <div id="q-chart" style="padding:8px 0;"></div>
+    </div>
+    <div class="pcrd">
+      <div class="pcrd-t">👤 Tasks by Role</div>
+      <div id="role-chart" style="padding:8px 0;"></div>
+    </div>
+  </div>
+
+  <!-- Completion trend -->
+  <div class="pcrd" style="margin-bottom:24px;">
+    <div class="pcrd-t">📈 Daily Completion — Last 14 Days</div>
+    <div id="trend-chart" style="padding:8px 0;overflow-x:auto;"></div>
+  </div>
+
+  <!-- Habit consistency -->
+  <div class="pcrd" style="margin-bottom:24px;">
+    <div class="pcrd-t">🔥 Habit Consistency — Last 4 Weeks</div>
+    <div id="habit-chart" style="padding:8px 0;"></div>
+  </div>
+
+  <!-- Karma timeline -->
+  <div class="pcrd">
+    <div class="pcrd-t">⚡ Karma Growth</div>
+    <div id="karma-chart" style="padding:8px 0;"></div>
+  </div>
+</div>
+
+<!-- ══ DEPLOY / GO LIVE ══ -->
+<div class="view" id="view-deploy" style="padding:28px 32px;">
+  <div class="pg-hdr">
+    <div><div class="pg-title">Go Live 🚀</div><div class="pg-sub">Deploy DayFlow to GitHub Pages — free, permanent URL</div></div>
+  </div>
+
+  <div style="background:linear-gradient(135deg,var(--lav-p),var(--peach-p));border-radius:20px;padding:24px;margin-bottom:24px;border:1px solid rgba(126,87,194,.15);">
+    <div style="font-size:22px;margin-bottom:8px;">🌐</div>
+    <div style="font-family:'Playfair Display',serif;font-size:20px;font-weight:700;margin-bottom:8px;">Your DayFlow URL will be:</div>
+    <div style="background:rgba(255,255,255,.6);border-radius:12px;padding:12px 16px;font-family:monospace;font-size:15px;font-weight:700;color:var(--lav);margin-bottom:12px;">https://YOUR-USERNAME.github.io/dayflow/</div>
+    <div style="font-size:13px;color:var(--ink-l);">Free forever · Works on any device · No server needed · Updates instantly when you re-upload</div>
+  </div>
+
+  <div style="display:flex;flex-direction:column;gap:16px;">
+    <div class="pcrd">
+      <div style="font-weight:800;font-size:16px;margin-bottom:4px;display:flex;align-items:center;gap:8px;"><span style="background:var(--peach);color:#fff;width:26px;height:26px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:13px;font-weight:900;">1</span> Create a GitHub Account</div>
+      <div style="font-size:13px;color:var(--ink-m);margin-bottom:10px;line-height:1.6;">If you don't have one yet, it's free and takes 2 minutes.</div>
+      <a href="https://github.com/signup" target="_blank" style="display:inline-flex;align-items:center;gap:6px;padding:9px 18px;background:#24292e;color:#fff;border-radius:10px;font-family:'Nunito',sans-serif;font-size:13px;font-weight:700;text-decoration:none;transition:all .2s;">🐙 Create GitHub Account</a>
+    </div>
+
+    <div class="pcrd">
+      <div style="font-weight:800;font-size:16px;margin-bottom:4px;display:flex;align-items:center;gap:8px;"><span style="background:var(--peach);color:#fff;width:26px;height:26px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:13px;font-weight:900;">2</span> Create a New Repository</div>
+      <div style="font-size:13px;color:var(--ink-l);line-height:1.7;margin-bottom:10px;">
+        1. Go to <strong>github.com</strong> → click <strong>"New repository"</strong> (the + button top right)<br>
+        2. Name it exactly: <code style="background:var(--border);padding:2px 6px;border-radius:5px;font-weight:700;">dayflow</code><br>
+        3. Set it to <strong>Public</strong><br>
+        4. Check <strong>"Add a README file"</strong><br>
+        5. Click <strong>"Create repository"</strong>
+      </div>
+    </div>
+
+    <div class="pcrd">
+      <div style="font-weight:800;font-size:16px;margin-bottom:4px;display:flex;align-items:center;gap:8px;"><span style="background:var(--peach);color:#fff;width:26px;height:26px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:13px;font-weight:900;">3</span> Upload Your DayFlow File</div>
+      <div style="font-size:13px;color:var(--ink-l);line-height:1.7;margin-bottom:12px;">
+        1. Inside your new repository, click <strong>"Add file" → "Upload files"</strong><br>
+        2. Drag and drop your <code style="background:var(--border);padding:2px 6px;border-radius:5px;font-weight:700;">DayFlow-2.0.html</code> file<br>
+        3. <strong>Rename it</strong> to <code style="background:var(--border);padding:2px 6px;border-radius:5px;font-weight:700;">index.html</code> before uploading (right-click the file on your computer → rename)<br>
+        4. Scroll down → click <strong>"Commit changes"</strong>
+      </div>
+      <button class="btn btn-p" onclick="downloadApp()">⬇️ Download DayFlow-2.0.html</button>
+    </div>
+
+    <div class="pcrd">
+      <div style="font-weight:800;font-size:16px;margin-bottom:4px;display:flex;align-items:center;gap:8px;"><span style="background:var(--peach);color:#fff;width:26px;height:26px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:13px;font-weight:900;">4</span> Enable GitHub Pages</div>
+      <div style="font-size:13px;color:var(--ink-l);line-height:1.7;margin-bottom:10px;">
+        1. In your repository, click <strong>Settings</strong> (top tab)<br>
+        2. In the left sidebar, click <strong>"Pages"</strong><br>
+        3. Under "Source", select <strong>"Deploy from a branch"</strong><br>
+        4. Select branch: <strong>main</strong> · folder: <strong>/ (root)</strong><br>
+        5. Click <strong>Save</strong><br>
+        6. Wait ~2 minutes, then your URL appears at the top of the Pages settings!
+      </div>
+    </div>
+
+    <div class="pcrd" style="background:var(--sage-p);border-color:rgba(102,187,106,.3);">
+      <div style="font-weight:800;font-size:16px;margin-bottom:8px;color:var(--sage);">✅ You're Live!</div>
+      <div style="font-size:13px;color:var(--ink-l);line-height:1.7;">
+        Your DayFlow is now accessible from <strong>any device, anywhere</strong> — just bookmark the URL.<br><br>
+        <strong>To update the app:</strong> simply upload a new <code style="background:rgba(102,187,106,.2);padding:2px 6px;border-radius:5px;">index.html</code> to the same repository and commit. GitHub Pages auto-publishes within 1-2 minutes.<br><br>
+        <strong>Share with your other users:</strong> send them the URL. Each person creates their own profile on the login screen.
+      </div>
+    </div>
+  </div>
+</div>
+
 </main>
 
 <!-- RIGHT PANEL -->
@@ -1121,11 +1262,11 @@ async function initFirebase() {
 // ═══════════════════════════════════════════════════════
 // STATE
 // ═══════════════════════════════════════════════════════
-let tasks=[], habits=[], habitLogs={}, timeBlocks=[], roles=[], weeklyReview={};
+let tasks=[], habits=[], habitLogs={}, timeBlocks=[], roles=[], weeklyReview={}, notes=[];
 let missionStatement='', principles=[];
 let editId=null, selQ=2, selHC='peach', mTags=[], mSubs=[];
 let activeFilter='all', taskView='list', tbDate=new Date(), calDate=new Date();
-let karma=parseInt(localStorage.getItem('df_karma')||'0');
+let karma=0;
 let GEMINI_KEY=localStorage.getItem('df_gemini')||'';
 let currentUser={name:'Guest',email:'',photo:'',uid:'guest'};
 let activeRoleId=null, addingForRole=false;
@@ -1144,9 +1285,11 @@ const COVEY_PRINCIPLES=['Be Proactive — you choose your response to any situat
 // ═══════════════════════════════════════════════════════
 function save(k,v){localStorage.setItem('df_'+k,JSON.stringify(v));}
 function load(k){try{return JSON.parse(localStorage.getItem('df_'+k));}catch(e){return null;}}
+function uSave(k,v){if(currentUser?.uid)localStorage.setItem('df_'+k+'_'+currentUser.uid,JSON.stringify(v));}
+function uLoad(k){try{if(currentUser?.uid)return JSON.parse(localStorage.getItem('df_'+k+'_'+currentUser.uid));}catch(e){}return null;}
 
 async function cloudSave(k,v) {
-  save(k,v);
+  uSave(k,v);
   if (!db || !fbUser) return;
   try {
     const {doc,setDoc}=window._fbOps;
@@ -1155,100 +1298,38 @@ async function cloudSave(k,v) {
 }
 
 async function cloudLoad(k) {
-  if (!db || !fbUser) return load(k);
+  if (!db || !fbUser) return uLoad(k);
   try {
     const {doc,getDoc}=window._fbOps;
     const snap=await getDoc(doc(db,'users',fbUser.uid,'data',k));
-    if (snap.exists()) { const d=snap.data().v; save(k,d); return d; }
+    if (snap.exists()) { const d=snap.data().v; uSave(k,d); return d; }
   } catch(e){}
-  return load(k);
+  return uLoad(k);
 }
 
 // ═══════════════════════════════════════════════════════
-// AUTH
+// AUTH — PROFILE-BASED (no Google needed)
 // ═══════════════════════════════════════════════════════
 let fbReady=false;
 
 async function initApp() {
   fbReady = await initFirebase();
   updateFbBadge(fbReady);
-
-  if (fbReady && window._fbAuth) {
-    const {onAuthStateChanged,auth}=window._fbAuth;
-    onAuthStateChanged(auth, async user => {
-      if (user) {
-        fbUser=user;
-        await loginUser({name:user.displayName||'User',email:user.email,photo:user.photoURL,uid:user.uid});
-      }
-    });
-    // Check if saved session
-    const saved=load('currentUser');
-    if (saved && saved.uid!=='guest') {
-      // Auth state will handle it
-    } else if (!saved) {
-      // Show auth screen
-    } else {
-      await loginUser(saved);
-    }
-  } else {
-    const saved=load('currentUser');
-    if (saved) { await loginUser(saved); return; }
-    // Show auth screen (already visible)
+  renderProfileGrid();
+  // Auto-login if last user is saved
+  const saved=load('currentUser');
+  if (saved && saved.uid) {
+    const setupDone=load('setup_done_'+saved.uid);
+    if (setupDone) { currentUser=saved; await loadAllData(); showApp(); return; }
   }
-}
-
-async function signInGoogle() {
-  if (!fbReady || !window._fbAuth) {
-    toast('⚠️ Set up Firebase in Settings first for Google sign-in');
-    await signInGuest();
-    return;
-  }
-  try {
-    const {signInWithPopup,GoogleAuthProvider,auth}=window._fbAuth;
-    const provider=new GoogleAuthProvider();
-    const result=await signInWithPopup(auth,provider);
-    const user=result.user;
-    fbUser=user;
-    await loginUser({name:user.displayName||'User',email:user.email,photo:user.photoURL,uid:user.uid});
-  } catch(e) {
-    toast('❌ Sign-in failed: '+e.message);
-  }
-}
-
-async function signInGuest() {
-  const user={name:'Guest',email:'',photo:'',uid:'guest_'+Date.now()};
-  // Check if there's an existing guest session
-  const existing=load('currentUser');
-  if (existing && existing.uid && existing.uid.startsWith('guest')) {
-    await loginUser(existing);
-  } else {
-    await loginUser(user);
-  }
+  // Show auth screen (already visible by default)
 }
 
 async function loginUser(user) {
-  currentUser=user;
-  save('currentUser',user);
-  // Check if first time user (no setup done)
-  const setupDone=load('setup_done');
-  if (!setupDone) {
-    showSetup();
-    return;
-  }
-  await loadAllData();
-  showApp();
-}
-
-async function signOut() {
-  if (fbReady && window._fbAuth && fbUser && fbUser.uid!=='guest') {
-    try { await window._fbAuth.signOut(window._fbAuth.auth); } catch(e){}
-  }
-  fbUser=null;
-  document.getElementById('app').style.display='none';
-  document.getElementById('auth-screen').classList.remove('hidden');
-  document.getElementById('auth-setup').classList.remove('show');
-  document.getElementById('auth-main').style.display='block';
-  toast('👋 Signed out');
+  currentUser=user; save('currentUser',user);
+  const setupDone=load('setup_done_'+user.uid);
+  if (!setupDone) { showSetup(); return; }
+  await loadAllData(); showApp();
 }
 
 // ═══════════════════════════════════════════════════════
@@ -1259,6 +1340,7 @@ const setupData={name:'',mission:'',roles:[]};
 
 function showSetup() {
   document.getElementById('auth-main').style.display='none';
+  document.getElementById('add-profile-form').style.display='none';
   document.getElementById('auth-setup').classList.add('show');
   renderSetupStep();
 }
@@ -1268,21 +1350,20 @@ function renderSetupStep() {
   for(let i=0;i<dots.length;i++){dots[i].className='setup-dot'+(i===setupStep?' active':i<setupStep?' done':'');}
   const c=document.getElementById('setup-content');
   if (setupStep===0) {
-    c.innerHTML=`<p style="font-size:14px;color:var(--ink-l);margin-bottom:16px;line-height:1.6;">Welcome to <strong>DayFlow 2.0</strong>! Let's set up your profile in 3 quick steps.</p>
-    <div style="margin-bottom:12px;"><label style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.6px;color:var(--ink-m);display:block;margin-bottom:5px;">Your Name</label>
-    <input id="setup-name" style="width:100%;padding:11px 14px;border-radius:12px;border:2px solid var(--border);font-family:'Nunito',sans-serif;font-size:15px;outline:none;" placeholder="${currentUser.name||'Your name'}" value="${currentUser.name||''}">
+    c.innerHTML=`<p style="font-size:14px;color:var(--ink-l);margin-bottom:16px;line-height:1.6;">Welcome, <strong>${currentUser.name}</strong>! Let's personalize your DayFlow in 3 quick steps.</p>
+    <div style="margin-bottom:12px;"><label style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.6px;color:var(--ink-m);display:block;margin-bottom:5px;">Confirm Your Name</label>
+    <input id="setup-name" style="width:100%;padding:11px 14px;border-radius:12px;border:2px solid var(--border);font-family:'Nunito',sans-serif;font-size:15px;outline:none;" value="${currentUser.name||''}" placeholder="Your name">
     </div>
     <button onclick="nextSetup()" style="width:100%;padding:13px;background:var(--peach);color:#fff;border:none;border-radius:14px;font-family:'Nunito',sans-serif;font-size:15px;font-weight:700;cursor:pointer;">Continue →</button>`;
   } else if (setupStep===1) {
-    c.innerHTML=`<p style="font-size:13px;color:var(--ink-m);margin-bottom:12px;line-height:1.6;font-style:italic;">"Begin with the end in mind. What do you want to be? What do you want to do?"</p>
-    <div style="margin-bottom:12px;"><label style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.6px;color:var(--ink-m);display:block;margin-bottom:5px;">Your Mission Statement (optional — you can write it later)</label>
-    <textarea id="setup-mission" style="width:100%;padding:11px 14px;border-radius:12px;border:2px solid var(--border);font-family:'Nunito',sans-serif;font-size:14px;outline:none;resize:none;min-height:90px;" placeholder="I am a principled leader who..."></textarea>
+    c.innerHTML=`<p style="font-size:13px;color:var(--ink-m);margin-bottom:12px;line-height:1.6;font-style:italic;">"Begin with the end in mind."</p>
+    <div style="margin-bottom:12px;"><label style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.6px;color:var(--ink-m);display:block;margin-bottom:5px;">Your Mission Statement (write it later if you prefer)</label>
+    <textarea id="setup-mission" style="width:100%;padding:11px 14px;border-radius:12px;border:2px solid var(--border);font-family:'Nunito',sans-serif;font-size:14px;outline:none;resize:none;min-height:80px;" placeholder="I am a principled leader who..."></textarea>
     </div>
     <button onclick="nextSetup()" style="width:100%;padding:13px;background:var(--peach);color:#fff;border:none;border-radius:14px;font-family:'Nunito',sans-serif;font-size:15px;font-weight:700;cursor:pointer;">Continue →</button>
     <button onclick="nextSetup()" style="width:100%;padding:10px;background:transparent;border:none;font-family:'Nunito',sans-serif;font-size:13px;color:var(--ink-m);cursor:pointer;margin-top:6px;">Skip for now</button>`;
   } else if (setupStep===2) {
-    c.innerHTML=`<p style="font-size:13px;color:var(--ink-m);margin-bottom:12px;line-height:1.6;font-style:italic;">"Identify your key roles. What are your most important relationships and responsibilities?"</p>
-    <p style="font-size:13px;color:var(--ink-l);margin-bottom:14px;">You can add roles now or later. Common roles:</p>
+    c.innerHTML=`<p style="font-size:13px;color:var(--ink-m);margin-bottom:12px;line-height:1.6;font-style:italic;">"Identify your key roles."</p>
     <div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:16px;" id="role-suggestions">
       ${['👨‍👩‍👧 Parent','💼 Professional','🙏 Spiritual Leader','🏃 Health/Fitness','👫 Spouse/Partner','🎓 Learner','🤝 Community Leader'].map(r=>`<div onclick="this.classList.toggle('sel');this.style.background=this.classList.contains('sel')?'var(--peach)':'';this.style.color=this.classList.contains('sel')?'#fff':'var(--ink-m)';" style="padding:7px 13px;border-radius:20px;border:1.5px solid var(--border);font-size:12px;font-weight:700;cursor:pointer;color:var(--ink-m);transition:all .2s;">${r}</div>`).join('')}
     </div>
@@ -1291,71 +1372,51 @@ function renderSetupStep() {
 }
 
 function nextSetup() {
-  if (setupStep===0) {
-    const n=document.getElementById('setup-name')?.value.trim();
-    if (n) { setupData.name=n; currentUser.name=n; }
-  } else if (setupStep===1) {
-    const m=document.getElementById('setup-mission')?.value.trim();
-    if (m) setupData.mission=m;
-  }
-  setupStep++;
-  if (setupStep>=3) { finishSetup(); return; }
-  renderSetupStep();
+  if (setupStep===0) { const n=document.getElementById('setup-name')?.value.trim(); if(n){setupData.name=n;currentUser.name=n;} }
+  else if (setupStep===1) { const m=document.getElementById('setup-mission')?.value.trim(); if(m) setupData.mission=m; }
+  setupStep++; if(setupStep>=3){finishSetup();return;} renderSetupStep();
 }
 
 async function finishSetup() {
-  const m=document.getElementById('setup-mission')?.value.trim();
-  if (m) missionStatement=m;
-
-  // Collect selected roles
+  const m=document.getElementById('setup-mission')?.value.trim(); if(m) missionStatement=m;
   const sel=[...document.querySelectorAll('#role-suggestions .sel')];
-  roles=sel.map(el=>{
-    const txt=el.textContent;
-    const icon=txt.match(/^\S+/)?.[0]||'⭐';
-    const name=txt.replace(/^\S+\s*/,'');
-    return {id:'r'+Date.now()+Math.random(),name,icon,goal:'Define your weekly goal for this role',color:'peach'};
-  });
-
-  save('setup_done',true);
-  save('mission',missionStatement);
-  save('roles',roles);
+  roles=sel.map(el=>{const txt=el.textContent;const icon=txt.match(/^\S+/)?.[0]||'⭐';const name=txt.replace(/^\S+\s*/,'');return {id:'r'+Date.now()+Math.random(),name,icon,goal:'Define your weekly goal for this role',color:'peach'};});
+  save('setup_done_'+currentUser.uid,true);
   save('currentUser',currentUser);
-  await loadAllData();
-  showApp();
+  await cloudSave('mission',missionStatement);
+  await cloudSave('roles',roles);
+  await loadAllData(); showApp();
 }
 
 // ═══════════════════════════════════════════════════════
-// LOAD DATA & SHOW APP
+// LOAD DATA (per-user keys)
 // ═══════════════════════════════════════════════════════
 async function loadAllData() {
-  tasks=await cloudLoad('tasks')||sampleTasks();
-  habits=await cloudLoad('habits')||sampleHabits();
-  habitLogs=await cloudLoad('habitLogs')||{};
-  timeBlocks=await cloudLoad('timeBlocks')||[];
-  roles=await cloudLoad('roles')||[];
-  missionStatement=await cloudLoad('mission')||'';
-  principles=await cloudLoad('principles')||[];
-  weeklyReview=await cloudLoad('weeklyReview')||{};
+  const uid = currentUser.uid;
+  notes = JSON.parse(localStorage.getItem('df_notes_'+uid) || '[]');
+  tasks = await cloudLoad('tasks') || sampleTasks();
+  habits = await cloudLoad('habits') || sampleHabits();
+  habitLogs = await cloudLoad('habitLogs') || {};
+  timeBlocks = await cloudLoad('timeBlocks') || [];
+  roles = await cloudLoad('roles') || [];
+  missionStatement = await cloudLoad('mission') || '';
+  principles = await cloudLoad('principles') || [];
+  weeklyReview = await cloudLoad('weeklyReview') || {};
+  karma = parseInt(localStorage.getItem('df_karma_' + uid) || '0');
 }
 
 function showApp() {
   document.getElementById('auth-screen').classList.add('hidden');
   document.getElementById('app').style.display='flex';
   if(localStorage.getItem('df_dark')==='1'){document.body.classList.add('dark');document.getElementById('dark-btn').textContent='☀️';}
-  updateUserUI();
-  updateGreeting();
-  renderAll();
-  genBrief();
-  updateAiBadge();
-  showCoveyPrinciple();
-  updateFbBadge(fbReady);
+  updateUserUI(); updateGreeting(); renderAll(); genBrief(); updateAiBadge(); showCoveyPrinciple(); updateFbBadge(fbReady);
 }
 
 function updateUserUI() {
   document.getElementById('sb-name').textContent=currentUser.name||'User';
-  document.getElementById('sb-role-lbl').textContent=currentUser.email||'DayFlow Member';
+  document.getElementById('sb-role-lbl').textContent='DayFlow Member';
   const av=document.getElementById('sb-avatar');
-  if(currentUser.photo){av.innerHTML=`<img src="${currentUser.photo}" alt="">`;} else {av.textContent=(currentUser.name||'U')[0].toUpperCase();}
+  av.innerHTML=''; av.textContent=currentUser.emoji||(currentUser.name||'U')[0].toUpperCase();
   updateMissionTeaser();
 }
 
@@ -1384,6 +1445,9 @@ function nav(v) {
   else if(v==='roles') renderRoles();
   else if(v==='mission') renderMission();
   else if(v==='weekly') initWeeklyReview();
+  else if(v==='notes') { renderNotes(); setNoteTab('all'); }
+  else if(v==='analytics') renderAnalytics();
+  else if(v==='deploy') {} // static view
   else renderAll();
 }
 
@@ -1810,13 +1874,279 @@ function updateStats(){
   document.getElementById('pr-sub').textContent=pct===100?'🎉 All done!':pct>50?'Great! 🚀':'Keep going! 💪';
 }
 
-function addKarma(pts,reason){karma+=pts;localStorage.setItem('df_karma',karma);updateKarma();const el=document.getElementById('karma-toast');el.textContent=`+${pts} karma — ${reason}`;el.classList.add('show');setTimeout(()=>el.classList.remove('show'),2500);}
+function addKarma(pts,reason){
+  karma+=pts;
+  localStorage.setItem('df_karma_'+(currentUser?.uid||'guest'),karma);
+  updateKarma();
+  const el=document.getElementById('karma-toast');
+  el.textContent=`+${pts} karma — ${reason}`;
+  el.classList.add('show');
+  setTimeout(()=>el.classList.remove('show'),2500);
+}
 function updateKarma(){
   const n=document.getElementById('karma-n'),b=document.getElementById('karma-big'),l=document.getElementById('karma-lvl');
   if(n) n.textContent=karma.toLocaleString();
   if(b) b.textContent=karma.toLocaleString();
   const lvl=[...KARMA_LEVELS].reverse().find(([p])=>karma>=p);
   if(l) l.textContent=lvl?lvl[1]:'🌱 Beginner';
+}
+
+// ═══════════════════════════════════════════════════════
+// NOTES & JOURNAL
+// ═══════════════════════════════════════════════════════
+let noteFilter = 'all';
+let editNoteId = null;
+
+const NOTE_TYPES = {
+  journal:  { label:'Daily Journal', icon:'📔', color:'var(--gold)',   bg:'var(--gold-p)' },
+  idea:     { label:'Idea',          icon:'💡', color:'var(--lav)',    bg:'var(--lav-p)' },
+  brain:    { label:'Brain Dump',    icon:'🧠', color:'var(--sky)',    bg:'var(--sky-p)' },
+  reflect:  { label:'Reflection',   icon:'🪞', color:'var(--sage)',   bg:'var(--sage-p)' },
+};
+
+function setNoteTab(t) {
+  noteFilter = t;
+  document.querySelectorAll('[id^="nt-"]').forEach(el => {
+    const isOn = el.id === 'nt-'+t || (t==='all' && el.id==='nt-all');
+    el.style.background = isOn ? 'var(--peach)' : 'var(--surface)';
+    el.style.color = isOn ? '#fff' : 'var(--ink-m)';
+    el.style.borderColor = isOn ? 'var(--peach)' : 'var(--border)';
+  });
+  renderNotes();
+}
+
+function renderNotes() {
+  const filtered = noteFilter==='all' ? notes : notes.filter(n=>n.type===noteFilter);
+  const grid = document.getElementById('notes-grid');
+  if (!grid) return;
+  document.getElementById('nb-notes').textContent = notes.length;
+
+  if (!filtered.length) {
+    grid.innerHTML = `<div class="empty" style="grid-column:1/-1;"><div class="empty-ico">${noteFilter==='all'?'📓':'💭'}</div><div class="empty-t">No ${noteFilter==='all'?'notes':'notes of this type'} yet</div><div class="empty-s">Click "+ New Note" to start capturing thoughts</div></div>`;
+    return;
+  }
+  grid.innerHTML = filtered.map(n => {
+    const nt = NOTE_TYPES[n.type] || NOTE_TYPES.reflect;
+    const preview = n.content.length > 140 ? n.content.slice(0,140)+'...' : n.content;
+    const dateStr = new Date(n.createdAt).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
+    return `<div style="background:var(--surface);border-radius:var(--r);padding:18px;border:1px solid var(--border);box-shadow:0 1px 4px var(--sh);cursor:pointer;transition:all .2s;position:relative;" onclick="openEditNote('${n.id}')" onmouseover="this.style.boxShadow='0 4px 14px var(--sh2)';this.style.transform='translateY(-2px)'" onmouseout="this.style.boxShadow='0 1px 4px var(--sh)';this.style.transform=''">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
+        <span style="font-size:18px;">${nt.icon}</span>
+        <span style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:${nt.color};">${nt.label}</span>
+        <span style="margin-left:auto;font-size:11px;color:var(--ink-m);font-weight:600;">${dateStr}</span>
+      </div>
+      ${n.title?`<div style="font-weight:800;font-size:15px;margin-bottom:6px;color:var(--ink);">${n.title}</div>`:''}
+      <div style="font-size:13px;color:var(--ink-l);line-height:1.6;white-space:pre-wrap;">${preview}</div>
+      <button onclick="event.stopPropagation();deleteNote('${n.id}')" style="position:absolute;top:12px;right:12px;background:none;border:none;cursor:pointer;font-size:14px;color:var(--ink-m);opacity:0;transition:opacity .2s;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0">🗑️</button>
+    </div>`;
+  }).join('');
+}
+
+function openNewNote() {
+  editNoteId = null;
+  const modal = document.getElementById('m-note');
+  if (modal) { closeModal('m-note'); }
+  // Use inline panel instead of modal
+  showNoteEditor(null);
+}
+function openEditNote(id) {
+  editNoteId = id;
+  showNoteEditor(notes.find(n=>n.id===id));
+}
+function showNoteEditor(note) {
+  const grid = document.getElementById('notes-grid');
+  if (!grid) return;
+  grid.innerHTML = `<div style="grid-column:1/-1;background:var(--surface);border-radius:var(--r);padding:22px;border:1px solid var(--border);box-shadow:0 2px 8px var(--sh);">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+      <div style="font-family:'Playfair Display',serif;font-size:20px;font-weight:700;">${note?'Edit Note':'New Note'}</div>
+      <button onclick="cancelNote()" style="margin-left:auto;padding:7px 14px;background:var(--cream);border:1.5px solid var(--border);border-radius:10px;font-family:'Nunito',sans-serif;font-weight:700;font-size:13px;cursor:pointer;color:var(--ink-m);">Cancel</button>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;">
+      <div><label style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.6px;color:var(--ink-m);display:block;margin-bottom:5px;">Title (optional)</label>
+      <input id="note-title" style="width:100%;padding:10px 13px;border-radius:var(--rs);border:1.5px solid var(--border);font-family:'Nunito',sans-serif;font-size:14px;color:var(--ink);outline:none;background:var(--cream);" placeholder="Give your note a title..." value="${note?.title||''}"></div>
+      <div><label style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.6px;color:var(--ink-m);display:block;margin-bottom:5px;">Type</label>
+      <select id="note-type" style="width:100%;padding:10px 13px;border-radius:var(--rs);border:1.5px solid var(--border);font-family:'Nunito',sans-serif;font-size:14px;outline:none;background:var(--cream);color:var(--ink);">
+        <option value="journal" ${note?.type==='journal'?'selected':''}>📔 Daily Journal</option>
+        <option value="idea" ${note?.type==='idea'?'selected':''}>💡 Idea</option>
+        <option value="brain" ${note?.type==='brain'?'selected':''}>🧠 Brain Dump</option>
+        <option value="reflect" ${(!note||note.type==='reflect')?'selected':''}>🪞 Reflection</option>
+      </select></div>
+    </div>
+    <div style="margin-bottom:14px;">
+      <label style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.6px;color:var(--ink-m);display:block;margin-bottom:5px;">Content</label>
+      <textarea id="note-content" style="width:100%;padding:12px;border-radius:var(--rs);border:1.5px solid var(--border);font-family:'Nunito',sans-serif;font-size:14px;color:var(--ink);outline:none;resize:vertical;min-height:200px;background:var(--cream);line-height:1.7;" placeholder="Write freely here... brain dump, journal entry, idea capture, reflection...">${note?.content||''}</textarea>
+    </div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
+      <button onclick="saveNote()" style="padding:10px 22px;background:var(--peach);color:#fff;border:none;border-radius:var(--rs);font-family:'Nunito',sans-serif;font-weight:700;font-size:14px;cursor:pointer;box-shadow:0 3px 10px rgba(255,138,101,.3);">💾 Save Note</button>
+      <button onclick="aiEnhanceNote()" style="padding:10px 16px;background:var(--lav-p);color:var(--lav);border:1px solid rgba(126,87,194,.2);border-radius:var(--rs);font-family:'Nunito',sans-serif;font-weight:700;font-size:13px;cursor:pointer;">✨ AI: Enhance & Reflect</button>
+      ${note?`<button onclick="convertNoteToTask('${note.id}')" style="padding:10px 16px;background:var(--gold-p);color:#8B6400;border:1px solid rgba(255,179,0,.3);border-radius:var(--rs);font-family:'Nunito',sans-serif;font-weight:700;font-size:13px;cursor:pointer;">→ Convert to Task</button>`:''}
+    </div>
+  </div>`;
+  setTimeout(()=>document.getElementById('note-content')?.focus(),100);
+}
+
+function cancelNote() { editNoteId=null; renderNotes(); }
+
+function saveNote() {
+  const content = document.getElementById('note-content')?.value.trim();
+  if (!content) { toast('⚠️ Write something first'); return; }
+  const note = {
+    id: editNoteId || 'n'+Date.now(),
+    title: document.getElementById('note-title')?.value.trim() || '',
+    content,
+    type: document.getElementById('note-type')?.value || 'reflect',
+    createdAt: editNoteId ? (notes.find(n=>n.id===editNoteId)||{}).createdAt || new Date().toISOString() : new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+  };
+  if (editNoteId) { const i=notes.findIndex(n=>n.id===editNoteId); notes[i]=note; }
+  else notes.unshift(note);
+  localStorage.setItem('df_notes_'+(currentUser?.uid||'guest'), JSON.stringify(notes));
+  editNoteId = null;
+  renderNotes();
+  toast('📓 Note saved!');
+}
+
+function deleteNote(id) {
+  if (!confirm('Delete this note?')) return;
+  notes = notes.filter(n=>n.id!==id);
+  localStorage.setItem('df_notes_'+(currentUser?.uid||'guest'), JSON.stringify(notes));
+  renderNotes();
+  toast('🗑️ Note deleted');
+}
+
+function convertNoteToTask(id) {
+  const note = notes.find(n=>n.id===id); if(!note) return;
+  openAdd();
+  setTimeout(()=>{
+    document.getElementById('m-title').value = note.title || note.content.slice(0,60);
+    document.getElementById('m-notes').value = note.content;
+    toast('📋 Note converted to task!');
+  }, 200);
+}
+
+async function aiEnhanceNote() {
+  const content = document.getElementById('note-content')?.value.trim();
+  if (!content) { toast('⚠️ Write something first'); return; }
+  const type = document.getElementById('note-type')?.value || 'reflect';
+  toast('✨ AI reflecting...');
+  const prompts = {
+    reflect: `You are a Covey-inspired life coach. Read this reflection and respond with 2-3 thoughtful questions or insights that deepen self-awareness, referencing Covey's principles where relevant. Be warm and wise.`,
+    brain: `Organize this brain dump into clear categories. Group related ideas together and highlight the most actionable insights. Be concise.`,
+    idea: `Evaluate this idea using Covey's "Begin with the End in Mind" framework. What's the potential? What Q2 actions would bring it to life? Keep it brief and energizing.`,
+    journal: `Respond as a wise, warm journaling companion. Notice patterns, celebrate wins mentioned, and offer one gentle Covey-inspired insight. 2-3 sentences only.`,
+  };
+  const prompt = (prompts[type]||prompts.reflect) + `\n\nNote:\n${content}`;
+  try {
+    const text = await callAI(prompt, 250);
+    const ta = document.getElementById('note-content');
+    ta.value = content + '\n\n— ✨ AI Reflection —\n' + text;
+    toast('✨ AI insights added!');
+  } catch(e) { toast('❌ AI unavailable'); }
+}
+
+// ═══════════════════════════════════════════════════════
+// ANALYTICS
+// ═══════════════════════════════════════════════════════
+function renderAnalytics() {
+  const today = new Date();
+  const last30 = Array.from({length:30},(_,i)=>{const d=new Date(today);d.setDate(d.getDate()-i);return dStr(d);}).reverse();
+  const last14 = last30.slice(-14);
+  const allDone = tasks.filter(t=>t.done&&t.completedAt);
+
+  // Stat cards
+  const totalDone = allDone.length;
+  const todayDone = allDone.filter(t=>t.completedAt?.slice(0,10)===todayStr()).length;
+  const q2Ratio = tasks.length ? Math.round(tasks.filter(t=>t.quadrant===2).length/tasks.length*100) : 0;
+  const habitStreak = (() => { let s=0; for(let i=0;i<365;i++){const d=new Date();d.setDate(d.getDate()-i);if(Object.keys(habitLogs).some(hid=>habitLogs[hid][dStr(d)]))s++;else if(i>0)break;} return s; })();
+
+  document.getElementById('analytics-stats').innerHTML = [
+    {ico:'✅',n:totalDone,l:'Tasks Completed Total'},
+    {ico:'🔵',n:q2Ratio+'%',l:'Q2 (Important) Tasks'},
+    {ico:'⚡',n:karma.toLocaleString(),l:'Total Karma Earned'},
+    {ico:'🔥',n:habitStreak,l:'Habit Streak Days'},
+  ].map(s=>`<div class="scard"><div class="scard-ico">${s.ico}</div><div class="scard-n">${s.n}</div><div class="scard-l">${s.l}</div></div>`).join('');
+
+  // Quadrant distribution bar chart
+  const qCounts = [1,2,3,4].map(q=>({q,n:tasks.filter(t=>(t.quadrant||2)===q).length}));
+  const qMax = Math.max(...qCounts.map(x=>x.n),1);
+  const qColors = ['var(--q1)','var(--q2)','var(--q3)','var(--q4)'];
+  const qLabels = ['Q1 Do','Q2 Plan','Q3 Delegate','Q4 Eliminate'];
+  document.getElementById('q-chart').innerHTML = qCounts.map((x,i)=>`
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+      <div style="width:80px;font-size:12px;font-weight:700;color:${qColors[i]};">${qLabels[i]}</div>
+      <div style="flex:1;background:var(--border);border-radius:6px;height:20px;overflow:hidden;">
+        <div style="height:100%;background:${qColors[i]};border-radius:6px;width:${Math.round(x.n/qMax*100)}%;transition:width .6s;"></div>
+      </div>
+      <div style="width:24px;font-size:12px;font-weight:700;color:var(--ink-m);text-align:right;">${x.n}</div>
+    </div>`).join('');
+
+  // Role chart
+  const roleCounts = roles.map(r=>({name:r.icon+' '+r.name,n:tasks.filter(t=>t.role===r.id).length})).filter(x=>x.n>0);
+  const rMax = Math.max(...roleCounts.map(x=>x.n),1);
+  document.getElementById('role-chart').innerHTML = roleCounts.length ? roleCounts.map(x=>`
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+      <div style="width:100px;font-size:11px;font-weight:700;color:var(--ink-l);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${x.name}</div>
+      <div style="flex:1;background:var(--border);border-radius:6px;height:18px;overflow:hidden;">
+        <div style="height:100%;background:var(--peach);border-radius:6px;width:${Math.round(x.n/rMax*100)}%;"></div>
+      </div>
+      <div style="width:20px;font-size:11px;font-weight:700;color:var(--ink-m);">${x.n}</div>
+    </div>`).join('') : '<div style="color:var(--ink-m);font-size:13px;">No tasks assigned to roles yet</div>';
+
+  // 14-day trend
+  const trendData = last14.map(ds=>({
+    ds, done: allDone.filter(t=>t.completedAt?.slice(0,10)===ds).length,
+    total: tasks.filter(t=>t.date===ds).length
+  }));
+  const tMax = Math.max(...trendData.map(x=>Math.max(x.done,x.total)),1);
+  document.getElementById('trend-chart').innerHTML = `<div style="display:flex;align-items:flex-end;gap:6px;height:100px;padding-bottom:24px;min-width:500px;">
+    ${trendData.map(x=>`<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;">
+      <div title="${x.done} done / ${x.total} total" style="width:100%;background:${x.done>0?'var(--sage)':'var(--border)'};border-radius:4px 4px 0 0;height:${Math.max(4,Math.round(x.done/tMax*80))}px;transition:height .4s;"></div>
+      <div style="font-size:9px;color:var(--ink-m);font-weight:700;transform:rotate(-45deg);transform-origin:top left;white-space:nowrap;margin-top:4px;">${x.ds.slice(5)}</div>
+    </div>`).join('')}
+  </div><div style="font-size:11px;color:var(--ink-m);margin-top:4px;">🟢 = tasks completed per day</div>`;
+
+  // Habit consistency heatmap
+  const last28 = Array.from({length:28},(_,i)=>{const d=new Date(today);d.setDate(d.getDate()-i);return dStr(d);}).reverse();
+  document.getElementById('habit-chart').innerHTML = habits.length ? habits.map(h=>`
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+      <div style="width:120px;font-size:12px;font-weight:700;display:flex;align-items:center;gap:5px;"><span>${h.icon}</span><span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${h.name}</span></div>
+      <div style="display:flex;gap:3px;flex-wrap:nowrap;">
+        ${last28.map(ds=>`<div title="${ds}" style="width:14px;height:14px;border-radius:3px;background:${(habitLogs[h.id]||{})[ds]?'var(--sage)':'var(--border)'};"></div>`).join('')}
+      </div>
+    </div>`).join('') : '<div style="color:var(--ink-m);font-size:13px;">No habits tracked yet</div>';
+
+  // Karma timeline (just show current level progress)
+  const lvlIdx = [...KARMA_LEVELS].reverse().findIndex(([p])=>karma>=p);
+  const curLvl = KARMA_LEVELS[KARMA_LEVELS.length-1-lvlIdx];
+  const nextLvl = KARMA_LEVELS[KARMA_LEVELS.length-lvlIdx] || null;
+  const pct = nextLvl ? Math.round((karma-curLvl[0])/(nextLvl[0]-curLvl[0])*100) : 100;
+  document.getElementById('karma-chart').innerHTML = `
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px;">
+      <div style="font-size:32px;">${curLvl[1].split(' ')[0]}</div>
+      <div>
+        <div style="font-weight:800;font-size:16px;">${curLvl[1]}</div>
+        <div style="font-size:13px;color:var(--ink-m);">${karma.toLocaleString()} karma points</div>
+      </div>
+      ${nextLvl?`<div style="margin-left:auto;font-size:12px;color:var(--ink-m);font-weight:600;">${nextLvl[0]-karma} pts to ${nextLvl[1]}</div>`:'<div style="margin-left:auto;font-size:12px;color:var(--gold);font-weight:700;">🏆 MAX LEVEL!</div>'}
+    </div>
+    <div style="background:var(--border);border-radius:20px;height:12px;overflow:hidden;">
+      <div style="height:100%;background:linear-gradient(90deg,var(--lav),var(--peach));border-radius:20px;width:${pct}%;transition:width .6s;"></div>
+    </div>
+    <div style="font-size:11px;color:var(--ink-m);margin-top:5px;font-weight:600;">${pct}% to next level</div>
+    <div style="margin-top:16px;font-weight:800;font-size:13px;margin-bottom:8px;">All Levels:</div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;">
+      ${KARMA_LEVELS.map(([pts,name])=>`<div style="padding:5px 12px;border-radius:20px;font-size:11px;font-weight:700;background:${karma>=pts?'var(--lav-p)':'var(--border)'};color:${karma>=pts?'var(--lav)':'var(--ink-m)'};">${name} (${pts}+)</div>`).join('')}
+    </div>`;
+}
+
+function downloadApp() {
+  const html = document.documentElement.outerHTML;
+  const blob = new Blob([html], {type:'text/html'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'DayFlow-2.0.html';
+  a.click();
+  toast('⬇️ Downloaded! Rename to index.html before uploading.');
 }
 
 function updateStreak(){
@@ -1829,6 +2159,7 @@ function updateBadges(){
   const today=todayStr();
   document.getElementById('nb-today').textContent=tasks.filter(t=>t.date===today&&!t.done).length;
   document.getElementById('nb-inbox').textContent=tasks.filter(t=>!t.date).length;
+  const nbNotes=document.getElementById('nb-notes'); if(nbNotes) nbNotes.textContent=notes.length;
   const allTags=[...new Set(tasks.flatMap(t=>t.tags||[]))];
   const fc=document.getElementById('fchips');if(!fc) return;
   fc.querySelectorAll('[data-f^="tag:"]').forEach(c=>c.remove());
@@ -2071,6 +2402,90 @@ function sampleTasks(){const today=todayStr();return[
   {id:'t5',title:'Morning workout',date:today,quadrant:2,done:true,completedAt:new Date().toISOString(),createdAt:new Date().toISOString(),subtasks:[],tags:[]},
 ];}
 function sampleHabits(){return[{id:'h1',name:'Morning Workout',icon:'💪',color:'peach'},{id:'h2',name:'Read 20 Minutes',icon:'📚',color:'gold'},{id:'h3',name:'Prayer & Meditation',icon:'🙏',color:'lav'}];}
+
+// ═══════════════════════════════════════════════════════
+// USER PROFILES
+// ═══════════════════════════════════════════════════════
+let profiles = JSON.parse(localStorage.getItem('df_profiles') || '[]');
+let selectedEmoji = '🌟';
+
+function saveProfiles() { localStorage.setItem('df_profiles', JSON.stringify(profiles)); }
+
+function renderProfileGrid() {
+  const grid = document.getElementById('profile-grid');
+  if (!grid) return;
+  if (!profiles.length) {
+    profiles = [{ id: 'u_filipe', name: 'Filipe', emoji: '🔥', createdAt: new Date().toISOString() }];
+    saveProfiles();
+  }
+  grid.innerHTML = profiles.map(p => {
+    const taskCount = JSON.parse(localStorage.getItem('df_tasks_'+p.id) || '[]').length;
+    return `<div onclick="selectProfile('${p.id}')" style="display:flex;flex-direction:column;align-items:center;gap:8px;padding:18px 12px;background:var(--surface);border:2px solid var(--border);border-radius:16px;cursor:pointer;transition:all .2s;position:relative;" onmouseover="this.style.borderColor='var(--peach)';this.style.transform='translateY(-2px)';this.querySelector('.pdel').style.opacity='1'" onmouseout="this.style.borderColor='var(--border)';this.style.transform='translateY(0)';this.querySelector('.pdel').style.opacity='0'">
+      <div style="width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,var(--peach),var(--gold));display:flex;align-items:center;justify-content:center;font-size:26px;">${p.emoji}</div>
+      <div style="font-weight:800;font-size:14px;">${p.name}</div>
+      <div style="font-size:10px;color:var(--ink-m);font-weight:600;">${taskCount} tasks</div>
+      <button class="pdel" onclick="event.stopPropagation();deleteProfile('${p.id}')" style="position:absolute;top:6px;right:8px;background:none;border:none;cursor:pointer;font-size:13px;color:var(--ink-m);opacity:0;transition:opacity .2s;">✕</button>
+    </div>`;
+  }).join('');
+}
+
+function selectProfile(id) {
+  const p = profiles.find(x => x.id === id);
+  if (!p) return;
+  currentUser = { name: p.name, email: '', photo: '', uid: p.id, emoji: p.emoji };
+  save('currentUser', currentUser);
+  const setupDone = load('setup_done_' + p.id);
+  if (!setupDone) { setupStep = 0; showSetup(); return; }
+  loadAllData().then(() => showApp());
+}
+
+function openAddProfile() {
+  selectedEmoji = '🌟';
+  document.getElementById('np-name').value = '';
+  document.getElementById('auth-main').style.display = 'none';
+  document.getElementById('add-profile-form').style.display = 'block';
+  document.querySelectorAll('.emoji-opt').forEach(el => { el.style.borderColor = 'var(--border)'; el.style.background = ''; });
+  setTimeout(() => document.getElementById('np-name').focus(), 100);
+}
+
+function selectEmoji(e) {
+  selectedEmoji = e;
+  document.querySelectorAll('.emoji-opt').forEach(el => {
+    el.style.borderColor = el.textContent.trim() === e ? 'var(--peach)' : 'var(--border)';
+    el.style.background = el.textContent.trim() === e ? 'var(--peach-p)' : '';
+  });
+}
+
+function createProfile() {
+  const name = document.getElementById('np-name').value.trim();
+  if (!name) { document.getElementById('np-name').style.borderColor = '#EF5350'; return; }
+  const p = { id: 'u_' + Date.now(), name, emoji: selectedEmoji, createdAt: new Date().toISOString() };
+  profiles.push(p); saveProfiles();
+  document.getElementById('add-profile-form').style.display = 'none';
+  document.getElementById('auth-main').style.display = 'block';
+  renderProfileGrid();
+  selectProfile(p.id);
+}
+
+function deleteProfile(id) {
+  if (profiles.length <= 1) { toast('⚠️ Keep at least one profile'); return; }
+  if (!confirm('Delete this profile and all their data?')) return;
+  profiles = profiles.filter(p => p.id !== id); saveProfiles();
+  ['tasks','habits','habitLogs','timeBlocks','roles','mission','principles','weeklyReview','notes'].forEach(k => {
+    localStorage.removeItem('df_' + k + '_' + id);
+  });
+  renderProfileGrid();
+  toast('🗑️ Profile deleted');
+}
+
+function signOut() {
+  document.getElementById('app').style.display = 'none';
+  document.getElementById('auth-screen').classList.remove('hidden');
+  document.getElementById('auth-setup').classList.remove('show');
+  document.getElementById('auth-main').style.display = 'block';
+  document.getElementById('add-profile-form').style.display = 'none';
+  renderProfileGrid();
+}
 
 // ═══════════════════════════════════════════════════════
 // START
