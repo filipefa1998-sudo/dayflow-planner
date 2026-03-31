@@ -937,16 +937,47 @@ body.dark .sinfo{background:var(--warm)}
   <div class="scrd">
     <div class="scrd-hdr">
       <div class="scrd-ico" style="background:linear-gradient(135deg,var(--sage),#2E7D32);">💾</div>
-      <div><div class="scrd-title">Your Data</div><div class="scrd-sub">Export, import, or reset</div></div>
+      <div><div class="scrd-title">Your Data</div><div class="scrd-sub">Export, import, or reset your personal data</div></div>
     </div>
     <div class="scrd-body">
       <div style="display:flex;gap:8px;flex-wrap:wrap;">
-        <button class="btn btn-s" onclick="exportData()">📤 Export</button>
-        <button class="btn btn-s" onclick="document.getElementById('imp-fi').click()">📥 Import</button>
-        <button class="btn btn-s" onclick="clearData()" style="color:#c62828;">⚠️ Clear All</button>
+        <button class="btn btn-s" onclick="exportData()">📤 Export My Data</button>
+        <button class="btn btn-s" onclick="document.getElementById('imp-fi').click()">📥 Import Data</button>
+        <button class="btn btn-s" onclick="clearData()" style="color:#c62828;">⚠️ Clear My Data</button>
       </div>
       <input type="file" id="imp-fi" accept=".json" style="display:none;" onchange="importData(event)">
       <div style="font-size:12px;color:var(--ink-m);margin-top:9px;" id="data-sum">Loading...</div>
+    </div>
+  </div>
+
+  <!-- SHARE DATA BETWEEN PROFILES -->
+  <div class="scrd">
+    <div class="scrd-hdr">
+      <div class="scrd-ico" style="background:linear-gradient(135deg,var(--sky),#1565C0);">🤝</div>
+      <div><div class="scrd-title">Share Data with Another User</div><div class="scrd-sub">Copy your tasks, habits, or roles to another profile</div></div>
+    </div>
+    <div class="scrd-body">
+      <div class="sinfo" style="margin-bottom:14px;">
+        <div class="sinfo-t">How sharing works</div>
+        <div style="font-size:13px;color:var(--ink-l);line-height:1.6;">Select what you want to share and which profile to share it with. This <strong>copies</strong> your data to their profile — it won't delete yours. They can accept or decline.</div>
+      </div>
+      <div class="fg">
+        <label class="flbl">Share with</label>
+        <select class="fsel" id="share-target-user">
+          <option value="">Select a profile...</option>
+        </select>
+      </div>
+      <div class="fg">
+        <label class="flbl">What to share</label>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <label style="display:flex;align-items:center;gap:10px;font-size:14px;cursor:pointer;"><input type="checkbox" id="share-tasks" style="width:16px;height:16px;accent-color:var(--peach);"> 📋 Tasks (today & upcoming)</label>
+          <label style="display:flex;align-items:center;gap:10px;font-size:14px;cursor:pointer;"><input type="checkbox" id="share-habits" style="width:16px;height:16px;accent-color:var(--peach);"> 🔥 Habits</label>
+          <label style="display:flex;align-items:center;gap:10px;font-size:14px;cursor:pointer;"><input type="checkbox" id="share-roles" style="width:16px;height:16px;accent-color:var(--peach);"> 👤 Roles & Goals</label>
+          <label style="display:flex;align-items:center;gap:10px;font-size:14px;cursor:pointer;"><input type="checkbox" id="share-mission" style="width:16px;height:16px;accent-color:var(--peach);"> 🧭 Mission Statement</label>
+        </div>
+      </div>
+      <button class="btn btn-p" onclick="shareDataWithUser()" style="margin-top:4px;">🤝 Share Selected Data</button>
+      <div id="share-result" style="margin-top:10px;font-size:13px;display:none;"></div>
     </div>
   </div>
 </div>
@@ -1394,14 +1425,15 @@ async function finishSetup() {
 async function loadAllData() {
   const uid = currentUser.uid;
   notes = JSON.parse(localStorage.getItem('df_notes_'+uid) || '[]');
-  tasks = await cloudLoad('tasks') || sampleTasks();
-  habits = await cloudLoad('habits') || sampleHabits();
-  habitLogs = await cloudLoad('habitLogs') || {};
-  timeBlocks = await cloudLoad('timeBlocks') || [];
-  roles = await cloudLoad('roles') || [];
-  missionStatement = await cloudLoad('mission') || '';
-  principles = await cloudLoad('principles') || [];
-  weeklyReview = await cloudLoad('weeklyReview') || {};
+  // Each user gets their OWN empty slate — no sample data crosses over
+  tasks          = await cloudLoad('tasks')       || [];
+  habits         = await cloudLoad('habits')      || [];
+  habitLogs      = await cloudLoad('habitLogs')   || {};
+  timeBlocks     = await cloudLoad('timeBlocks')  || [];
+  roles          = await cloudLoad('roles')       || [];
+  missionStatement = await cloudLoad('mission')  || '';
+  principles     = await cloudLoad('principles')  || [];
+  weeklyReview   = await cloudLoad('weeklyReview')|| {};
   karma = parseInt(localStorage.getItem('df_karma_' + uid) || '0');
 }
 
@@ -2370,7 +2402,16 @@ function loadSettings(){
   if(fb.appid) document.getElementById('fb-appid').value=fb.appid;
   if(fb.sid) document.getElementById('fb-sid').value=fb.sid;
   if(fb.auth) document.getElementById('fb-auth').value=fb.auth;
-  document.getElementById('data-sum').textContent=`📦 ${tasks.length} tasks · ${habits.length} habits · ${roles.length} roles · ${timeBlocks.length} time blocks`;
+  document.getElementById('data-sum').textContent=`📦 ${tasks.length} tasks · ${habits.length} habits · ${roles.length} roles · ${notes.length} notes`;
+  // Populate share dropdown with other profiles
+  const shareSelect=document.getElementById('share-target-user');
+  if(shareSelect){
+    const others=profiles.filter(p=>p.id!==currentUser.uid);
+    shareSelect.innerHTML='<option value="">Select a profile...</option>'+others.map(p=>`<option value="${p.id}">${p.emoji} ${p.name}</option>`).join('');
+    // Reset share result
+    const shareRes=document.getElementById('share-result');
+    if(shareRes) shareRes.style.display='none';
+  }
 }
 
 function toggleKV(){const i=document.getElementById('s-key');i.type=i.type==='password'?'text':'password';document.getElementById('key-eye').textContent=i.type==='password'?'👁️':'🙈';}
@@ -2387,9 +2428,80 @@ function saveFB(){
 }
 function removeFB(){if(!confirm('Remove Firebase config?')) return;localStorage.removeItem('df_fb');['fb-pid','fb-akey','fb-appid','fb-sid','fb-auth'].forEach(id=>document.getElementById(id).value='');document.getElementById('fb-res').style.display='none';toast('🗑️ Firebase config removed');}
 
-function exportData(){const data={tasks,habits,habitLogs,timeBlocks,roles,missionStatement,principles,weeklyReview,exported:new Date().toISOString()};const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:'application/json'}));a.download=`dayflow2-backup-${todayStr()}.json`;a.click();toast('📤 Exported!');}
-function importData(e){const f=e.target.files[0];if(!f) return;const r=new FileReader();r.onload=async ev=>{try{const d=JSON.parse(ev.target.result);if(d.tasks){tasks=d.tasks;await cloudSave('tasks',tasks);}if(d.habits){habits=d.habits;await cloudSave('habits',habits);}if(d.habitLogs){habitLogs=d.habitLogs;await cloudSave('habitLogs',habitLogs);}if(d.timeBlocks){timeBlocks=d.timeBlocks;await cloudSave('timeBlocks',timeBlocks);}if(d.roles){roles=d.roles;await cloudSave('roles',roles);}if(d.missionStatement){missionStatement=d.missionStatement;await cloudSave('mission',missionStatement);}renderAll();renderMission();toast('📥 Imported!');}catch(err){toast('❌ Import failed');}};r.readAsText(f);e.target.value='';}
-function clearData(){if(!confirm('⚠️ Delete ALL data? Cannot be undone.')) return;tasks=[];habits=[];habitLogs={};timeBlocks=[];roles=[];missionStatement='';principles=[];['tasks','habits','habitLogs','timeBlocks','roles','mission','principles'].forEach(k=>localStorage.removeItem('df_'+k));renderAll();toast('🗑️ All data cleared');}
+function exportData(){
+  const data={tasks,habits,habitLogs,timeBlocks,roles,missionStatement,principles,weeklyReview,notes,exported:new Date().toISOString(),exportedBy:currentUser.name};
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:'application/json'}));
+  a.download=`dayflow-${currentUser.name}-${todayStr()}.json`;
+  a.click();toast("📤 Exported "+currentUser.name+"'s data!");
+}
+function importData(e){
+  const f=e.target.files[0];if(!f) return;
+  const r=new FileReader();
+  r.onload=async ev=>{
+    try{
+      const d=JSON.parse(ev.target.result);
+      if(d.tasks){tasks=d.tasks;await cloudSave('tasks',tasks);}
+      if(d.habits){habits=d.habits;await cloudSave('habits',habits);}
+      if(d.habitLogs){habitLogs=d.habitLogs;await cloudSave('habitLogs',habitLogs);}
+      if(d.timeBlocks){timeBlocks=d.timeBlocks;await cloudSave('timeBlocks',timeBlocks);}
+      if(d.roles){roles=d.roles;await cloudSave('roles',roles);}
+      if(d.missionStatement){missionStatement=d.missionStatement;await cloudSave('mission',missionStatement);}
+      if(d.notes){notes=d.notes;localStorage.setItem('df_notes_'+currentUser.uid,JSON.stringify(notes));}
+      renderAll();renderMission();toast('📥 Data imported!');
+    }catch(err){toast('❌ Import failed — check the file');}
+  };
+  r.readAsText(f);e.target.value='';
+}
+function clearData(){
+  if(!confirm('⚠️ Delete ALL your personal data? Cannot be undone.')) return;
+  const uid=currentUser.uid;
+  tasks=[];habits=[];habitLogs={};timeBlocks=[];roles=[];missionStatement='';principles=[];notes=[];weeklyReview={};karma=0;
+  ['tasks','habits','habitLogs','timeBlocks','roles','mission','principles','weeklyReview'].forEach(k=>localStorage.removeItem('df_'+k+'_'+uid));
+  localStorage.removeItem('df_notes_'+uid);
+  localStorage.removeItem('df_karma_'+uid);
+  renderAll();updateKarma();toast('🗑️ Your data cleared');
+}
+
+function shareDataWithUser(){
+  const targetId=document.getElementById('share-target-user').value;
+  if(!targetId){toast('⚠️ Select a profile');return;}
+  if(targetId===currentUser.uid){toast("⚠️ Can't share with yourself");return;}
+  const shareTasks=document.getElementById('share-tasks').checked;
+  const shareHabits=document.getElementById('share-habits').checked;
+  const shareRoles=document.getElementById('share-roles').checked;
+  const shareMission=document.getElementById('share-mission').checked;
+  if(!shareTasks&&!shareHabits&&!shareRoles&&!shareMission){toast('⚠️ Select at least one thing to share');return;}
+  const targetProfile=profiles.find(p=>p.id===targetId);
+  const shared=[];
+  if(shareTasks){
+    const existing=JSON.parse(localStorage.getItem('df_tasks_'+targetId)||'[]');
+    const mine=tasks.filter(t=>!existing.find(e=>e.id===t.id));
+    localStorage.setItem('df_tasks_'+targetId,JSON.stringify([...existing,...mine]));
+    shared.push(mine.length+' tasks');
+  }
+  if(shareHabits){
+    const existing=JSON.parse(localStorage.getItem('df_habits_'+targetId)||'[]');
+    const mine=habits.filter(h=>!existing.find(e=>e.id===h.id));
+    localStorage.setItem('df_habits_'+targetId,JSON.stringify([...existing,...mine]));
+    shared.push(mine.length+' habits');
+  }
+  if(shareRoles){
+    const existing=JSON.parse(localStorage.getItem('df_roles_'+targetId)||'[]');
+    const mine=roles.filter(r=>!existing.find(e=>e.id===r.id));
+    localStorage.setItem('df_roles_'+targetId,JSON.stringify([...existing,...mine]));
+    shared.push(mine.length+' roles');
+  }
+  if(shareMission&&missionStatement){
+    const has=localStorage.getItem('df_mission_'+targetId);
+    if(!has){localStorage.setItem('df_mission_'+targetId,JSON.stringify(missionStatement));shared.push('mission statement');}
+    else shared.push('mission (skipped — they already have one)');
+  }
+  const el=document.getElementById('share-result');
+  el.style.display='block';el.className='t-ok';
+  el.textContent='✅ Shared '+shared.join(', ')+' with '+(targetProfile?.name||'user')+'. They\'ll see it next time they log in.';
+  toast('🤝 Shared with '+(targetProfile?.name||'user')+'!');
+}
 
 // ═══════════════════════════════════════════════════════
 // SAMPLE DATA
@@ -2410,6 +2522,28 @@ let profiles = JSON.parse(localStorage.getItem('df_profiles') || '[]');
 let selectedEmoji = '🌟';
 
 function saveProfiles() { localStorage.setItem('df_profiles', JSON.stringify(profiles)); }
+
+// Seed starter data for a brand-new profile (only runs once, only for that user)
+function seedNewUser(uid) {
+  const isFilipe = uid === 'u_filipe';
+  if (isFilipe) {
+    // Filipe gets sample tasks so the app doesn't feel empty on first open
+    const today = todayStr();
+    const starter = [
+      {id:'t1',title:'Review Q2 sales report',date:today,quadrant:1,done:false,createdAt:new Date().toISOString(),subtasks:[{id:'s1',title:'Check Action Plumbing numbers',done:false}],tags:['work'],project:'Action Plumbing'},
+      {id:'t2',title:'Solo Passport investor deck',date:today,quadrant:2,done:false,project:'Solo Passport',createdAt:new Date().toISOString(),subtasks:[],tags:['startup']},
+      {id:'t3',title:'Ward council prep',date:today,quadrant:2,done:false,project:'Ward',createdAt:new Date().toISOString(),subtasks:[],tags:['ward']},
+    ];
+    localStorage.setItem('df_tasks_'+uid, JSON.stringify(starter));
+    localStorage.setItem('df_habits_'+uid, JSON.stringify([
+      {id:'h1',name:'Morning Workout',icon:'💪',color:'peach'},
+      {id:'h2',name:'Read 20 Minutes',icon:'📚',color:'gold'},
+      {id:'h3',name:'Prayer & Meditation',icon:'🙏',color:'lav'},
+    ]));
+  }
+  // Mark seeded so this never runs again for this user
+  localStorage.setItem('df_seeded_'+uid, '1');
+}
 
 function renderProfileGrid() {
   const grid = document.getElementById('profile-grid');
@@ -2434,6 +2568,8 @@ function selectProfile(id) {
   if (!p) return;
   currentUser = { name: p.name, email: '', photo: '', uid: p.id, emoji: p.emoji };
   save('currentUser', currentUser);
+  // Seed starter data once for brand-new profiles
+  if (!localStorage.getItem('df_seeded_' + p.id)) seedNewUser(p.id);
   const setupDone = load('setup_done_' + p.id);
   if (!setupDone) { setupStep = 0; showSetup(); return; }
   loadAllData().then(() => showApp());
