@@ -11,27 +11,27 @@
   --peach:#FF8A65; --peach-d:#E64A19; --peach-p:#FBE9E7;
   --gold:#FFB300; --gold-p:#FFF8E1;
   --sage:#66BB6A; --sage-p:#E8F5E9;
-  --sky:#42A5F5; --sky-p:#E3F2FD;
+  --sky:#4ECDC4; --sky-p:#E8FAFA;
   --lav:#7E57C2; --lav-p:#EDE7F6;
   --rose:#EC407A; --rose-p:#FCE4EC;
   --ink:#1A0A00; --ink-l:#5D4037; --ink-m:#A1887F;
   --border:#F3E5DC; --sh:rgba(26,10,0,.07); --sh2:rgba(26,10,0,.14);
   --r:16px; --rs:10px;
   /* Covey quadrant colors */
-  --q1:#EF5350; --q1-p:#FFEBEE;
-  --q2:#42A5F5; --q2-p:#E3F2FD;
-  --q3:#FFA726; --q3-p:#FFF3E0;
-  --q4:#BDBDBD; --q4-p:#F5F5F5;
+  --q1:#FF6B6B; --q1-p:#FFF0F0;
+  --q2:#4ECDC4; --q2-p:#E8FAFA;
+  --q3:#FFD93D; --q3-p:#FFFBEA;
+  --q4:#B8A99A; --q4-p:#F7F3F0;
 }
 body.dark {
   --cream:#1C1008; --warm:#241610; --surface:#2C1A0E;
   --border:#3E2412; --sh:rgba(0,0,0,.3); --sh2:rgba(0,0,0,.5);
   --ink:#FFF3E8; --ink-l:#D7B89A; --ink-m:#8D6E63;
   --peach-p:rgba(255,138,101,.12); --gold-p:rgba(255,179,0,.1);
-  --sage-p:rgba(102,187,106,.12); --sky-p:rgba(66,165,245,.12);
+  --sage-p:rgba(102,187,106,.12); --sky-p:rgba(78,205,196,.12);
   --lav-p:rgba(126,87,194,.12); --rose-p:rgba(236,64,122,.12);
-  --q1-p:rgba(239,83,80,.12); --q2-p:rgba(66,165,245,.12);
-  --q3-p:rgba(255,167,38,.12); --q4-p:rgba(189,189,189,.1);
+  --q1-p:rgba(255,107,107,.12); --q2-p:rgba(78,205,196,.12);
+  --q3-p:rgba(255,217,61,.1); --q4-p:rgba(184,169,154,.1);
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
@@ -142,13 +142,13 @@ body.dark .ai-brief{background:rgba(255,138,101,.06);border-color:rgba(255,138,1
 .quadrant-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:24px}
 .quad-cell{border-radius:var(--r);padding:16px;border:2px solid transparent;min-height:160px;transition:all .2s;position:relative;overflow:hidden}
 .quad-cell::before{content:'';position:absolute;top:0;left:0;right:0;height:4px}
-.q1-cell{background:var(--q1-p);border-color:rgba(239,83,80,.2)}
+.q1-cell{background:var(--q1-p);border-color:rgba(255,107,107,.2)}
 .q1-cell::before{background:var(--q1)}
-.q2-cell{background:var(--q2-p);border-color:rgba(66,165,245,.2)}
+.q2-cell{background:var(--q2-p);border-color:rgba(78,205,196,.2)}
 .q2-cell::before{background:var(--q2)}
-.q3-cell{background:var(--q3-p);border-color:rgba(255,167,38,.2)}
+.q3-cell{background:var(--q3-p);border-color:rgba(255,217,61,.2)}
 .q3-cell::before{background:var(--q3)}
-.q4-cell{background:var(--q4-p);border-color:rgba(189,189,189,.2)}
+.q4-cell{background:var(--q4-p);border-color:rgba(184,169,154,.2)}
 .q4-cell::before{background:var(--q4)}
 .quad-label{font-weight:800;font-size:12px;text-transform:uppercase;letter-spacing:.8px;margin-bottom:2px}
 .quad-desc{font-size:11px;color:var(--ink-m);margin-bottom:10px;font-weight:500}
@@ -390,7 +390,7 @@ body.dark .sinfo{background:var(--warm)}
 .q-badge{display:inline-block;padding:2px 7px;border-radius:6px;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.5px}
 .qb-1{background:var(--q1-p);color:var(--q1)}
 .qb-2{background:var(--q2-p);color:var(--q2)}
-.qb-3{background:var(--q3-p);color:var(--q3)}
+.qb-3{background:var(--q3-p);color:#B8860B}
 .qb-4{background:var(--q4-p);color:var(--ink-m)}
 
 /* ── MODAL ── */
@@ -484,7 +484,7 @@ body.dark .sinfo{background:var(--warm)}
 .fm-orb{position:absolute;border-radius:50%;filter:blur(90px);animation:fmOrb 8s ease-in-out infinite}
 .fm-orb1{width:560px;height:560px;background:rgba(255,138,101,.18);top:-180px;right:-180px;animation-delay:0s}
 .fm-orb2{width:400px;height:400px;background:rgba(126,87,194,.15);bottom:-140px;left:-140px;animation-delay:3s}
-.fm-orb3{width:280px;height:280px;background:rgba(66,165,245,.1);top:45%;right:8%;animation-delay:5.5s}
+.fm-orb3{width:280px;height:280px;background:rgba(78,205,196,.1);top:45%;right:8%;animation-delay:5.5s}
 @keyframes fmOrb{0%,100%{transform:scale(1)}50%{transform:scale(1.1) translate(8px,-8px)}}
 .fm-top{position:absolute;top:0;left:0;right:0;padding:22px 28px;display:flex;align-items:center;justify-content:space-between;z-index:1}
 .fm-logo{font-family:"Playfair Display",serif;font-size:18px;font-weight:700;color:rgba(255,255,255,.22)}
@@ -517,13 +517,13 @@ body.dark .sinfo{background:var(--warm)}
 .tc-focus-btn{width:26px;height:26px;border-radius:7px;border:none;background:rgba(126,87,194,.12);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--lav);transition:all .2s;flex-shrink:0}
 .tc-focus-btn:hover{background:var(--lav);color:#fff}
 /* ENERGY + AI SCHEDULE */
-.e-high{background:rgba(239,83,80,.12);color:#EF5350;border:1px solid rgba(239,83,80,.25);padding:2px 7px;border-radius:8px;font-size:10px;font-weight:800}
+.e-high{background:rgba(255,107,107,.12);color:#FF6B6B;border:1px solid rgba(255,107,107,.25);padding:2px 7px;border-radius:8px;font-size:10px;font-weight:800}
 .e-med{background:rgba(255,179,0,.12);color:#FFB300;border:1px solid rgba(255,179,0,.25);padding:2px 7px;border-radius:8px;font-size:10px;font-weight:800}
 .e-low{background:rgba(102,187,106,.12);color:#66BB6A;border:1px solid rgba(102,187,106,.25);padding:2px 7px;border-radius:8px;font-size:10px;font-weight:800}
 .t-dur{background:var(--sky-p);color:var(--sky);padding:2px 7px;border-radius:8px;font-size:10px;font-weight:800}
 .eopt-row{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:4px}
 .eopt{padding:9px 4px;border-radius:var(--rs);border:2px solid var(--border);text-align:center;font-size:12px;font-weight:800;cursor:pointer;transition:all .2s}
-.eopt.on-high{border-color:#EF5350;background:rgba(239,83,80,.12);color:#EF5350}
+.eopt.on-high{border-color:#FF6B6B;background:rgba(255,107,107,.12);color:#FF6B6B}
 .eopt.on-med{border-color:#FFB300;background:rgba(255,179,0,.12);color:#FFB300}
 .eopt.on-low{border-color:#66BB6A;background:rgba(102,187,106,.12);color:#66BB6A}
 .time-budget{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:11px 16px;margin-bottom:14px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;box-shadow:0 1px 4px var(--sh)}
@@ -535,7 +535,7 @@ body.dark .sinfo{background:var(--warm)}
 .tb-bar-over{background:linear-gradient(90deg,var(--peach),var(--q1))}
 .tb-nums{font-size:12px;font-weight:700;white-space:nowrap}
 .tb-nums-ok{color:var(--sage)}.tb-nums-warn{color:var(--gold)}.tb-nums-over{color:var(--q1)}
-.ai-schedule{background:linear-gradient(135deg,rgba(66,165,245,.08),rgba(126,87,194,.08));border:1px solid rgba(66,165,245,.2);border-radius:var(--r);padding:15px 18px;margin-bottom:16px;display:none}
+.ai-schedule{background:linear-gradient(135deg,rgba(78,205,196,.08),rgba(126,87,194,.08));border:1px solid rgba(78,205,196,.2);border-radius:var(--r);padding:15px 18px;margin-bottom:16px;display:none}
 .ai-sch-hdr{display:flex;align-items:center;gap:8px;margin-bottom:10px}
 .ai-sch-title{font-weight:800;font-size:13px;color:var(--sky)}
 .ai-sch-body{font-size:13px;color:var(--ink-l);line-height:1.7}
@@ -622,6 +622,7 @@ body.dark .sinfo{background:var(--warm)}
 .mob-more-item { display: flex; flex-direction: column; align-items: center; gap: 5px; padding: 12px 8px; background: var(--surface); border: 1px solid var(--border); border-radius: 14px; cursor: pointer; font-family: "Nunito",sans-serif; font-size: 11px; font-weight: 700; color: var(--ink-l); transition: all .2s; }
 .mob-more-item:hover { background: var(--peach-p); color: var(--peach); border-color: var(--peach); }
 .mob-more-ico { font-size: 22px; }
+/* WARM COLOR SYSTEM - patched */
 </style>
 </head>
 <body>
@@ -914,9 +915,9 @@ body.dark .sinfo{background:var(--warm)}
     <div class="fbar">
       <div class="fchips" id="fchips">
         <div class="fchip on" data-f="all" onclick="setF('all')">All</div>
-        <div class="fchip" data-f="q1" onclick="setF('q1')" style="border-color:rgba(239,83,80,.3);color:var(--q1);">🔴 Q1</div>
-        <div class="fchip" data-f="q2" onclick="setF('q2')" style="border-color:rgba(66,165,245,.3);color:var(--q2);">🔵 Q2</div>
-        <div class="fchip" data-f="q3" onclick="setF('q3')" style="border-color:rgba(255,167,38,.3);color:var(--q3);">🟡 Q3</div>
+        <div class="fchip" data-f="q1" onclick="setF('q1')" style="border-color:rgba(255,107,107,.3);color:var(--q1);">🔴 Q1</div>
+        <div class="fchip" data-f="q2" onclick="setF('q2')" style="border-color:rgba(78,205,196,.3);color:var(--q2);">🔵 Q2</div>
+        <div class="fchip" data-f="q3" onclick="setF('q3')" style="border-color:rgba(255,217,61,.3);color:#C8900A;">🟡 Q3</div>
         <div class="fchip" data-f="done" onclick="setF('done')">✅ Done</div>
         <div class="fchip" data-f="overdue" onclick="setF('overdue')">⏰ Overdue</div>
       </div>
@@ -964,7 +965,7 @@ body.dark .sinfo{background:var(--warm)}
         <button class="quad-add" onclick="openAddQ(1)">+ Add Q1 task</button>
       </div>
       <div class="quad-cell q3-cell" id="qcell-3">
-        <div class="quad-label" style="color:var(--q3);">Q3 — Delegate</div>
+        <div class="quad-label" style="color:#C8900A;">Q3 — Delegate</div>
         <div class="quad-desc">Urgent but Not Important · Interruptions</div>
         <div class="quad-tasks" id="qt3"></div>
         <button class="quad-add" onclick="openAddQ(3)">+ Add Q3 task</button>
@@ -985,7 +986,7 @@ body.dark .sinfo{background:var(--warm)}
       </div>
     </div>
   </div>
-  <div style="margin-top:16px;padding:14px;background:var(--q2-p);border-radius:var(--r);border:1px solid rgba(66,165,245,.2);font-size:13px;color:var(--ink-l);line-height:1.6;">
+  <div style="margin-top:16px;padding:14px;background:var(--q2-p);border-radius:var(--r);border:1px solid rgba(78,205,196,.2);font-size:13px;color:var(--ink-l);line-height:1.6;">
     <strong style="color:var(--q2);">💡 Covey's Insight:</strong> "Effective people stay out of Quadrants III and IV because, urgent or not, they aren't important. They shrink Quadrant I by spending more time in Quadrant II — prevention, preparation, and planning."
   </div>
 </div>
@@ -1042,7 +1043,7 @@ body.dark .sinfo{background:var(--warm)}
     <button class="btn btn-p" onclick="openAddRole()">+ Add Role</button>
   </div>
 
-  <div style="background:var(--q2-p);border-radius:var(--r);padding:14px 18px;margin-bottom:20px;border:1px solid rgba(66,165,245,.2);font-size:13px;color:var(--ink-l);line-height:1.6;">
+  <div style="background:var(--q2-p);border-radius:var(--r);padding:14px 18px;margin-bottom:20px;border:1px solid rgba(78,205,196,.2);font-size:13px;color:var(--ink-l);line-height:1.6;">
     <strong style="color:var(--q2);">Habit 3 — Put First Things First:</strong> "Identify your key roles in life, then ask what one or two important results you should accomplish in each role this week. This is principle-centered weekly planning."
   </div>
 
@@ -2530,7 +2531,7 @@ function animCheck(id){
   const chk=document.getElementById('chk-'+id);if(!chk) return;
   chk.classList.add('pop');setTimeout(()=>chk.classList.remove('pop'),400);
   const rect=chk.getBoundingClientRect();
-  const colors=['#FF8A65','#FFB300','#66BB6A','#7E57C2','#42A5F5','#EC407A'];
+  const colors=['#FF8A65','#FFB300','#66BB6A','#7E57C2','#4ECDC4','#EC407A'];
   for(let i=0;i<12;i++){const p=document.createElement('div');p.className='conf';p.style.cssText=`left:${rect.left+rect.width/2+(Math.random()-.5)*55}px;top:${rect.top}px;background:${colors[Math.floor(Math.random()*colors.length)]};transform:rotate(${Math.random()*360}deg);animation-delay:${Math.random()*.2}s;`;document.body.appendChild(p);setTimeout(()=>p.remove(),1000);}
 }
 
@@ -2904,7 +2905,7 @@ function selectEmoji(e) {
 
 function createProfile() {
   const name = document.getElementById('np-name').value.trim();
-  if (!name) { document.getElementById('np-name').style.borderColor = '#EF5350'; return; }
+  if (!name) { document.getElementById('np-name').style.borderColor = '#FF6B6B'; return; }
   const p = { id: 'u_' + Date.now(), name, emoji: selectedEmoji, createdAt: new Date().toISOString() };
   profiles.push(p); saveProfiles();
   document.getElementById('add-profile-form').style.display = 'none';
