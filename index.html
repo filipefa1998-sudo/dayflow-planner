@@ -3266,46 +3266,49 @@ function toggleSection(key) {
 
 
 // MICRO-ANIMATIONS
-var _origToggleTask = typeof toggleTask === "function" ? toggleTask : null;
-function toggleTask(id) {
-  var t = tasks.find(function(x){return x.id===id;});
-  if (!t) return;
-  if (!t.done) {
-    // animate out first then mark done
-    var el = document.getElementById("tc-"+id);
-    if (el) {
-      el.classList.add("completing");
-      setTimeout(function() {
-        if (_origToggleTask) _origToggleTask(id);
-      }, 320);
-    } else {
-      if (_origToggleTask) _origToggleTask(id);
+
+// TOGGLE TASK ANIMATION - safe
+var _toggleAnimApplied = false;
+function applyToggleAnim() {
+  if (_toggleAnimApplied || typeof toggleTask !== "function") return;
+  _toggleAnimApplied = true;
+  var _realToggle = toggleTask;
+  toggleTask = function(id) {
+    var t = tasks ? tasks.find(function(x){return x.id===id;}) : null;
+    if (t && !t.done) {
+      var el = document.getElementById("tc-"+id);
+      if (el) {
+        el.classList.add("completing");
+        setTimeout(function(){ _realToggle(id); }, 320);
+        return;
+      }
     }
-  } else {
-    if (_origToggleTask) _origToggleTask(id);
-  }
+    _realToggle(id);
+  };
 }
-var _origUpdateStats = typeof updateStats === "function" ? updateStats : null;
-function updateStats() {
-  if (_origUpdateStats) _origUpdateStats();
-  ["s-done","s-left"].forEach(function(id) {
-    var el = document.getElementById(id);
-    if (!el) return;
-    el.classList.remove("pop");
-    void el.offsetWidth;
-    el.classList.add("pop");
-  });
+setTimeout(applyToggleAnim, 150);
+
+// ANIMATION STAT POP - fixed
+var _animStatRunning = false;
+var _origUpdateStats2 = null;
+function patchAnimStats() {
+  if (typeof updateStats !== "function") return;
+  _origUpdateStats2 = updateStats;
+  updateStats = function() {
+    if (_animStatRunning) return;
+    _animStatRunning = true;
+    _origUpdateStats2();
+    _animStatRunning = false;
+    ["s-done","s-left"].forEach(function(id) {
+      var el = document.getElementById(id);
+      if (!el) return;
+      el.classList.remove("pop");
+      void el.offsetWidth;
+      el.classList.add("pop");
+    });
+  };
 }
-var _origNav = typeof nav === "function" ? nav : null;
-function nav(v) {
-  if (_origNav) _origNav(v);
-  var el = document.getElementById("view-"+v);
-  if (el) {
-    el.style.animation = "none";
-    void el.offsetWidth;
-    el.style.animation = "";
-  }
-}
+setTimeout(patchAnimStats, 100);
 
 initApp();
 </script>
