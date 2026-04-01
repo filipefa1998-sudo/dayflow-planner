@@ -83,6 +83,7 @@ body.dark .auth-card{background:rgba(36,22,16,.95)}
 .ni:hover{background:var(--peach-p);color:var(--ink)}
 .ni.active{background:var(--peach);color:#fff}
 .ni-icon{font-size:16px;width:20px;text-align:center;flex-shrink:0}
+.ni-text{flex:1}
 .ni-badge{margin-left:auto;font-size:10px;font-weight:700;background:rgba(255,255,255,.3);padding:2px 6px;border-radius:10px}
 .ni:not(.active) .ni-badge{background:var(--border);color:var(--ink-m)}
 .ni .covey-q{width:14px;height:14px;border-radius:4px;margin-left:auto;flex-shrink:0}
@@ -623,6 +624,39 @@ body.dark .sinfo{background:var(--warm)}
 .mob-more-item:hover { background: var(--peach-p); color: var(--peach); border-color: var(--peach); }
 .mob-more-ico { font-size: 22px; }
 /* WARM COLOR SYSTEM - patched */
+/* SIDEBAR COLLAPSIBLE */
+.sidebar{transition:width .25s cubic-bezier(.4,0,.2,1),background .3s;overflow:hidden}
+.sidebar.collapsed{width:56px !important}
+.sidebar.collapsed .sb-label{display:none}
+.sidebar.collapsed .ni-text{display:none}
+.sidebar.collapsed .ni-badge{display:none}
+.sidebar.collapsed .sb-user-info{display:none}
+.sidebar.collapsed .logo-small{display:none}
+.sidebar.collapsed .sb-mission{display:none}
+.sidebar.collapsed .covey-daily{display:none}
+.sidebar.collapsed .grat-widget{display:none}
+.sidebar.collapsed .sb-bottom{display:none}
+.sidebar.collapsed .sb-section{padding:8px 6px 4px}
+.sidebar.collapsed .ni{justify-content:center;padding:10px 6px;border-radius:10px;position:relative}
+.sidebar.collapsed .ni-icon{width:auto;font-size:18px}
+.sidebar.collapsed .sb-top{padding:14px 8px;justify-content:center}
+.sidebar.collapsed .sb-section-hdr{justify-content:center;padding:4px 0}
+.sidebar.collapsed .sb-section-hdr-label{display:none}
+.sidebar.collapsed .sb-section-hdr-arrow{display:none}
+.sidebar.collapsed .ni[title]:hover::after{content:attr(title);position:absolute;left:calc(100% + 10px);top:50%;transform:translateY(-50%);background:var(--ink);color:#fff;padding:5px 10px;border-radius:8px;font-size:12px;font-weight:700;white-space:nowrap;z-index:9999;pointer-events:none;box-shadow:0 4px 12px rgba(0,0,0,.3)}
+.sidebar.collapsed .ni[title]:hover::before{content:"";position:absolute;left:calc(100% + 4px);top:50%;transform:translateY(-50%);border:5px solid transparent;border-right-color:var(--ink);z-index:9999}
+.sb-collapse-btn{display:flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:8px;border:1px solid var(--border);background:var(--surface);cursor:pointer;color:var(--ink-m);font-size:13px;transition:all .2s;flex-shrink:0}
+.sb-collapse-btn:hover{background:var(--peach-p);color:var(--peach);border-color:var(--peach)}
+.sidebar.collapsed .sb-collapse-btn{transform:rotate(180deg)}
+.sb-section-hdr{display:flex;align-items:center;justify-content:space-between;padding:4px 8px 2px;cursor:pointer;user-select:none;transition:opacity .2s}
+.sb-section-hdr:hover{opacity:.7}
+.sb-section-hdr-label{font-size:10px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;color:var(--ink-m)}
+.sb-section-hdr-arrow{font-size:9px;color:var(--ink-m);transition:transform .2s}
+.sb-section-hdr-arrow.open{transform:rotate(0deg)}
+.sb-section-hdr-arrow.closed{transform:rotate(-90deg)}
+.sb-section-body{overflow:hidden;transition:max-height .22s ease}
+.sb-section-body.open{max-height:400px}
+.sb-section-body.closed{max-height:0}
 </style>
 </head>
 <body>
@@ -784,69 +818,83 @@ body.dark .sinfo{background:var(--warm)}
 </div>
 
 <aside class="sidebar">
-  <div class="sb-top">
-    <div class="sb-user">
+  <div class="sb-top" style="display:flex;align-items:center;justify-content:space-between;">
+    <div class="sb-user" style="margin-bottom:0;flex:1;">
       <div class="sb-avatar" id="sb-avatar">F</div>
-      <div>
+      <div class="sb-user-info">
         <div class="sb-name" id="sb-name">Loading...</div>
         <div class="sb-role" id="sb-role-lbl">DayFlow Member</div>
       </div>
     </div>
-    <div class="logo-small">Day<span>Flow</span> <span style="font-size:11px;color:var(--ink-m);font-family:'Nunito',sans-serif;font-weight:600;">2.0</span></div>
+    <button class="sb-collapse-btn" onclick="toggleSidebar()" title="Toggle sidebar">&#9664;</button>
   </div>
-
+  <div style="padding:10px 12px 6px;">
+    <div class="logo-small">Day<span>Flow</span></div>
+  </div>
+  <!-- PLAN SECTION -->
   <div class="sb-section">
-    <span class="sb-label">Plan</span>
-    <div class="ni active" data-v="today" onclick="nav('today')"><span class="ni-icon">☀️</span>Today<span class="ni-badge" id="nb-today">0</span></div>
-    <div class="ni" data-v="quadrant" onclick="nav('quadrant')"><span class="ni-icon">🎯</span>Covey Quadrant</div>
-    <div class="ni" data-v="upcoming" onclick="nav('upcoming')"><span class="ni-icon">📅</span>Upcoming</div>
-    <div class="ni" data-v="inbox" onclick="nav('inbox')"><span class="ni-icon">📥</span>Inbox<span class="ni-badge" id="nb-inbox">0</span></div>
+    <div class="sb-section-hdr" onclick="toggleSection('plan')">
+      <span class="sb-section-hdr-label">Plan</span>
+      <span class="sb-section-hdr-arrow open">&#9660;</span>
+    </div>
+    <div class="sb-section-body open" data-section="plan">
+      <div class="ni active" data-v="today" onclick="nav('today')" title="Today"><span class="ni-icon">&#9728;&#65039;</span><span class="ni-text">Today</span><span class="ni-badge" id="nb-today">0</span></div>
+      <div class="ni" data-v="quadrant" onclick="nav('quadrant')" title="Covey Quadrant"><span class="ni-icon">&#127919;</span><span class="ni-text">Covey Quadrant</span></div>
+      <div class="ni" data-v="upcoming" onclick="nav('upcoming')" title="Upcoming"><span class="ni-icon">&#128197;</span><span class="ni-text">Upcoming</span></div>
+      <div class="ni" data-v="inbox" onclick="nav('inbox')" title="Inbox"><span class="ni-icon">&#128229;</span><span class="ni-text">Inbox</span><span class="ni-badge" id="nb-inbox">0</span></div>
+    </div>
   </div>
-
+  <!-- COVEY SECTION -->
   <div class="sb-section">
-    <span class="sb-label">Covey Framework</span>
-    <div class="ni" data-v="mission" onclick="nav('mission')"><span class="ni-icon">🧭</span>Mission Statement</div>
-    <div class="ni" data-v="roles" onclick="nav('roles')"><span class="ni-icon">👤</span>Roles & Goals</div>
-    <div class="ni" data-v="weekly" onclick="nav('weekly')"><span class="ni-icon">🔄</span>Weekly Review</div>
+    <div class="sb-section-hdr" onclick="toggleSection('covey')">
+      <span class="sb-section-hdr-label">Covey Framework</span>
+      <span class="sb-section-hdr-arrow open">&#9660;</span>
+    </div>
+    <div class="sb-section-body open" data-section="covey">
+      <div class="ni" data-v="mission" onclick="nav('mission')" title="Mission Statement"><span class="ni-icon">&#129517;</span><span class="ni-text">Mission Statement</span></div>
+      <div class="ni" data-v="roles" onclick="nav('roles')" title="Roles &amp; Goals"><span class="ni-icon">&#128100;</span><span class="ni-text">Roles &amp; Goals</span></div>
+      <div class="ni" data-v="weekly" onclick="nav('weekly')" title="Weekly Review"><span class="ni-icon">&#128260;</span><span class="ni-text">Weekly Review</span></div>
+    </div>
   </div>
-
+  <!-- TOOLS SECTION -->
   <div class="sb-section">
-    <span class="sb-label">Tools</span>
-    <div class="ni" data-v="timeblock" onclick="nav('timeblock')"><span class="ni-icon">⏱️</span>Time Blocks</div>
-    <div class="ni" data-v="habits" onclick="nav('habits')"><span class="ni-icon">🔥</span>Habits</div>
-    <div class="ni" data-v="pomodoro" onclick="nav('pomodoro')"><span class="ni-icon">🍅</span>Pomodoro</div>
-    <div class="ni" data-v="notes" onclick="nav('notes')"><span class="ni-icon">📓</span>Notes & Journal<span class="ni-badge" id="nb-notes">0</span></div>
-    <div class="ni" data-v="analytics" onclick="nav('analytics')"><span class="ni-icon">📊</span>Analytics</div>
+    <div class="sb-section-hdr" onclick="toggleSection('tools')">
+      <span class="sb-section-hdr-label">Tools</span>
+      <span class="sb-section-hdr-arrow open">&#9660;</span>
+    </div>
+    <div class="sb-section-body open" data-section="tools">
+      <div class="ni" data-v="timeblock" onclick="nav('timeblock')" title="Time Blocks"><span class="ni-icon">&#9201;&#65039;</span><span class="ni-text">Time Blocks</span></div>
+      <div class="ni" data-v="habits" onclick="nav('habits')" title="Habits"><span class="ni-icon">&#128293;</span><span class="ni-text">Habits</span></div>
+      <div class="ni" data-v="pomodoro" onclick="nav('pomodoro')" title="Pomodoro"><span class="ni-icon">&#127813;</span><span class="ni-text">Pomodoro</span></div>
+      <div class="ni" data-v="notes" onclick="nav('notes')" title="Notes &amp; Journal"><span class="ni-icon">&#128211;</span><span class="ni-text">Notes &amp; Journal</span><span class="ni-badge" id="nb-notes">0</span></div>
+      <div class="ni" data-v="analytics" onclick="nav('analytics')" title="Analytics"><span class="ni-icon">&#128202;</span><span class="ni-text">Analytics</span></div>
+    </div>
   </div>
-
+  <!-- ACCOUNT SECTION -->
   <div class="sb-section">
-    <span class="sb-label">Account</span>
-    <div class="ni" data-v="settings" onclick="nav('settings')"><span class="ni-icon">⚙️</span>Settings<span class="ni-badge" id="nb-ai" style="background:var(--border);color:var(--ink-m);">–</span></div>
-    <div class="ni" data-v="deploy" onclick="nav('deploy')"><span class="ni-icon">🚀</span>Go Live</div>
-    <div class="ni" onclick="signOut()" style="color:var(--ink-m);"><span class="ni-icon">🔀</span>Switch User</div>
+    <div class="sb-section-hdr" onclick="toggleSection('account')">
+      <span class="sb-section-hdr-label">Account</span>
+      <span class="sb-section-hdr-arrow open">&#9660;</span>
+    </div>
+    <div class="sb-section-body open" data-section="account">
+      <div class="ni" data-v="settings" onclick="nav('settings')" title="Settings"><span class="ni-icon">&#9881;&#65039;</span><span class="ni-text">Settings</span><span class="ni-badge" id="nb-ai" style="background:var(--border);color:var(--ink-m);">&#8211;</span></div>
+      <div class="ni" data-v="deploy" onclick="nav('deploy')" title="Go Live"><span class="ni-icon">&#128640;</span><span class="ni-text">Go Live</span></div>
+      <div class="ni" onclick="signOut()" title="Switch User" style="color:var(--ink-m);"><span class="ni-icon">&#128256;</span><span class="ni-text">Switch User</span></div>
+    </div>
   </div>
-
-  <!-- Mission teaser -->
   <div class="sb-mission" onclick="nav('mission')" id="sb-mission-teaser">
-    <div class="sb-mission-label">🧭 My Mission</div>
+    <div class="sb-mission-label">&#129517; My Mission</div>
     <div class="sb-mission-text" id="sb-mission-txt">Click to define your personal mission statement...</div>
   </div>
-
-  <!-- Covey habit of the day -->
+  <!-- grat widget injected here if gratitude patcher applied -->
   <div class="covey-daily">
-    <div class="covey-daily-lbl">💡 Covey Principle</div>
+    <div class="covey-daily-lbl">&#128161; Covey Principle</div>
     <div class="covey-habit-of-day" id="covey-principle-txt">Loading...</div>
   </div>
-
-  <!-- GRATITUDE SIDEBAR WIDGET -->
-<div class="grat-widget" onclick="openGratitude(true)" id="grat-widget">
-  <div class="gw-label">🌅 Today's Gratitude</div>
-  <div class="gw-txt" id="gw-txt">Click to log what you're grateful for today</div>
-</div>
   <div class="sb-bottom">
     <div class="sb-stats">
-      <div class="sb-stat"><div class="sb-stat-n" id="streak-n">0</div><div class="sb-stat-l">🔥 Streak</div></div>
-      <div class="sb-stat"><div class="sb-stat-n" id="karma-n">0</div><div class="sb-stat-l">⚡ Karma</div></div>
+      <div class="sb-stat"><div class="sb-stat-n" id="streak-n">0</div><div class="sb-stat-l">&#128293; Streak</div></div>
+      <div class="sb-stat"><div class="sb-stat-n" id="karma-n">0</div><div class="sb-stat-l">&#9889; Karma</div></div>
     </div>
   </div>
 </aside>
@@ -1742,6 +1790,7 @@ function showApp() {
   document.getElementById('app').style.display='flex';
   if(localStorage.getItem('df_dark')==='1'){document.body.classList.add('dark');document.getElementById('dark-btn').textContent='☀️';}
   updateUserUI(); updateGreeting(); renderAll();
+  if(typeof initSidebar==="function") initSidebar();
   if(typeof updateUserUIMobile==="function") updateUserUIMobile();
   updateGratWidget();
   setTimeout(function(){ openGratitude(false); }, 1200); genBrief(); updateAiBadge(); showCoveyPrinciple(); updateFbBadge(fbReady);
@@ -3104,6 +3153,42 @@ function updateUserUIMobile() {
   if (_origUpdateUserUI) _origUpdateUserUI();
   var mav = document.getElementById("mob-avatar");
   if (mav && currentUser) mav.textContent = currentUser.emoji || (currentUser.name||"U")[0].toUpperCase();
+}
+
+
+// SIDEBAR COLLAPSIBLE
+var sidebarCollapsed = localStorage.getItem("df_sb_collapsed") === "1";
+var sectionStates = JSON.parse(localStorage.getItem("df_sb_sections") || "{}"); 
+function initSidebar() {
+  var sb = document.querySelector(".sidebar");
+  if (!sb) return;
+  if (sidebarCollapsed) sb.classList.add("collapsed");
+  // sync section states
+  document.querySelectorAll(".sb-section-body").forEach(function(body) {
+    var key = body.dataset.section;
+    var open = sectionStates[key] !== false;
+    body.classList.add(open ? "open" : "closed");
+    var arrow = body.previousElementSibling && body.previousElementSibling.querySelector(".sb-section-hdr-arrow");
+    if (arrow) arrow.classList.add(open ? "open" : "closed");
+  });
+}
+function toggleSidebar() {
+  var sb = document.querySelector(".sidebar");
+  if (!sb) return;
+  sidebarCollapsed = !sidebarCollapsed;
+  sb.classList.toggle("collapsed", sidebarCollapsed);
+  localStorage.setItem("df_sb_collapsed", sidebarCollapsed ? "1" : "0");
+}
+function toggleSection(key) {
+  var body = document.querySelector(".sb-section-body[data-section='" + key + "']");
+  if (!body) return;
+  var isOpen = body.classList.contains("open");
+  body.classList.toggle("open", !isOpen);
+  body.classList.toggle("closed", isOpen);
+  var arrow = body.previousElementSibling && body.previousElementSibling.querySelector(".sb-section-hdr-arrow");
+  if (arrow) { arrow.classList.toggle("open", !isOpen); arrow.classList.toggle("closed", isOpen); }
+  sectionStates[key] = !isOpen;
+  localStorage.setItem("df_sb_sections", JSON.stringify(sectionStates));
 }
 
 initApp();
