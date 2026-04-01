@@ -516,6 +516,34 @@ body.dark .sinfo{background:var(--warm)}
 .fm-quote{margin-top:30px;font-size:12px;color:rgba(255,255,255,.2);font-style:italic;font-family:"Playfair Display",serif;max-width:420px;margin-left:auto;margin-right:auto;line-height:1.65}
 .tc-focus-btn{width:26px;height:26px;border-radius:7px;border:none;background:rgba(126,87,194,.12);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--lav);transition:all .2s;flex-shrink:0}
 .tc-focus-btn:hover{background:var(--lav);color:#fff}
+/* ENERGY + AI SCHEDULE */
+.e-high{background:rgba(239,83,80,.12);color:#EF5350;border:1px solid rgba(239,83,80,.25);padding:2px 7px;border-radius:8px;font-size:10px;font-weight:800}
+.e-med{background:rgba(255,179,0,.12);color:#FFB300;border:1px solid rgba(255,179,0,.25);padding:2px 7px;border-radius:8px;font-size:10px;font-weight:800}
+.e-low{background:rgba(102,187,106,.12);color:#66BB6A;border:1px solid rgba(102,187,106,.25);padding:2px 7px;border-radius:8px;font-size:10px;font-weight:800}
+.t-dur{background:var(--sky-p);color:var(--sky);padding:2px 7px;border-radius:8px;font-size:10px;font-weight:800}
+.eopt-row{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:4px}
+.eopt{padding:9px 4px;border-radius:var(--rs);border:2px solid var(--border);text-align:center;font-size:12px;font-weight:800;cursor:pointer;transition:all .2s}
+.eopt.on-high{border-color:#EF5350;background:rgba(239,83,80,.12);color:#EF5350}
+.eopt.on-med{border-color:#FFB300;background:rgba(255,179,0,.12);color:#FFB300}
+.eopt.on-low{border-color:#66BB6A;background:rgba(102,187,106,.12);color:#66BB6A}
+.time-budget{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:11px 16px;margin-bottom:14px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;box-shadow:0 1px 4px var(--sh)}
+.tb-lbl{font-size:12px;font-weight:700;color:var(--ink-l);white-space:nowrap}
+.tb-bar-wrap{flex:1;min-width:120px;background:var(--border);border-radius:20px;height:9px;overflow:hidden}
+.tb-bar-fill{height:100%;border-radius:20px;transition:width .5s}
+.tb-bar-ok{background:linear-gradient(90deg,var(--sage),var(--sky))}
+.tb-bar-warn{background:linear-gradient(90deg,var(--gold),var(--peach))}
+.tb-bar-over{background:linear-gradient(90deg,var(--peach),var(--q1))}
+.tb-nums{font-size:12px;font-weight:700;white-space:nowrap}
+.tb-nums-ok{color:var(--sage)}.tb-nums-warn{color:var(--gold)}.tb-nums-over{color:var(--q1)}
+.ai-schedule{background:linear-gradient(135deg,rgba(66,165,245,.08),rgba(126,87,194,.08));border:1px solid rgba(66,165,245,.2);border-radius:var(--r);padding:15px 18px;margin-bottom:16px;display:none}
+.ai-sch-hdr{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.ai-sch-title{font-weight:800;font-size:13px;color:var(--sky)}
+.ai-sch-body{font-size:13px;color:var(--ink-l);line-height:1.7}
+.seq-item{display:flex;align-items:flex-start;gap:10px;padding:7px 0;border-bottom:1px solid var(--border)}
+.seq-item:last-child{border:none}
+.seq-num{width:22px;height:22px;border-radius:50%;background:var(--sky);color:#fff;font-size:11px;font-weight:800;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.seq-title{font-size:13px;font-weight:700;color:var(--ink)}
+.seq-why{font-size:11px;color:var(--ink-m);margin-top:2px}
 </style>
 </head>
 <body>
@@ -711,6 +739,22 @@ body.dark .sinfo{background:var(--warm)}
       <span class="ai-chip" onclick="aiParse()">✨ AI Parse</span>
       <button class="btn btn-p" onclick="qaAdd()">+ Add</button>
     </div>
+
+    <!-- ENERGY / TIME BUDGET -->
+<div class="time-budget" id="time-budget">
+<div class="tb-lbl">⏱️ Day Budget</div>
+<div class="tb-bar-wrap"><div class="tb-bar-fill tb-bar-ok" id="tb-fill" style="width:0%"></div></div>
+<div class="tb-nums tb-nums-ok" id="tb-nums">No estimates yet</div>
+<button class="afbtn afbtn-s" onclick="aiPlanMyDay()" style="white-space:nowrap;">⚡ AI Plan My Day</button>
+</div>
+<div class="ai-schedule" id="ai-schedule">
+<div class="ai-sch-hdr">
+<span style="font-size:16px;">⚡</span>
+<div class="ai-sch-title">AI Smart Schedule</div>
+<button class="afbtn afbtn-s" style="margin-left:auto;" onclick="document.getElementById('ai-schedule').style.display='none'">✕</button>
+</div>
+<div class="ai-sch-body" id="ai-sch-body"><div class="dots"><span>●</span><span>●</span><span>●</span></div></div>
+</div>
 
     <div class="fbar">
       <div class="fchips" id="fchips">
@@ -1233,6 +1277,31 @@ body.dark .sinfo{background:var(--warm)}
         <div class="fg"><label class="flbl">Project</label><input class="fi" id="m-proj" placeholder="Solo Passport, Ward..."></div>
         <div class="fg"><label class="flbl">Role</label><select class="fsel" id="m-role"><option value="">None</option></select></div>
       </div>
+      <!-- ENERGY + DURATION FIELDS -->
+<div class="frow">
+<div class="fg">
+<label class="flbl">⚡ Energy Required</label>
+<div class="eopt-row">
+<div class="eopt" id="eopt-high" onclick="setEnergy('high')">🔴 High</div>
+<div class="eopt on-med" id="eopt-med" onclick="setEnergy('med')">🟡 Med</div>
+<div class="eopt" id="eopt-low" onclick="setEnergy('low')">🟢 Low</div>
+</div>
+</div>
+<div class="fg">
+<label class="flbl">⏱️ Time Estimate</label>
+<select class="fsel" id="m-dur">
+<option value="0">No estimate</option>
+<option value="15">~15 min</option>
+<option value="30">~30 min</option>
+<option value="45">~45 min</option>
+<option value="60">~1 hour</option>
+<option value="90">~1.5 hours</option>
+<option value="120">~2 hours</option>
+<option value="180">~3 hours</option>
+<option value="240">~4 hours</option>
+</select>
+</div>
+</div>
       <div class="fg">
         <label class="flbl">Covey Quadrant</label>
         <div class="qopt-row">
@@ -1577,6 +1646,7 @@ function renderAll() {
   renderComingUp();
   renderQ2Panel();
   populateRoleSelect();
+  if(typeof updateTimeBudget==="function")updateTimeBudget();
 }
 
 // ═══════════════════════════════════════════════════════
@@ -1649,6 +1719,8 @@ function tCard(t) {
   if(t.quadrant===2) tags.push(`<span class="q-badge qb-2">Q2</span>`);
   if(stT) tags.push(`<span style="font-size:10px;color:var(--ink-m);font-weight:700;">✔ ${stD}/${stT}</span>`);
   (t.tags||[]).forEach(tg=>tags.push(`<span class="tag t-tag">#${tg}</span>`));
+  if(t.energy){var eLabels={high:"🔴 High",med:"🟡 Med",low:"🟢 Low"};var eCls={high:"e-high",med:"e-med",low:"e-low"};tags.push('<span class="'+eCls[t.energy]+'">'+eLabels[t.energy]+'</span>');}
+  if(t.duration&&parseInt(t.duration)){var dMins=parseInt(t.duration);var dTxt=dMins<60?dMins+"m":Math.floor(dMins/60)+"h"+(dMins%60?" "+dMins%60+"m":"");tags.push('<span class="t-dur">⏱ '+dTxt+'</span>');}
   return `<div class="tc ${qc} ${done}" id="tc-${t.id}" draggable="true" ondragstart="dragStart(event,'${t.id}')" ondragover="dragOver(event,'${t.id}')" ondragend="dragEnd()">
     <div class="q-bar"></div>
     <div class="drag-h">⋮⋮</div>
@@ -1763,6 +1835,7 @@ function openAdd(date) {
   document.getElementById('m-role').value='';
   document.getElementById('parse-res').style.display='none';
   setQ(2);renderSTs();renderTags();
+  selEnergy="med";setEnergy("med");var mdur=document.getElementById("m-dur");if(mdur)mdur.value="0";
   openModal('m-task');
   setTimeout(()=>document.getElementById('m-title').focus(),120);
 }
@@ -1782,6 +1855,7 @@ function openEdit(id) {
   document.getElementById('m-role').value=t.role||'';
   document.getElementById('parse-res').style.display='none';
   setQ(t.quadrant||2);renderSTs();renderTags();
+  selEnergy=t.energy||"med";setEnergy(t.energy||"med");var mdur=document.getElementById("m-dur");if(mdur)mdur.value=t.duration||0;
   openModal('m-task');
 }
 
@@ -1797,6 +1871,8 @@ function saveTask() {
     recurring:document.getElementById('m-rec').value,
     role:document.getElementById('m-role').value,
     quadrant:selQ,
+    energy:selEnergy,
+    duration:parseInt((document.getElementById("m-dur")||{}).value)||0,
     done:editId?(tasks.find(t=>t.id===editId)||{}).done||false:false,
     createdAt:editId?(tasks.find(t=>t.id===editId)||{}).createdAt:new Date().toISOString(),
   };
@@ -2724,6 +2800,61 @@ function fmStartSound(){fmStopSound();if(fmSound==="off")return;try{fmACtx=new(w
 function fmStopSound(){if(fmGainNode){try{fmGainNode.gain.linearRampToValueAtTime(0,fmACtx.currentTime+0.5);}catch(e){}}setTimeout(function(){fmNodes.forEach(function(n){try{n.stop();}catch(e){}});fmNodes=[];if(fmACtx){try{fmACtx.close();}catch(e){}fmACtx=null;fmGainNode=null;}},600);}
 function setFMSound(s){fmSound=s;document.querySelectorAll(".fm-snd").forEach(function(b){b.classList.remove("on");});document.getElementById("fms-"+s).classList.add("on");if(document.getElementById("focus-mode").classList.contains("open")){fmStopSound();setTimeout(fmStartSound,700);}}
 document.addEventListener("keydown",function(e){if(e.key==="Escape"&&document.getElementById("focus-mode").classList.contains("open"))closeFocusMode();});
+
+
+// ENERGY TAGGING + AI SCHEDULE
+var selEnergy = "med";
+function setEnergy(e) {
+  selEnergy = e;
+  ["high","med","low"].forEach(function(x) {
+    var el = document.getElementById("eopt-"+x);
+    if (el) el.className = "eopt" + (x===e ? " on-"+e : "");
+  });
+}
+function updateTimeBudget() {
+  var today = todayStr();
+  var todayTasks = tasks.filter(function(t){return t.date===today&&!t.done;});
+  var totalMins = todayTasks.reduce(function(s,t){return s+(parseInt(t.duration)||0);},0);
+  var availMins = 8*60;
+  var pct = Math.min(100, Math.round(totalMins/availMins*100));
+  var fill = document.getElementById("tb-fill");
+  var nums = document.getElementById("tb-nums");
+  if (!fill || !nums) return;
+  fill.style.width = pct + "%";
+  var h = Math.floor(totalMins/60), m = totalMins%60;
+  var txt = totalMins===0 ? "No estimates yet" : (totalMins<60 ? totalMins+"m" : h+"h"+(m?" "+m+"m":"")) + " of ~8h";
+  nums.textContent = txt;
+  var cls = pct > 100 ? "over" : pct > 80 ? "warn" : "ok";
+  fill.className = "tb-bar-fill tb-bar-"+cls;
+  nums.className = "tb-nums tb-nums-"+cls;
+}
+async function aiPlanMyDay() {
+  var panel = document.getElementById("ai-schedule");
+  var body = document.getElementById("ai-sch-body");
+  panel.style.display = "block";
+  body.innerHTML = "<div class='dots'><span>●</span><span>●</span><span>●</span></div>";
+  var today = todayStr();
+  var pending = tasks.filter(function(t){return t.date===today&&!t.done;});
+  if (!pending.length) { body.textContent = "No pending tasks for today!"; return; }
+  var h = new Date().getHours();
+  var timeOfDay = h < 12 ? "morning" : h < 17 ? "afternoon" : "evening";
+  var taskList = pending.map(function(t,i) {
+    var e = t.energy||"med";
+    var d = t.duration ? t.duration+"min" : "unknown duration";
+    return (i+1)+". "+t.title+" [Q"+(t.quadrant||2)+"] ["+e+" energy] ["+d+"]"+(t.project?" ("+t.project+")":"");
+  }).join("\n");
+  var prompt = "You are a Covey-based productivity coach. It is "+timeOfDay+". Plan the optimal task sequence for today using these principles: do Q1 (urgent+important) first, batch low-energy tasks together, schedule high-energy tasks when focus is best. Return ONLY a numbered list, one task per line, format: \"N. [task title] — [one sentence why this order]\"\n\nTasks:\n"+taskList;
+  try {
+    var text = await callAI(prompt, 400);
+    if (!text) return;
+    var lines = text.split("\n").filter(function(l){return l.trim();});
+    body.innerHTML = lines.map(function(line) {
+      var m = line.match(/^(\d+)\.\s*(.+?)s*[—\-]{1,3}\s*(.+)$/);
+      if (m) return "<div class='seq-item'><div class='seq-num'>"+m[1]+"</div><div><div class='seq-title'>"+m[2]+"</div><div class='seq-why'>"+m[3]+"</div></div></div>";
+      return "<div style='padding:5px 0;font-size:13px;color:var(--ink-l);'>"+line+"</div>";
+    }).join("");
+  } catch(e) { body.textContent = "AI unavailable. Add your Gemini key in Settings!"; }
+}
 
 initApp();
 </script>
