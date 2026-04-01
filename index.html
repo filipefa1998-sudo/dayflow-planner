@@ -477,6 +477,45 @@ body.dark .sinfo{background:var(--warm)}
 .covey-daily{margin:0 12px 12px;padding:12px;background:var(--lav-p);border-radius:12px;border:1px solid rgba(126,87,194,.15)}
 .covey-daily-lbl{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:var(--lav);margin-bottom:5px}
 .covey-habit-of-day{font-size:12px;color:var(--ink-l);line-height:1.5;font-weight:500}
+/* FOCUS MODE */
+#focus-mode{position:fixed;inset:0;z-index:9000;background:#0D0704;display:none;flex-direction:column;align-items:center;justify-content:center;overflow:hidden}
+#focus-mode.open{display:flex}
+.fm-bg{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.fm-orb{position:absolute;border-radius:50%;filter:blur(90px);animation:fmOrb 8s ease-in-out infinite}
+.fm-orb1{width:560px;height:560px;background:rgba(255,138,101,.18);top:-180px;right:-180px;animation-delay:0s}
+.fm-orb2{width:400px;height:400px;background:rgba(126,87,194,.15);bottom:-140px;left:-140px;animation-delay:3s}
+.fm-orb3{width:280px;height:280px;background:rgba(66,165,245,.1);top:45%;right:8%;animation-delay:5.5s}
+@keyframes fmOrb{0%,100%{transform:scale(1)}50%{transform:scale(1.1) translate(8px,-8px)}}
+.fm-top{position:absolute;top:0;left:0;right:0;padding:22px 28px;display:flex;align-items:center;justify-content:space-between;z-index:1}
+.fm-logo{font-family:"Playfair Display",serif;font-size:18px;font-weight:700;color:rgba(255,255,255,.22)}
+.fm-mode-pill{padding:5px 14px;border-radius:20px;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:1.2px;transition:all .4s}
+.fm-mode-focus{background:rgba(255,138,101,.2);color:#FF8A65;border:1px solid rgba(255,138,101,.35)}
+.fm-mode-break{background:rgba(102,187,106,.2);color:#66BB6A;border:1px solid rgba(102,187,106,.35)}
+.fm-close{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.5);border-radius:10px;padding:7px 16px;font-family:"Nunito",sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:all .2s}
+.fm-close:hover{background:rgba(255,255,255,.18);color:#fff}
+.fm-content{text-align:center;z-index:1;max-width:560px;padding:0 24px;width:100%}
+.fm-eyebrow{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:2.5px;color:rgba(255,138,101,.65);margin-bottom:16px}
+.fm-task{font-family:"Playfair Display",serif;font-size:clamp(18px,3.5vw,32px);font-weight:700;color:#fff;margin-bottom:7px;line-height:1.3}
+.fm-project{font-size:13px;color:rgba(255,255,255,.32);margin-bottom:38px;font-weight:600}
+.fm-ring-wrap{width:190px;height:190px;position:relative;margin:0 auto 26px}
+.fm-ring-svg{width:100%;height:100%;transform:rotate(-90deg)}
+.fm-ring-track{fill:none;stroke:rgba(255,255,255,.06);stroke-width:5}
+.fm-ring-arc{fill:none;stroke-width:5;stroke-linecap:round;transition:stroke-dashoffset 1s linear,stroke .5s}
+.fm-ring-time{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:"Playfair Display",serif;font-size:46px;font-weight:700;color:#fff;letter-spacing:-2px;line-height:1}
+.fm-ring-sess{position:absolute;bottom:-4px;left:50%;transform:translateX(-50%);font-size:11px;color:rgba(255,255,255,.3);font-weight:700;white-space:nowrap}
+.fm-ctrls{display:flex;gap:10px;justify-content:center;margin-bottom:30px}
+.fm-btn{padding:11px 26px;border-radius:14px;border:none;font-family:"Nunito",sans-serif;font-weight:800;font-size:14px;cursor:pointer;transition:all .2s}
+.fm-btn-p{background:var(--peach);color:#fff;box-shadow:0 4px 20px rgba(255,138,101,.4)}
+.fm-btn-p:hover{transform:scale(1.04)}
+.fm-btn-s{background:rgba(255,255,255,.08);color:rgba(255,255,255,.6);border:1px solid rgba(255,255,255,.12)}
+.fm-btn-s:hover{background:rgba(255,255,255,.16);color:#fff}
+.fm-sounds{display:flex;gap:9px;justify-content:center;flex-wrap:wrap}
+.fm-snd{display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 14px;border-radius:14px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);color:rgba(255,255,255,.45);cursor:pointer;transition:all .2s;font-family:"Nunito",sans-serif;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;min-width:64px}
+.fm-snd:hover,.fm-snd.on{background:rgba(255,138,101,.18);border-color:rgba(255,138,101,.45);color:#FF8A65}
+.fm-snd-ico{font-size:20px}
+.fm-quote{margin-top:30px;font-size:12px;color:rgba(255,255,255,.2);font-style:italic;font-family:"Playfair Display",serif;max-width:420px;margin-left:auto;margin-right:auto;line-height:1.65}
+.tc-focus-btn{width:26px;height:26px;border-radius:7px;border:none;background:rgba(126,87,194,.12);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--lav);transition:all .2s;flex-shrink:0}
+.tc-focus-btn:hover{background:var(--lav);color:#fff}
 </style>
 </head>
 <body>
@@ -528,6 +567,41 @@ body.dark .sinfo{background:var(--warm)}
 <div id="toast"></div>
 
 <div id="app" style="display:none;">
+<!-- FOCUS MODE OVERLAY -->
+<div id="focus-mode">
+<div class="fm-bg"><div class="fm-orb fm-orb1"></div><div class="fm-orb fm-orb2"></div><div class="fm-orb fm-orb3"></div></div>
+<div class="fm-top">
+<div class="fm-logo">DayFlow</div>
+<div class="fm-mode-pill fm-mode-focus" id="fm-pill">🎯 Focus</div>
+<button class="fm-close" onclick="closeFocusMode()">✕ Exit Focus</button>
+</div>
+<div class="fm-content">
+<div class="fm-eyebrow">Deep Work Session</div>
+<div class="fm-task" id="fm-task-name">Select a task to focus on</div>
+<div class="fm-project" id="fm-task-sub"></div>
+<div class="fm-ring-wrap">
+<svg class="fm-ring-svg" viewBox="0 0 100 100">
+<circle class="fm-ring-track" cx="50" cy="50" r="44"/>
+<circle class="fm-ring-arc" id="fm-arc" cx="50" cy="50" r="44" stroke="var(--peach)" stroke-dasharray="276.5" stroke-dashoffset="0"/>
+</svg>
+<div class="fm-ring-time" id="fm-time">25:00</div>
+<div class="fm-ring-sess" id="fm-sess-lbl">Session 1</div>
+</div>
+<div class="fm-ctrls">
+<button class="fm-btn fm-btn-s" onclick="fmReset()">↺</button>
+<button class="fm-btn fm-btn-p" id="fm-toggle" onclick="fmToggle()">▶ Start</button>
+<button class="fm-btn fm-btn-s" id="fm-skip" onclick="fmSkip()" style="display:none;">→ Skip Break</button>
+</div>
+<div class="fm-sounds">
+<div class="fm-snd" id="fms-off" onclick="setFMSound('off')"><div class="fm-snd-ico">🔇</div>Off</div>
+<div class="fm-snd on" id="fms-rain" onclick="setFMSound('rain')"><div class="fm-snd-ico">🌧️</div>Rain</div>
+<div class="fm-snd" id="fms-cafe" onclick="setFMSound('cafe')"><div class="fm-snd-ico">☕</div>Café</div>
+<div class="fm-snd" id="fms-white" onclick="setFMSound('white')"><div class="fm-snd-ico">🌊</div>White</div>
+<div class="fm-snd" id="fms-forest" onclick="setFMSound('forest')"><div class="fm-snd-ico">🌳</div>Forest</div>
+</div>
+<div class="fm-quote" id="fm-quote">"The key is not to prioritize your schedule, but to schedule your priorities." — Covey</div>
+</div>
+</div>
 
 <!-- SIDEBAR -->
 <aside class="sidebar">
@@ -852,6 +926,7 @@ body.dark .sinfo{background:var(--warm)}
     <div class="pctrls">
       <button class="pcbtn pcbtn-s" onclick="resetPomo()">↺ Reset</button>
       <button class="pcbtn pcbtn-p" id="p-toggle" onclick="togglePomo()">▶ Start</button>
+      <button class="pcbtn pcbtn-s" onclick="openFocusMode(pomoFocusId)">🎯 Focus Mode</button>
     </div>
     <div class="psess">Sessions: <strong id="p-sess-n">0</strong>
       <div class="pdots" id="p-dots"></div>
@@ -1583,6 +1658,7 @@ function tCard(t) {
       ${tags.length?`<div class="tc-meta">${tags.join('')}</div>`:''}
     </div>
     <div class="tc-acts">
+      <button class="tc-focus-btn" title="Focus Mode" onclick="event.stopPropagation();openFocusMode('${t.id}')">🎯</button>
       <button class="tc-act" onclick="openEdit('${t.id}')">✏️</button>
       <button class="tc-act" onclick="delTask('${t.id}')">🗑️</button>
     </div>
@@ -2626,6 +2702,29 @@ function signOut() {
 // ═══════════════════════════════════════════════════════
 // START
 // ═══════════════════════════════════════════════════════
+
+// FOCUS MODE
+var FM_QUOTES=["The key is not to prioritize your schedule, but to schedule your priorities. — Covey","Most of us spend too much time on what is urgent and not enough on what is important. — Covey","Begin with the end in mind. — Covey","Proactive people focus their efforts in the Circle of Influence. — Covey","Sow an action, reap a habit; sow a habit, reap a character. — Covey"];
+var fmRunning=false,fmSecs=1500,fmTotal=1500,fmPhase="work",fmInterval=null,fmSessions=0;
+var fmSound="rain",fmACtx=null,fmGainNode=null,fmNodes=[];
+function openFocusMode(taskId){
+  var el=document.getElementById("focus-mode");el.classList.add("open");fmReset();
+  if(taskId){var t=tasks.find(function(x){return x.id===taskId;});if(t){document.getElementById("fm-task-name").textContent=t.title;var parts=[];if(t.project)parts.push("📁 "+t.project);if(t.time)parts.push("🕐 "+t.time);document.getElementById("fm-task-sub").textContent=parts.join("  ·  ");if(typeof pomoFocusId!=="undefined")pomoFocusId=taskId;}}
+  else{document.getElementById("fm-task-name").textContent="Click 🎯 on any task card";document.getElementById("fm-task-sub").textContent="";}
+  document.getElementById("fm-quote").textContent=FM_QUOTES[Math.floor(Math.random()*FM_QUOTES.length)];
+  fmStartSound();
+}
+function closeFocusMode(){var el=document.getElementById("focus-mode");if(!el.classList.contains("open"))return;el.classList.remove("open");clearInterval(fmInterval);fmRunning=false;fmStopSound();document.getElementById("fm-toggle").textContent="▶ Start";}
+function fmToggle(){if(fmRunning){clearInterval(fmInterval);fmRunning=false;document.getElementById("fm-toggle").textContent="▶ Resume";}else{fmRunning=true;document.getElementById("fm-toggle").textContent="⏸ Pause";fmInterval=setInterval(function(){fmSecs--;fmUpdateDisplay();if(fmSecs<=0){clearInterval(fmInterval);fmRunning=false;fmPhaseEnd();}},1000);}}
+function fmPhaseEnd(){if(fmPhase==="work"){fmSessions++;if(typeof addKarma==="function")addKarma(25,"Focus session complete!");if(typeof pomoSessions!=="undefined"){pomoSessions=fmSessions;var pn=document.getElementById("p-sess-n");if(pn)pn.textContent=fmSessions;if(typeof renderPomoDots==="function")renderPomoDots();}fmPhase=fmSessions%4===0?"long":"short";fmSecs=fmPhase==="long"?900:300;fmTotal=fmSecs;document.getElementById("fm-pill").textContent="☕ Break";document.getElementById("fm-pill").className="fm-mode-pill fm-mode-break";document.getElementById("fm-arc").style.stroke="var(--sage)";document.getElementById("fm-skip").style.display="inline-flex";document.getElementById("fm-toggle").textContent="▶ Start Break";document.getElementById("fm-sess-lbl").textContent="Session "+(fmSessions+1);if(typeof toast==="function")toast("Session done! Take a break. +25 karma");}else{fmPhase="work";fmSecs=1500;fmTotal=1500;document.getElementById("fm-pill").textContent="🎯 Focus";document.getElementById("fm-pill").className="fm-mode-pill fm-mode-focus";document.getElementById("fm-arc").style.stroke="var(--peach)";document.getElementById("fm-skip").style.display="none";document.getElementById("fm-toggle").textContent="▶ Start";if(typeof toast==="function")toast("Break over — back to work!");}fmUpdateDisplay();}
+function fmReset(){clearInterval(fmInterval);fmRunning=false;fmPhase="work";fmSecs=1500;fmTotal=1500;document.getElementById("fm-toggle").textContent="▶ Start";document.getElementById("fm-skip").style.display="none";document.getElementById("fm-pill").textContent="🎯 Focus";document.getElementById("fm-pill").className="fm-mode-pill fm-mode-focus";document.getElementById("fm-arc").style.stroke="var(--peach)";document.getElementById("fm-sess-lbl").textContent=fmSessions>0?"Session "+(fmSessions+1):"Session 1";fmUpdateDisplay();}
+function fmSkip(){clearInterval(fmInterval);fmRunning=false;fmPhase="work";fmSecs=1500;fmTotal=1500;document.getElementById("fm-pill").textContent="🎯 Focus";document.getElementById("fm-pill").className="fm-mode-pill fm-mode-focus";document.getElementById("fm-arc").style.stroke="var(--peach)";document.getElementById("fm-skip").style.display="none";document.getElementById("fm-toggle").textContent="▶ Start";fmUpdateDisplay();}
+function fmUpdateDisplay(){var m=Math.floor(fmSecs/60).toString().padStart(2,"0");var s=(fmSecs%60).toString().padStart(2,"0");document.getElementById("fm-time").textContent=m+":"+s;document.getElementById("fm-arc").style.strokeDashoffset=276.5*(1-fmSecs/fmTotal);}
+function fmStartSound(){fmStopSound();if(fmSound==="off")return;try{fmACtx=new(window.AudioContext||window.webkitAudioContext)();fmGainNode=fmACtx.createGain();fmGainNode.gain.setValueAtTime(0,fmACtx.currentTime);fmGainNode.gain.linearRampToValueAtTime(0.26,fmACtx.currentTime+1.5);fmGainNode.connect(fmACtx.destination);var sr=fmACtx.sampleRate;var buf=fmACtx.createBuffer(2,sr*4,sr);for(var ch=0;ch<2;ch++){var d=buf.getChannelData(ch);if(fmSound==="white"){for(var i=0;i<d.length;i++)d[i]=(Math.random()*2-1)*0.5;}else if(fmSound==="rain"||fmSound==="forest"){var last=0;for(var i=0;i<d.length;i++){var w=Math.random()*2-1;last=(last+0.02*w)/1.02;d[i]=last*4;}}else if(fmSound==="cafe"){var b0=0,b1=0,b2=0,b3=0,b4=0,b5=0,b6=0;for(var i=0;i<d.length;i++){var w=Math.random();b0=0.99886*b0+w*0.0555179;b1=0.99332*b1+w*0.0750759;b2=0.969*b2+w*0.153852;b3=0.8665*b3+w*0.3104856;b4=0.55*b4+w*0.5329522;b5=-0.7616*b5-w*0.016898;d[i]=(b0+b1+b2+b3+b4+b5+b6+w*0.5362)*0.11;b6=w*0.115926;}}}var src=fmACtx.createBufferSource();src.buffer=buf;src.loop=true;var lpf=fmACtx.createBiquadFilter();lpf.type="lowpass";var freqs={white:5500,rain:1600,cafe:2800,forest:1000};lpf.frequency.value=freqs[fmSound]||2000;lpf.Q.value=0.4;src.connect(lpf);lpf.connect(fmGainNode);src.start();fmNodes.push(src);if(fmSound==="rain"||fmSound==="forest"){var lfo=fmACtx.createOscillator();var lg=fmACtx.createGain();lfo.frequency.value=fmSound==="forest"?0.07:0.16;lg.gain.value=0.055;lfo.connect(lg);lg.connect(fmGainNode.gain);lfo.start();fmNodes.push(lfo);}}catch(e){console.warn("Audio:",e);}}
+function fmStopSound(){if(fmGainNode){try{fmGainNode.gain.linearRampToValueAtTime(0,fmACtx.currentTime+0.5);}catch(e){}}setTimeout(function(){fmNodes.forEach(function(n){try{n.stop();}catch(e){}});fmNodes=[];if(fmACtx){try{fmACtx.close();}catch(e){}fmACtx=null;fmGainNode=null;}},600);}
+function setFMSound(s){fmSound=s;document.querySelectorAll(".fm-snd").forEach(function(b){b.classList.remove("on");});document.getElementById("fms-"+s).classList.add("on");if(document.getElementById("focus-mode").classList.contains("open")){fmStopSound();setTimeout(fmStartSound,700);}}
+document.addEventListener("keydown",function(e){if(e.key==="Escape"&&document.getElementById("focus-mode").classList.contains("open"))closeFocusMode();});
+
 initApp();
 </script>
 </body>
