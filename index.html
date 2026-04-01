@@ -567,6 +567,61 @@ body.dark .sinfo{background:var(--warm)}
 .grat-widget:hover{transform:translateY(-1px);box-shadow:0 4px 12px var(--sh)}
 .gw-label{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:var(--gold);margin-bottom:4px}
 .gw-txt{font-size:12px;color:var(--ink-l);line-height:1.5;font-style:italic}
+/* MOBILE LAYOUT */
+:root { --mob-nav: 62px; }
+@media (max-width: 768px) {
+  #app { flex-direction: column; }
+  .sidebar { display: none !important; }
+  .rpanel { display: none !important; }
+  .main { padding-bottom: var(--mob-nav); }
+  .mob-header { display: flex !important; }
+  .mob-nav { display: flex !important; }
+  #toast { bottom: calc(var(--mob-nav) + 10px); }
+  #karma-toast { top: auto; bottom: calc(var(--mob-nav) + 10px); right: 12px; left: 12px; text-align: center; }
+  .dark-btn { bottom: calc(var(--mob-nav) + 10px); }
+  .view { padding: 14px 16px; max-width: 100%; }
+  .pg-title { font-size: 24px; }
+  .pg-hdr { flex-direction: column; gap: 10px; }
+  .stats { grid-template-columns: repeat(2,1fr); }
+  .roles-grid { grid-template-columns: repeat(2,1fr); }
+  .principles-grid { grid-template-columns: 1fr; }
+  .kb { grid-template-columns: 1fr 1fr; }
+  .frow { grid-template-columns: 1fr; }
+  .qopt-row { grid-template-columns: repeat(2,1fr); }
+  .qabar { flex-wrap: wrap; }
+  .qa-in { min-width: 100%; }
+  .wr-steps { flex-direction: column; }
+  .wr-step { border-right: none; border-bottom: 1px solid var(--border); }
+  .wr-step:last-child { border-bottom: none; }
+  .auth-card { padding: 32px 20px; }
+  #view-today > div:first-child { padding: 14px 16px 0; }
+  #view-today > div:last-child { padding: 0 16px 14px; }
+  .fbar { gap: 5px; }
+  .fsearch { min-width: 80px; }
+}
+@media (max-width: 480px) {
+  .roles-grid { grid-template-columns: 1fr; }
+  .kb { grid-template-columns: 1fr; }
+  .stats { grid-template-columns: 1fr 1fr; }
+}
+.mob-header { display: none; position: sticky; top: 0; z-index: 300; background: var(--warm); border-bottom: 1px solid var(--border); padding: 10px 16px; align-items: center; justify-content: space-between; gap: 10px; }
+.mob-logo { font-family: "Playfair Display",serif; font-size: 20px; font-weight: 900; color: var(--peach); letter-spacing: -.3px; }
+.mob-logo span { color: var(--ink); }
+.mob-hdr-right { display: flex; align-items: center; gap: 8px; }
+.mob-add-btn { padding: 7px 14px; background: var(--peach); color: #fff; border: none; border-radius: 10px; font-family: "Nunito",sans-serif; font-weight: 700; font-size: 13px; cursor: pointer; }
+.mob-avatar { width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg,var(--peach),var(--gold)); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 13px; color: #fff; cursor: pointer; flex-shrink: 0; }
+.mob-nav { display: none; position: fixed; bottom: 0; left: 0; right: 0; z-index: 500; background: var(--warm); border-top: 1px solid var(--border); height: var(--mob-nav); align-items: stretch; box-shadow: 0 -4px 20px var(--sh); }
+.mob-nav-btn { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; cursor: pointer; border: none; background: transparent; font-family: "Nunito",sans-serif; color: var(--ink-m); padding: 6px 4px; transition: all .2s; }
+.mob-nav-btn.mob-active { color: var(--peach); }
+.mob-nav-btn.mob-active .mob-nav-ico { transform: translateY(-2px); }
+.mob-nav-ico { font-size: 20px; transition: transform .2s; }
+.mob-nav-lbl { font-size: 9px; font-weight: 700; letter-spacing: .3px; }
+.mob-nav-dot { position: absolute; top: 8px; right: calc(50% - 14px); width: 7px; height: 7px; border-radius: 50%; background: var(--peach); }
+.mob-more-menu { display: none; position: fixed; bottom: calc(var(--mob-nav) + 8px); left: 8px; right: 8px; z-index: 600; background: var(--warm); border-radius: 20px; border: 1px solid var(--border); box-shadow: 0 -8px 32px var(--sh2); padding: 16px; animation: slideUp .2s ease; }
+.mob-more-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; }
+.mob-more-item { display: flex; flex-direction: column; align-items: center; gap: 5px; padding: 12px 8px; background: var(--surface); border: 1px solid var(--border); border-radius: 14px; cursor: pointer; font-family: "Nunito",sans-serif; font-size: 11px; font-weight: 700; color: var(--ink-l); transition: all .2s; }
+.mob-more-item:hover { background: var(--peach-p); color: var(--peach); border-color: var(--peach); }
+.mob-more-ico { font-size: 22px; }
 </style>
 </head>
 <body>
@@ -678,6 +733,55 @@ body.dark .sinfo{background:var(--warm)}
 </div>
 
 <!-- SIDEBAR -->
+<!-- MOBILE HEADER -->
+<div class="mob-header" id="mob-header">
+  <div class="mob-logo">Day<span>Flow</span></div>
+  <div class="mob-hdr-right">
+    <button class="mob-add-btn" onclick="openAdd()">+ Task</button>
+    <div class="mob-avatar" id="mob-avatar" onclick="signOut()">F</div>
+  </div>
+</div>
+
+<!-- MOBILE BOTTOM NAV -->
+<nav class="mob-nav" id="mob-nav">
+  <button class="mob-nav-btn mob-active" id="mobnav-today" onclick="nav('today');setMobNav('today')">
+    <span class="mob-nav-ico">☀️</span>
+    <span class="mob-nav-lbl">Today</span>
+  </button>
+  <button class="mob-nav-btn" id="mobnav-quadrant" onclick="nav('quadrant');setMobNav('quadrant')">
+    <span class="mob-nav-ico">🎯</span>
+    <span class="mob-nav-lbl">Quadrant</span>
+  </button>
+  <button class="mob-nav-btn" id="mobnav-focus" onclick="openFocusMode(null)">
+    <span class="mob-nav-ico">💡</span>
+    <span class="mob-nav-lbl" style="color:var(--lav);font-weight:900;">Focus</span>
+  </button>
+  <button class="mob-nav-btn" id="mobnav-habits" onclick="nav('habits');setMobNav('habits')">
+    <span class="mob-nav-ico">🔥</span>
+    <span class="mob-nav-lbl">Habits</span>
+  </button>
+  <button class="mob-nav-btn" id="mobnav-more" onclick="toggleMobMore()">
+    <span class="mob-nav-ico">☰</span>
+    <span class="mob-nav-lbl">More</span>
+  </button>
+</nav>
+<!-- MOBILE MORE MENU -->
+<div class="mob-more-menu" id="mob-more-menu">
+  <div class="mob-more-grid">
+    <div class="mob-more-item" onclick="nav('upcoming');closeMobMore();setMobNav('upcoming')"><span class="mob-more-ico">📅</span>Upcoming</div>
+    <div class="mob-more-item" onclick="nav('inbox');closeMobMore();setMobNav('inbox')"><span class="mob-more-ico">📥</span>Inbox</div>
+    <div class="mob-more-item" onclick="nav('mission');closeMobMore();setMobNav('mission')"><span class="mob-more-ico">🧭</span>Mission</div>
+    <div class="mob-more-item" onclick="nav('roles');closeMobMore();setMobNav('roles')"><span class="mob-more-ico">👤</span>Roles</div>
+    <div class="mob-more-item" onclick="nav('weekly');closeMobMore();setMobNav('weekly')"><span class="mob-more-ico">🔄</span>Review</div>
+    <div class="mob-more-item" onclick="nav('timeblock');closeMobMore();setMobNav('timeblock')"><span class="mob-more-ico">⏱️</span>Time</div>
+    <div class="mob-more-item" onclick="nav('pomodoro');closeMobMore();setMobNav('pomodoro')"><span class="mob-more-ico">🍅</span>Pomodoro</div>
+    <div class="mob-more-item" onclick="nav('notes');closeMobMore();setMobNav('notes')"><span class="mob-more-ico">📓</span>Notes</div>
+    <div class="mob-more-item" onclick="nav('analytics');closeMobMore();setMobNav('analytics')"><span class="mob-more-ico">📊</span>Analytics</div>
+    <div class="mob-more-item" onclick="nav('settings');closeMobMore();setMobNav('settings')"><span class="mob-more-ico">⚙️</span>Settings</div>
+    <div class="mob-more-item" onclick="signOut();closeMobMore()"><span class="mob-more-ico">🔀</span>Switch User</div>
+  </div>
+</div>
+
 <aside class="sidebar">
   <div class="sb-top">
     <div class="sb-user">
@@ -1637,6 +1741,7 @@ function showApp() {
   document.getElementById('app').style.display='flex';
   if(localStorage.getItem('df_dark')==='1'){document.body.classList.add('dark');document.getElementById('dark-btn').textContent='☀️';}
   updateUserUI(); updateGreeting(); renderAll();
+  if(typeof updateUserUIMobile==="function") updateUserUIMobile();
   updateGratWidget();
   setTimeout(function(){ openGratitude(false); }, 1200); genBrief(); updateAiBadge(); showCoveyPrinciple(); updateFbBadge(fbReady);
 }
@@ -2970,6 +3075,34 @@ function updateGratWidget() {
   } else {
     el.textContent = "Click to log what you're grateful for today";
   }
+}
+
+
+// MOBILE LAYOUT
+var mobMoreOpen = false;
+function setMobNav(v) {
+  document.querySelectorAll(".mob-nav-btn").forEach(function(b) { b.classList.remove("mob-active"); });
+  var btn = document.getElementById("mobnav-" + v);
+  if (btn) btn.classList.add("mob-active");
+}
+function toggleMobMore() {
+  mobMoreOpen = !mobMoreOpen;
+  document.getElementById("mob-more-menu").style.display = mobMoreOpen ? "block" : "none";
+}
+function closeMobMore() {
+  mobMoreOpen = false;
+  document.getElementById("mob-more-menu").style.display = "none";
+}
+document.addEventListener("click", function(e) {
+  if (mobMoreOpen && !e.target.closest("#mob-more-menu") && !e.target.closest("#mobnav-more")) {
+    closeMobMore();
+  }
+});
+var _origUpdateUserUI = typeof updateUserUI === "function" ? updateUserUI : null;
+function updateUserUIMobile() {
+  if (_origUpdateUserUI) _origUpdateUserUI();
+  var mav = document.getElementById("mob-avatar");
+  if (mav && currentUser) mav.textContent = currentUser.emoji || (currentUser.name||"U")[0].toUpperCase();
 }
 
 initApp();
