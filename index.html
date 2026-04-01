@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>DayFlow 2.0 — Live with Intention</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Nunito:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=Playfair+Display:wght@400;600;700;900&family=Nunito:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root {
   --cream:#FFF9F3; --warm:#FFFCF8; --surface:#FFFFFF;
@@ -35,7 +35,7 @@ body.dark {
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{font-family:'Nunito',sans-serif;background:var(--cream);color:var(--ink);min-height:100vh;overflow-x:hidden;transition:background .3s,color .3s}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);min-height:100vh;overflow-x:hidden;transition:background .3s,color .3s}
 
 /* ── AUTH SCREEN ── */
 #auth-screen{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#FF8A65 0%,#FFB300 40%,#FF8A65 100%);background-size:200% 200%;animation:gradShift 8s ease infinite}
@@ -43,16 +43,16 @@ body{font-family:'Nunito',sans-serif;background:var(--cream);color:var(--ink);mi
 #auth-screen.hidden{display:none}
 .auth-card{background:rgba(255,255,255,.95);border-radius:28px;padding:48px 44px;text-align:center;max-width:420px;width:90%;box-shadow:0 32px 80px rgba(26,10,0,.25);backdrop-filter:blur(20px)}
 body.dark .auth-card{background:rgba(36,22,16,.95)}
-.auth-logo{font-family:'Playfair Display',serif;font-size:42px;font-weight:900;color:var(--peach);letter-spacing:-1px;margin-bottom:4px}
+.auth-logo{font-family:'DM Serif Display',serif;font-size:38px;font-style:italic;font-weight:900;color:var(--peach);letter-spacing:-1px;margin-bottom:4px}
 .auth-logo span{color:var(--ink)}
 .auth-tagline{font-size:14px;color:var(--ink-m);margin-bottom:32px;font-weight:500;letter-spacing:.3px}
 .auth-divider{display:flex;align-items:center;gap:12px;margin:20px 0;color:var(--ink-m);font-size:13px}
 .auth-divider::before,.auth-divider::after{content:'';flex:1;height:1px;background:var(--border)}
 .auth-quote{font-size:13px;color:var(--ink-m);font-style:italic;margin-top:28px;line-height:1.6;padding:14px;background:var(--cream);border-radius:12px;border-left:3px solid var(--peach)}
-.google-btn{display:flex;align-items:center;justify-content:center;gap:12px;width:100%;padding:14px 20px;background:#fff;border:2px solid var(--border);border-radius:14px;font-family:'Nunito',sans-serif;font-size:15px;font-weight:700;color:var(--ink);cursor:pointer;transition:all .2s;box-shadow:0 2px 8px var(--sh)}
+.google-btn{display:flex;align-items:center;justify-content:center;gap:12px;width:100%;padding:14px 20px;background:#fff;border:2px solid var(--border);border-radius:14px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:700;color:var(--ink);cursor:pointer;transition:all .2s;box-shadow:0 2px 8px var(--sh)}
 .google-btn:hover{border-color:var(--peach);box-shadow:0 4px 16px rgba(255,138,101,.25);transform:translateY(-1px)}
 .google-btn img{width:20px;height:20px}
-.guest-btn{width:100%;padding:12px;background:transparent;border:2px dashed var(--border);border-radius:14px;font-family:'Nunito',sans-serif;font-size:14px;font-weight:600;color:var(--ink-m);cursor:pointer;transition:all .2s;margin-top:10px}
+.guest-btn{width:100%;padding:12px;background:transparent;border:2px dashed var(--border);border-radius:14px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;color:var(--ink-m);cursor:pointer;transition:all .2s;margin-top:10px}
 .guest-btn:hover{border-color:var(--peach);color:var(--peach)}
 .auth-setup{display:none}
 .auth-setup.show{display:block}
@@ -74,7 +74,7 @@ body.dark .auth-card{background:rgba(36,22,16,.95)}
 .sb-avatar img{width:100%;height:100%;object-fit:cover}
 .sb-name{font-weight:700;font-size:14px;line-height:1.2}
 .sb-role{font-size:11px;color:var(--ink-m)}
-.logo-small{font-family:'Playfair Display',serif;font-size:22px;font-weight:900;color:var(--peach);letter-spacing:-.5px}
+.logo-small{font-family:'DM Serif Display',serif;font-size:20px;font-weight:400;font-weight:900;color:var(--peach);letter-spacing:-.5px}
 .logo-small span{color:var(--ink)}
 
 .sb-section{padding:12px 12px 4px}
@@ -99,18 +99,18 @@ body.dark .auth-card{background:rgba(36,22,16,.95)}
 .sb-stats{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .sb-stat{background:var(--cream);border-radius:12px;padding:10px 12px;border:1px solid var(--border);text-align:center}
 body.dark .sb-stat{background:var(--surface)}
-.sb-stat-n{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--peach);line-height:1}
+.sb-stat-n{font-family:'DM Serif Display',serif;font-size:20px;font-weight:400;font-weight:700;color:var(--peach);line-height:1}
 .sb-stat-l{font-size:10px;color:var(--ink-m);margin-top:2px;font-weight:600}
 
 /* ── VIEWS ── */
 .view{display:none;padding:28px 32px;max-width:840px}
 .view.active{display:block}
 .pg-hdr{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:24px;flex-wrap:wrap}
-.pg-title{font-family:'Playfair Display',serif;font-size:32px;font-weight:700;color:var(--ink);line-height:1.1}
+.pg-title{font-family:'DM Serif Display',serif;font-size:27px;font-weight:400;font-weight:700;color:var(--ink);line-height:1.1}
 .pg-sub{font-size:13px;color:var(--ink-m);margin-top:4px;font-weight:500}
 
 /* ── BUTTONS ── */
-.btn{padding:10px 20px;border-radius:var(--rs);border:none;font-family:'Nunito',sans-serif;font-weight:700;font-size:13px;cursor:pointer;transition:all .2s;display:inline-flex;align-items:center;gap:6px}
+.btn{padding:10px 20px;border-radius:var(--rs);border:none;font-family:'DM Sans',sans-serif;font-weight:700;font-size:13px;cursor:pointer;transition:all .2s;display:inline-flex;align-items:center;gap:6px}
 .btn-p{background:var(--peach);color:#fff;box-shadow:0 3px 10px rgba(255,138,101,.3)}
 .btn-p:hover{background:var(--peach-d);transform:translateY(-1px)}
 .btn-s{background:var(--cream);color:var(--ink-l);border:1.5px solid var(--border)}
@@ -128,15 +128,15 @@ body.dark .ai-brief{background:rgba(255,138,101,.06);border-color:rgba(255,138,1
 .ai-brief-title{font-weight:700;font-size:14px}
 .ai-brief-by{font-size:11px;color:var(--ink-m)}
 .ai-brief-body{font-size:14px;line-height:1.7;color:var(--ink-l)}
-.ai-refresh{position:absolute;top:14px;right:14px;background:var(--peach-p);border:none;border-radius:8px;padding:5px 10px;font-size:12px;font-weight:700;color:var(--peach);cursor:pointer;transition:all .2s;font-family:'Nunito',sans-serif}
+.ai-refresh{position:absolute;top:14px;right:14px;background:var(--peach-p);border:none;border-radius:8px;padding:5px 10px;font-size:12px;font-weight:700;color:var(--peach);cursor:pointer;transition:all .2s;font-family:'DM Sans',sans-serif}
 .ai-refresh:hover{background:var(--peach);color:#fff}
 
 /* ── QUICK ADD ── */
 .qabar{display:flex;gap:8px;margin-bottom:16px}
-.qa-in{flex:1;padding:12px 16px;border-radius:var(--r);border:2px solid var(--border);background:var(--surface);font-family:'Nunito',sans-serif;font-size:14px;color:var(--ink);outline:none;transition:all .2s;box-shadow:0 2px 8px var(--sh)}
+.qa-in{flex:1;padding:12px 16px;border-radius:var(--r);border:2px solid var(--border);background:var(--surface);font-family:'DM Sans',sans-serif;font-size:14px;color:var(--ink);outline:none;transition:all .2s;box-shadow:0 2px 8px var(--sh)}
 .qa-in:focus{border-color:var(--peach);box-shadow:0 0 0 3px var(--peach-p)}
 .qa-in::placeholder{color:var(--ink-m)}
-.ai-chip{padding:6px 12px;background:var(--lav-p);color:var(--lav);border-radius:20px;font-size:12px;font-weight:700;border:1px solid rgba(126,87,194,.2);cursor:pointer;transition:all .2s;white-space:nowrap;font-family:'Nunito',sans-serif}
+.ai-chip{padding:6px 12px;background:var(--lav-p);color:var(--lav);border-radius:20px;font-size:12px;font-weight:700;border:1px solid rgba(126,87,194,.2);cursor:pointer;transition:all .2s;white-space:nowrap;font-family:'DM Sans',sans-serif}
 .ai-chip:hover{background:var(--lav);color:#fff}
 
 /* ── COVEY QUADRANT ── */
@@ -160,7 +160,7 @@ body.dark .quad-task{background:rgba(255,255,255,.08)}
 body.dark .quad-task:hover{background:rgba(255,255,255,.15)}
 .quad-task.done{opacity:.5;text-decoration:line-through}
 .qt-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
-.quad-add{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--ink-m);cursor:pointer;padding:5px 0;transition:color .2s;font-weight:600;background:none;border:none;font-family:'Nunito',sans-serif;width:100%}
+.quad-add{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--ink-m);cursor:pointer;padding:5px 0;transition:color .2s;font-weight:600;background:none;border:none;font-family:'DM Sans',sans-serif;width:100%}
 .quad-add:hover{color:var(--peach)}
 
 /* ── FILTER BAR ── */
@@ -168,10 +168,10 @@ body.dark .quad-task:hover{background:rgba(255,255,255,.15)}
 .fchip{padding:5px 13px;border-radius:20px;border:1.5px solid var(--border);font-size:12px;font-weight:700;color:var(--ink-m);cursor:pointer;transition:all .18s;background:var(--surface)}
 .fchip:hover{border-color:var(--peach);color:var(--peach)}
 .fchip.on{background:var(--peach);border-color:var(--peach);color:#fff}
-.fsearch{padding:5px 13px;border-radius:20px;border:1.5px solid var(--border);font-family:'Nunito',sans-serif;font-size:12px;outline:none;transition:border .2s;background:var(--surface);color:var(--ink);min-width:140px}
+.fsearch{padding:5px 13px;border-radius:20px;border:1.5px solid var(--border);font-family:'DM Sans',sans-serif;font-size:12px;outline:none;transition:border .2s;background:var(--surface);color:var(--ink);min-width:140px}
 .fsearch:focus{border-color:var(--peach)}
 .vtoggle{display:flex;gap:3px;background:var(--border);padding:3px;border-radius:10px}
-.vtbtn{padding:5px 13px;border-radius:7px;border:none;background:transparent;font-size:12px;font-weight:700;color:var(--ink-m);cursor:pointer;transition:all .18s;font-family:'Nunito',sans-serif}
+.vtbtn{padding:5px 13px;border-radius:7px;border:none;background:transparent;font-size:12px;font-weight:700;color:var(--ink-m);cursor:pointer;transition:all .18s;font-family:'DM Sans',sans-serif}
 .vtbtn.on{background:var(--surface);color:var(--ink);box-shadow:0 1px 4px var(--sh)}
 
 /* ── STATS ROW ── */
@@ -264,9 +264,9 @@ body.dark .kbc{background:var(--warm)}
 .mission-hero{background:linear-gradient(135deg,var(--lav-p),var(--peach-p));border-radius:20px;padding:32px;margin-bottom:24px;position:relative;overflow:hidden}
 .mission-hero::before{content:'✦';position:absolute;right:24px;top:16px;font-size:48px;opacity:.1;color:var(--lav)}
 .mission-label{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:1.2px;color:var(--lav);margin-bottom:8px}
-.mission-text{font-family:'Playfair Display',serif;font-size:22px;font-weight:600;color:var(--ink);line-height:1.5;font-style:italic}
+.mission-text{font-family:'DM Serif Display',serif;font-size:20px;font-weight:400;font-weight:600;color:var(--ink);line-height:1.5;font-style:italic}
 .mission-empty{font-size:16px;color:var(--ink-m);font-style:italic}
-.mission-edit-btn{margin-top:16px;display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:var(--lav);color:#fff;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;border:none;font-family:'Nunito',sans-serif;transition:all .2s}
+.mission-edit-btn{margin-top:16px;display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:var(--lav);color:#fff;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;border:none;font-family:'DM Sans',sans-serif;transition:all .2s}
 .mission-edit-btn:hover{background:#6a1fb0}
 .principles-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:20px}
 .principle-card{background:var(--surface);border-radius:var(--r);padding:16px;border:1px solid var(--border)}
@@ -283,7 +283,7 @@ body.dark .kbc{background:var(--warm)}
 .wr-panel{background:var(--surface);border-radius:var(--r);padding:24px;border:1px solid var(--border);box-shadow:0 2px 8px var(--sh)}
 .wr-q{font-weight:800;font-size:16px;margin-bottom:6px;display:flex;align-items:center;gap:8px}
 .wr-hint{font-size:13px;color:var(--ink-m);margin-bottom:16px;line-height:1.5}
-.wr-ta{width:100%;padding:12px;border-radius:var(--rs);border:1.5px solid var(--border);font-family:'Nunito',sans-serif;font-size:14px;color:var(--ink);outline:none;resize:vertical;min-height:100px;background:var(--cream);transition:border .2s}
+.wr-ta{width:100%;padding:12px;border-radius:var(--rs);border:1.5px solid var(--border);font-family:'DM Sans',sans-serif;font-size:14px;color:var(--ink);outline:none;resize:vertical;min-height:100px;background:var(--cream);transition:border .2s}
 .wr-ta:focus{border-color:var(--lav)}
 .wr-nav{display:flex;justify-content:space-between;margin-top:16px}
 
@@ -304,13 +304,13 @@ body.dark .kbc{background:var(--warm)}
 .hchk{width:36px;height:36px;border-radius:10px;border:none;flex-shrink:0;cursor:pointer;font-size:17px;display:flex;align-items:center;justify-content:center;transition:all .2s}
 .hchk.on{background:var(--sage-p)}
 .hchk:not(.on){background:var(--peach-p)}
-.add-h-btn{display:flex;align-items:center;justify-content:center;gap:7px;padding:13px;border-radius:var(--r);border:2px dashed var(--border);background:transparent;color:var(--ink-m);font-size:13px;font-weight:700;cursor:pointer;width:100%;transition:all .2s;font-family:'Nunito',sans-serif}
+.add-h-btn{display:flex;align-items:center;justify-content:center;gap:7px;padding:13px;border-radius:var(--r);border:2px dashed var(--border);background:transparent;color:var(--ink-m);font-size:13px;font-weight:700;cursor:pointer;width:100%;transition:all .2s;font-family:'DM Sans',sans-serif}
 .add-h-btn:hover{border-color:var(--peach);color:var(--peach);background:var(--peach-p)}
 
 /* ── POMODORO ── */
 .pomo-w{background:var(--surface);border-radius:var(--r);padding:24px;border:1px solid var(--border);text-align:center;margin-bottom:20px;box-shadow:0 2px 8px var(--sh)}
 .pmodes{display:flex;gap:7px;justify-content:center;margin-bottom:16px}
-.pmbtn{padding:6px 14px;border-radius:20px;border:none;font-size:12px;font-weight:700;cursor:pointer;transition:all .2s;background:var(--cream);color:var(--ink-m);font-family:'Nunito',sans-serif}
+.pmbtn{padding:6px 14px;border-radius:20px;border:none;font-size:12px;font-weight:700;cursor:pointer;transition:all .2s;background:var(--cream);color:var(--ink-m);font-family:'DM Sans',sans-serif}
 .pmbtn.on{background:var(--peach);color:#fff}
 .pring{width:156px;height:156px;position:relative;margin:0 auto 16px}
 .psvg{width:100%;height:100%;transform:rotate(-90deg)}
@@ -319,7 +319,7 @@ body.dark .kbc{background:var(--warm)}
 .ptime{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:'Playfair Display',serif;font-size:34px;font-weight:700}
 .ptask-lbl{font-size:13px;color:var(--ink-m);margin-bottom:4px;font-weight:600}
 .pctrls{display:flex;gap:8px;justify-content:center;margin-top:12px}
-.pcbtn{padding:9px 18px;border-radius:var(--rs);border:none;font-family:'Nunito',sans-serif;font-weight:700;font-size:13px;cursor:pointer;transition:all .2s}
+.pcbtn{padding:9px 18px;border-radius:var(--rs);border:none;font-family:'DM Sans',sans-serif;font-weight:700;font-size:13px;cursor:pointer;transition:all .2s}
 .pcbtn-p{background:var(--peach);color:#fff;box-shadow:0 3px 10px rgba(255,138,101,.3)}
 .pcbtn-p:hover{background:var(--peach-d)}
 .pcbtn-s{background:var(--cream);color:var(--ink-l)}
@@ -400,7 +400,7 @@ body.dark .sinfo{background:var(--warm)}
 .modal{background:var(--warm);border-radius:22px;width:100%;max-width:530px;max-height:90vh;overflow-y:auto;box-shadow:0 24px 70px rgba(26,10,0,.25);animation:slideUp .28s cubic-bezier(.34,1.56,.64,1)}
 @keyframes slideUp{from{opacity:0;transform:translateY(22px) scale(.97)}}
 .mhdr{padding:22px 22px 0;display:flex;align-items:center;justify-content:space-between}
-.mtitle{font-family:'Playfair Display',serif;font-size:22px;font-weight:700}
+.mtitle{font-family:'DM Serif Display',serif;font-size:20px;font-weight:400;font-weight:700}
 .mx{width:30px;height:30px;border-radius:8px;border:none;background:var(--cream);cursor:pointer;font-size:17px;display:flex;align-items:center;justify-content:center;color:var(--ink-m);transition:all .2s}
 .mx:hover{background:var(--peach-p);color:var(--peach)}
 .mbody{padding:18px 22px}
@@ -409,7 +409,7 @@ body.dark .sinfo{background:var(--warm)}
 /* FORM */
 .fg{margin-bottom:13px}
 .flbl{font-size:11px;font-weight:800;color:var(--ink-m);text-transform:uppercase;letter-spacing:.6px;margin-bottom:5px;display:block}
-.fi,.fta,.fsel{width:100%;padding:10px 13px;border-radius:var(--rs);border:1.5px solid var(--border);background:var(--surface);font-family:'Nunito',sans-serif;font-size:14px;color:var(--ink);outline:none;transition:all .2s}
+.fi,.fta,.fsel{width:100%;padding:10px 13px;border-radius:var(--rs);border:1.5px solid var(--border);background:var(--surface);font-family:'DM Sans',sans-serif;font-size:14px;color:var(--ink);outline:none;transition:all .2s}
 .fi:focus,.fta:focus,.fsel:focus{border-color:var(--peach);box-shadow:0 0 0 3px var(--peach-p)}
 .fta{resize:vertical;min-height:72px}
 .frow{display:grid;grid-template-columns:1fr 1fr;gap:10px}
@@ -424,16 +424,16 @@ body.dark .sinfo{background:var(--warm)}
 .stchk{width:15px;height:15px;border-radius:4px;border:1.5px solid var(--border);cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:9px;transition:all .2s}
 .stchk.on{background:var(--sage);border-color:var(--sage);color:#fff}
 .st-add{display:flex;gap:5px;margin-top:4px}
-.st-in{flex:1;padding:6px 10px;border-radius:8px;border:1.5px solid var(--border);font-family:'Nunito',sans-serif;font-size:13px;outline:none;transition:border .2s;background:var(--surface);color:var(--ink)}
+.st-in{flex:1;padding:6px 10px;border-radius:8px;border:1.5px solid var(--border);font-family:'DM Sans',sans-serif;font-size:13px;outline:none;transition:border .2s;background:var(--surface);color:var(--ink)}
 .st-in:focus{border-color:var(--peach)}
-.st-btn{padding:6px 10px;background:var(--peach-p);color:var(--peach);border:none;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;transition:all .2s;font-family:'Nunito',sans-serif}
+.st-btn{padding:6px 10px;background:var(--peach-p);color:var(--peach);border:none;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;transition:all .2s;font-family:'DM Sans',sans-serif}
 .st-btn:hover{background:var(--peach);color:#fff}
 .tag-wrap{display:flex;gap:5px;flex-wrap:wrap;padding:8px 10px;border-radius:var(--rs);border:1.5px solid var(--border);background:var(--surface);cursor:text;min-height:40px;align-items:center;transition:border .2s}
 .tag-wrap:focus-within{border-color:var(--peach)}
 .tpill{padding:3px 9px;border-radius:10px;background:var(--lav-p);color:var(--lav);font-size:11px;font-weight:700;display:flex;align-items:center;gap:4px}
 .tprm{cursor:pointer;opacity:.6}
 .tprm:hover{opacity:1}
-.traw{border:none;outline:none;font-family:'Nunito',sans-serif;font-size:13px;color:var(--ink);background:transparent;min-width:80px;flex:1}
+.traw{border:none;outline:none;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--ink);background:transparent;min-width:80px;flex:1}
 .parse-res{background:var(--lav-p);border:1px solid rgba(126,87,194,.2);border-radius:var(--rs);padding:9px 12px;margin-top:6px;font-size:13px;color:var(--lav);display:none;font-weight:600}
 
 /* ── TOAST ── */
@@ -458,7 +458,7 @@ body.dark .sinfo{background:var(--warm)}
 .af-title{font-weight:800;font-size:13px;color:var(--lav)}
 .af-body{font-size:13px;color:var(--ink-l);line-height:1.6}
 .af-acts{display:flex;gap:6px;margin-top:9px;flex-wrap:wrap}
-.afbtn{padding:5px 12px;border-radius:20px;border:none;font-size:12px;font-weight:700;cursor:pointer;transition:all .2s;font-family:'Nunito',sans-serif}
+.afbtn{padding:5px 12px;border-radius:20px;border:none;font-size:12px;font-weight:700;cursor:pointer;transition:all .2s;font-family:'DM Sans',sans-serif}
 .afbtn-p{background:var(--lav);color:#fff}
 .afbtn-s{background:rgba(126,87,194,.15);color:var(--lav)}
 .afbtn-s:hover{background:var(--lav);color:#fff}
@@ -488,33 +488,33 @@ body.dark .sinfo{background:var(--warm)}
 .fm-orb3{width:280px;height:280px;background:rgba(78,205,196,.1);top:45%;right:8%;animation-delay:5.5s}
 @keyframes fmOrb{0%,100%{transform:scale(1)}50%{transform:scale(1.1) translate(8px,-8px)}}
 .fm-top{position:absolute;top:0;left:0;right:0;padding:22px 28px;display:flex;align-items:center;justify-content:space-between;z-index:1}
-.fm-logo{font-family:"Playfair Display",serif;font-size:18px;font-weight:700;color:rgba(255,255,255,.22)}
+.fm-logo{font-family:"DM Serif Display",serif;font-size:18px;font-weight:700;color:rgba(255,255,255,.22)}
 .fm-mode-pill{padding:5px 14px;border-radius:20px;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:1.2px;transition:all .4s}
 .fm-mode-focus{background:rgba(255,138,101,.2);color:#FF8A65;border:1px solid rgba(255,138,101,.35)}
 .fm-mode-break{background:rgba(102,187,106,.2);color:#66BB6A;border:1px solid rgba(102,187,106,.35)}
-.fm-close{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.5);border-radius:10px;padding:7px 16px;font-family:"Nunito",sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:all .2s}
+.fm-close{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.5);border-radius:10px;padding:7px 16px;font-family:"DM Sans",sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:all .2s}
 .fm-close:hover{background:rgba(255,255,255,.18);color:#fff}
 .fm-content{text-align:center;z-index:1;max-width:560px;padding:0 24px;width:100%}
 .fm-eyebrow{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:2.5px;color:rgba(255,138,101,.65);margin-bottom:16px}
-.fm-task{font-family:"Playfair Display",serif;font-size:clamp(18px,3.5vw,32px);font-weight:700;color:#fff;margin-bottom:7px;line-height:1.3}
+.fm-task{font-family:"DM Serif Display",serif;font-size:clamp(18px,3.5vw,32px);font-weight:700;color:#fff;margin-bottom:7px;line-height:1.3}
 .fm-project{font-size:13px;color:rgba(255,255,255,.32);margin-bottom:38px;font-weight:600}
 .fm-ring-wrap{width:190px;height:190px;position:relative;margin:0 auto 26px}
 .fm-ring-svg{width:100%;height:100%;transform:rotate(-90deg)}
 .fm-ring-track{fill:none;stroke:rgba(255,255,255,.06);stroke-width:5}
 .fm-ring-arc{fill:none;stroke-width:5;stroke-linecap:round;transition:stroke-dashoffset 1s linear,stroke .5s}
-.fm-ring-time{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:"Playfair Display",serif;font-size:46px;font-weight:700;color:#fff;letter-spacing:-2px;line-height:1}
+.fm-ring-time{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:"DM Serif Display",serif;font-size:46px;font-weight:700;color:#fff;letter-spacing:-2px;line-height:1}
 .fm-ring-sess{position:absolute;bottom:-4px;left:50%;transform:translateX(-50%);font-size:11px;color:rgba(255,255,255,.3);font-weight:700;white-space:nowrap}
 .fm-ctrls{display:flex;gap:10px;justify-content:center;margin-bottom:30px}
-.fm-btn{padding:11px 26px;border-radius:14px;border:none;font-family:"Nunito",sans-serif;font-weight:800;font-size:14px;cursor:pointer;transition:all .2s}
+.fm-btn{padding:11px 26px;border-radius:14px;border:none;font-family:"DM Sans",sans-serif;font-weight:800;font-size:14px;cursor:pointer;transition:all .2s}
 .fm-btn-p{background:var(--peach);color:#fff;box-shadow:0 4px 20px rgba(255,138,101,.4)}
 .fm-btn-p:hover{transform:scale(1.04)}
 .fm-btn-s{background:rgba(255,255,255,.08);color:rgba(255,255,255,.6);border:1px solid rgba(255,255,255,.12)}
 .fm-btn-s:hover{background:rgba(255,255,255,.16);color:#fff}
 .fm-sounds{display:flex;gap:9px;justify-content:center;flex-wrap:wrap}
-.fm-snd{display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 14px;border-radius:14px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);color:rgba(255,255,255,.45);cursor:pointer;transition:all .2s;font-family:"Nunito",sans-serif;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;min-width:64px}
+.fm-snd{display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 14px;border-radius:14px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);color:rgba(255,255,255,.45);cursor:pointer;transition:all .2s;font-family:"DM Sans",sans-serif;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;min-width:64px}
 .fm-snd:hover,.fm-snd.on{background:rgba(255,138,101,.18);border-color:rgba(255,138,101,.45);color:#FF8A65}
 .fm-snd-ico{font-size:20px}
-.fm-quote{margin-top:30px;font-size:12px;color:rgba(255,255,255,.2);font-style:italic;font-family:"Playfair Display",serif;max-width:420px;margin-left:auto;margin-right:auto;line-height:1.65}
+.fm-quote{margin-top:30px;font-size:12px;color:rgba(255,255,255,.2);font-style:italic;font-family:"DM Serif Display",serif;max-width:420px;margin-left:auto;margin-right:auto;line-height:1.65}
 .tc-focus-btn{width:26px;height:26px;border-radius:7px;border:none;background:rgba(126,87,194,.12);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--lav);transition:all .2s;flex-shrink:0}
 .tc-focus-btn:hover{background:var(--lav);color:#fff}
 /* ENERGY + AI SCHEDULE */
@@ -550,19 +550,19 @@ body.dark .sinfo{background:var(--warm)}
 #gratitude-overlay.open{display:flex}
 .gc-card{background:var(--warm);border-radius:28px;padding:36px 40px;max-width:460px;width:100%;box-shadow:0 32px 80px rgba(26,10,0,.3);animation:slideUp .3s cubic-bezier(.34,1.56,.64,1)}
 .gc-sun{font-size:52px;text-align:center;margin-bottom:12px}
-.gc-title{font-family:"Playfair Display",serif;font-size:24px;font-weight:700;text-align:center;margin-bottom:4px;color:var(--ink)}
+.gc-title{font-family:"DM Serif Display",serif;font-size:24px;font-weight:700;text-align:center;margin-bottom:4px;color:var(--ink)}
 .gc-sub{font-size:13px;color:var(--ink-m);text-align:center;margin-bottom:22px;font-weight:500;line-height:1.5}
 .gc-label{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.8px;color:var(--ink-m);margin-bottom:8px;display:block}
-.gc-input{width:100%;padding:11px 14px;border-radius:12px;border:1.5px solid var(--border);font-family:"Nunito",sans-serif;font-size:14px;color:var(--ink);outline:none;margin-bottom:9px;background:var(--surface);transition:border .2s}
+.gc-input{width:100%;padding:11px 14px;border-radius:12px;border:1.5px solid var(--border);font-family:"DM Sans",sans-serif;font-size:14px;color:var(--ink);outline:none;margin-bottom:9px;background:var(--surface);transition:border .2s}
 .gc-input:focus{border-color:var(--gold);box-shadow:0 0 0 3px var(--gold-p)}
 .gc-input::placeholder{color:var(--ink-m)}
 .gc-mood-lbl{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.8px;color:var(--ink-m);margin-bottom:10px;display:block}
 .gc-moods{display:flex;gap:8px;justify-content:center;margin-bottom:20px}
 .gc-mood-btn{width:46px;height:46px;border-radius:12px;border:2px solid var(--border);font-size:22px;cursor:pointer;transition:all .2s;background:var(--surface);display:flex;align-items:center;justify-content:center}
 .gc-mood-btn:hover,.gc-mood-btn.on{border-color:var(--gold);background:var(--gold-p);transform:scale(1.12)}
-.gc-save-btn{width:100%;padding:13px;background:linear-gradient(135deg,var(--gold),var(--peach));border:none;border-radius:14px;font-family:"Nunito",sans-serif;font-size:15px;font-weight:800;color:#fff;cursor:pointer;transition:all .2s;box-shadow:0 4px 14px rgba(255,179,0,.3)}
+.gc-save-btn{width:100%;padding:13px;background:linear-gradient(135deg,var(--gold),var(--peach));border:none;border-radius:14px;font-family:"DM Sans",sans-serif;font-size:15px;font-weight:800;color:#fff;cursor:pointer;transition:all .2s;box-shadow:0 4px 14px rgba(255,179,0,.3)}
 .gc-save-btn:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(255,179,0,.4)}
-.gc-skip{width:100%;padding:9px;background:transparent;border:none;font-family:"Nunito",sans-serif;font-size:13px;color:var(--ink-m);cursor:pointer;margin-top:8px;transition:color .2s}
+.gc-skip{width:100%;padding:9px;background:transparent;border:none;font-family:"DM Sans",sans-serif;font-size:13px;color:var(--ink-m);cursor:pointer;margin-top:8px;transition:color .2s}
 .gc-skip:hover{color:var(--ink)}
 .grat-widget{margin:0 12px 12px;padding:12px 14px;background:linear-gradient(135deg,var(--gold-p),var(--peach-p));border-radius:12px;border:1px solid rgba(255,179,0,.2);cursor:pointer;transition:all .2s}
 .grat-widget:hover{transform:translateY(-1px);box-shadow:0 4px 12px var(--sh)}
@@ -700,11 +700,35 @@ body.dark .sinfo{background:var(--warm)}
 @keyframes emptyFadeIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
 .empty-v2{text-align:center;padding:52px 32px;animation:emptyFadeIn .4s ease}
 .empty-v2 svg{animation:floatUp 3.5s ease-in-out infinite;margin-bottom:20px;display:block;margin-left:auto;margin-right:auto}
-.empty-v2-title{font-family:"Playfair Display",serif;font-size:20px;font-weight:700;color:var(--ink);margin-bottom:8px}
+.empty-v2-title{font-family:"DM Serif Display",serif;font-size:20px;font-weight:700;color:var(--ink);margin-bottom:8px}
 .empty-v2-sub{font-size:13px;color:var(--ink-m);line-height:1.7;max-width:320px;margin:0 auto 6px;font-style:italic}
 .empty-v2-quote{font-size:11px;color:var(--ink-m);opacity:.6;margin-bottom:20px;font-weight:600}
-.empty-v2-btn{display:inline-flex;align-items:center;gap:6px;padding:10px 22px;background:var(--peach);color:#fff;border:none;border-radius:12px;font-family:"Nunito",sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:all .2s;box-shadow:0 3px 12px rgba(255,138,101,.3)}
+.empty-v2-btn{display:inline-flex;align-items:center;gap:6px;padding:10px 22px;background:var(--peach);color:#fff;border:none;border-radius:12px;font-family:"DM Sans",sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:all .2s;box-shadow:0 3px 12px rgba(255,138,101,.3)}
 .empty-v2-btn:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(255,138,101,.4)}
+/* TYPOGRAPHY UPGRADE */
+.pg-title{font-family:"DM Serif Display",serif !important;font-size:26px !important;font-weight:400 !important;letter-spacing:-.3px;line-height:1.15 !important}
+.auth-logo{font-family:"DM Serif Display",serif !important;font-style:italic}
+.logo-small{font-family:"DM Serif Display",serif !important;font-weight:400 !important}
+body{font-family:"DM Sans",sans-serif !important}
+.btn,.btn-p,.btn-s,.btn-lav,.pcbtn,.fm-btn,.afbtn,.pmbtn,.vtbtn{font-family:"DM Sans",sans-serif !important}
+.fi,.fta,.fsel,.qa-in,.fsearch,.traw,.st-in,.gc-input,.wr-ta{font-family:"DM Sans",sans-serif !important}
+.mtitle,.pg-title,.auth-logo,.logo-small,.sb-stat-n,.karma-n,.scard-n,.ptime,.pr-txt,.fm-ring-time{font-family:"DM Serif Display",serif !important}
+.mission-text{font-family:"DM Serif Display",serif !important;font-size:19px !important;font-weight:400 !important;font-style:italic}
+.empty-v2-title{font-family:"DM Serif Display",serif !important}
+.tc-title{font-size:13.5px !important;font-weight:500 !important;letter-spacing:.01em}
+.tc-title:hover{font-weight:600 !important}
+.sb-label,.sb-section-hdr-label{font-size:9.5px !important;letter-spacing:1.6px !important}
+.ni{font-size:12.5px !important}
+.tsec-title{font-size:10px !important;letter-spacing:1.2px !important}
+.scard-n{font-size:24px !important}
+.scard-l{font-size:10.5px !important;letter-spacing:.3px}
+.pg-sub{font-size:12.5px !important;letter-spacing:.01em}
+.tag{font-size:9.5px !important;font-weight:700 !important;letter-spacing:.2px}
+.mtitle{font-size:20px !important;font-weight:400 !important;letter-spacing:-.2px}
+.ai-brief-body{font-size:13.5px !important;line-height:1.75 !important}
+.sb-stat-n{font-size:20px !important}
+.sb-stat-l{font-size:9.5px !important;letter-spacing:.4px}
+@media(max-width:768px){.pg-title{font-size:21px !important}}
 </style>
 </head>
 <body>
@@ -712,27 +736,27 @@ body.dark .sinfo{background:var(--warm)}
 <!-- ═══════════════════ AUTH SCREEN ═══════════════════ -->
 <div id="auth-screen">
   <div class="auth-card" style="max-width:480px;">
-    <div class="auth-logo">Day<span>Flow</span> <span style="font-size:16px;color:var(--ink-m);font-family:'Nunito',sans-serif;font-weight:600;">2.0</span></div>
+    <div class="auth-logo">Day<span>Flow</span> <span style="font-size:16px;color:var(--ink-m);font-family:'DM Sans',sans-serif;font-weight:600;">2.0</span></div>
     <div class="auth-tagline">Live with intention. Begin with the end in mind.</div>
 
     <!-- Profile picker -->
     <div id="auth-main">
       <div style="font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:var(--ink-m);margin-bottom:14px;">Who's planning today?</div>
       <div id="profile-grid" style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:16px;"></div>
-      <button onclick="openAddProfile()" style="width:100%;padding:11px;background:transparent;border:2px dashed var(--border);border-radius:14px;font-family:'Nunito',sans-serif;font-size:13px;font-weight:700;color:var(--ink-m);cursor:pointer;transition:all .2s;" onmouseover="this.style.borderColor='var(--peach)';this.style.color='var(--peach)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--ink-m)'">+ Add New User</button>
+      <button onclick="openAddProfile()" style="width:100%;padding:11px;background:transparent;border:2px dashed var(--border);border-radius:14px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:700;color:var(--ink-m);cursor:pointer;transition:all .2s;" onmouseover="this.style.borderColor='var(--peach)';this.style.color='var(--peach)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--ink-m)'">+ Add New User</button>
     </div>
 
     <!-- Add profile form -->
     <div id="add-profile-form" style="display:none;">
       <div style="font-size:13px;font-weight:700;margin-bottom:14px;color:var(--ink-l);">Create New Profile</div>
-      <input id="np-name" style="width:100%;padding:11px 14px;border-radius:12px;border:2px solid var(--border);font-family:'Nunito',sans-serif;font-size:15px;outline:none;margin-bottom:10px;" placeholder="Your name" onkeydown="if(event.key==='Enter')createProfile()">
+      <input id="np-name" style="width:100%;padding:11px 14px;border-radius:12px;border:2px solid var(--border);font-family:'DM Sans',sans-serif;font-size:15px;outline:none;margin-bottom:10px;" placeholder="Your name" onkeydown="if(event.key==='Enter')createProfile()">
       <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;" id="np-emoji-pick">
         <span style="font-size:11px;font-weight:700;color:var(--ink-m);width:100%;">Pick your avatar:</span>
         ${['👨🏽','👩🏽','👨🏻','👩🏻','👨🏿','👩🏿','🧑','🦁','🐯','🦊','🌟','🔥','⚡','🎯'].map(e=>`<div onclick="selectEmoji('${e}')" style="width:36px;height:36px;border-radius:10px;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:20px;cursor:pointer;transition:all .2s;" class="emoji-opt">${e}</div>`).join('')}
       </div>
       <div style="display:flex;gap:8px;">
-        <button onclick="document.getElementById('add-profile-form').style.display='none';document.getElementById('auth-main').style.display='block';" style="flex:1;padding:11px;background:var(--cream);border:1.5px solid var(--border);border-radius:12px;font-family:'Nunito',sans-serif;font-size:14px;font-weight:700;cursor:pointer;color:var(--ink-l);">Cancel</button>
-        <button onclick="createProfile()" style="flex:1;padding:11px;background:var(--peach);border:none;border-radius:12px;font-family:'Nunito',sans-serif;font-size:14px;font-weight:700;cursor:pointer;color:#fff;">Create Profile</button>
+        <button onclick="document.getElementById('add-profile-form').style.display='none';document.getElementById('auth-main').style.display='block';" style="flex:1;padding:11px;background:var(--cream);border:1.5px solid var(--border);border-radius:12px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:700;cursor:pointer;color:var(--ink-l);">Cancel</button>
+        <button onclick="createProfile()" style="flex:1;padding:11px;background:var(--peach);border:none;border-radius:12px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:700;cursor:pointer;color:#fff;">Create Profile</button>
       </div>
     </div>
 
@@ -1362,11 +1386,11 @@ body.dark .sinfo{background:var(--warm)}
 
   <!-- Note type tabs -->
   <div style="display:flex;gap:8px;margin-bottom:20px;">
-    <button class="vtbtn on" id="nt-all" onclick="setNoteTab('all')" style="background:var(--peach);color:#fff;padding:7px 16px;border-radius:20px;border:none;font-family:'Nunito',sans-serif;font-weight:700;font-size:13px;cursor:pointer;">All</button>
-    <button class="vtbtn" id="nt-journal" onclick="setNoteTab('journal')" style="padding:7px 16px;border-radius:20px;border:1.5px solid var(--border);font-family:'Nunito',sans-serif;font-weight:700;font-size:13px;cursor:pointer;background:var(--surface);color:var(--ink-m);">📔 Daily Journal</button>
-    <button class="vtbtn" id="nt-idea" onclick="setNoteTab('idea')" style="padding:7px 16px;border-radius:20px;border:1.5px solid var(--border);font-family:'Nunito',sans-serif;font-weight:700;font-size:13px;cursor:pointer;background:var(--surface);color:var(--ink-m);">💡 Ideas</button>
-    <button class="vtbtn" id="nt-brain" onclick="setNoteTab('brain')" style="padding:7px 16px;border-radius:20px;border:1.5px solid var(--border);font-family:'Nunito',sans-serif;font-weight:700;font-size:13px;cursor:pointer;background:var(--surface);color:var(--ink-m);">🧠 Brain Dump</button>
-    <button class="vtbtn" id="nt-reflect" onclick="setNoteTab('reflect')" style="padding:7px 16px;border-radius:20px;border:1.5px solid var(--border);font-family:'Nunito',sans-serif;font-weight:700;font-size:13px;cursor:pointer;background:var(--surface);color:var(--ink-m);">🪞 Reflections</button>
+    <button class="vtbtn on" id="nt-all" onclick="setNoteTab('all')" style="background:var(--peach);color:#fff;padding:7px 16px;border-radius:20px;border:none;font-family:'DM Sans',sans-serif;font-weight:700;font-size:13px;cursor:pointer;">All</button>
+    <button class="vtbtn" id="nt-journal" onclick="setNoteTab('journal')" style="padding:7px 16px;border-radius:20px;border:1.5px solid var(--border);font-family:'DM Sans',sans-serif;font-weight:700;font-size:13px;cursor:pointer;background:var(--surface);color:var(--ink-m);">📔 Daily Journal</button>
+    <button class="vtbtn" id="nt-idea" onclick="setNoteTab('idea')" style="padding:7px 16px;border-radius:20px;border:1.5px solid var(--border);font-family:'DM Sans',sans-serif;font-weight:700;font-size:13px;cursor:pointer;background:var(--surface);color:var(--ink-m);">💡 Ideas</button>
+    <button class="vtbtn" id="nt-brain" onclick="setNoteTab('brain')" style="padding:7px 16px;border-radius:20px;border:1.5px solid var(--border);font-family:'DM Sans',sans-serif;font-weight:700;font-size:13px;cursor:pointer;background:var(--surface);color:var(--ink-m);">🧠 Brain Dump</button>
+    <button class="vtbtn" id="nt-reflect" onclick="setNoteTab('reflect')" style="padding:7px 16px;border-radius:20px;border:1.5px solid var(--border);font-family:'DM Sans',sans-serif;font-weight:700;font-size:13px;cursor:pointer;background:var(--surface);color:var(--ink-m);">🪞 Reflections</button>
   </div>
 
   <div id="notes-grid" style="display:grid;grid-template-columns:repeat(2,1fr);gap:14px;"></div>
@@ -1430,7 +1454,7 @@ body.dark .sinfo{background:var(--warm)}
     <div class="pcrd">
       <div style="font-weight:800;font-size:16px;margin-bottom:4px;display:flex;align-items:center;gap:8px;"><span style="background:var(--peach);color:#fff;width:26px;height:26px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:13px;font-weight:900;">1</span> Create a GitHub Account</div>
       <div style="font-size:13px;color:var(--ink-m);margin-bottom:10px;line-height:1.6;">If you don't have one yet, it's free and takes 2 minutes.</div>
-      <a href="https://github.com/signup" target="_blank" style="display:inline-flex;align-items:center;gap:6px;padding:9px 18px;background:#24292e;color:#fff;border-radius:10px;font-family:'Nunito',sans-serif;font-size:13px;font-weight:700;text-decoration:none;transition:all .2s;">🐙 Create GitHub Account</a>
+      <a href="https://github.com/signup" target="_blank" style="display:inline-flex;align-items:center;gap:6px;padding:9px 18px;background:#24292e;color:#fff;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:700;text-decoration:none;transition:all .2s;">🐙 Create GitHub Account</a>
     </div>
 
     <div class="pcrd">
@@ -1779,22 +1803,22 @@ function renderSetupStep() {
   if (setupStep===0) {
     c.innerHTML=`<p style="font-size:14px;color:var(--ink-l);margin-bottom:16px;line-height:1.6;">Welcome, <strong>${currentUser.name}</strong>! Let's personalize your DayFlow in 3 quick steps.</p>
     <div style="margin-bottom:12px;"><label style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.6px;color:var(--ink-m);display:block;margin-bottom:5px;">Confirm Your Name</label>
-    <input id="setup-name" style="width:100%;padding:11px 14px;border-radius:12px;border:2px solid var(--border);font-family:'Nunito',sans-serif;font-size:15px;outline:none;" value="${currentUser.name||''}" placeholder="Your name">
+    <input id="setup-name" style="width:100%;padding:11px 14px;border-radius:12px;border:2px solid var(--border);font-family:'DM Sans',sans-serif;font-size:15px;outline:none;" value="${currentUser.name||''}" placeholder="Your name">
     </div>
-    <button onclick="nextSetup()" style="width:100%;padding:13px;background:var(--peach);color:#fff;border:none;border-radius:14px;font-family:'Nunito',sans-serif;font-size:15px;font-weight:700;cursor:pointer;">Continue →</button>`;
+    <button onclick="nextSetup()" style="width:100%;padding:13px;background:var(--peach);color:#fff;border:none;border-radius:14px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:700;cursor:pointer;">Continue →</button>`;
   } else if (setupStep===1) {
     c.innerHTML=`<p style="font-size:13px;color:var(--ink-m);margin-bottom:12px;line-height:1.6;font-style:italic;">"Begin with the end in mind."</p>
     <div style="margin-bottom:12px;"><label style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.6px;color:var(--ink-m);display:block;margin-bottom:5px;">Your Mission Statement (write it later if you prefer)</label>
-    <textarea id="setup-mission" style="width:100%;padding:11px 14px;border-radius:12px;border:2px solid var(--border);font-family:'Nunito',sans-serif;font-size:14px;outline:none;resize:none;min-height:80px;" placeholder="I am a principled leader who..."></textarea>
+    <textarea id="setup-mission" style="width:100%;padding:11px 14px;border-radius:12px;border:2px solid var(--border);font-family:'DM Sans',sans-serif;font-size:14px;outline:none;resize:none;min-height:80px;" placeholder="I am a principled leader who..."></textarea>
     </div>
-    <button onclick="nextSetup()" style="width:100%;padding:13px;background:var(--peach);color:#fff;border:none;border-radius:14px;font-family:'Nunito',sans-serif;font-size:15px;font-weight:700;cursor:pointer;">Continue →</button>
-    <button onclick="nextSetup()" style="width:100%;padding:10px;background:transparent;border:none;font-family:'Nunito',sans-serif;font-size:13px;color:var(--ink-m);cursor:pointer;margin-top:6px;">Skip for now</button>`;
+    <button onclick="nextSetup()" style="width:100%;padding:13px;background:var(--peach);color:#fff;border:none;border-radius:14px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:700;cursor:pointer;">Continue →</button>
+    <button onclick="nextSetup()" style="width:100%;padding:10px;background:transparent;border:none;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--ink-m);cursor:pointer;margin-top:6px;">Skip for now</button>`;
   } else if (setupStep===2) {
     c.innerHTML=`<p style="font-size:13px;color:var(--ink-m);margin-bottom:12px;line-height:1.6;font-style:italic;">"Identify your key roles."</p>
     <div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:16px;" id="role-suggestions">
       ${['👨‍👩‍👧 Parent','💼 Professional','🙏 Spiritual Leader','🏃 Health/Fitness','👫 Spouse/Partner','🎓 Learner','🤝 Community Leader'].map(r=>`<div onclick="this.classList.toggle('sel');this.style.background=this.classList.contains('sel')?'var(--peach)':'';this.style.color=this.classList.contains('sel')?'#fff':'var(--ink-m)';" style="padding:7px 13px;border-radius:20px;border:1.5px solid var(--border);font-size:12px;font-weight:700;cursor:pointer;color:var(--ink-m);transition:all .2s;">${r}</div>`).join('')}
     </div>
-    <button onclick="finishSetup()" style="width:100%;padding:13px;background:var(--peach);color:#fff;border:none;border-radius:14px;font-family:'Nunito',sans-serif;font-size:15px;font-weight:700;cursor:pointer;">🚀 Start DayFlow!</button>`;
+    <button onclick="finishSetup()" style="width:100%;padding:13px;background:var(--peach);color:#fff;border:none;border-radius:14px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:700;cursor:pointer;">🚀 Start DayFlow!</button>`;
   }
 }
 
@@ -2297,7 +2321,7 @@ function completeWR(){
   cloudSave('weeklyReview',{answers:wrAnswers,completedAt:new Date().toISOString()});
   addKarma(50,'Weekly Review complete! 🔄');
   toast('🎉 Weekly Review complete! +50 karma');
-  document.getElementById('wr-panel').innerHTML=`<div style="text-align:center;padding:32px;"><div style="font-size:48px;margin-bottom:14px;">🎉</div><div style="font-family:'Playfair Display',serif;font-size:22px;font-weight:700;margin-bottom:8px;">Review Complete!</div><div style="font-size:14px;color:var(--ink-m);line-height:1.6;">"Highly effective people don't just act, they reflect. You've earned your Quadrant II time."</div></div>`;
+  document.getElementById('wr-panel').innerHTML=`<div style="text-align:center;padding:32px;"><div style="font-size:48px;margin-bottom:14px;">🎉</div><div style="font-family:'DM Serif Display',serif;font-size:20px;font-weight:400;font-weight:700;margin-bottom:8px;">Review Complete!</div><div style="font-size:14px;color:var(--ink-m);line-height:1.6;">"Highly effective people don't just act, they reflect. You've earned your Quadrant II time."</div></div>`;
 }
 
 // ═══════════════════════════════════════════════════════
@@ -2400,13 +2424,13 @@ function showNoteEditor(note) {
   grid.innerHTML = `<div style="grid-column:1/-1;background:var(--surface);border-radius:var(--r);padding:22px;border:1px solid var(--border);box-shadow:0 2px 8px var(--sh);">
     <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
       <div style="font-family:'Playfair Display',serif;font-size:20px;font-weight:700;">${note?'Edit Note':'New Note'}</div>
-      <button onclick="cancelNote()" style="margin-left:auto;padding:7px 14px;background:var(--cream);border:1.5px solid var(--border);border-radius:10px;font-family:'Nunito',sans-serif;font-weight:700;font-size:13px;cursor:pointer;color:var(--ink-m);">Cancel</button>
+      <button onclick="cancelNote()" style="margin-left:auto;padding:7px 14px;background:var(--cream);border:1.5px solid var(--border);border-radius:10px;font-family:'DM Sans',sans-serif;font-weight:700;font-size:13px;cursor:pointer;color:var(--ink-m);">Cancel</button>
     </div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;">
       <div><label style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.6px;color:var(--ink-m);display:block;margin-bottom:5px;">Title (optional)</label>
-      <input id="note-title" style="width:100%;padding:10px 13px;border-radius:var(--rs);border:1.5px solid var(--border);font-family:'Nunito',sans-serif;font-size:14px;color:var(--ink);outline:none;background:var(--cream);" placeholder="Give your note a title..." value="${note?.title||''}"></div>
+      <input id="note-title" style="width:100%;padding:10px 13px;border-radius:var(--rs);border:1.5px solid var(--border);font-family:'DM Sans',sans-serif;font-size:14px;color:var(--ink);outline:none;background:var(--cream);" placeholder="Give your note a title..." value="${note?.title||''}"></div>
       <div><label style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.6px;color:var(--ink-m);display:block;margin-bottom:5px;">Type</label>
-      <select id="note-type" style="width:100%;padding:10px 13px;border-radius:var(--rs);border:1.5px solid var(--border);font-family:'Nunito',sans-serif;font-size:14px;outline:none;background:var(--cream);color:var(--ink);">
+      <select id="note-type" style="width:100%;padding:10px 13px;border-radius:var(--rs);border:1.5px solid var(--border);font-family:'DM Sans',sans-serif;font-size:14px;outline:none;background:var(--cream);color:var(--ink);">
         <option value="journal" ${note?.type==='journal'?'selected':''}>📔 Daily Journal</option>
         <option value="idea" ${note?.type==='idea'?'selected':''}>💡 Idea</option>
         <option value="brain" ${note?.type==='brain'?'selected':''}>🧠 Brain Dump</option>
@@ -2415,12 +2439,12 @@ function showNoteEditor(note) {
     </div>
     <div style="margin-bottom:14px;">
       <label style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.6px;color:var(--ink-m);display:block;margin-bottom:5px;">Content</label>
-      <textarea id="note-content" style="width:100%;padding:12px;border-radius:var(--rs);border:1.5px solid var(--border);font-family:'Nunito',sans-serif;font-size:14px;color:var(--ink);outline:none;resize:vertical;min-height:200px;background:var(--cream);line-height:1.7;" placeholder="Write freely here... brain dump, journal entry, idea capture, reflection...">${note?.content||''}</textarea>
+      <textarea id="note-content" style="width:100%;padding:12px;border-radius:var(--rs);border:1.5px solid var(--border);font-family:'DM Sans',sans-serif;font-size:14px;color:var(--ink);outline:none;resize:vertical;min-height:200px;background:var(--cream);line-height:1.7;" placeholder="Write freely here... brain dump, journal entry, idea capture, reflection...">${note?.content||''}</textarea>
     </div>
     <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
-      <button onclick="saveNote()" style="padding:10px 22px;background:var(--peach);color:#fff;border:none;border-radius:var(--rs);font-family:'Nunito',sans-serif;font-weight:700;font-size:14px;cursor:pointer;box-shadow:0 3px 10px rgba(255,138,101,.3);">💾 Save Note</button>
-      <button onclick="aiEnhanceNote()" style="padding:10px 16px;background:var(--lav-p);color:var(--lav);border:1px solid rgba(126,87,194,.2);border-radius:var(--rs);font-family:'Nunito',sans-serif;font-weight:700;font-size:13px;cursor:pointer;">✨ AI: Enhance & Reflect</button>
-      ${note?`<button onclick="convertNoteToTask('${note.id}')" style="padding:10px 16px;background:var(--gold-p);color:#8B6400;border:1px solid rgba(255,179,0,.3);border-radius:var(--rs);font-family:'Nunito',sans-serif;font-weight:700;font-size:13px;cursor:pointer;">→ Convert to Task</button>`:''}
+      <button onclick="saveNote()" style="padding:10px 22px;background:var(--peach);color:#fff;border:none;border-radius:var(--rs);font-family:'DM Sans',sans-serif;font-weight:700;font-size:14px;cursor:pointer;box-shadow:0 3px 10px rgba(255,138,101,.3);">💾 Save Note</button>
+      <button onclick="aiEnhanceNote()" style="padding:10px 16px;background:var(--lav-p);color:var(--lav);border:1px solid rgba(126,87,194,.2);border-radius:var(--rs);font-family:'DM Sans',sans-serif;font-weight:700;font-size:13px;cursor:pointer;">✨ AI: Enhance & Reflect</button>
+      ${note?`<button onclick="convertNoteToTask('${note.id}')" style="padding:10px 16px;background:var(--gold-p);color:#8B6400;border:1px solid rgba(255,179,0,.3);border-radius:var(--rs);font-family:'DM Sans',sans-serif;font-weight:700;font-size:13px;cursor:pointer;">→ Convert to Task</button>`:''}
     </div>
   </div>`;
   setTimeout(()=>document.getElementById('note-content')?.focus(),100);
