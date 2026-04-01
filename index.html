@@ -544,6 +544,29 @@ body.dark .sinfo{background:var(--warm)}
 .seq-num{width:22px;height:22px;border-radius:50%;background:var(--sky);color:#fff;font-size:11px;font-weight:800;flex-shrink:0;display:flex;align-items:center;justify-content:center}
 .seq-title{font-size:13px;font-weight:700;color:var(--ink)}
 .seq-why{font-size:11px;color:var(--ink-m);margin-top:2px}
+/* GRATITUDE CHECK-IN */
+#gratitude-overlay{position:fixed;inset:0;z-index:8000;background:rgba(26,10,0,.6);backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;padding:20px}
+#gratitude-overlay.open{display:flex}
+.gc-card{background:var(--warm);border-radius:28px;padding:36px 40px;max-width:460px;width:100%;box-shadow:0 32px 80px rgba(26,10,0,.3);animation:slideUp .3s cubic-bezier(.34,1.56,.64,1)}
+.gc-sun{font-size:52px;text-align:center;margin-bottom:12px}
+.gc-title{font-family:"Playfair Display",serif;font-size:24px;font-weight:700;text-align:center;margin-bottom:4px;color:var(--ink)}
+.gc-sub{font-size:13px;color:var(--ink-m);text-align:center;margin-bottom:22px;font-weight:500;line-height:1.5}
+.gc-label{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.8px;color:var(--ink-m);margin-bottom:8px;display:block}
+.gc-input{width:100%;padding:11px 14px;border-radius:12px;border:1.5px solid var(--border);font-family:"Nunito",sans-serif;font-size:14px;color:var(--ink);outline:none;margin-bottom:9px;background:var(--surface);transition:border .2s}
+.gc-input:focus{border-color:var(--gold);box-shadow:0 0 0 3px var(--gold-p)}
+.gc-input::placeholder{color:var(--ink-m)}
+.gc-mood-lbl{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.8px;color:var(--ink-m);margin-bottom:10px;display:block}
+.gc-moods{display:flex;gap:8px;justify-content:center;margin-bottom:20px}
+.gc-mood-btn{width:46px;height:46px;border-radius:12px;border:2px solid var(--border);font-size:22px;cursor:pointer;transition:all .2s;background:var(--surface);display:flex;align-items:center;justify-content:center}
+.gc-mood-btn:hover,.gc-mood-btn.on{border-color:var(--gold);background:var(--gold-p);transform:scale(1.12)}
+.gc-save-btn{width:100%;padding:13px;background:linear-gradient(135deg,var(--gold),var(--peach));border:none;border-radius:14px;font-family:"Nunito",sans-serif;font-size:15px;font-weight:800;color:#fff;cursor:pointer;transition:all .2s;box-shadow:0 4px 14px rgba(255,179,0,.3)}
+.gc-save-btn:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(255,179,0,.4)}
+.gc-skip{width:100%;padding:9px;background:transparent;border:none;font-family:"Nunito",sans-serif;font-size:13px;color:var(--ink-m);cursor:pointer;margin-top:8px;transition:color .2s}
+.gc-skip:hover{color:var(--ink)}
+.grat-widget{margin:0 12px 12px;padding:12px 14px;background:linear-gradient(135deg,var(--gold-p),var(--peach-p));border-radius:12px;border:1px solid rgba(255,179,0,.2);cursor:pointer;transition:all .2s}
+.grat-widget:hover{transform:translateY(-1px);box-shadow:0 4px 12px var(--sh)}
+.gw-label{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:var(--gold);margin-bottom:4px}
+.gw-txt{font-size:12px;color:var(--ink-l);line-height:1.5;font-style:italic}
 </style>
 </head>
 <body>
@@ -593,6 +616,29 @@ body.dark .sinfo{background:var(--warm)}
 <button class="dark-btn" id="dark-btn" onclick="toggleDark()">🌙</button>
 <div id="karma-toast"></div>
 <div id="toast"></div>
+
+<!-- GRATITUDE OVERLAY -->
+<div id="gratitude-overlay">
+  <div class="gc-card">
+    <div class="gc-sun">🌅</div>
+    <div class="gc-title">Good Morning!</div>
+    <div class="gc-sub">Habit 7 — Sharpen the Saw<br>Start with gratitude to center your mind.</div>
+    <span class="gc-label">3 things I'm grateful for today</span>
+    <input class="gc-input" id="grat-1" placeholder="I'm grateful for...">
+    <input class="gc-input" id="grat-2" placeholder="I'm grateful for...">
+    <input class="gc-input" id="grat-3" placeholder="I'm grateful for...">
+    <span class="gc-mood-lbl">How are you feeling?</span>
+    <div class="gc-moods">
+      <div class="gc-mood-btn" data-mood="😐" onclick="selectGratMood('😐')">😐</div>
+      <div class="gc-mood-btn" data-mood="🙂" onclick="selectGratMood('🙂')">🙂</div>
+      <div class="gc-mood-btn on" data-mood="😊" onclick="selectGratMood('😊')">😊</div>
+      <div class="gc-mood-btn" data-mood="😄" onclick="selectGratMood('😄')">😄</div>
+      <div class="gc-mood-btn" data-mood="🔥" onclick="selectGratMood('🔥')">🔥</div>
+    </div>
+    <button class="gc-save-btn" onclick="saveGratitude()">✨ Start My Day</button>
+    <button class="gc-skip" onclick="closeGratitude()">Skip for now</button>
+  </div>
+</div>
 
 <div id="app" style="display:none;">
 <!-- FOCUS MODE OVERLAY -->
@@ -687,6 +733,11 @@ body.dark .sinfo{background:var(--warm)}
     <div class="covey-habit-of-day" id="covey-principle-txt">Loading...</div>
   </div>
 
+  <!-- GRATITUDE SIDEBAR WIDGET -->
+<div class="grat-widget" onclick="openGratitude(true)" id="grat-widget">
+  <div class="gw-label">🌅 Today's Gratitude</div>
+  <div class="gw-txt" id="gw-txt">Click to log what you're grateful for today</div>
+</div>
   <div class="sb-bottom">
     <div class="sb-stats">
       <div class="sb-stat"><div class="sb-stat-n" id="streak-n">0</div><div class="sb-stat-l">🔥 Streak</div></div>
@@ -1585,7 +1636,9 @@ function showApp() {
   document.getElementById('auth-screen').classList.add('hidden');
   document.getElementById('app').style.display='flex';
   if(localStorage.getItem('df_dark')==='1'){document.body.classList.add('dark');document.getElementById('dark-btn').textContent='☀️';}
-  updateUserUI(); updateGreeting(); renderAll(); genBrief(); updateAiBadge(); showCoveyPrinciple(); updateFbBadge(fbReady);
+  updateUserUI(); updateGreeting(); renderAll();
+  updateGratWidget();
+  setTimeout(function(){ openGratitude(false); }, 1200); genBrief(); updateAiBadge(); showCoveyPrinciple(); updateFbBadge(fbReady);
 }
 
 function updateUserUI() {
@@ -2854,6 +2907,69 @@ async function aiPlanMyDay() {
       return "<div style='padding:5px 0;font-size:13px;color:var(--ink-l);'>"+line+"</div>";
     }).join("");
   } catch(e) { body.textContent = "AI unavailable. Add your Gemini key in Settings!"; }
+}
+
+
+// GRATITUDE CHECK-IN
+var gratMood = "😊";
+function openGratitude(manual) {
+  if (!manual) {
+    var key = "df_grat_" + todayStr() + "_" + (currentUser ? currentUser.uid : "guest");
+    if (localStorage.getItem(key)) return;
+  }
+  gratMood = "😊";
+  document.querySelectorAll(".gc-mood-btn").forEach(function(b) { b.classList.remove("on"); });
+  var def = document.querySelector(".gc-mood-btn[data-mood='😊']");
+  if (def) def.classList.add("on");
+  ["grat-1","grat-2","grat-3"].forEach(function(id) { var el=document.getElementById(id); if(el) el.value=""; });
+  document.getElementById("gratitude-overlay").classList.add("open");
+}
+function closeGratitude() {
+  document.getElementById("gratitude-overlay").classList.remove("open");
+}
+function selectGratMood(m) {
+  gratMood = m;
+  document.querySelectorAll(".gc-mood-btn").forEach(function(b) {
+    b.classList.toggle("on", b.dataset.mood === m);
+  });
+}
+function saveGratitude() {
+  var g1 = (document.getElementById("grat-1")||{}).value||"";
+  var g2 = (document.getElementById("grat-2")||{}).value||"";
+  var g3 = (document.getElementById("grat-3")||{}).value||"";
+  var items = [g1,g2,g3].filter(function(x){return x.trim();});
+  if (!items.length) { if(typeof toast==="function") toast("⚠️ Add at least one thing you're grateful for"); return; }
+  var uid = currentUser ? currentUser.uid : "guest";
+  var note = {
+    id: "grat_" + Date.now(),
+    title: gratMood + " Gratitude — " + new Date().toLocaleDateString("en-US",{month:"long",day:"numeric"}),
+    content: "Mood: " + gratMood + "\n\n" + items.map(function(g,i){return (i+1)+". "+g;}).join("\n"),
+    type: "reflect",
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString()
+  };
+  notes.unshift(note);
+  localStorage.setItem("df_notes_" + uid, JSON.stringify(notes));
+  localStorage.setItem("df_grat_" + todayStr() + "_" + uid, "1");
+  closeGratitude();
+  updateGratWidget();
+  if (typeof updateBadges === "function") updateBadges();
+  if (typeof addKarma === "function") addKarma(10, "morning gratitude! 🌅");
+  if (typeof toast === "function") toast("🌅 Beautiful start! +10 karma");
+}
+function updateGratWidget() {
+  var el = document.getElementById("gw-txt"); if (!el) return;
+  var uid = currentUser ? currentUser.uid : "guest";
+  var done = localStorage.getItem("df_grat_" + todayStr() + "_" + uid);
+  if (done) {
+    var todayNote = notes.find(function(n){ return n.id && n.id.indexOf("grat_")===0 && n.createdAt && n.createdAt.slice(0,10)===todayStr(); });
+    if (todayNote) {
+      var firstItem = todayNote.content.split("\n").filter(function(l){return l.match(/^\d\./);})[0];
+      el.textContent = firstItem ? firstItem.replace(/^\d+\.\s*/,"") : "Gratitude logged today ✓";
+    } else { el.textContent = "Gratitude logged today ✓"; }
+  } else {
+    el.textContent = "Click to log what you're grateful for today";
+  }
 }
 
 initApp();
