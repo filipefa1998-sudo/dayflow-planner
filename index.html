@@ -657,6 +657,44 @@ body.dark .sinfo{background:var(--warm)}
 .sb-section-body{overflow:hidden;transition:max-height .22s ease}
 .sb-section-body.open{max-height:400px}
 .sb-section-body.closed{max-height:0}
+/* MICRO-ANIMATIONS */
+.view{animation:none}
+.view.active{animation:viewIn .22s cubic-bezier(.4,0,.2,1)}
+@keyframes viewIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+@keyframes tcSlideIn{from{opacity:0;transform:translateY(-12px) scale(.98)}to{opacity:1;transform:translateY(0) scale(1)}}
+.tc{animation:tcSlideIn .2s cubic-bezier(.34,1.56,.64,1)}
+@keyframes tcDone{0%{opacity:1;transform:translateX(0)}60%{opacity:.4;transform:translateX(18px) scale(.97)}100%{opacity:0;transform:translateX(40px) scale(.95)}}
+.tc.completing{animation:tcDone .35s ease forwards;pointer-events:none}
+.tc.q1:hover{box-shadow:0 6px 20px rgba(255,107,107,.18),0 2px 8px var(--sh2)}
+.tc.q2:hover{box-shadow:0 6px 20px rgba(78,205,196,.18),0 2px 8px var(--sh2)}
+.tc.q3:hover{box-shadow:0 6px 20px rgba(255,217,61,.15),0 2px 8px var(--sh2)}
+.tc.q4:hover{box-shadow:0 6px 20px rgba(184,169,154,.15),0 2px 8px var(--sh2)}
+.ni{overflow:hidden}
+.ni.active::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(255,255,255,.08),transparent);animation:niSweep .3s ease forwards}
+@keyframes niSweep{from{transform:translateX(-100%)}to{transform:translateX(100%)}}
+.btn:active{transform:scale(.96) !important}
+.btn-p:active{transform:scale(.96) !important}
+.btn-s:active{transform:scale(.96) !important}
+.pcbtn:active{transform:scale(.96) !important}
+.fm-btn:active{transform:scale(.96) !important}
+@keyframes statPop{0%{transform:scale(1)}50%{transform:scale(1.08)}100%{transform:scale(1)}}
+.scard-n.pop{animation:statPop .3s cubic-bezier(.34,1.56,.64,1)}
+.modal{animation:modalIn .28s cubic-bezier(.34,1.56,.64,1)}
+@keyframes modalIn{from{opacity:0;transform:translateY(28px) scale(.96)}to{opacity:1;transform:translateY(0) scale(1)}}
+#karma-toast.show{animation:karmaSpring .4s cubic-bezier(.34,1.56,.64,1) forwards}
+@keyframes karmaSpring{0%{transform:translateY(-60px) scale(.8);opacity:0}70%{transform:translateY(4px) scale(1.04)}100%{transform:translateY(0) scale(1);opacity:1}}
+@keyframes habitCheck{0%{transform:scale(1)}40%{transform:scale(1.3)}70%{transform:scale(.9)}100%{transform:scale(1)}}
+.hchk:active{animation:habitCheck .3s cubic-bezier(.34,1.56,.64,1)}
+.pr-fill{transition:stroke-dashoffset .8s cubic-bezier(.4,0,.2,1)}
+.fm-ring-arc{transition:stroke-dashoffset 1s linear,stroke .5s}
+.sb-section-body{transition:max-height .25s cubic-bezier(.4,0,.2,1),opacity .2s ease}
+.sb-section-body.closed{opacity:.3}
+.sb-section-body.open{opacity:1}
+@keyframes inputGlow{0%,100%{box-shadow:0 0 0 3px rgba(255,138,101,.15)}50%{box-shadow:0 0 0 4px rgba(255,138,101,.28)}}
+.qa-in:focus{animation:inputGlow 2s ease infinite}
+.conf{animation:confFall .9s cubic-bezier(.25,.46,.45,.94) forwards}
+#view-today.active{animation:viewIn .22s cubic-bezier(.4,0,.2,1)}
+#view-quadrant.active{animation:viewIn .22s cubic-bezier(.4,0,.2,1)}
 </style>
 </head>
 <body>
@@ -3189,6 +3227,49 @@ function toggleSection(key) {
   if (arrow) { arrow.classList.toggle("open", !isOpen); arrow.classList.toggle("closed", isOpen); }
   sectionStates[key] = !isOpen;
   localStorage.setItem("df_sb_sections", JSON.stringify(sectionStates));
+}
+
+
+// MICRO-ANIMATIONS
+var _origToggleTask = typeof toggleTask === "function" ? toggleTask : null;
+function toggleTask(id) {
+  var t = tasks.find(function(x){return x.id===id;});
+  if (!t) return;
+  if (!t.done) {
+    // animate out first then mark done
+    var el = document.getElementById("tc-"+id);
+    if (el) {
+      el.classList.add("completing");
+      setTimeout(function() {
+        if (_origToggleTask) _origToggleTask(id);
+      }, 320);
+    } else {
+      if (_origToggleTask) _origToggleTask(id);
+    }
+  } else {
+    if (_origToggleTask) _origToggleTask(id);
+  }
+}
+var _origUpdateStats = typeof updateStats === "function" ? updateStats : null;
+function updateStats() {
+  if (_origUpdateStats) _origUpdateStats();
+  ["s-done","s-left"].forEach(function(id) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    el.classList.remove("pop");
+    void el.offsetWidth;
+    el.classList.add("pop");
+  });
+}
+var _origNav = typeof nav === "function" ? nav : null;
+function nav(v) {
+  if (_origNav) _origNav(v);
+  var el = document.getElementById("view-"+v);
+  if (el) {
+    el.style.animation = "none";
+    void el.offsetWidth;
+    el.style.animation = "";
+  }
 }
 
 initApp();
