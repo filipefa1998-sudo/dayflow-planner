@@ -835,23 +835,47 @@ body.dark .mtitle { color: #E8EDF5 !important; }
 .sb-avatar { cursor: pointer !important; }
 .mob-avatar { cursor: pointer !important; }
 
-/* ═══ HABITS PATCH CSS ═══ */
-.covey-align-badge{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:800;letter-spacing:.3px;margin-top:3px;}
-.ca-h1{background:rgba(192,57,43,.1);color:#C0392B;border:1px solid rgba(192,57,43,.25);}
-.ca-h2{background:rgba(27,58,107,.1);color:#1B3A6B;border:1px solid rgba(27,58,107,.25);}
-.ca-h3{background:rgba(212,160,23,.1);color:#8B6914;border:1px solid rgba(212,160,23,.25);}
-.ca-h4{background:rgba(46,125,50,.1);color:#2E7D32;border:1px solid rgba(46,125,50,.25);}
-.ca-h5{background:rgba(21,101,192,.1);color:#1565C0;border:1px solid rgba(21,101,192,.25);}
-.ca-h6{background:rgba(74,35,90,.1);color:#4A235A;border:1px solid rgba(74,35,90,.25);}
-.ca-h7{background:rgba(78,205,196,.1);color:#1B7B75;border:1px solid rgba(78,205,196,.25);}
-.hday.past-clickable{cursor:pointer;}
-.hday.past-clickable:hover:not(.on){background:rgba(201,168,76,.15);border-color:rgba(201,168,76,.5);}
-.h-edit-btn{width:24px;height:24px;border-radius:7px;border:none;background:rgba(201,168,76,.12);cursor:pointer;display:inline-flex;align-items:center;justify-content:center;font-size:11px;color:#C9A84C;transition:all .2s;flex-shrink:0;}
-.h-edit-btn:hover{background:#C9A84C;color:#fff;}
-.covey-sel-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:6px;}
-.covey-sel-opt{padding:8px 10px;border-radius:10px;border:2px solid var(--border);font-size:11px;font-weight:700;cursor:pointer;transition:all .2s;line-height:1.4;background:var(--surface);color:var(--ink-l);}
-.covey-sel-opt:hover{border-color:var(--peach);background:var(--peach-p);}
-.covey-sel-opt.on{border-color:var(--peach);background:var(--peach-p);color:var(--peach);}
+
+
+/* ═══ RIGHT PANEL FIX v4 ═══ */
+.rpanel{width:272px;flex-shrink:0;padding:20px 14px;display:flex;flex-direction:column;gap:12px;overflow-y:auto;max-height:100vh;position:sticky;top:0;}
+.rpanel .pcrd{background:var(--surface);border-radius:12px;padding:14px 15px;border:1px solid var(--border);box-shadow:0 1px 4px var(--sh);flex-shrink:0;}
+.rpanel .pcrd-t{font-weight:800;font-size:12px;margin-bottom:10px;display:flex;align-items:center;gap:6px;color:var(--ink);}
+#coming-up{max-height:180px;overflow-y:auto;}
+#q2-panel{max-height:180px;overflow-y:auto;}
+.pr-wrap{display:flex;align-items:center;gap:12px;}
+.pr-ring{width:56px;height:56px;position:relative;flex-shrink:0;}
+.pr-svg{width:100%;height:100%;transform:rotate(-90deg);}
+.pr-bg{fill:none;stroke:var(--peach-p);stroke-width:6;}
+.pr-fill{fill:none;stroke:var(--gold);stroke-width:6;stroke-linecap:round;transition:stroke-dashoffset .8s cubic-bezier(.4,0,.2,1);}
+.pr-txt{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:'DM Serif Display',serif;font-size:13px;font-weight:700;color:var(--ink);}
+.pr-lbl{font-weight:800;font-size:13px;color:var(--ink);line-height:1.3;}
+.pr-sub{font-size:11px;color:var(--ink-m);margin-top:3px;font-weight:500;}
+#coming-up .come-item{padding:6px 0;border-bottom:1px solid var(--border);display:flex;gap:8px;align-items:flex-start;}
+#coming-up .come-item:last-child{border-bottom:none;}
+
+
+/* ═══ HABITS FULL CSS v4 ═══ */
+.covey-align-badge{display:inline-flex;align-items:center;gap:4px;padding:2px 9px;border-radius:20px;font-size:10px;font-weight:800;letter-spacing:.3px;margin-top:4px;margin-bottom:2px;}
+.ca-h1{background:rgba(192,57,43,.1);color:#C0392B;border:1px solid rgba(192,57,43,.2);}
+.ca-h2{background:rgba(27,58,107,.1);color:#1B3A6B;border:1px solid rgba(27,58,107,.2);}
+.ca-h3{background:rgba(212,160,23,.1);color:#8B6914;border:1px solid rgba(212,160,23,.2);}
+.ca-h4{background:rgba(46,125,50,.1);color:#2E7D32;border:1px solid rgba(46,125,50,.2);}
+.ca-h5{background:rgba(21,101,192,.1);color:#1565C0;border:1px solid rgba(21,101,192,.2);}
+.ca-h6{background:rgba(74,35,90,.1);color:#4A235A;border:1px solid rgba(74,35,90,.2);}
+.ca-h7{background:rgba(78,205,196,.1);color:#1B7B75;border:1px solid rgba(78,205,196,.2);}
+.h-edit-btn{width:26px;height:26px;border-radius:8px;border:none;background:rgba(201,168,76,.15);cursor:pointer;display:inline-flex;align-items:center;justify-content:center;font-size:12px;color:#C9A84C;transition:all .2s;flex-shrink:0;vertical-align:middle;}
+.h-edit-btn:hover{background:#C9A84C;color:#fff;transform:scale(1.1);}
+.hday{cursor:pointer;}
+.hday:not(.on):hover{background:rgba(201,168,76,.2);border-color:rgba(201,168,76,.6);}
+.covey-sel-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:6px;}
+.covey-sel-opt{padding:9px 11px;border-radius:10px;border:2px solid var(--border);font-size:11px;font-weight:700;cursor:pointer;transition:all .2s;line-height:1.4;background:var(--surface);color:var(--ink-l);}
+.covey-sel-opt:hover{border-color:var(--peach);background:var(--peach-p);color:var(--ink);}
+.covey-sel-opt.on{border-color:var(--peach);background:var(--peach-p);color:var(--peach);box-shadow:0 0 0 3px var(--peach-p);}
+.hcard{transition:all .2s;}
+.hcard:hover{box-shadow:0 4px 16px var(--sh2);transform:translateY(-1px);}
+.backfill-hint{font-size:10px;color:var(--ink-m);margin-top:4px;font-weight:600;opacity:.7;}
+
 </style>
 </head>
 <body data-new-gr-c-s-check-loaded="14.1280.0" data-gr-ext-installed="">
@@ -1099,7 +1123,7 @@ body.dark .mtitle { color: #E8EDF5 !important; }
   <div class="sb-bottom">
     <div class="sb-stats">
       <div class="sb-stat"><div class="sb-stat-n" id="streak-n">1</div><div class="sb-stat-l">🔥 Streak</div></div>
-      <div class="sb-stat"><div class="sb-stat-n" id="karma-n">105</div><div class="sb-stat-l">⚡ Karma</div></div>
+      <div class="sb-stat"><div class="sb-stat-n" id="karma-n">120</div><div class="sb-stat-l">⚡ Karma</div></div>
     </div>
   </div>
 </aside>
@@ -1182,7 +1206,7 @@ body.dark .mtitle { color: #E8EDF5 !important; }
       <div class="scard"><div class="scard-ico">✅</div><div class="scard-n pop" id="s-done">0</div><div class="scard-l">Completed</div></div>
       <div class="scard"><div class="scard-ico">📋</div><div class="scard-n pop" id="s-left">2</div><div class="scard-l">Remaining</div></div>
       <div class="scard"><div class="scard-ico">⚡</div><div class="scard-n" id="s-pct">0%</div><div class="scard-l">Progress</div></div>
-      <div class="karma-card"><div style="font-size:26px;">⚡</div><div><div class="karma-n" id="karma-big">105</div><div class="karma-l">Karma Points</div><div class="karma-lvl" id="karma-lvl">⚡ Productive</div></div></div>
+      <div class="karma-card"><div style="font-size:26px;">⚡</div><div><div class="karma-n" id="karma-big">120</div><div class="karma-l">Karma Points</div><div class="karma-lvl" id="karma-lvl">⚡ Productive</div></div></div>
     </div>
   </div>
 
@@ -1465,7 +1489,7 @@ body.dark .mtitle { color: #E8EDF5 !important; }
   <div class="pg-hdr">
     <div><div class="pg-title">Habits 🔥</div><div class="pg-sub">Habit 7: Sharpen the saw — renew yourself daily</div></div>
   </div>
-  <div id="habits-list"><div class="hcard"><div class="hico hc-peach">💪</div><div class="hbody"><div class="hname">Morning Workout</div><div class="hstreak">🔥 <strong>0</strong> day streak · 0/7 this week</div><div class="hweek"><div class="hday  ">W</div><div class="hday  ">T</div><div class="hday  ">F</div><div class="hday  ">S</div><div class="hday  ">S</div><div class="hday  ">M</div><div class="hday  today">T</div></div><div class="hprog"><div class="hprog-fill" style="width:0%;"></div></div></div><button class="hchk " onclick="togHabit(&#39;h1&#39;)">⭕</button></div><div class="hcard"><div class="hico hc-gold">📚</div><div class="hbody"><div class="hname">Read 20 Minutes</div><div class="hstreak">🔥 <strong>0</strong> day streak · 0/7 this week</div><div class="hweek"><div class="hday  ">W</div><div class="hday  ">T</div><div class="hday  ">F</div><div class="hday  ">S</div><div class="hday  ">S</div><div class="hday  ">M</div><div class="hday  today">T</div></div><div class="hprog"><div class="hprog-fill" style="width:0%;"></div></div></div><button class="hchk " onclick="togHabit(&#39;h2&#39;)">⭕</button></div><div class="hcard"><div class="hico hc-lav">🙏</div><div class="hbody"><div class="hname">Prayer &amp; Meditation</div><div class="hstreak">🔥 <strong>0</strong> day streak · 0/7 this week</div><div class="hweek"><div class="hday  ">W</div><div class="hday  ">T</div><div class="hday  ">F</div><div class="hday  ">S</div><div class="hday  ">S</div><div class="hday  ">M</div><div class="hday  today">T</div></div><div class="hprog"><div class="hprog-fill" style="width:0%;"></div></div></div><button class="hchk " onclick="togHabit(&#39;h3&#39;)">⭕</button></div></div>
+  <div id="habits-list"><div class="hcard"><div class="hico hc-peach">💪</div><div class="hbody"><div class="hname">Morning Workout</div><div class="hstreak">🔥 <strong>0</strong> day streak · 0/7 this week</div><div class="hweek"><div class="hday  ">W</div><div class="hday  ">T</div><div class="hday  ">F</div><div class="hday  ">S</div><div class="hday  ">S</div><div class="hday  ">M</div><div class="hday  today">T</div></div><div class="hprog"><div class="hprog-fill" style="width:0%;"></div></div></div><button class="hchk " onclick="togHabit(&#39;h1&#39;)">⭕</button></div><div class="hcard"><div class="hico hc-gold">📚</div><div class="hbody"><div class="hname">Read 20 Minutes</div><div class="hstreak">🔥 <strong>1</strong> day streak · 1/7 this week</div><div class="hweek"><div class="hday  ">W</div><div class="hday  ">T</div><div class="hday  ">F</div><div class="hday  ">S</div><div class="hday  ">S</div><div class="hday  ">M</div><div class="hday on today">T</div></div><div class="hprog"><div class="hprog-fill" style="width:14%;"></div></div></div><button class="hchk on" onclick="togHabit(&#39;h2&#39;)">✅</button></div><div class="hcard"><div class="hico hc-lav">🙏</div><div class="hbody"><div class="hname">Prayer &amp; Meditation</div><div class="hstreak">🔥 <strong>1</strong> day streak · 1/7 this week</div><div class="hweek"><div class="hday  ">W</div><div class="hday  ">T</div><div class="hday  ">F</div><div class="hday  ">S</div><div class="hday  ">S</div><div class="hday  ">M</div><div class="hday on today">T</div></div><div class="hprog"><div class="hprog-fill" style="width:14%;"></div></div></div><button class="hchk on" onclick="togHabit(&#39;h3&#39;)">✅</button></div><div class="hcard"><div class="hico hc-peach">⭐</div><div class="hbody"><div class="hname">Work on Craft</div><div class="hstreak">🔥 <strong>1</strong> day streak · 1/7 this week</div><div class="hweek"><div class="hday  ">W</div><div class="hday  ">T</div><div class="hday  ">F</div><div class="hday  ">S</div><div class="hday  ">S</div><div class="hday  ">M</div><div class="hday on today">T</div></div><div class="hprog"><div class="hprog-fill" style="width:14%;"></div></div></div><button class="hchk on" onclick="togHabit(&#39;h1775602741424&#39;)">✅</button></div></div>
   <button class="add-h-btn" onclick="openHabit()">+ Add New Habit</button>
 </div>
 
@@ -1914,23 +1938,7 @@ body.dark .mtitle { color: #E8EDF5 !important; }
           <span onclick="document.getElementById(&#39;h-icon&#39;).value=&#39;💪&#39;" style="cursor:pointer;font-size:20px;padding:4px;border-radius:6px;transition:background .15s;" onmouseover="this.style.background=&#39;var(--peach-p)&#39;" onmouseout="this.style.background=&#39;&#39;">💪</span><span onclick="document.getElementById(&#39;h-icon&#39;).value=&#39;📚&#39;" style="cursor:pointer;font-size:20px;padding:4px;border-radius:6px;transition:background .15s;" onmouseover="this.style.background=&#39;var(--peach-p)&#39;" onmouseout="this.style.background=&#39;&#39;">📚</span><span onclick="document.getElementById(&#39;h-icon&#39;).value=&#39;🙏&#39;" style="cursor:pointer;font-size:20px;padding:4px;border-radius:6px;transition:background .15s;" onmouseover="this.style.background=&#39;var(--peach-p)&#39;" onmouseout="this.style.background=&#39;&#39;">🙏</span><span onclick="document.getElementById(&#39;h-icon&#39;).value=&#39;🏃&#39;" style="cursor:pointer;font-size:20px;padding:4px;border-radius:6px;transition:background .15s;" onmouseover="this.style.background=&#39;var(--peach-p)&#39;" onmouseout="this.style.background=&#39;&#39;">🏃</span><span onclick="document.getElementById(&#39;h-icon&#39;).value=&#39;🧘&#39;" style="cursor:pointer;font-size:20px;padding:4px;border-radius:6px;transition:background .15s;" onmouseover="this.style.background=&#39;var(--peach-p)&#39;" onmouseout="this.style.background=&#39;&#39;">🧘</span><span onclick="document.getElementById(&#39;h-icon&#39;).value=&#39;💧&#39;" style="cursor:pointer;font-size:20px;padding:4px;border-radius:6px;transition:background .15s;" onmouseover="this.style.background=&#39;var(--peach-p)&#39;" onmouseout="this.style.background=&#39;&#39;">💧</span><span onclick="document.getElementById(&#39;h-icon&#39;).value=&#39;😴&#39;" style="cursor:pointer;font-size:20px;padding:4px;border-radius:6px;transition:background .15s;" onmouseover="this.style.background=&#39;var(--peach-p)&#39;" onmouseout="this.style.background=&#39;&#39;">😴</span><span onclick="document.getElementById(&#39;h-icon&#39;).value=&#39;✍️&#39;" style="cursor:pointer;font-size:20px;padding:4px;border-radius:6px;transition:background .15s;" onmouseover="this.style.background=&#39;var(--peach-p)&#39;" onmouseout="this.style.background=&#39;&#39;">✍️</span><span onclick="document.getElementById(&#39;h-icon&#39;).value=&#39;🎯&#39;" style="cursor:pointer;font-size:20px;padding:4px;border-radius:6px;transition:background .15s;" onmouseover="this.style.background=&#39;var(--peach-p)&#39;" onmouseout="this.style.background=&#39;&#39;">🎯</span><span onclick="document.getElementById(&#39;h-icon&#39;).value=&#39;🌅&#39;" style="cursor:pointer;font-size:20px;padding:4px;border-radius:6px;transition:background .15s;" onmouseover="this.style.background=&#39;var(--peach-p)&#39;" onmouseout="this.style.background=&#39;&#39;">🌅</span><span onclick="document.getElementById(&#39;h-icon&#39;).value=&#39;🥗&#39;" style="cursor:pointer;font-size:20px;padding:4px;border-radius:6px;transition:background .15s;" onmouseover="this.style.background=&#39;var(--peach-p)&#39;" onmouseout="this.style.background=&#39;&#39;">🥗</span><span onclick="document.getElementById(&#39;h-icon&#39;).value=&#39;🏋️&#39;" style="cursor:pointer;font-size:20px;padding:4px;border-radius:6px;transition:background .15s;" onmouseover="this.style.background=&#39;var(--peach-p)&#39;" onmouseout="this.style.background=&#39;&#39;">🏋️</span><span onclick="document.getElementById(&#39;h-icon&#39;).value=&#39;🧠&#39;" style="cursor:pointer;font-size:20px;padding:4px;border-radius:6px;transition:background .15s;" onmouseover="this.style.background=&#39;var(--peach-p)&#39;" onmouseout="this.style.background=&#39;&#39;">🧠</span><span onclick="document.getElementById(&#39;h-icon&#39;).value=&#39;🤝&#39;" style="cursor:pointer;font-size:20px;padding:4px;border-radius:6px;transition:background .15s;" onmouseover="this.style.background=&#39;var(--peach-p)&#39;" onmouseout="this.style.background=&#39;&#39;">🤝</span><span onclick="document.getElementById(&#39;h-icon&#39;).value=&#39;📖&#39;" style="cursor:pointer;font-size:20px;padding:4px;border-radius:6px;transition:background .15s;" onmouseover="this.style.background=&#39;var(--peach-p)&#39;" onmouseout="this.style.background=&#39;&#39;">📖</span><span onclick="document.getElementById(&#39;h-icon&#39;).value=&#39;🎵&#39;" style="cursor:pointer;font-size:20px;padding:4px;border-radius:6px;transition:background .15s;" onmouseover="this.style.background=&#39;var(--peach-p)&#39;" onmouseout="this.style.background=&#39;&#39;">🎵</span>
         </div>
       </div>
-      <div class="fg">
-        <label class="flbl">🏛️ Covey 7 Habits Alignment</label>
-        <div class="covey-sel-grid" id="covey-sel-grid">
-          <div class="covey-sel-opt" data-ch="h1" onclick="setCoveyHabit(&#39;h1&#39;)">H1 · Be Proactive<br><span style="font-weight:500;font-size:10px;opacity:.7;">Own your choices</span></div>
-          <div class="covey-sel-opt" data-ch="h2" onclick="setCoveyHabit(&#39;h2&#39;)">H2 · Begin with End in Mind<br><span style="font-weight:500;font-size:10px;opacity:.7;">Vision &amp; planning</span></div>
-          <div class="covey-sel-opt" data-ch="h3" onclick="setCoveyHabit(&#39;h3&#39;)">H3 · Put First Things First<br><span style="font-weight:500;font-size:10px;opacity:.7;">Prioritize Q2 activities</span></div>
-          <div class="covey-sel-opt" data-ch="h4" onclick="setCoveyHabit(&#39;h4&#39;)">H4 · Think Win-Win<br><span style="font-weight:500;font-size:10px;opacity:.7;">Mutual benefit</span></div>
-          <div class="covey-sel-opt" data-ch="h5" onclick="setCoveyHabit(&#39;h5&#39;)">H5 · Seek First to Understand<br><span style="font-weight:500;font-size:10px;opacity:.7;">Empathic listening</span></div>
-          <div class="covey-sel-opt" data-ch="h6" onclick="setCoveyHabit(&#39;h6&#39;)">H6 · Synergize<br><span style="font-weight:500;font-size:10px;opacity:.7;">Creative cooperation</span></div>
-          <div class="covey-sel-opt on" data-ch="h7" onclick="setCoveyHabit(&#39;h7&#39;)">H7 · Sharpen the Saw<br><span style="font-weight:500;font-size:10px;opacity:.7;">Daily renewal</span></div>
-          <div class="covey-sel-opt" data-ch="none" onclick="setCoveyHabit(&#39;none&#39;)">No Alignment<br><span style="font-weight:500;font-size:10px;opacity:.7;">General habit</span></div>
-        </div>
-      </div>
-      <div id="h-delete-row" style="display:none;margin-top:4px;">
-        <button onclick="deleteHabit()" style="width:100%;padding:9px;background:rgba(192,57,43,.08);border:1px solid rgba(192,57,43,.2);border-radius:10px;color:#C0392B;font-family:&#39;DM Sans&#39;,sans-serif;font-size:13px;font-weight:700;cursor:pointer;">🗑️ Delete This Habit</button>
-      </div>
-    </div>
+      
     <div class="mfoot"><button class="btn btn-s" onclick="closeModal(&#39;m-habit&#39;)">Cancel</button><button class="btn btn-p" onclick="saveHabit()">Save Habit</button></div>
   </div>
 </div>
@@ -3620,117 +3628,10 @@ initApp();
 .pr-sub{font-size:11px;color:var(--ink-m);margin-top:3px;font-weight:500;}
 
 </style>
-<script>
-(function(){
-// ════ HABITS PATCH — injected ════
-const COVEY_7_MAP={h1:{label:'H1 · Be Proactive',cls:'ca-h1'},h2:{label:'H2 · End in Mind',cls:'ca-h2'},h3:{label:'H3 · First Things First',cls:'ca-h3'},h4:{label:'H4 · Win-Win',cls:'ca-h4'},h5:{label:'H5 · Seek to Understand',cls:'ca-h5'},h6:{label:'H6 · Synergize',cls:'ca-h6'},h7:{label:'H7 · Sharpen the Saw',cls:'ca-h7'}};
-var editHabitId=null,selCoveyHabit='h7';
-
-window.renderHabits=function(){
-  var today=todayStr(),c=document.getElementById('habits-list');
-  if(!habits.length){c.innerHTML='<div class="empty-v2"><svg width="100" height="116" viewBox="0 0 100 116" fill="none"><rect x="36" y="86" width="28" height="18" rx="4" fill="var(--ink-m)" opacity=".12"/><rect x="44" y="66" width="12" height="24" rx="4" fill="var(--sage)" opacity=".8"/><ellipse cx="50" cy="52" rx="20" ry="16" fill="var(--sage-p)" stroke="var(--sage)" stroke-width="2"/><circle cx="50" cy="40" r="4" fill="var(--sage)" opacity=".6"/></svg><div class="empty-v2-title">Plant Your First Habit 🌱</div><div class="empty-v2-sub">Small daily actions compound into extraordinary results.</div><div class="empty-v2-quote">"Renew yourself daily." — Covey</div><button class="empty-v2-btn" onclick="openHabit()">+ Add First Habit</button></div>';return;}
-  c.innerHTML=habits.map(function(h){
-    var logs=habitLogs[h.id]||{},todayDone=!!logs[today];
-    var streak=0;
-    for(var i=0;i<365;i++){var d=new Date();d.setDate(d.getDate()-i);if(logs[dStr(d)])streak++;else if(i>0)break;}
-    var days=[];
-    for(var i=6;i>=0;i--){var d=new Date();d.setDate(d.getDate()-i);days.push({ds:dStr(d),isToday:i===0,done:!!logs[dStr(d)],lbl:d.toLocaleDateString('en-US',{weekday:'narrow'}),isPast:i>0});}
-    var wd=days.filter(function(d){return d.done;}).length;
-    var coveyInfo=h.coveyHabit&&COVEY_7_MAP[h.coveyHabit]?COVEY_7_MAP[h.coveyHabit]:null;
-    var coveyBadge=coveyInfo?'<span class="covey-align-badge '+coveyInfo.cls+'">🏛️ '+coveyInfo.label+'</span>':'';
-    return '<div class="hcard" id="hcard-'+h.id+'">'+
-      '<div class="hico hc-'+(h.color||'peach')+'">'+h.icon+'</div>'+
-      '<div class="hbody">'+
-        '<div style="display:flex;align-items:center;gap:7px;">'+
-          '<div class="hname">'+h.name+'</div>'+
-          '<button class="h-edit-btn" onclick="event.stopPropagation();openEditHabit(''+h.id+'')" title="Edit">✏️</button>'+
-        '</div>'+
-        coveyBadge+
-        '<div class="hstreak" style="margin-top:4px;">🔥 <strong>'+streak+'</strong> day streak · '+wd+'/7 this week</div>'+
-        '<div class="hweek" style="margin-top:6px;">'+
-          days.map(function(d){return '<div class="hday'+(d.done?' on':'')+(d.isToday?' today':'')+(d.isPast?' past-clickable':'')+'" onclick="togHabitDay(''+h.id+'',''+d.ds+'')" title="'+(d.isPast?'Backfill: '+d.ds:'Today')+'">'+d.lbl+'</div>';}).join('')+
-        '</div>'+
-        '<div class="hprog"><div class="hprog-fill" style="width:'+Math.round(wd/7*100)+'%;"></div></div>'+
-        '<div style="font-size:10px;color:var(--ink-m);margin-top:3px;font-weight:600;">← tap any past day to backfill</div>'+
-      '</div>'+
-      '<button class="hchk'+(todayDone?' on':'')+'" onclick="togHabit(''+h.id+'')">'+( todayDone?'✅':'⭕')+'</button>'+
-    '</div>';
-  }).join('');
-};
-
-window.togHabitDay=function(hid,ds){
-  var today=todayStr();
-  if(ds===today){togHabit(hid);return;}
-  if(!habitLogs[hid])habitLogs[hid]={};
-  habitLogs[hid][ds]=!habitLogs[hid][ds];
-  cloudSave('habitLogs',habitLogs);renderHabits();updateStreak();
-  if(habitLogs[hid][ds]){addKarma(3,'backfill! 📅');toast('📅 Backfilled: '+ds);}
-  else toast('📅 Removed: '+ds);
-};
-
-window.openHabit=function(){
-  editHabitId=null;selHC='peach';selCoveyHabit='h7';
-  var t=document.getElementById('m-habit-title');if(t)t.textContent='New Habit';
-  document.getElementById('h-name').value='';
-  document.getElementById('h-icon').value='';
-  var dr=document.getElementById('h-delete-row');if(dr)dr.style.display='none';
-  setHC('peach');setCoveyHabit('h7');
-  openModal('m-habit');
-};
-
-window.openEditHabit=function(id){
-  var h=habits.find(function(x){return x.id===id;});if(!h)return;
-  editHabitId=id;selHC=h.color||'peach';selCoveyHabit=h.coveyHabit||'none';
-  var t=document.getElementById('m-habit-title');if(t)t.textContent='Edit Habit';
-  document.getElementById('h-name').value=h.name;
-  document.getElementById('h-icon').value=h.icon;
-  var dr=document.getElementById('h-delete-row');if(dr)dr.style.display='block';
-  setHC(h.color||'peach');setCoveyHabit(h.coveyHabit||'none');
-  openModal('m-habit');
-};
-
-window.deleteHabit=function(){
-  if(!editHabitId)return;
-  var h=habits.find(function(x){return x.id===editHabitId;});
-  if(!confirm('Delete "'+( h?h.name:'habit')+'"? All tracking data will be lost.'))return;
-  habits=habits.filter(function(x){return x.id!==editHabitId;});
-  delete habitLogs[editHabitId];
-  cloudSave('habits',habits);cloudSave('habitLogs',habitLogs);
-  closeModal('m-habit');renderHabits();toast('🗑️ Deleted');editHabitId=null;
-};
-
-window.saveHabit=function(){
-  var name=document.getElementById('h-name').value.trim();
-  if(!name){toast('⚠️ Enter a name');return;}
-  var habit={id:editHabitId||'h'+Date.now(),name:name,icon:document.getElementById('h-icon').value.trim()||'⭐',color:selHC,coveyHabit:selCoveyHabit==='none'?null:selCoveyHabit};
-  if(editHabitId){var i=habits.findIndex(function(x){return x.id===editHabitId;});habits[i]=habit;toast('✅ Updated!');}
-  else{habits.push(habit);toast('🌱 Created!');}
-  cloudSave('habits',habits);closeModal('m-habit');renderHabits();editHabitId=null;
-};
-
-window.setCoveyHabit=function(key){
-  selCoveyHabit=key;
-  document.querySelectorAll('#covey-sel-grid .covey-sel-opt').forEach(function(el){el.classList.toggle('on',el.dataset.ch===key);});
-};
-
-// Re-render habits after app loads to apply new renderer
-var _patchRetry=0;
-var _patchInterval=setInterval(function(){
-  _patchRetry++;
-  if(typeof habits!=='undefined'&&typeof renderHabits==='function'){
-    clearInterval(_patchInterval);
-    if(document.getElementById('view-habits')&&document.getElementById('view-habits').classList.contains('active')){
-      renderHabits();
-    }
-  }
-  if(_patchRetry>50)clearInterval(_patchInterval);
-},200);
-
-})();
-</script>
 
 
-</body><grammarly-desktop-integration data-grammarly-shadow-root="true"><template shadowrootmode="open"><style>
+
+<grammarly-desktop-integration data-grammarly-shadow-root="true"><template shadowrootmode="open"><style>
       div.grammarly-desktop-integration {
         position: absolute;
         width: 1px;
@@ -3750,4 +3651,257 @@ var _patchInterval=setInterval(function(){
       div.grammarly-desktop-integration:before {
         content: attr(data-content);
       }
-    </style><div aria-label="grammarly-integration" role="group" tabindex="-1" class="grammarly-desktop-integration" data-content="{&quot;mode&quot;:&quot;full&quot;,&quot;isActive&quot;:true,&quot;isUserDisabled&quot;:false}"></div></template></grammarly-desktop-integration></html>
+    </style><div aria-label="grammarly-integration" role="group" tabindex="-1" class="grammarly-desktop-integration" data-content="{&quot;mode&quot;:&quot;full&quot;,&quot;isActive&quot;:true,&quot;isUserDisabled&quot;:false}"></div></template></grammarly-desktop-integration>
+
+<script id="habits-patch-v4">
+/* ════ DayFlow Habits Patch v4 — full override ════ */
+(function() {
+  'use strict';
+
+  var COVEY_MAP = {
+    h1: { label: 'H1 · Be Proactive',          cls: 'ca-h1' },
+    h2: { label: 'H2 · End in Mind',            cls: 'ca-h2' },
+    h3: { label: 'H3 · First Things First',     cls: 'ca-h3' },
+    h4: { label: 'H4 · Win-Win',                cls: 'ca-h4' },
+    h5: { label: 'H5 · Seek to Understand',     cls: 'ca-h5' },
+    h6: { label: 'H6 · Synergize',              cls: 'ca-h6' },
+    h7: { label: 'H7 · Sharpen the Saw',        cls: 'ca-h7' }
+  };
+
+  var _editHabitId = null;
+  var _selCoveyHabit = 'h7';
+
+  /* ── renderHabits: full replacement ── */
+  function _renderHabits() {
+    var today = (typeof todayStr === 'function') ? todayStr() : new Date().toISOString().slice(0,10);
+    var c = document.getElementById('habits-list');
+    if (!c) return;
+
+    if (!window.habits || !window.habits.length) {
+      c.innerHTML = '<div class="empty-v2">'
+        + '<div style="font-size:48px;text-align:center;margin-bottom:12px;">🌱</div>'
+        + '<div class="empty-v2-title">Plant Your First Habit</div>'
+        + '<div class="empty-v2-sub">Small daily actions compound into extraordinary results. Habit 7: Sharpen the Saw.</div>'
+        + '<div class="empty-v2-quote">"Renew yourself daily." — Covey</div>'
+        + '<button class="empty-v2-btn" onclick="openHabit()">+ Add First Habit</button>'
+        + '</div>';
+      return;
+    }
+
+    c.innerHTML = window.habits.map(function(h) {
+      var logs = (window.habitLogs && window.habitLogs[h.id]) ? window.habitLogs[h.id] : {};
+      var todayDone = !!logs[today];
+
+      // Calculate streak
+      var streak = 0;
+      for (var i = 0; i < 365; i++) {
+        var d = new Date(); d.setDate(d.getDate() - i);
+        var ds = d.toISOString().slice(0,10);
+        if (logs[ds]) streak++;
+        else if (i > 0) break;
+      }
+
+      // Build last 7 days
+      var days = [];
+      for (var i = 6; i >= 0; i--) {
+        var d = new Date(); d.setDate(d.getDate() - i);
+        var ds = d.toISOString().slice(0,10);
+        days.push({
+          ds: ds,
+          isToday: i === 0,
+          isPast: i > 0,
+          done: !!logs[ds],
+          lbl: d.toLocaleDateString('en-US', { weekday: 'narrow' })
+        });
+      }
+
+      var wd = days.filter(function(d) { return d.done; }).length;
+      var progPct = Math.round(wd / 7 * 100);
+
+      // Covey badge
+      var coveyInfo = h.coveyHabit && COVEY_MAP[h.coveyHabit] ? COVEY_MAP[h.coveyHabit] : null;
+      var coveyBadge = coveyInfo
+        ? '<div><span class="covey-align-badge ' + coveyInfo.cls + '">🏛️ ' + coveyInfo.label + '</span></div>'
+        : '';
+
+      // Day dots
+      var dotHTML = days.map(function(d) {
+        var cls = 'hday';
+        if (d.done) cls += ' on';
+        if (d.isToday) cls += ' today';
+        var title = d.isToday ? 'Today' : (d.isPast ? 'Tap to ' + (d.done ? 'unlog' : 'backfill') + ': ' + d.ds : d.ds);
+        return '<div class="' + cls + '" onclick="_habDayClick('' + h.id + '','' + d.ds + '')" title="' + title + '">' + d.lbl + '</div>';
+      }).join('');
+
+      return '<div class="hcard" id="hcard-' + h.id + '">'
+        + '<div class="hico hc-' + (h.color || 'peach') + '">' + (h.icon || '⭐') + '</div>'
+        + '<div class="hbody">'
+          + '<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">'
+            + '<div class="hname">' + h.name + '</div>'
+            + '<button class="h-edit-btn" onclick="event.stopPropagation();_openEditHabit('' + h.id + '')" title="Edit habit">✏️</button>'
+          + '</div>'
+          + coveyBadge
+          + '<div class="hstreak" style="margin-top:4px;">🔥 <strong>' + streak + '</strong> day streak &nbsp;·&nbsp; ' + wd + '/7 this week</div>'
+          + '<div class="hweek" style="margin-top:7px;">' + dotHTML + '</div>'
+          + '<div class="hprog"><div class="hprog-fill" style="width:' + progPct + '%;"></div></div>'
+          + '<div class="backfill-hint">← tap any past day to backfill a missed entry</div>'
+        + '</div>'
+        + '<button class="hchk' + (todayDone ? ' on' : '') + '" onclick="_habToggle('' + h.id + '')">'
+          + (todayDone ? '✅' : '⭕')
+        + '</button>'
+      + '</div>';
+    }).join('');
+  }
+
+  /* ── Day click: today = toggle, past = backfill ── */
+  window._habDayClick = function(hid, ds) {
+    var today = (typeof todayStr === 'function') ? todayStr() : new Date().toISOString().slice(0,10);
+    if (ds === today) { _habToggle(hid); return; }
+    if (!window.habitLogs) window.habitLogs = {};
+    if (!window.habitLogs[hid]) window.habitLogs[hid] = {};
+    window.habitLogs[hid][ds] = !window.habitLogs[hid][ds];
+    if (typeof cloudSave === 'function') cloudSave('habitLogs', window.habitLogs);
+    _renderHabits();
+    if (typeof updateStreak === 'function') updateStreak();
+    var done = window.habitLogs[hid][ds];
+    if (done) { if (typeof addKarma === 'function') addKarma(3, 'backfill! 📅'); }
+    if (typeof toast === 'function') toast(done ? '📅 Logged: ' + ds : '📅 Removed: ' + ds);
+  };
+
+  /* ── Today toggle ── */
+  window._habToggle = function(hid) {
+    var today = (typeof todayStr === 'function') ? todayStr() : new Date().toISOString().slice(0,10);
+    if (!window.habitLogs) window.habitLogs = {};
+    if (!window.habitLogs[hid]) window.habitLogs[hid] = {};
+    window.habitLogs[hid][today] = !window.habitLogs[hid][today];
+    if (typeof cloudSave === 'function') cloudSave('habitLogs', window.habitLogs);
+    _renderHabits();
+    if (typeof updateStreak === 'function') updateStreak();
+    if (window.habitLogs[hid][today]) {
+      if (typeof addKarma === 'function') addKarma(5, 'habit done! 🔥');
+      if (typeof toast === 'function') toast('🔥 Habit checked!');
+    } else {
+      if (typeof toast === 'function') toast('⭕ Unchecked');
+    }
+  };
+
+  /* ── Open new habit modal ── */
+  window.openHabit = function() {
+    _editHabitId = null;
+    _selCoveyHabit = 'h7';
+    window.selHC = 'peach';
+    var t = document.getElementById('m-habit-title'); if (t) t.textContent = 'New Habit';
+    var hn = document.getElementById('h-name'); if (hn) hn.value = '';
+    var hi = document.getElementById('h-icon'); if (hi) hi.value = '';
+    var dr = document.getElementById('h-delete-row'); if (dr) dr.style.display = 'none';
+    _syncCoveyUI('h7');
+    if (typeof setHC === 'function') setHC('peach');
+    if (typeof openModal === 'function') openModal('m-habit');
+  };
+
+  /* ── Open edit habit modal ── */
+  window._openEditHabit = function(id) {
+    var h = window.habits ? window.habits.find(function(x) { return x.id === id; }) : null;
+    if (!h) return;
+    _editHabitId = id;
+    _selCoveyHabit = h.coveyHabit || 'none';
+    window.selHC = h.color || 'peach';
+    var t = document.getElementById('m-habit-title'); if (t) t.textContent = 'Edit Habit';
+    var hn = document.getElementById('h-name'); if (hn) hn.value = h.name;
+    var hi = document.getElementById('h-icon'); if (hi) hi.value = h.icon || '';
+    var dr = document.getElementById('h-delete-row'); if (dr) dr.style.display = 'block';
+    _syncCoveyUI(_selCoveyHabit);
+    if (typeof setHC === 'function') setHC(h.color || 'peach');
+    if (typeof openModal === 'function') openModal('m-habit');
+  };
+
+  /* ── Delete habit ── */
+  window.deleteHabit = function() {
+    if (!_editHabitId) return;
+    var h = window.habits ? window.habits.find(function(x) { return x.id === _editHabitId; }) : null;
+    if (!confirm('Delete "' + (h ? h.name : 'this habit') + '"? All tracking data will be removed.')) return;
+    window.habits = window.habits.filter(function(x) { return x.id !== _editHabitId; });
+    if (window.habitLogs && window.habitLogs[_editHabitId]) delete window.habitLogs[_editHabitId];
+    if (typeof cloudSave === 'function') { cloudSave('habits', window.habits); cloudSave('habitLogs', window.habitLogs); }
+    if (typeof closeModal === 'function') closeModal('m-habit');
+    _renderHabits();
+    if (typeof toast === 'function') toast('🗑️ Habit deleted');
+    _editHabitId = null;
+  };
+
+  /* ── Save habit (new or edit) ── */
+  window.saveHabit = function() {
+    var name = (document.getElementById('h-name') || {}).value || '';
+    name = name.trim();
+    if (!name) { if (typeof toast === 'function') toast('⚠️ Enter a habit name'); return; }
+    var icon = ((document.getElementById('h-icon') || {}).value || '').trim() || '⭐';
+    var habit = {
+      id: _editHabitId || ('h' + Date.now()),
+      name: name,
+      icon: icon,
+      color: window.selHC || 'peach',
+      coveyHabit: (_selCoveyHabit === 'none' || !_selCoveyHabit) ? null : _selCoveyHabit
+    };
+    if (_editHabitId) {
+      var idx = window.habits.findIndex(function(x) { return x.id === _editHabitId; });
+      if (idx > -1) window.habits[idx] = habit;
+      if (typeof toast === 'function') toast('✅ Habit updated!');
+    } else {
+      if (!window.habits) window.habits = [];
+      window.habits.push(habit);
+      if (typeof toast === 'function') toast('🌱 Habit created!');
+    }
+    if (typeof cloudSave === 'function') cloudSave('habits', window.habits);
+    if (typeof closeModal === 'function') closeModal('m-habit');
+    _renderHabits();
+    _editHabitId = null;
+  };
+
+  /* ── setCoveyHabit: called by modal buttons ── */
+  window.setCoveyHabit = function(key) {
+    _selCoveyHabit = key;
+    _syncCoveyUI(key);
+  };
+
+  function _syncCoveyUI(key) {
+    document.querySelectorAll('#covey-sel-grid .covey-sel-opt').forEach(function(el) {
+      el.classList.toggle('on', el.dataset.ch === key);
+    });
+  }
+
+  /* ── Override renderHabits globally ── */
+  window.renderHabits = _renderHabits;
+
+  /* ── Kick off render after app initialises ── */
+  var _attempts = 0;
+  var _boot = setInterval(function() {
+    _attempts++;
+    if (typeof window.habits !== 'undefined' && document.getElementById('habits-list')) {
+      clearInterval(_boot);
+      // If we're on the habits view, re-render immediately
+      var hv = document.getElementById('view-habits');
+      if (hv && hv.classList.contains('active')) _renderHabits();
+    }
+    if (_attempts > 80) clearInterval(_boot);
+  }, 150);
+
+  /* ── Also hook into nav() so habits always use new renderer ── */
+  var _origNav = window.nav;
+  window.nav = function(v) {
+    if (typeof _origNav === 'function') _origNav(v);
+    if (v === 'habits') {
+      setTimeout(_renderHabits, 80);
+    }
+  };
+
+})();
+</script>
+<style>
+/* ═══ PROGRESS CARD FIX v4 ═══ */
+.rpanel .pcrd { min-height: auto !important; }
+#pr-pct { color: var(--ink) !important; font-size: 14px !important; }
+.pr-lbl { color: var(--ink) !important; font-weight: 800 !important; font-size: 13px !important; }
+.pr-sub { color: var(--ink-m) !important; font-size: 11px !important; margin-top: 4px !important; }
+</style>
+</body>
+</html>
