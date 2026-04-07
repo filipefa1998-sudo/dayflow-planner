@@ -837,45 +837,38 @@ body.dark .mtitle { color: #E8EDF5 !important; }
 
 
 
-/* ═══ RIGHT PANEL FIX v4 ═══ */
-.rpanel{width:272px;flex-shrink:0;padding:20px 14px;display:flex;flex-direction:column;gap:12px;overflow-y:auto;max-height:100vh;position:sticky;top:0;}
-.rpanel .pcrd{background:var(--surface);border-radius:12px;padding:14px 15px;border:1px solid var(--border);box-shadow:0 1px 4px var(--sh);flex-shrink:0;}
-.rpanel .pcrd-t{font-weight:800;font-size:12px;margin-bottom:10px;display:flex;align-items:center;gap:6px;color:var(--ink);}
-#coming-up{max-height:180px;overflow-y:auto;}
-#q2-panel{max-height:180px;overflow-y:auto;}
-.pr-wrap{display:flex;align-items:center;gap:12px;}
-.pr-ring{width:56px;height:56px;position:relative;flex-shrink:0;}
-.pr-svg{width:100%;height:100%;transform:rotate(-90deg);}
-.pr-bg{fill:none;stroke:var(--peach-p);stroke-width:6;}
-.pr-fill{fill:none;stroke:var(--gold);stroke-width:6;stroke-linecap:round;transition:stroke-dashoffset .8s cubic-bezier(.4,0,.2,1);}
-.pr-txt{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:'DM Serif Display',serif;font-size:13px;font-weight:700;color:var(--ink);}
-.pr-lbl{font-weight:800;font-size:13px;color:var(--ink);line-height:1.3;}
-.pr-sub{font-size:11px;color:var(--ink-m);margin-top:3px;font-weight:500;}
-#coming-up .come-item{padding:6px 0;border-bottom:1px solid var(--border);display:flex;gap:8px;align-items:flex-start;}
-#coming-up .come-item:last-child{border-bottom:none;}
-
-
-/* ═══ HABITS FULL CSS v4 ═══ */
-.covey-align-badge{display:inline-flex;align-items:center;gap:4px;padding:2px 9px;border-radius:20px;font-size:10px;font-weight:800;letter-spacing:.3px;margin-top:4px;margin-bottom:2px;}
-.ca-h1{background:rgba(192,57,43,.1);color:#C0392B;border:1px solid rgba(192,57,43,.2);}
-.ca-h2{background:rgba(27,58,107,.1);color:#1B3A6B;border:1px solid rgba(27,58,107,.2);}
-.ca-h3{background:rgba(212,160,23,.1);color:#8B6914;border:1px solid rgba(212,160,23,.2);}
-.ca-h4{background:rgba(46,125,50,.1);color:#2E7D32;border:1px solid rgba(46,125,50,.2);}
-.ca-h5{background:rgba(21,101,192,.1);color:#1565C0;border:1px solid rgba(21,101,192,.2);}
-.ca-h6{background:rgba(74,35,90,.1);color:#4A235A;border:1px solid rgba(74,35,90,.2);}
-.ca-h7{background:rgba(78,205,196,.1);color:#1B7B75;border:1px solid rgba(78,205,196,.2);}
-.h-edit-btn{width:26px;height:26px;border-radius:8px;border:none;background:rgba(201,168,76,.15);cursor:pointer;display:inline-flex;align-items:center;justify-content:center;font-size:12px;color:#C9A84C;transition:all .2s;flex-shrink:0;vertical-align:middle;}
-.h-edit-btn:hover{background:#C9A84C;color:#fff;transform:scale(1.1);}
-.hday{cursor:pointer;}
-.hday:not(.on):hover{background:rgba(201,168,76,.2);border-color:rgba(201,168,76,.6);}
-.covey-sel-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:6px;}
-.covey-sel-opt{padding:9px 11px;border-radius:10px;border:2px solid var(--border);font-size:11px;font-weight:700;cursor:pointer;transition:all .2s;line-height:1.4;background:var(--surface);color:var(--ink-l);}
-.covey-sel-opt:hover{border-color:var(--peach);background:var(--peach-p);color:var(--ink);}
-.covey-sel-opt.on{border-color:var(--peach);background:var(--peach-p);color:var(--peach);box-shadow:0 0 0 3px var(--peach-p);}
-.hcard{transition:all .2s;}
-.hcard:hover{box-shadow:0 4px 16px var(--sh2);transform:translateY(-1px);}
-.backfill-hint{font-size:10px;color:var(--ink-m);margin-top:4px;font-weight:600;opacity:.7;}
-
+</style>
+<style>
+/* ═══ DAYFLOW PATCH v5 CSS ═══ */
+/* Right panel */
+.rpanel{width:272px;flex-shrink:0;padding:20px 14px;display:flex;flex-direction:column;gap:12px;overflow-y:auto;max-height:100vh;position:sticky;top:0}
+.rpanel .pcrd{background:var(--surface);border-radius:12px;padding:14px 15px;border:1px solid var(--border);box-shadow:0 1px 4px var(--sh);flex-shrink:0}
+#coming-up{max-height:none;overflow:visible}
+#q2-panel{max-height:none;overflow:visible}
+/* Progress ring */
+.pr-fill{fill:none;stroke:var(--gold);stroke-width:6;stroke-linecap:round;transition:stroke-dashoffset .8s cubic-bezier(.4,0,.2,1)}
+.pr-txt{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:'DM Serif Display',serif;font-size:13px;font-weight:700;color:var(--ink)}
+/* Habit edit button */
+.h-edit-btn{width:26px;height:26px;border-radius:8px;border:none;background:rgba(201,168,76,.15);cursor:pointer;display:inline-flex;align-items:center;justify-content:center;font-size:12px;color:#C9A84C;transition:all .2s;flex-shrink:0}
+.h-edit-btn:hover{background:#C9A84C;color:#fff;transform:scale(1.1)}
+/* Covey alignment badges */
+.covey-align-badge{display:inline-flex;align-items:center;gap:4px;padding:2px 9px;border-radius:20px;font-size:10px;font-weight:800;letter-spacing:.3px;margin-top:4px}
+.ca-h1{background:rgba(192,57,43,.1);color:#C0392B;border:1px solid rgba(192,57,43,.2)}
+.ca-h2{background:rgba(27,58,107,.1);color:#1B3A6B;border:1px solid rgba(27,58,107,.2)}
+.ca-h3{background:rgba(212,160,23,.1);color:#8B6914;border:1px solid rgba(212,160,23,.2)}
+.ca-h4{background:rgba(46,125,50,.1);color:#2E7D32;border:1px solid rgba(46,125,50,.2)}
+.ca-h5{background:rgba(21,101,192,.1);color:#1565C0;border:1px solid rgba(21,101,192,.2)}
+.ca-h6{background:rgba(74,35,90,.1);color:#4A235A;border:1px solid rgba(74,35,90,.2)}
+.ca-h7{background:rgba(78,205,196,.1);color:#1B7B75;border:1px solid rgba(78,205,196,.2)}
+/* Covey selector grid in modal */
+.covey-sel-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:6px}
+.covey-sel-opt{padding:9px 11px;border-radius:10px;border:2px solid var(--border);font-size:11px;font-weight:700;cursor:pointer;transition:all .2s;line-height:1.4;background:var(--surface);color:var(--ink-l)}
+.covey-sel-opt:hover{border-color:var(--peach);background:var(--peach-p)}
+.covey-sel-opt.on{border-color:var(--peach);background:var(--peach-p);color:var(--peach)}
+/* Day dots hover */
+.hday{cursor:pointer;transition:all .15s}
+.hday:not(.on):hover{background:rgba(201,168,76,.2) !important;border-color:rgba(201,168,76,.6) !important}
+.backfill-hint{font-size:10px;color:var(--ink-m);margin-top:4px;font-weight:600;opacity:.7}
 </style>
 </head>
 <body data-new-gr-c-s-check-loaded="14.1280.0" data-gr-ext-installed="">
@@ -1067,7 +1060,7 @@ body.dark .mtitle { color: #E8EDF5 !important; }
       <span class="sb-section-hdr-arrow open">▼</span>
     </div>
     <div class="sb-section-body open" data-section="plan">
-      <div class="ni" data-v="today" onclick="nav(&#39;today&#39;)" title="Today"><span class="ni-icon">☀️</span><span class="ni-text">Today</span><span class="ni-badge" id="nb-today">2</span></div>
+      <div class="ni" data-v="today" onclick="nav(&#39;today&#39;)" title="Today"><span class="ni-icon">☀️</span><span class="ni-text">Today</span><span class="ni-badge" id="nb-today">0</span></div>
       <div class="ni" data-v="quadrant" onclick="nav(&#39;quadrant&#39;)" title="Covey Quadrant"><span class="ni-icon">🎯</span><span class="ni-text">Covey Quadrant</span></div>
       <div class="ni" data-v="upcoming" onclick="nav(&#39;upcoming&#39;)" title="Upcoming"><span class="ni-icon">📅</span><span class="ni-text">Upcoming</span></div>
       <div class="ni" data-v="inbox" onclick="nav(&#39;inbox&#39;)" title="Inbox"><span class="ni-icon">📥</span><span class="ni-text">Inbox</span><span class="ni-badge" id="nb-inbox">0</span></div>
@@ -1123,7 +1116,7 @@ body.dark .mtitle { color: #E8EDF5 !important; }
   <div class="sb-bottom">
     <div class="sb-stats">
       <div class="sb-stat"><div class="sb-stat-n" id="streak-n">1</div><div class="sb-stat-l">🔥 Streak</div></div>
-      <div class="sb-stat"><div class="sb-stat-n" id="karma-n">120</div><div class="sb-stat-l">⚡ Karma</div></div>
+      <div class="sb-stat"><div class="sb-stat-n" id="karma-n">175</div><div class="sb-stat-l">⚡ Karma</div></div>
     </div>
   </div>
 </aside>
@@ -1136,13 +1129,13 @@ body.dark .mtitle { color: #E8EDF5 !important; }
   <div style="padding:28px 32px 0;">
     <div class="pg-hdr">
       <div>
-        <div class="pg-title" id="greeting">Good afternoon 🌤️</div>
+        <div class="pg-title" id="greeting">Good evening 🌙</div>
         <div class="pg-sub" id="today-date">Tuesday, April 7, 2026</div>
       </div>
       <div style="display:flex;gap:8px;align-items:center;">
         <div class="vtoggle">
-          <button class="vtbtn on" id="vt-list" onclick="setTV(&#39;list&#39;)">☰ List</button>
-          <button class="vtbtn" id="vt-kanban" onclick="setTV(&#39;kanban&#39;)">⬛ Board</button>
+          <button class="vtbtn" id="vt-list" onclick="setTV(&#39;list&#39;)">☰ List</button>
+          <button class="vtbtn on" id="vt-kanban" onclick="setTV(&#39;kanban&#39;)">⬛ Board</button>
         </div>
         <button class="btn btn-p" onclick="openAdd()">+ Task</button>
       </div>
@@ -1176,8 +1169,8 @@ body.dark .mtitle { color: #E8EDF5 !important; }
     <!-- ENERGY / TIME BUDGET -->
 <div class="time-budget" id="time-budget">
 <div class="tb-lbl">⏱️ Day Budget</div>
-<div class="tb-bar-wrap"><div class="tb-bar-fill tb-bar-ok" id="tb-fill" style="width: 31%;"></div></div>
-<div class="tb-nums tb-nums-ok" id="tb-nums">2h 30m of ~8h</div>
+<div class="tb-bar-wrap"><div class="tb-bar-fill tb-bar-ok" id="tb-fill" style="width: 0%;"></div></div>
+<div class="tb-nums tb-nums-ok" id="tb-nums">No estimates yet</div>
 <button class="afbtn afbtn-s" onclick="aiPlanMyDay()" style="white-space:nowrap;">⚡ AI Plan My Day</button>
 </div>
 <div class="ai-schedule" id="ai-schedule">
@@ -1203,15 +1196,15 @@ body.dark .mtitle { color: #E8EDF5 !important; }
     </div>
 
     <div class="stats">
-      <div class="scard"><div class="scard-ico">✅</div><div class="scard-n pop" id="s-done">0</div><div class="scard-l">Completed</div></div>
-      <div class="scard"><div class="scard-ico">📋</div><div class="scard-n pop" id="s-left">2</div><div class="scard-l">Remaining</div></div>
-      <div class="scard"><div class="scard-ico">⚡</div><div class="scard-n" id="s-pct">0%</div><div class="scard-l">Progress</div></div>
-      <div class="karma-card"><div style="font-size:26px;">⚡</div><div><div class="karma-n" id="karma-big">120</div><div class="karma-l">Karma Points</div><div class="karma-lvl" id="karma-lvl">⚡ Productive</div></div></div>
+      <div class="scard"><div class="scard-ico">✅</div><div class="scard-n pop" id="s-done">2</div><div class="scard-l">Completed</div></div>
+      <div class="scard"><div class="scard-ico">📋</div><div class="scard-n pop" id="s-left">0</div><div class="scard-l">Remaining</div></div>
+      <div class="scard"><div class="scard-ico">⚡</div><div class="scard-n" id="s-pct">100%</div><div class="scard-l">Progress</div></div>
+      <div class="karma-card"><div style="font-size:26px;">⚡</div><div><div class="karma-n" id="karma-big">175</div><div class="karma-l">Karma Points</div><div class="karma-lvl" id="karma-lvl">⚡ Productive</div></div></div>
     </div>
   </div>
 
   <div style="padding:0 32px 28px;">
-    <div id="task-list"><div class="tsec"><div class="tsec-hdr"><div class="tsec-title">⏰ Overdue</div><div class="tsec-line"></div><div class="tsec-ct">3</div></div><div class="tc q2 " id="tc-t1775072604498" draggable="true" ondragstart="dragStart(event,&#39;t1775072604498&#39;)" ondragover="dragOver(event,&#39;t1775072604498&#39;)" ondragend="dragEnd()">
+    <div id="task-list" style="display: none;"><div class="tsec"><div class="tsec-hdr"><div class="tsec-title">⏰ Overdue</div><div class="tsec-line"></div><div class="tsec-ct">3</div></div><div class="tc q2 " id="tc-t1775072604498" draggable="true" ondragstart="dragStart(event,&#39;t1775072604498&#39;)" ondragover="dragOver(event,&#39;t1775072604498&#39;)" ondragend="dragEnd()">
     <div class="q-bar"></div>
     <div class="drag-h">⋮⋮</div>
     <div class="tchk" id="chk-t1775072604498" onclick="toggleTask(&#39;t1775072604498&#39;)"><span class="tchk-ico">✓</span></div>
@@ -1250,7 +1243,7 @@ body.dark .mtitle { color: #E8EDF5 !important; }
       <button class="tc-act" onclick="openEdit(&#39;t1775068195979&#39;)">✏️</button>
       <button class="tc-act" onclick="delTask(&#39;t1775068195979&#39;)">🗑️</button>
     </div>
-  </div></div><div class="tsec"><div class="tsec-hdr"><div class="tsec-title">🔵 Q2 — Schedule</div><div class="tsec-line"></div><div class="tsec-ct">2</div></div><div class="tc q2 " id="tc-t1775575337610" draggable="true" ondragstart="dragStart(event,&#39;t1775575337610&#39;)" ondragover="dragOver(event,&#39;t1775575337610&#39;)" ondragend="dragEnd()">
+  </div></div><div class="tsec"><div class="tsec-hdr"><div class="tsec-title">🔵 Q2 — Schedule</div><div class="tsec-line"></div><div class="tsec-ct">2</div></div><div class="tc q2 done" id="tc-t1775575337610" draggable="true" ondragstart="dragStart(event,&#39;t1775575337610&#39;)" ondragover="dragOver(event,&#39;t1775575337610&#39;)" ondragend="dragEnd()">
     <div class="q-bar"></div>
     <div class="drag-h">⋮⋮</div>
     <div class="tchk" id="chk-t1775575337610" onclick="toggleTask(&#39;t1775575337610&#39;)"><span class="tchk-ico">✓</span></div>
@@ -1263,7 +1256,7 @@ body.dark .mtitle { color: #E8EDF5 !important; }
       <button class="tc-act" onclick="openEdit(&#39;t1775575337610&#39;)">✏️</button>
       <button class="tc-act" onclick="delTask(&#39;t1775575337610&#39;)">🗑️</button>
     </div>
-  </div><div class="tc q2 " id="tc-t1775068644809" draggable="true" ondragstart="dragStart(event,&#39;t1775068644809&#39;)" ondragover="dragOver(event,&#39;t1775068644809&#39;)" ondragend="dragEnd()">
+  </div><div class="tc q2 done" id="tc-t1775068644809" draggable="true" ondragstart="dragStart(event,&#39;t1775068644809&#39;)" ondragover="dragOver(event,&#39;t1775068644809&#39;)" ondragend="dragEnd()">
     <div class="q-bar"></div>
     <div class="drag-h">⋮⋮</div>
     <div class="tchk" id="chk-t1775068644809" onclick="toggleTask(&#39;t1775068644809&#39;)"><span class="tchk-ico">✓</span></div>
@@ -1277,7 +1270,31 @@ body.dark .mtitle { color: #E8EDF5 !important; }
       <button class="tc-act" onclick="delTask(&#39;t1775068644809&#39;)">🗑️</button>
     </div>
   </div></div></div>
-    <div id="kanban-board" style="display:none;"></div>
+    <div id="kanban-board" style="display: block;"><div class="kb">
+    <div class="kbc" id="kbc-todo" ondragover="event.preventDefault();this.classList.add(&#39;drag-over&#39;)" ondragleave="this.classList.remove(&#39;drag-over&#39;)" ondrop="kbDrop(event,&#39;todo&#39;)">
+      <div class="kbc-hdr"><div class="kbc-dot" style="background:var(--ink-m);"></div><div class="kbc-t">To Do</div><div class="kbc-n">0</div></div>
+      <div class="kbc-cards"><div class="kbc-empty">Drop tasks here</div></div>
+    </div>
+    <div class="kbc" id="kbc-doing" ondragover="event.preventDefault();this.classList.add(&#39;drag-over&#39;)" ondragleave="this.classList.remove(&#39;drag-over&#39;)" ondrop="kbDrop(event,&#39;doing&#39;)">
+      <div class="kbc-hdr"><div class="kbc-dot" style="background:var(--q3);"></div><div class="kbc-t">Doing</div><div class="kbc-n">0</div></div>
+      <div class="kbc-cards"><div class="kbc-empty">Drop tasks here</div></div>
+    </div>
+    <div class="kbc" id="kbc-review" ondragover="event.preventDefault();this.classList.add(&#39;drag-over&#39;)" ondragleave="this.classList.remove(&#39;drag-over&#39;)" ondrop="kbDrop(event,&#39;review&#39;)">
+      <div class="kbc-hdr"><div class="kbc-dot" style="background:var(--q2);"></div><div class="kbc-t">Review</div><div class="kbc-n">0</div></div>
+      <div class="kbc-cards"><div class="kbc-empty">Drop tasks here</div></div>
+    </div>
+    <div class="kbc" id="kbc-done" ondragover="event.preventDefault();this.classList.add(&#39;drag-over&#39;)" ondragleave="this.classList.remove(&#39;drag-over&#39;)" ondrop="kbDrop(event,&#39;done&#39;)">
+      <div class="kbc-hdr"><div class="kbc-dot" style="background:var(--sage);"></div><div class="kbc-t">Done</div><div class="kbc-n">2</div></div>
+      <div class="kbc-cards"><div class="kbc-card" draggable="true" ondragstart="dragStart(event,&#39;t1775575337610&#39;)" ondragend="document.querySelectorAll(&#39;.kbc&#39;).forEach(c=&gt;c.classList.remove(&#39;drag-over&#39;))" onclick="openEdit(&#39;t1775575337610&#39;)">
+        <div class="kbc-bar" style="background:var(--q2);"></div>
+        <div class="kbc-card-t">Create Sign Up List for Security for YSA Dance</div>
+        <div class="kbc-card-m"><span class="tag t-proj" style="font-size:10px;">📁 Sign Up Sheet/WARD</span></div>
+      </div><div class="kbc-card" draggable="true" ondragstart="dragStart(event,&#39;t1775068644809&#39;)" ondragend="document.querySelectorAll(&#39;.kbc&#39;).forEach(c=&gt;c.classList.remove(&#39;drag-over&#39;))" onclick="openEdit(&#39;t1775068644809&#39;)">
+        <div class="kbc-bar" style="background:var(--q2);"></div>
+        <div class="kbc-card-t">EQ Presidency MTG</div>
+        <div class="kbc-card-m"><span class="tag t-proj" style="font-size:10px;">📁 EQ</span></div>
+      </div></div>
+    </div></div></div>
   </div>
 </div>
 
@@ -1317,14 +1334,14 @@ body.dark .mtitle { color: #E8EDF5 !important; }
       <div class="quad-cell q2-cell" id="qcell-2">
         <div class="quad-label" style="color:var(--q2);">Q2 — Schedule</div>
         <div class="quad-desc">Important but Not Urgent · Growth, relationships</div>
-        <div class="quad-tasks" id="qt2"><div class="quad-task " onclick="toggleTask(&#39;t1775575337610&#39;)">
+        <div class="quad-tasks" id="qt2"><div class="quad-task done" onclick="toggleTask(&#39;t1775575337610&#39;)">
       <div class="qt-dot" style="background:var(--q2);"></div>
       <span>Create Sign Up List for Security for YSA Dance</span>
-      
-    </div><div class="quad-task " onclick="toggleTask(&#39;t1775068644809&#39;)">
+      <span style="margin-left:auto;font-size:11px;">✅</span>
+    </div><div class="quad-task done" onclick="toggleTask(&#39;t1775068644809&#39;)">
       <div class="qt-dot" style="background:var(--q2);"></div>
       <span>EQ Presidency MTG</span>
-      
+      <span style="margin-left:auto;font-size:11px;">✅</span>
     </div></div>
         <button class="quad-add" onclick="openAddQ(2)">+ Add Q2 task</button>
       </div>
@@ -1347,7 +1364,7 @@ body.dark .mtitle { color: #E8EDF5 !important; }
     <div><div class="pg-title">Upcoming 📅</div><div class="pg-sub">Next 7 days</div></div>
     <button class="btn btn-p" onclick="openAdd()">+ Task</button>
   </div>
-  <div style="padding:0 32px 28px;" id="upcoming-list"><div class="tsec" style="padding:0 32px;"><div class="tsec-hdr"><div class="tsec-title">Today</div><div class="tsec-line"></div><div class="tsec-ct">2</div></div><div class="tc q2 " id="tc-t1775575337610" draggable="true" ondragstart="dragStart(event,&#39;t1775575337610&#39;)" ondragover="dragOver(event,&#39;t1775575337610&#39;)" ondragend="dragEnd()">
+  <div style="padding:0 32px 28px;" id="upcoming-list"><div class="tsec" style="padding:0 32px;"><div class="tsec-hdr"><div class="tsec-title">Today</div><div class="tsec-line"></div><div class="tsec-ct">2</div></div><div class="tc q2 done" id="tc-t1775575337610" draggable="true" ondragstart="dragStart(event,&#39;t1775575337610&#39;)" ondragover="dragOver(event,&#39;t1775575337610&#39;)" ondragend="dragEnd()">
     <div class="q-bar"></div>
     <div class="drag-h">⋮⋮</div>
     <div class="tchk" id="chk-t1775575337610" onclick="toggleTask(&#39;t1775575337610&#39;)"><span class="tchk-ico">✓</span></div>
@@ -1360,7 +1377,7 @@ body.dark .mtitle { color: #E8EDF5 !important; }
       <button class="tc-act" onclick="openEdit(&#39;t1775575337610&#39;)">✏️</button>
       <button class="tc-act" onclick="delTask(&#39;t1775575337610&#39;)">🗑️</button>
     </div>
-  </div><div class="tc q2 " id="tc-t1775068644809" draggable="true" ondragstart="dragStart(event,&#39;t1775068644809&#39;)" ondragover="dragOver(event,&#39;t1775068644809&#39;)" ondragend="dragEnd()">
+  </div><div class="tc q2 done" id="tc-t1775068644809" draggable="true" ondragstart="dragStart(event,&#39;t1775068644809&#39;)" ondragover="dragOver(event,&#39;t1775068644809&#39;)" ondragend="dragEnd()">
     <div class="q-bar"></div>
     <div class="drag-h">⋮⋮</div>
     <div class="tchk" id="chk-t1775068644809" onclick="toggleTask(&#39;t1775068644809&#39;)"><span class="tchk-ico">✓</span></div>
@@ -1407,16 +1424,12 @@ body.dark .mtitle { color: #E8EDF5 !important; }
 
   <div class="mission-hero">
     <div class="mission-label">My Personal Mission Statement</div>
-    <div id="mission-display"><div class="mission-empty">You haven't written your mission statement yet. Click Edit to get started — AI will help you craft it.</div></div>
+    <div id="mission-display"><div class="mission-empty">You haven't written your mission statement yet.</div><button class="mission-edit-btn" onclick="openMissionEditor()">✏️ Write My Mission</button></div>
   </div>
 
   <div style="margin-bottom:20px;">
     <div style="font-family:&#39;Playfair Display&#39;,serif;font-size:20px;font-weight:700;margin-bottom:16px;">My Core Principles</div>
-    <div class="principles-grid" id="principles-grid">
-      <div class="principle-card" style="border:2px dashed var(--border);display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;color:var(--ink-m);font-size:13px;font-weight:700;" onclick="addPrinciple()">
-        <span style="font-size:20px;">+</span> Add Principle
-      </div>
-    </div>
+    <div class="principles-grid" id="principles-grid"><div class="principle-card" style="border:2px dashed var(--border);display:flex;align-items:center;justify-content:center;gap:7px;cursor:pointer;color:var(--ink-m);font-size:13px;font-weight:700;" onclick="addPrinciple()"><span style="font-size:18px;">+</span>Add Principle</div></div>
   </div>
 
   <div style="background:var(--lav-p);border-radius:var(--r);padding:20px;border:1px solid rgba(126,87,194,.15);">
@@ -1436,12 +1449,7 @@ body.dark .mtitle { color: #E8EDF5 !important; }
     <strong style="color:var(--q2);">Habit 3 — Put First Things First:</strong> "Identify your key roles in life, then ask what one or two important results you should accomplish in each role this week. This is principle-centered weekly planning."
   </div>
 
-  <div class="roles-grid" id="roles-grid">
-    <div class="role-card add-role-card" onclick="openAddRole()">
-      <span style="font-size:32px;">+</span>
-      Add Your First Role
-    </div>
-  </div>
+  <div class="roles-grid" id="roles-grid"><div class="empty-v2"><svg width="110" height="110" viewBox="0 0 110 110" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="55" cy="55" r="42" fill="var(--lav-p)" stroke="var(--lav)" stroke-width="2" opacity=".4"></circle><circle cx="55" cy="55" r="5" fill="var(--lav)"></circle><line x1="55" y1="13" x2="55" y2="50" stroke="var(--lav)" stroke-width="2" opacity=".6"></line><line x1="55" y1="60" x2="55" y2="97" stroke="var(--lav)" stroke-width="2" opacity=".3"></line><line x1="13" y1="55" x2="50" y2="55" stroke="var(--lav)" stroke-width="2" opacity=".3"></line><line x1="60" y1="55" x2="97" y2="55" stroke="var(--lav)" stroke-width="2" opacity=".3"></line><polygon points="55,13 59,24 55,20 51,24" fill="var(--peach)"></polygon><circle cx="55" cy="13" r="5" fill="var(--peach)"></circle><circle cx="55" cy="97" r="4" fill="var(--lav)" opacity=".4"></circle><circle cx="13" cy="55" r="4" fill="var(--lav)" opacity=".4"></circle><circle cx="97" cy="55" r="4" fill="var(--lav)" opacity=".4"></circle></svg><div class="empty-v2-title">Define Your Roles 🧭</div><div class="empty-v2-sub">Who are you? Father, entrepreneur, leader, learner? Your roles shape your priorities.</div><div class="empty-v2-quote">“Identify your key roles, then ask what one result to accomplish in each.” — Covey</div><button class="empty-v2-btn" onclick="openAddRole()">+ Add Your First Role</button></div></div>
 
   <div id="role-tasks-panel" style="display:none;">
     <div style="font-family:&#39;Playfair Display&#39;,serif;font-size:18px;font-weight:700;margin-bottom:14px;" id="role-tasks-title">Tasks for this role</div>
@@ -1464,7 +1472,13 @@ body.dark .mtitle { color: #E8EDF5 !important; }
     <div class="wr-step" data-s="4" onclick="goWRStep(4)">5. Commit</div>
   </div>
 
-  <div class="wr-panel" id="wr-panel"></div>
+  <div class="wr-panel" id="wr-panel"><div class="wr-q">1. Reflect 🪞 — What went well this week?</div>
+  <div class="wr-hint">Celebrate wins. What are you grateful for? What's working?</div>
+  <textarea class="wr-ta" id="wr-ans" placeholder="Write here..."></textarea>
+  <div class="wr-nav">
+    <div></div>
+    <button class="btn btn-p" onclick="goWRStep(1)">Next →</button>
+  </div></div>
 </div>
 
 <!-- ══ TIME BLOCKS ══ -->
@@ -1480,7 +1494,7 @@ body.dark .mtitle { color: #E8EDF5 !important; }
         <button class="tgnbtn" onclick="shiftTB(1)">›</button>
       </div>
     </div>
-    <div class="tslots" id="tslots"><div class="tslot "><div class="tslbl">6 AM</div><div class="tscont" onclick="openTB(6)" style="cursor:pointer;"><div style="height:24px;"></div></div></div><div class="tslot "><div class="tslbl">7 AM</div><div class="tscont" onclick="openTB(7)" style="cursor:pointer;"><div style="height:24px;"></div></div></div><div class="tslot "><div class="tslbl">8 AM</div><div class="tscont" onclick="openTB(8)" style="cursor:pointer;"><div style="height:24px;"></div></div></div><div class="tslot "><div class="tslbl">9 AM</div><div class="tscont" onclick="openTB(9)" style="cursor:pointer;"><div style="height:24px;"></div></div></div><div class="tslot "><div class="tslbl">10 AM</div><div class="tscont" onclick="openTB(10)" style="cursor:pointer;"><div style="height:24px;"></div></div></div><div class="tslot "><div class="tslbl">11 AM</div><div class="tscont" onclick="openTB(11)" style="cursor:pointer;"><div style="height:24px;"></div></div></div><div class="tslot "><div class="tslbl">12 PM</div><div class="tscont" onclick="openTB(12)" style="cursor:pointer;"><div style="height:24px;"></div></div></div><div class="tslot "><div class="tslbl">1 PM</div><div class="tscont" onclick="openTB(13)" style="cursor:pointer;"><div style="height:24px;"></div></div></div><div class="tslot "><div class="tslbl">2 PM</div><div class="tscont" onclick="openTB(14)" style="cursor:pointer;"><div style="height:24px;"></div></div></div><div class="tslot "><div class="tslbl">3 PM</div><div class="tscont" onclick="openTB(15)" style="cursor:pointer;"><div style="height:24px;"></div></div></div><div class="tslot now"><div class="tslbl">4 PM</div><div class="tscont" onclick="openTB(16)" style="cursor:pointer;"><div style="height:24px;"></div></div></div><div class="tslot "><div class="tslbl">5 PM</div><div class="tscont" onclick="openTB(17)" style="cursor:pointer;"><div style="height:24px;"></div></div></div><div class="tslot "><div class="tslbl">6 PM</div><div class="tscont" onclick="openTB(18)" style="cursor:pointer;"><div style="height:24px;"></div></div></div><div class="tslot "><div class="tslbl">7 PM</div><div class="tscont" onclick="openTB(19)" style="cursor:pointer;"><div style="height:24px;"></div></div></div><div class="tslot "><div class="tslbl">8 PM</div><div class="tscont" onclick="openTB(20)" style="cursor:pointer;"><div style="height:24px;"></div></div></div><div class="tslot "><div class="tslbl">9 PM</div><div class="tscont" onclick="openTB(21)" style="cursor:pointer;"><div style="height:24px;"></div></div></div><div class="tslot "><div class="tslbl">10 PM</div><div class="tscont" onclick="openTB(22)" style="cursor:pointer;"><div style="height:24px;"></div></div></div></div>
+    <div class="tslots" id="tslots"><div class="tslot "><div class="tslbl">6 AM</div><div class="tscont" onclick="openTB(6)" style="cursor:pointer;"><div style="height:24px;"></div></div></div><div class="tslot "><div class="tslbl">7 AM</div><div class="tscont" onclick="openTB(7)" style="cursor:pointer;"><div style="height:24px;"></div></div></div><div class="tslot "><div class="tslbl">8 AM</div><div class="tscont" onclick="openTB(8)" style="cursor:pointer;"><div style="height:24px;"></div></div></div><div class="tslot "><div class="tslbl">9 AM</div><div class="tscont" onclick="openTB(9)" style="cursor:pointer;"><div style="height:24px;"></div></div></div><div class="tslot "><div class="tslbl">10 AM</div><div class="tscont" onclick="openTB(10)" style="cursor:pointer;"><div style="height:24px;"></div></div></div><div class="tslot "><div class="tslbl">11 AM</div><div class="tscont" onclick="openTB(11)" style="cursor:pointer;"><div style="height:24px;"></div></div></div><div class="tslot "><div class="tslbl">12 PM</div><div class="tscont" onclick="openTB(12)" style="cursor:pointer;"><div style="height:24px;"></div></div></div><div class="tslot "><div class="tslbl">1 PM</div><div class="tscont" onclick="openTB(13)" style="cursor:pointer;"><div style="height:24px;"></div></div></div><div class="tslot "><div class="tslbl">2 PM</div><div class="tscont" onclick="openTB(14)" style="cursor:pointer;"><div style="height:24px;"></div></div></div><div class="tslot "><div class="tslbl">3 PM</div><div class="tscont" onclick="openTB(15)" style="cursor:pointer;"><div style="height:24px;"></div></div></div><div class="tslot "><div class="tslbl">4 PM</div><div class="tscont" onclick="openTB(16)" style="cursor:pointer;"><div style="height:24px;"></div></div></div><div class="tslot now"><div class="tslbl">5 PM</div><div class="tscont" onclick="openTB(17)" style="cursor:pointer;"><div style="height:24px;"></div></div></div><div class="tslot "><div class="tslbl">6 PM</div><div class="tscont" onclick="openTB(18)" style="cursor:pointer;"><div style="height:24px;"></div></div></div><div class="tslot "><div class="tslbl">7 PM</div><div class="tscont" onclick="openTB(19)" style="cursor:pointer;"><div style="height:24px;"></div></div></div><div class="tslot "><div class="tslbl">8 PM</div><div class="tscont" onclick="openTB(20)" style="cursor:pointer;"><div style="height:24px;"></div></div></div><div class="tslot "><div class="tslbl">9 PM</div><div class="tscont" onclick="openTB(21)" style="cursor:pointer;"><div style="height:24px;"></div></div></div><div class="tslot "><div class="tslbl">10 PM</div><div class="tscont" onclick="openTB(22)" style="cursor:pointer;"><div style="height:24px;"></div></div></div></div>
   </div>
 </div>
 
@@ -1523,7 +1537,7 @@ body.dark .mtitle { color: #E8EDF5 !important; }
   </div>
   <div class="pcrd">
     <div class="pcrd-t">📋 Select task to focus on</div>
-    <div id="pomo-tasks" style="font-size:13px;color:var(--ink-m);"><div style="display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:1px solid var(--border);cursor:pointer;" onclick="selPomoTask(&#39;t1775575337610&#39;)"><div style="width:7px;height:7px;border-radius:50%;background:var(--q2);flex-shrink:0;"></div><span style="font-size:12px;font-weight:600;color:var(--ink);">Create Sign Up List for Security for YSA Dance</span></div><div style="display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:1px solid var(--border);cursor:pointer;" onclick="selPomoTask(&#39;t1775068644809&#39;)"><div style="width:7px;height:7px;border-radius:50%;background:var(--q2);flex-shrink:0;"></div><span style="font-size:12px;font-weight:600;color:var(--ink);">EQ Presidency MTG</span></div></div>
+    <div id="pomo-tasks" style="font-size:13px;color:var(--ink-m);"><div style="color:var(--ink-m);font-size:13px;">No pending tasks for today</div></div>
   </div>
 </div>
 
@@ -1785,13 +1799,13 @@ body.dark .mtitle { color: #E8EDF5 !important; }
       <div class="pr-ring">
         <svg class="pr-svg" viewBox="0 0 64 64">
           <circle class="pr-bg" cx="32" cy="32" r="26"></circle>
-          <circle class="pr-fill" id="pr-ring" cx="32" cy="32" r="26" stroke-dasharray="163.4" stroke-dashoffset="163.4" style="stroke-dashoffset: 163.4;"></circle>
+          <circle class="pr-fill" id="pr-ring" cx="32" cy="32" r="26" stroke-dasharray="163.4" stroke-dashoffset="163.4" style="stroke-dashoffset: 0;"></circle>
         </svg>
-        <div class="pr-txt" id="pr-pct">0%</div>
+        <div class="pr-txt" id="pr-pct">100%</div>
       </div>
       <div>
-        <div class="pr-lbl" id="pr-lbl">0 of 2</div>
-        <div class="pr-sub" id="pr-sub">Keep going! 💪</div>
+        <div class="pr-lbl" id="pr-lbl">2 of 2</div>
+        <div class="pr-sub" id="pr-sub">🎉 All done!</div>
       </div>
     </div>
   </div>
@@ -1799,18 +1813,12 @@ body.dark .mtitle { color: #E8EDF5 !important; }
     <div class="pcrd-t">🔜 Coming Up</div>
     <div id="coming-up" style="font-size:12px;color:var(--ink-m);"><div style="padding:5px 0;border-bottom:1px solid var(--border);display:flex;gap:7px;align-items:flex-start;">
     <div style="width:6px;height:6px;border-radius:50%;background:var(--q2);flex-shrink:0;margin-top:4px;"></div>
-    <div><div style="font-size:11px;font-weight:600;">Create Sign Up List for Security for YSA Dance</div><div style="font-size:10px;color:var(--ink-m);">Today · 10:00</div></div>
-  </div><div style="padding:5px 0;border-bottom:1px solid var(--border);display:flex;gap:7px;align-items:flex-start;">
-    <div style="width:6px;height:6px;border-radius:50%;background:var(--q2);flex-shrink:0;margin-top:4px;"></div>
-    <div><div style="font-size:11px;font-weight:600;">EQ Presidency MTG</div><div style="font-size:10px;color:var(--ink-m);">Today · 19:00</div></div>
-  </div><div style="padding:5px 0;border-bottom:1px solid var(--border);display:flex;gap:7px;align-items:flex-start;">
-    <div style="width:6px;height:6px;border-radius:50%;background:var(--q2);flex-shrink:0;margin-top:4px;"></div>
     <div><div style="font-size:11px;font-weight:600;">Sign Up at Vasa</div><div style="font-size:10px;color:var(--ink-m);">2026-04-13 · 18:00</div></div>
   </div></div>
   </div>
   <div class="pcrd">
     <div class="pcrd-t">🧭 Q2 Focus</div>
-    <div style="font-size:12px;color:var(--ink-l);line-height:1.6;" id="q2-panel"><div style="padding:5px 0;border-bottom:1px solid var(--border);font-size:12px;font-weight:600;color:var(--ink-l);">🔵 Create Sign Up List for Security for YSA Dance</div><div style="padding:5px 0;border-bottom:1px solid var(--border);font-size:12px;font-weight:600;color:var(--ink-l);">🔵 EQ Presidency MTG</div><div style="font-size:11px;color:var(--q2);margin-top:6px;font-weight:700;">↑ Important, non-urgent. Do these!</div></div>
+    <div style="font-size:12px;color:var(--ink-l);line-height:1.6;" id="q2-panel"><div style="color:var(--ink-m);">No Q2 tasks today. Add important-but-not-urgent activities!</div></div>
   </div>
 </aside>
 </div><!-- #app -->
@@ -1939,6 +1947,23 @@ body.dark .mtitle { color: #E8EDF5 !important; }
         </div>
       </div>
       
+    
+      <div class="fg">
+        <label class="flbl">🏛️ Covey 7 Habits Alignment</label>
+        <div class="covey-sel-grid" id="covey-sel-grid">
+          <div class="covey-sel-opt" data-ch="h1" onclick="setCoveyHabit('h1')">H1 · Be Proactive<br><span style="font-weight:500;font-size:10px;opacity:.7">Own your choices</span></div>
+          <div class="covey-sel-opt" data-ch="h2" onclick="setCoveyHabit('h2')">H2 · End in Mind<br><span style="font-weight:500;font-size:10px;opacity:.7">Vision &amp; purpose</span></div>
+          <div class="covey-sel-opt" data-ch="h3" onclick="setCoveyHabit('h3')">H3 · First Things First<br><span style="font-weight:500;font-size:10px;opacity:.7">Prioritize Q2</span></div>
+          <div class="covey-sel-opt" data-ch="h4" onclick="setCoveyHabit('h4')">H4 · Think Win-Win<br><span style="font-weight:500;font-size:10px;opacity:.7">Mutual benefit</span></div>
+          <div class="covey-sel-opt" data-ch="h5" onclick="setCoveyHabit('h5')">H5 · Seek to Understand<br><span style="font-weight:500;font-size:10px;opacity:.7">Empathic listening</span></div>
+          <div class="covey-sel-opt" data-ch="h6" onclick="setCoveyHabit('h6')">H6 · Synergize<br><span style="font-weight:500;font-size:10px;opacity:.7">Creative cooperation</span></div>
+          <div class="covey-sel-opt on" data-ch="h7" onclick="setCoveyHabit('h7')">H7 · Sharpen the Saw<br><span style="font-weight:500;font-size:10px;opacity:.7">Daily renewal</span></div>
+          <div class="covey-sel-opt" data-ch="none" onclick="setCoveyHabit('none')">No Alignment<br><span style="font-weight:500;font-size:10px;opacity:.7">General habit</span></div>
+        </div>
+      </div>
+      <div id="h-delete-row" style="display:none;margin-top:4px">
+        <button onclick="deleteHabit()" style="width:100%;padding:9px;background:rgba(192,57,43,.08);border:1px solid rgba(192,57,43,.2);border-radius:10px;color:#C0392B;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:700;cursor:pointer">🗑️ Delete This Habit</button>
+      </div>
     <div class="mfoot"><button class="btn btn-s" onclick="closeModal(&#39;m-habit&#39;)">Cancel</button><button class="btn btn-p" onclick="saveHabit()">Save Habit</button></div>
   </div>
 </div>
@@ -1997,6 +2022,7 @@ async function initFirebase() {
 // ═══════════════════════════════════════════════════════
 // STATE
 // ═══════════════════════════════════════════════════════
+let _dfEditHabitId=null,_dfSelCovey='h7';
 let tasks=[], habits=[], habitLogs={}, timeBlocks=[], roles=[], weeklyReview={}, notes=[];
 let missionStatement='', principles=[];
 let editId=null, selQ=2, selHC='peach', mTags=[], mSubs=[];
@@ -2946,19 +2972,110 @@ function animCheck(id){
 // ═══════════════════════════════════════════════════════
 function renderHabits(){
   const today=todayStr(),c=document.getElementById('habits-list');
-  if(!habits.length){c.innerHTML=`<div class="empty-v2"><svg width="100" height="116" viewBox="0 0 100 116" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="36" y="86" width="28" height="18" rx="4" fill="var(--ink-m)" opacity=".12"/><rect x="44" y="66" width="12" height="24" rx="4" fill="var(--sage)" opacity=".8"/><ellipse cx="50" cy="52" rx="20" ry="16" fill="var(--sage-p)" stroke="var(--sage)" stroke-width="2"/><path d="M40 52 Q50 36 60 52" stroke="var(--sage)" stroke-width="2" fill="none"/><circle cx="50" cy="40" r="4" fill="var(--sage)" opacity=".6"/><path d="M26 68 Q38 54 50 68" stroke="var(--sage)" stroke-width="2" fill="none" opacity=".4"/><path d="M74 68 Q62 54 50 68" stroke="var(--sage)" stroke-width="2" fill="none" opacity=".4"/><circle cx="24" cy="48" r="4" fill="var(--gold)" opacity=".5"/><circle cx="76" cy="48" r="4" fill="var(--gold)" opacity=".5"/><circle cx="50" cy="26" r="3" fill="var(--gold)" opacity=".7"/></svg><div class="empty-v2-title">Plant Your First Habit 🌱</div><div class="empty-v2-sub">Small daily actions compound into extraordinary results. Habit 7: Sharpen the Saw.</div><div class="empty-v2-quote">“Renew yourself physically, mentally, spiritually, socially.” — Covey</div><button class="empty-v2-btn" onclick="openHabit()">+ Add First Habit</button></div>`;return;}
+  const COVEY_MAP={h1:{label:'H1 · Be Proactive',cls:'ca-h1'},h2:{label:'H2 · End in Mind',cls:'ca-h2'},h3:{label:'H3 · First Things First',cls:'ca-h3'},h4:{label:'H4 · Win-Win',cls:'ca-h4'},h5:{label:'H5 · Seek to Understand',cls:'ca-h5'},h6:{label:'H6 · Synergize',cls:'ca-h6'},h7:{label:'H7 · Sharpen the Saw',cls:'ca-h7'}};
+  if(!habits.length){c.innerHTML='<div class="empty-v2"><div style="font-size:52px;text-align:center;margin-bottom:14px">🌱</div><div class="empty-v2-title">Plant Your First Habit</div><div class="empty-v2-sub">Small daily actions compound into extraordinary results. Habit 7: Sharpen the Saw.</div><div class="empty-v2-quote">"Renew yourself daily." — Covey</div><button class="empty-v2-btn" onclick="openHabit()">+ Add First Habit</button></div>';return;}
   c.innerHTML=habits.map(h=>{
     const logs=habitLogs[h.id]||{},todayDone=!!logs[today];
-    let streak=0;for(let i=0;i<365;i++){const d=new Date();d.setDate(d.getDate()-i);if(logs[dStr(d)])streak++;else if(i>0) break;}
-    const days=[];for(let i=6;i>=0;i--){const d=new Date();d.setDate(d.getDate()-i);days.push({ds:dStr(d),isToday:i===0,done:!!logs[dStr(d)],lbl:d.toLocaleDateString('en-US',{weekday:'narrow'})});}
+    let streak=0;for(let i=0;i<365;i++){const d=new Date();d.setDate(d.getDate()-i);if(logs[dStr(d)])streak++;else if(i>0)break;}
+    const days=[];for(let i=6;i>=0;i--){const d=new Date();d.setDate(d.getDate()-i);days.push({ds:dStr(d),isToday:i===0,isPast:i>0,done:!!logs[dStr(d)],lbl:d.toLocaleDateString('en-US',{weekday:'narrow'})});}
     const wd=days.filter(d=>d.done).length;
-    return `<div class="hcard"><div class="hico hc-${h.color}">${h.icon}</div><div class="hbody"><div class="hname">${h.name}</div><div class="hstreak">🔥 <strong>${streak}</strong> day streak · ${wd}/7 this week</div><div class="hweek">${days.map(d=>`<div class="hday ${d.done?'on':''} ${d.isToday?'today':''}">${d.lbl}</div>`).join('')}</div><div class="hprog"><div class="hprog-fill" style="width:${Math.round(wd/7*100)}%;"></div></div></div><button class="hchk ${todayDone?'on':''}" onclick="togHabit('${h.id}')">${todayDone?'✅':'⭕'}</button></div>`;
+    const coveyInfo=h.coveyHabit&&COVEY_MAP[h.coveyHabit]?COVEY_MAP[h.coveyHabit]:null;
+    const coveyBadge=coveyInfo?'<div><span class="covey-align-badge '+coveyInfo.cls+'">🏛️ '+coveyInfo.label+'</span></div>':'';
+    const dotHTML=days.map(d=>'<div class="hday'+(d.done?' on':'')+(d.isToday?' today':'')+'" onclick="habDayClick(''+h.id+'',''+d.ds+'')" title="'+(d.isToday?'Today':d.isPast?(d.done?'Remove: ':'Backfill: ')+d.ds:d.ds)+'">'+d.lbl+'</div>').join('');
+    return '<div class="hcard" id="hcard-'+h.id+'">'
+      +'<div class="hico hc-'+(h.color||'peach')+'">'+(h.icon||'⭐')+'</div>'
+      +'<div class="hbody">'
+        +'<div style="display:flex;align-items:center;gap:8px">'
+          +'<div class="hname">'+h.name+'</div>'
+          +'<button class="h-edit-btn" onclick="event.stopPropagation();openEditHabit(''+h.id+'')" title="Edit habit">✏️</button>'
+        +'</div>'
+        +coveyBadge
+        +'<div class="hstreak" style="margin-top:4px">🔥 <strong>'+streak+'</strong> day streak &nbsp;·&nbsp; '+wd+'/7 this week</div>'
+        +'<div class="hweek" style="margin-top:7px">'+dotHTML+'</div>'
+        +'<div class="hprog"><div class="hprog-fill" style="width:'+Math.round(wd/7*100)+'%"></div></div>'
+        +'<div class="backfill-hint">← tap any past day to backfill a missed entry</div>'
+      +'</div>'
+      +'<button class="hchk'+(todayDone?' on':'')+'" onclick="togHabit(''+h.id+'')">'+(todayDone?'✅':'⭕')+'</button>'
+    +'</div>';
   }).join('');
 }
 
-function togHabit(id){const today=todayStr();if(!habitLogs[id])habitLogs[id]={};habitLogs[id][today]=!habitLogs[id][today];cloudSave('habitLogs',habitLogs);renderHabits();updateStreak();if(habitLogs[id][today])addKarma(5,'habit done! 🔥');toast(habitLogs[id][today]?'🔥 Habit checked!':'⭕ Unchecked');}
-function openHabit(){selHC='peach';openModal('m-habit');}
-function saveHabit(){const name=document.getElementById('h-name').value.trim();if(!name){toast('⚠️ Enter a name');return;}habits.push({id:'h'+Date.now(),name,icon:document.getElementById('h-icon').value.trim()||'⭐',color:selHC});cloudSave('habits',habits);closeModal('m-habit');renderHabits();document.getElementById('h-name').value='';document.getElementById('h-icon').value='';toast('🌱 Habit created!');}
+function togHabit(id){
+  const today=todayStr();
+  if(!habitLogs[id])habitLogs[id]={};
+  habitLogs[id][today]=!habitLogs[id][today];
+  cloudSave('habitLogs',habitLogs);
+  renderHabits();updateStreak();
+  if(habitLogs[id][today]){addKarma(5,'habit done! 🔥');toast('🔥 Habit checked!');}
+  else toast('⭕ Unchecked');
+}
+function habDayClick(hid,ds){
+  const today=todayStr();
+  if(ds===today){togHabit(hid);return;}
+  if(!habitLogs[hid])habitLogs[hid]={};
+  habitLogs[hid][ds]=!habitLogs[hid][ds];
+  cloudSave('habitLogs',habitLogs);
+  renderHabits();updateStreak();
+  if(habitLogs[hid][ds]){addKarma(3,'backfill! 📅');toast('📅 Logged: '+ds);}
+  else toast('📅 Removed: '+ds);
+}
+
+function openHabit(){
+  _dfEditHabitId=null;selHC='peach';_dfSelCovey='h7';
+  const t=document.getElementById('m-habit-title');if(t)t.textContent='New Habit';
+  const hn=document.getElementById('h-name');if(hn)hn.value='';
+  const hi=document.getElementById('h-icon');if(hi)hi.value='';
+  const dr=document.getElementById('h-delete-row');if(dr)dr.style.display='none';
+  setCoveyHabit('h7');setHC('peach');
+  openModal('m-habit');
+}
+function openEditHabit(id){
+  const h=habits.find(x=>x.id===id);if(!h)return;
+  _dfEditHabitId=id;selHC=h.color||'peach';_dfSelCovey=h.coveyHabit||'none';
+  const t=document.getElementById('m-habit-title');if(t)t.textContent='Edit Habit';
+  const hn=document.getElementById('h-name');if(hn)hn.value=h.name;
+  const hi=document.getElementById('h-icon');if(hi)hi.value=h.icon||'';
+  const dr=document.getElementById('h-delete-row');if(dr)dr.style.display='block';
+  setCoveyHabit(h.coveyHabit||'none');setHC(h.color||'peach');
+  openModal('m-habit');
+}
+function deleteHabit(){
+  if(!_dfEditHabitId)return;
+  const h=habits.find(x=>x.id===_dfEditHabitId);
+  if(!confirm('Delete "'+(h?h.name:'this habit')+'"? All tracking data will be removed.'))return;
+  habits=habits.filter(x=>x.id!==_dfEditHabitId);
+  if(habitLogs[_dfEditHabitId])delete habitLogs[_dfEditHabitId];
+  cloudSave('habits',habits);cloudSave('habitLogs',habitLogs);
+  closeModal('m-habit');renderHabits();toast('🗑️ Habit deleted');_dfEditHabitId=null;
+}
+function setCoveyHabit(key){
+  _dfSelCovey=key;
+  document.querySelectorAll('#covey-sel-grid .covey-sel-opt').forEach(el=>el.classList.toggle('on',el.dataset.ch===key));
+}
+function saveHabit(){
+  const name=(document.getElementById('h-name')||{}).value||'';
+  const trimmed=name.trim();
+  if(!trimmed){toast('⚠️ Enter a habit name');return;}
+  const icon=((document.getElementById('h-icon')||{}).value||'').trim()||'⭐';
+  const habit={
+    id:_dfEditHabitId||('h'+Date.now()),
+    name:trimmed,icon,
+    color:selHC||'peach',
+    coveyHabit:(_dfSelCovey==='none'||!_dfSelCovey)?null:_dfSelCovey
+  };
+  if(_dfEditHabitId){
+    const idx=habits.findIndex(x=>x.id===_dfEditHabitId);
+    if(idx>-1)habits[idx]=habit;
+    toast('✅ Habit updated!');
+  } else {
+    habits.push(habit);
+    toast('🌱 Habit created!');
+  }
+  cloudSave('habits',habits);
+  closeModal('m-habit');renderHabits();
+  _dfEditHabitId=null;
+}
+
 function setHC(c){selHC=c;document.querySelectorAll('#h-colors [data-c]').forEach(el=>{el.textContent=el.dataset.c===c?'✓':'';el.style.borderColor=el.dataset.c===c?'var(--peach)':'var(--border)';});}
 
 // ═══════════════════════════════════════════════════════
@@ -3653,255 +3770,9 @@ initApp();
       }
     </style><div aria-label="grammarly-integration" role="group" tabindex="-1" class="grammarly-desktop-integration" data-content="{&quot;mode&quot;:&quot;full&quot;,&quot;isActive&quot;:true,&quot;isUserDisabled&quot;:false}"></div></template></grammarly-desktop-integration>
 
-<script id="habits-patch-v4">
-/* ════ DayFlow Habits Patch v4 — full override ════ */
-(function() {
-  'use strict';
 
-  var COVEY_MAP = {
-    h1: { label: 'H1 · Be Proactive',          cls: 'ca-h1' },
-    h2: { label: 'H2 · End in Mind',            cls: 'ca-h2' },
-    h3: { label: 'H3 · First Things First',     cls: 'ca-h3' },
-    h4: { label: 'H4 · Win-Win',                cls: 'ca-h4' },
-    h5: { label: 'H5 · Seek to Understand',     cls: 'ca-h5' },
-    h6: { label: 'H6 · Synergize',              cls: 'ca-h6' },
-    h7: { label: 'H7 · Sharpen the Saw',        cls: 'ca-h7' }
-  };
-
-  var _editHabitId = null;
-  var _selCoveyHabit = 'h7';
-
-  /* ── renderHabits: full replacement ── */
-  function _renderHabits() {
-    var today = (typeof todayStr === 'function') ? todayStr() : new Date().toISOString().slice(0,10);
-    var c = document.getElementById('habits-list');
-    if (!c) return;
-
-    if (!window.habits || !window.habits.length) {
-      c.innerHTML = '<div class="empty-v2">'
-        + '<div style="font-size:48px;text-align:center;margin-bottom:12px;">🌱</div>'
-        + '<div class="empty-v2-title">Plant Your First Habit</div>'
-        + '<div class="empty-v2-sub">Small daily actions compound into extraordinary results. Habit 7: Sharpen the Saw.</div>'
-        + '<div class="empty-v2-quote">"Renew yourself daily." — Covey</div>'
-        + '<button class="empty-v2-btn" onclick="openHabit()">+ Add First Habit</button>'
-        + '</div>';
-      return;
-    }
-
-    c.innerHTML = window.habits.map(function(h) {
-      var logs = (window.habitLogs && window.habitLogs[h.id]) ? window.habitLogs[h.id] : {};
-      var todayDone = !!logs[today];
-
-      // Calculate streak
-      var streak = 0;
-      for (var i = 0; i < 365; i++) {
-        var d = new Date(); d.setDate(d.getDate() - i);
-        var ds = d.toISOString().slice(0,10);
-        if (logs[ds]) streak++;
-        else if (i > 0) break;
-      }
-
-      // Build last 7 days
-      var days = [];
-      for (var i = 6; i >= 0; i--) {
-        var d = new Date(); d.setDate(d.getDate() - i);
-        var ds = d.toISOString().slice(0,10);
-        days.push({
-          ds: ds,
-          isToday: i === 0,
-          isPast: i > 0,
-          done: !!logs[ds],
-          lbl: d.toLocaleDateString('en-US', { weekday: 'narrow' })
-        });
-      }
-
-      var wd = days.filter(function(d) { return d.done; }).length;
-      var progPct = Math.round(wd / 7 * 100);
-
-      // Covey badge
-      var coveyInfo = h.coveyHabit && COVEY_MAP[h.coveyHabit] ? COVEY_MAP[h.coveyHabit] : null;
-      var coveyBadge = coveyInfo
-        ? '<div><span class="covey-align-badge ' + coveyInfo.cls + '">🏛️ ' + coveyInfo.label + '</span></div>'
-        : '';
-
-      // Day dots
-      var dotHTML = days.map(function(d) {
-        var cls = 'hday';
-        if (d.done) cls += ' on';
-        if (d.isToday) cls += ' today';
-        var title = d.isToday ? 'Today' : (d.isPast ? 'Tap to ' + (d.done ? 'unlog' : 'backfill') + ': ' + d.ds : d.ds);
-        return '<div class="' + cls + '" onclick="_habDayClick('' + h.id + '','' + d.ds + '')" title="' + title + '">' + d.lbl + '</div>';
-      }).join('');
-
-      return '<div class="hcard" id="hcard-' + h.id + '">'
-        + '<div class="hico hc-' + (h.color || 'peach') + '">' + (h.icon || '⭐') + '</div>'
-        + '<div class="hbody">'
-          + '<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">'
-            + '<div class="hname">' + h.name + '</div>'
-            + '<button class="h-edit-btn" onclick="event.stopPropagation();_openEditHabit('' + h.id + '')" title="Edit habit">✏️</button>'
-          + '</div>'
-          + coveyBadge
-          + '<div class="hstreak" style="margin-top:4px;">🔥 <strong>' + streak + '</strong> day streak &nbsp;·&nbsp; ' + wd + '/7 this week</div>'
-          + '<div class="hweek" style="margin-top:7px;">' + dotHTML + '</div>'
-          + '<div class="hprog"><div class="hprog-fill" style="width:' + progPct + '%;"></div></div>'
-          + '<div class="backfill-hint">← tap any past day to backfill a missed entry</div>'
-        + '</div>'
-        + '<button class="hchk' + (todayDone ? ' on' : '') + '" onclick="_habToggle('' + h.id + '')">'
-          + (todayDone ? '✅' : '⭕')
-        + '</button>'
-      + '</div>';
-    }).join('');
-  }
-
-  /* ── Day click: today = toggle, past = backfill ── */
-  window._habDayClick = function(hid, ds) {
-    var today = (typeof todayStr === 'function') ? todayStr() : new Date().toISOString().slice(0,10);
-    if (ds === today) { _habToggle(hid); return; }
-    if (!window.habitLogs) window.habitLogs = {};
-    if (!window.habitLogs[hid]) window.habitLogs[hid] = {};
-    window.habitLogs[hid][ds] = !window.habitLogs[hid][ds];
-    if (typeof cloudSave === 'function') cloudSave('habitLogs', window.habitLogs);
-    _renderHabits();
-    if (typeof updateStreak === 'function') updateStreak();
-    var done = window.habitLogs[hid][ds];
-    if (done) { if (typeof addKarma === 'function') addKarma(3, 'backfill! 📅'); }
-    if (typeof toast === 'function') toast(done ? '📅 Logged: ' + ds : '📅 Removed: ' + ds);
-  };
-
-  /* ── Today toggle ── */
-  window._habToggle = function(hid) {
-    var today = (typeof todayStr === 'function') ? todayStr() : new Date().toISOString().slice(0,10);
-    if (!window.habitLogs) window.habitLogs = {};
-    if (!window.habitLogs[hid]) window.habitLogs[hid] = {};
-    window.habitLogs[hid][today] = !window.habitLogs[hid][today];
-    if (typeof cloudSave === 'function') cloudSave('habitLogs', window.habitLogs);
-    _renderHabits();
-    if (typeof updateStreak === 'function') updateStreak();
-    if (window.habitLogs[hid][today]) {
-      if (typeof addKarma === 'function') addKarma(5, 'habit done! 🔥');
-      if (typeof toast === 'function') toast('🔥 Habit checked!');
-    } else {
-      if (typeof toast === 'function') toast('⭕ Unchecked');
-    }
-  };
-
-  /* ── Open new habit modal ── */
-  window.openHabit = function() {
-    _editHabitId = null;
-    _selCoveyHabit = 'h7';
-    window.selHC = 'peach';
-    var t = document.getElementById('m-habit-title'); if (t) t.textContent = 'New Habit';
-    var hn = document.getElementById('h-name'); if (hn) hn.value = '';
-    var hi = document.getElementById('h-icon'); if (hi) hi.value = '';
-    var dr = document.getElementById('h-delete-row'); if (dr) dr.style.display = 'none';
-    _syncCoveyUI('h7');
-    if (typeof setHC === 'function') setHC('peach');
-    if (typeof openModal === 'function') openModal('m-habit');
-  };
-
-  /* ── Open edit habit modal ── */
-  window._openEditHabit = function(id) {
-    var h = window.habits ? window.habits.find(function(x) { return x.id === id; }) : null;
-    if (!h) return;
-    _editHabitId = id;
-    _selCoveyHabit = h.coveyHabit || 'none';
-    window.selHC = h.color || 'peach';
-    var t = document.getElementById('m-habit-title'); if (t) t.textContent = 'Edit Habit';
-    var hn = document.getElementById('h-name'); if (hn) hn.value = h.name;
-    var hi = document.getElementById('h-icon'); if (hi) hi.value = h.icon || '';
-    var dr = document.getElementById('h-delete-row'); if (dr) dr.style.display = 'block';
-    _syncCoveyUI(_selCoveyHabit);
-    if (typeof setHC === 'function') setHC(h.color || 'peach');
-    if (typeof openModal === 'function') openModal('m-habit');
-  };
-
-  /* ── Delete habit ── */
-  window.deleteHabit = function() {
-    if (!_editHabitId) return;
-    var h = window.habits ? window.habits.find(function(x) { return x.id === _editHabitId; }) : null;
-    if (!confirm('Delete "' + (h ? h.name : 'this habit') + '"? All tracking data will be removed.')) return;
-    window.habits = window.habits.filter(function(x) { return x.id !== _editHabitId; });
-    if (window.habitLogs && window.habitLogs[_editHabitId]) delete window.habitLogs[_editHabitId];
-    if (typeof cloudSave === 'function') { cloudSave('habits', window.habits); cloudSave('habitLogs', window.habitLogs); }
-    if (typeof closeModal === 'function') closeModal('m-habit');
-    _renderHabits();
-    if (typeof toast === 'function') toast('🗑️ Habit deleted');
-    _editHabitId = null;
-  };
-
-  /* ── Save habit (new or edit) ── */
-  window.saveHabit = function() {
-    var name = (document.getElementById('h-name') || {}).value || '';
-    name = name.trim();
-    if (!name) { if (typeof toast === 'function') toast('⚠️ Enter a habit name'); return; }
-    var icon = ((document.getElementById('h-icon') || {}).value || '').trim() || '⭐';
-    var habit = {
-      id: _editHabitId || ('h' + Date.now()),
-      name: name,
-      icon: icon,
-      color: window.selHC || 'peach',
-      coveyHabit: (_selCoveyHabit === 'none' || !_selCoveyHabit) ? null : _selCoveyHabit
-    };
-    if (_editHabitId) {
-      var idx = window.habits.findIndex(function(x) { return x.id === _editHabitId; });
-      if (idx > -1) window.habits[idx] = habit;
-      if (typeof toast === 'function') toast('✅ Habit updated!');
-    } else {
-      if (!window.habits) window.habits = [];
-      window.habits.push(habit);
-      if (typeof toast === 'function') toast('🌱 Habit created!');
-    }
-    if (typeof cloudSave === 'function') cloudSave('habits', window.habits);
-    if (typeof closeModal === 'function') closeModal('m-habit');
-    _renderHabits();
-    _editHabitId = null;
-  };
-
-  /* ── setCoveyHabit: called by modal buttons ── */
-  window.setCoveyHabit = function(key) {
-    _selCoveyHabit = key;
-    _syncCoveyUI(key);
-  };
-
-  function _syncCoveyUI(key) {
-    document.querySelectorAll('#covey-sel-grid .covey-sel-opt').forEach(function(el) {
-      el.classList.toggle('on', el.dataset.ch === key);
-    });
-  }
-
-  /* ── Override renderHabits globally ── */
-  window.renderHabits = _renderHabits;
-
-  /* ── Kick off render after app initialises ── */
-  var _attempts = 0;
-  var _boot = setInterval(function() {
-    _attempts++;
-    if (typeof window.habits !== 'undefined' && document.getElementById('habits-list')) {
-      clearInterval(_boot);
-      // If we're on the habits view, re-render immediately
-      var hv = document.getElementById('view-habits');
-      if (hv && hv.classList.contains('active')) _renderHabits();
-    }
-    if (_attempts > 80) clearInterval(_boot);
-  }, 150);
-
-  /* ── Also hook into nav() so habits always use new renderer ── */
-  var _origNav = window.nav;
-  window.nav = function(v) {
-    if (typeof _origNav === 'function') _origNav(v);
-    if (v === 'habits') {
-      setTimeout(_renderHabits, 80);
-    }
-  };
-
-})();
-</script>
 <style>
-/* ═══ PROGRESS CARD FIX v4 ═══ */
-.rpanel .pcrd { min-height: auto !important; }
-#pr-pct { color: var(--ink) !important; font-size: 14px !important; }
-.pr-lbl { color: var(--ink) !important; font-weight: 800 !important; font-size: 13px !important; }
-.pr-sub { color: var(--ink-m) !important; font-size: 11px !important; margin-top: 4px !important; }
 </style>
-</body>
-</html>
+
+
+</div></body></html>
