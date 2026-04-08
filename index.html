@@ -518,6 +518,37 @@ body.dark .proactive-nudge{background:rgba(27,58,107,.2);color:var(--gold)}
 .eve-inp:focus{border-color:var(--gold)}
 
 </style>
+
+<!-- Firebase SDK -->
+<script type="module">
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
+import { getFirestore, doc, setDoc, getDoc, collection, getDocs, deleteDoc }
+  from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDlGerHCkauECpu9uOXT-BUPAQATTwoVk0",
+  authDomain: "dayflow-a2c14.firebaseapp.com",
+  projectId: "dayflow-a2c14",
+  storageBucket: "dayflow-a2c14.firebasestorage.app",
+  messagingSenderId: "722247388632",
+  appId: "1:722247388632:web:7534715e8b89c876de36ad"
+};
+
+const fbApp = initializeApp(firebaseConfig);
+const db    = getFirestore(fbApp);
+
+// Expose to global scope so the main script can use them
+window._db      = db;
+window._fbDoc   = doc;
+window._fbSetDoc = setDoc;
+window._fbGetDoc = getDoc;
+window._fbCollection = collection;
+window._fbGetDocs = getDocs;
+window._fbDeleteDoc = deleteDoc;
+window._fbReady = true;
+console.log('Firebase ready');
+</script>
+
 </head>
 <body>
 
@@ -777,6 +808,7 @@ body.dark .proactive-nudge{background:rgba(27,58,107,.2);color:var(--gold)}
       </div>
       <input type="file" id="import-file" accept=".json" style="display:none" onchange="importData(event)">
       <div style="margin-top:10px;font-size:12px;color:var(--ink-m)" id="data-summary"></div>
+
     </div>
   </div>
 </div>
@@ -956,14 +988,103 @@ let ebaImpact      = 3;
 let ebaHistOpen    = {};
 let setupStep      = 0;
 
-// ── STORAGE ──
+// ── STORAGE — Firebase + localStorage hybrid ──
+// localStorage = fast, synchronous, used for per-device settings + daily state
+// Firestore   = persistent, cross-device, used for all user data
+
 function uid_key(k){ return 'df3_'+k+'_'+(currentUser?.uid||'guest'); }
-function save(k,v){ localStorage.setItem(uid_key(k), JSON.stringify(v)); }
-function load(k,def=null){ try{ const v=localStorage.getItem(uid_key(k)); return v!==null?JSON.parse(v):def; }catch(e){return def;} }
+
+// LOCAL — device-only (dark mode, sidebar, daily text inputs, gratitude, etc.)
 function saveLocal(k,v){ localStorage.setItem('df3_local_'+k, v); }
 function loadLocal(k){ return localStorage.getItem('df3_local_'+k)||''; }
 function saveGlobal(k,v){ localStorage.setItem('df3_'+k, JSON.stringify(v)); }
 function loadGlobal(k,def=null){ try{ const v=localStorage.getItem('df3_'+k); return v!==null?JSON.parse(v):def; }catch(e){return def;} }
+
+// FIRESTORE — async save (fire and forget with local cache fallback)
+async function save(k, v){
+  // Always write to localStorage immediately (no lag)
+  localStorage.setItem(uid_key(k), JSON.stringify(v));
+  // Then persist to Firestore in background
+  if(!window._fbReady || !currentUser?.uid) return;
+  try{
+    const ref = window._fbDoc(window._db, 'users', currentUser.uid, 'data', k);
+    await window._fbSetDoc(ref, { value: JSON.stringify(v), updatedAt: new Date().toISOString() });
+  } catch(e){ console.warn('Firestore write failed for '+k, e.message); }
+}
+
+// LOAD — try Firestore first, fall back to localStorage, fall back to default
+async function loadFromFirestore(k, def=null){
+  if(!window._fbReady || !currentUser?.uid) return def;
+  try{
+    const ref = window._fbDoc(window._db, 'users', currentUser.uid, 'data', k);
+    const snap = await window._fbGetDoc(ref);
+    if(snap.exists()){
+      const v = JSON.parse(snap.data().value);
+      // Update local cache
+      localStorage.setItem(uid_key(k), JSON.stringify(v));
+      return v;
+    }
+  } catch(e){ console.warn('Firestore read failed for '+k, e.message); }
+  return def;
+}
+
+// Synchronous load (from localStorage cache) — used during renders
+function load(k, def=null){
+  try{
+    const v = localStorage.getItem(uid_key(k));
+    return v !== null ? JSON.parse(v) : def;
+  } catch(e){ return def; }
+}
+
+// Full load from Firestore — called once on login, populates localStorage cache
+async function loadAllFromFirestore(){
+  if(!window._fbReady || !currentUser?.uid){
+    console.log('Firestore not ready, using localStorage cache');
+    return;
+  }
+  showSyncIndicator('☁️ Syncing your data...');
+  const keys = ['roles','habits','habitLogs','relationships','goals','mission',
+                 'futureself','values','reflections'];
+  // Load today's data keys for past 7 days
+  for(let i=0;i<7;i++){
+    const d=new Date(); d.setDate(d.getDate()-i);
+    keys.push('today_'+d.toISOString().slice(0,10));
+  }
+  // Also load EBA data for each relationship
+  const relCached = load('relationships',[]);
+  relCached.forEach(r => keys.push('eba_'+r.id));
+
+  try{
+    const coll = window._fbCollection(window._db, 'users', currentUser.uid, 'data');
+    const snap = await window._fbGetDocs(coll);
+    snap.forEach(docSnap => {
+      try{
+        const v = JSON.parse(docSnap.data().value);
+        localStorage.setItem(uid_key(docSnap.id), JSON.stringify(v));
+      } catch(e){}
+    });
+    console.log('Firestore sync complete — '+snap.size+' documents loaded');
+  } catch(e){
+    console.warn('Firestore full load failed, using cache:', e.message);
+  }
+  hideSyncIndicator();
+}
+
+function showSyncIndicator(msg){
+  let el = document.getElementById('sync-indicator');
+  if(!el){
+    el = document.createElement('div');
+    el.id = 'sync-indicator';
+    el.style.cssText = 'position:fixed;top:12px;left:50%;transform:translateX(-50%);background:var(--navy-2);color:var(--gold);padding:7px 18px;border-radius:20px;font-size:12px;font-weight:700;z-index:9999;box-shadow:0 4px 16px rgba(0,0,0,.3);transition:opacity .3s';
+    document.body.appendChild(el);
+  }
+  el.textContent = msg;
+  el.style.opacity = '1';
+}
+function hideSyncIndicator(){
+  const el = document.getElementById('sync-indicator');
+  if(el){ el.style.opacity='0'; setTimeout(()=>el.remove(),400); }
+}
 
 function saveTodayState(){
   save('today_'+TODAY, {priorities, renewal:renewalState[TODAY]||{}, q2:q2State[TODAY]||{}, roleServed:roleServed[TODAY]||{}});
@@ -977,6 +1098,7 @@ function loadTodayState(){
 }
 
 function loadAll(){
+  // Load from localStorage cache immediately (fast, synchronous)
   roles         = load('roles', []);
   habits        = load('habits', []);
   habitLogs     = load('habitLogs', {});
@@ -994,6 +1116,25 @@ function loadAll(){
   const wt=document.getElementById('who-today');     if(wt) wt.value=loadLocal('who_today');
   const fs=document.getElementById('future-self-inp'); if(fs) fs.value=futureself;
   ['r1','r2','r3','r4'].forEach((id,i)=>{ const el=document.getElementById(id); if(el) el.value=loadLocal(['r_win','r_reactive','r_aligned','r_commit'][i]); });
+
+  // Then sync from Firestore in background — updates cache and re-renders
+  loadAllFromFirestore().then(()=>{
+    // Re-read from updated cache
+    roles         = load('roles', roles);
+    habits        = load('habits', habits);
+    habitLogs     = load('habitLogs', habitLogs);
+    relationships = load('relationships', relationships);
+    goals         = load('goals', goals);
+    missionStatement = load('mission', missionStatement);
+    futureself    = load('futureself', futureself);
+    values        = load('values', values);
+    reflections   = load('reflections', reflections);
+    loadTodayState();
+    // Re-render current view
+    const activeView = document.querySelector('.view.active')?.id?.replace('view-','');
+    if(activeView) nav(activeView);
+    updateScores();
+  });
 }
 
 // ── PROFILES ──
@@ -1134,6 +1275,8 @@ function showApp(){
   genCoach();
   checkAutoGratitude();
   checkAutoEvening();
+  // Check Firebase status after short delay to let SDK initialise
+  setTimeout(updateFbBadge, 1500);
 }
 function signOut(){
   document.getElementById('app').style.display='none';
@@ -1594,7 +1737,30 @@ function deleteHabit(){ if(!editingHabitId) return; const h=habits.find(x=>x.id=
 function renderSettings(){
   document.getElementById('gemini-key').value=geminiKey;
   updateAiBadge();
+  updateFbBadge();
   const ds=document.getElementById('data-summary'); if(ds) ds.textContent='📦 '+roles.length+' roles · '+priorities.length+' priorities today · '+habits.length+' habits · '+relationships.length+' relationships · '+reflections.length+' reflections · '+goals.length+' goals';
+}
+
+function updateFbBadge(){
+  const badge  = document.getElementById('fb-badge');
+  const detail = document.getElementById('fb-status-detail');
+  if(!badge || !detail) return;
+  if(window._fbReady && currentUser?.uid){
+    badge.textContent = '✅ Connected';
+    badge.className   = 'settings-badge badge-on';
+    detail.textContent = 'Connected as '+currentUser.name+' · Project: dayflow-a2c14 · Data syncs automatically on every save.';
+    detail.style.color = 'var(--ink-m)';
+  } else if(window._fbReady && !currentUser?.uid){
+    badge.textContent = '⚠️ No Profile';
+    badge.className   = 'settings-badge';
+    badge.style.background = 'var(--amber-lt)';
+    badge.style.color = 'var(--amber)';
+    detail.textContent = 'Firebase is ready but no user is logged in.';
+  } else {
+    badge.textContent = '🔴 Not Connected';
+    badge.className   = 'settings-badge badge-off';
+    detail.textContent = 'Firebase is loading... If this persists, check your internet connection.';
+  }
 }
 function toggleKeyVis(){ const i=document.getElementById('gemini-key'); i.type=i.type==='password'?'text':'password'; document.getElementById('key-eye').textContent=i.type==='password'?'👁️':'🙈'; }
 function saveGeminiKey(){ const k=document.getElementById('gemini-key').value.trim(); if(!k){ toast('Enter a key'); return; } if(!k.startsWith('AIza')){ toast('Key should start with AIza...'); return; } geminiKey=k; localStorage.setItem('df3_gemini',k); updateAiBadge(); toast('✅ Gemini connected!'); genCoach(); }
@@ -1608,7 +1774,20 @@ function removeGeminiKey(){ geminiKey=''; localStorage.removeItem('df3_gemini');
 function updateAiBadge(){ const b=document.getElementById('ai-badge'); if(!b) return; b.textContent=geminiKey?'✅ Connected':'Not Connected'; b.className='settings-badge '+(geminiKey?'badge-on':'badge-off'); }
 function exportData(){ const data={roles,habits,habitLogs,relationships,goals,missionStatement,futureself,values,reflections,exportedAt:new Date().toISOString(),user:currentUser?.name}; const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:'application/json'})); a.download='dayflow-v3-'+(currentUser?.name||'data').toLowerCase()+'-'+TODAY+'.json'; a.click(); toast('📤 Exported'); }
 function importData(e){ const f=e.target.files[0]; if(!f) return; const r=new FileReader(); r.onload=ev=>{ try{ const d=JSON.parse(ev.target.result); if(d.roles){roles=d.roles;save('roles',roles);} if(d.habits){habits=d.habits;save('habits',habits);} if(d.habitLogs){habitLogs=d.habitLogs;save('habitLogs',habitLogs);} if(d.relationships){relationships=d.relationships;save('relationships',relationships);} if(d.goals){goals=d.goals;save('goals',goals);} if(d.missionStatement){missionStatement=d.missionStatement;save('mission',missionStatement);} if(d.values){values=d.values;save('values',values);} if(d.reflections){reflections=d.reflections;save('reflections',reflections);} toast('📥 Data imported!'); renderSettings(); }catch(err){ toast('❌ Import failed'); } }; r.readAsText(f); e.target.value=''; }
-function clearAllData(){ if(!confirm('⚠️ Delete ALL your data?')) return; roles=[];habits=[];habitLogs={};relationships=[];goals=[];missionStatement='';futureself='';values=[...DEFAULT_VALUES];reflections=[];priorities=[];renewalState={};q2State={};roleServed={}; ['roles','habits','habitLogs','relationships','goals','mission','futureself','values','reflections'].forEach(k=>localStorage.removeItem(uid_key(k))); toast('🗑️ Data cleared'); renderSettings(); }
+function clearAllData(){
+  if(!confirm('⚠️ Delete ALL your data? This removes it from all devices.')) return;
+  roles=[];habits=[];habitLogs={};relationships=[];goals=[];
+  missionStatement='';futureself='';values=[...DEFAULT_VALUES];
+  reflections=[];priorities=[];renewalState={};q2State={};roleServed={};
+  ['roles','habits','habitLogs','relationships','goals','mission','futureself','values','reflections'].forEach(k=>{
+    localStorage.removeItem(uid_key(k));
+    if(window._fbReady && currentUser?.uid){
+      const ref = window._fbDoc(window._db,'users',currentUser.uid,'data',k);
+      window._fbDeleteDoc(ref).catch(()=>{});
+    }
+  });
+  toast('🗑️ Data cleared from all devices'); renderSettings();
+}
 
 // ══════════════════════════════
 // GRATITUDE PRACTICE
@@ -1977,6 +2156,67 @@ renderToday = function(){
     if(tb){ tb.textContent = '🌙 Evening Review — Done ✓'; tb.classList.add('done'); }
   }
 };
+
+
+// ══════════════════════════════════════════════
+// FIREBASE SYNC UTILITIES
+// ══════════════════════════════════════════════
+async function manualSync(){
+  const el = document.getElementById('sync-status');
+  if(el) el.textContent = '☁️ Syncing...';
+  await loadAllFromFirestore();
+  roles         = load('roles', []);
+  habits        = load('habits', []);
+  habitLogs     = load('habitLogs', {});
+  relationships = load('relationships', []);
+  goals         = load('goals', []);
+  missionStatement = load('mission', '');
+  futureself    = load('futureself', '');
+  values        = load('values', [...DEFAULT_VALUES]);
+  reflections   = load('reflections', []);
+  loadTodayState();
+  const activeView = document.querySelector('.view.active')?.id?.replace('view-','');
+  if(activeView) nav(activeView);
+  updateScores();
+  if(el) el.textContent = '✅ Synced at '+new Date().toLocaleTimeString();
+  renderSettings();
+  toast('✅ Data synced from cloud');
+}
+
+// One-time migration: push all existing localStorage data to Firestore
+async function migrateLocalToFirebase(){
+  if(!window._fbReady || !currentUser?.uid){
+    toast('❌ Not connected to Firebase');
+    return;
+  }
+  if(!confirm('Push all local data to Firebase? This will overwrite any cloud data.')) return;
+  const el = document.getElementById('sync-status');
+  if(el) el.textContent = '📤 Migrating...';
+  const keys = ['roles','habits','habitLogs','relationships','goals','mission',
+                 'futureself','values','reflections'];
+  // Add today and past 30 days
+  for(let i=0;i<30;i++){
+    const d=new Date(); d.setDate(d.getDate()-i);
+    keys.push('today_'+d.toISOString().slice(0,10));
+  }
+  // Add EBA data
+  const rels = load('relationships',[]);
+  rels.forEach(r => keys.push('eba_'+r.id));
+
+  let count = 0;
+  for(const k of keys){
+    const raw = localStorage.getItem(uid_key(k));
+    if(raw){
+      try{
+        const ref = window._fbDoc(window._db,'users',currentUser.uid,'data',k);
+        await window._fbSetDoc(ref,{ value:raw, updatedAt:new Date().toISOString() });
+        count++;
+      } catch(e){ console.warn('Migration failed for '+k, e); }
+    }
+  }
+  if(el) el.textContent = '✅ Migrated '+count+' items to Firebase';
+  toast('✅ '+count+' items migrated to cloud');
+}
 
 </script>
 </body>
