@@ -899,6 +899,120 @@ body.dark .q2-title{color:var(--gold)}
 .setup-dot.done{background:var(--green)}
 .setup-form{display:none}
 .setup-form.show{display:block}
+
+/* ════ V3.1 ENHANCEMENTS ════ */
+
+/* Today view warm tint */
+#view-today { background: #FAFAF7; }
+body.dark #view-today { background: var(--bg); }
+
+/* Priority card dominance — gold accent, elevated */
+#view-today .card:nth-child(3) {
+  border-left: 4px solid var(--gold);
+  box-shadow: 0 2px 12px rgba(201,168,76,.12), var(--sh);
+  padding-left: 18px;
+}
+
+/* Serif for identity content */
+.mission-text, .mission-display-serif { font-family: 'DM Serif Display', serif !important; font-style: italic; }
+.rwc-commit-inp { font-family: 'DM Serif Display', serif; font-style: italic; font-size: 14px !important; }
+.grat-entry { font-family: 'DM Serif Display', serif; font-style: italic; }
+.future-self-serif { font-family: 'DM Serif Display', serif; font-style: italic; }
+
+/* Sidebar effectiveness — big number */
+.sb-eff-big { font-family: 'DM Serif Display', serif; font-size: 32px; color: var(--gold); line-height: 1; margin-bottom: 4px; }
+.sb-eff-big-lbl { font-size: 9px; font-weight: 800; text-transform: uppercase; letter-spacing: 1.4px; color: rgba(201,168,76,.5); margin-bottom: 12px; }
+
+/* ─── GRATITUDE MODAL ─── */
+.grat-overlay { position: fixed; inset: 0; z-index: 2000; display: none; align-items: center; justify-content: center; padding: 20px; background: rgba(10,22,40,.6); backdrop-filter: blur(8px); }
+.grat-overlay.open { display: flex; }
+.grat-card { background: var(--surface); border-radius: 22px; width: 100%; max-width: 560px; max-height: 92vh; overflow-y: auto; box-shadow: var(--sh3); animation: modalIn .28s cubic-bezier(.34,1.56,.64,1); }
+.grat-header { padding: 24px 26px 0; display: flex; align-items: center; justify-content: space-between; }
+.grat-header-title { font-family: 'DM Serif Display', serif; font-size: 22px; font-weight: 400; color: var(--ink); }
+.grat-body { padding: 18px 26px 26px; }
+.grat-section { margin-bottom: 20px; }
+.grat-section-title { font-size: 9.5px; font-weight: 800; text-transform: uppercase; letter-spacing: 1.6px; color: var(--ink-m); margin-bottom: 10px; }
+.grat-role-row { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 10px; }
+.grat-role-tag { display: flex; align-items: center; gap: 6px; padding: 6px 10px; background: rgba(27,58,107,.07); border-radius: 8px; flex-shrink: 0; min-width: 110px; font-size: 12px; font-weight: 700; color: var(--navy-2); }
+.grat-role-inp { flex: 1; padding: 9px 13px; border: 1.5px solid var(--border); border-radius: 9px; font-family: 'DM Serif Display', serif; font-style: italic; font-size: 13px; color: var(--ink); background: var(--surface-2); outline: none; transition: border var(--trans); }
+.grat-role-inp:focus { border-color: var(--gold); }
+.grat-role-inp::placeholder { font-style: italic; color: var(--ink-lt); }
+.abundance-card { background: rgba(201,168,76,.06); border: 1px solid rgba(201,168,76,.2); border-radius: 12px; padding: 14px 16px; margin-bottom: 10px; }
+.abundance-label { font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: var(--gold); margin-bottom: 8px; }
+.abundance-inp { width: 100%; padding: 9px 13px; border: 1.5px solid rgba(201,168,76,.25); border-radius: 9px; font-family: 'DM Serif Display', serif; font-style: italic; font-size: 13px; color: var(--ink); background: transparent; outline: none; transition: border var(--trans); }
+.abundance-inp:focus { border-color: var(--gold); }
+.abundance-inp::placeholder { color: var(--ink-lt); font-style: italic; }
+.grat-mood-row { display: flex; gap: 8px; }
+.grat-mood-btn { flex: 1; padding: 9px 6px; border-radius: 10px; border: 1.5px solid var(--border); background: transparent; font-size: 20px; cursor: pointer; transition: all var(--trans); text-align: center; }
+.grat-mood-btn:hover, .grat-mood-btn.active { border-color: var(--gold); background: rgba(201,168,76,.1); transform: scale(1.08); }
+.grat-gap-alert { background: rgba(192,57,43,.07); border: 1px solid rgba(192,57,43,.18); border-radius: 10px; padding: 12px 14px; font-size: 12px; color: var(--red); line-height: 1.6; margin-bottom: 14px; }
+.grat-gap-alert strong { display: block; margin-bottom: 3px; font-weight: 800; }
+.grat-save-btn { width: 100%; padding: 13px; background: linear-gradient(135deg, var(--navy-2), var(--gold)); border: none; border-radius: 12px; font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 800; color: #fff; cursor: pointer; transition: all var(--trans); }
+.grat-save-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(201,168,76,.3); }
+.grat-trigger-btn { width: 100%; padding: 12px; background: rgba(201,168,76,.08); border: 1.5px solid rgba(201,168,76,.2); border-radius: 11px; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 700; color: var(--gold); cursor: pointer; transition: all var(--trans); margin-bottom: 12px; }
+.grat-trigger-btn:hover { background: rgba(201,168,76,.15); }
+
+/* ─── 8-WEEK HEATMAP ─── */
+.heatmap-view { padding: 28px 32px; max-width: 820px; }
+.heatmap-grid { display: grid; gap: 10px; }
+.heatmap-role-row { display: grid; grid-template-columns: 110px 1fr; gap: 12px; align-items: center; }
+.heatmap-role-name { font-size: 12px; font-weight: 700; color: var(--ink-l); display: flex; align-items: center; gap: 6px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.heatmap-days { display: flex; gap: 3px; }
+.hm-day { width: 18px; height: 18px; border-radius: 4px; cursor: default; transition: transform var(--trans); flex-shrink: 0; position: relative; }
+.hm-day:hover { transform: scale(1.2); z-index: 10; }
+.hm-day-0 { background: var(--border-lt); }
+.hm-day-1 { background: rgba(27,58,107,.35); }
+.hm-day-2 { background: rgba(27,58,107,.6); }
+.hm-day-3 { background: var(--navy-2); }
+.hm-week-labels { display: flex; gap: 3px; padding-left: 122px; margin-bottom: 4px; }
+.hm-week-lbl { width: 18px; font-size: 8px; color: var(--ink-lt); text-align: center; flex-shrink: 0; }
+
+/* ─── GOAL PLANNER ─── */
+.goal-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r); margin-bottom: 14px; overflow: hidden; box-shadow: var(--sh); }
+.goal-header { display: flex; align-items: flex-start; gap: 14px; padding: 18px 20px; border-bottom: 1px solid var(--border); }
+.goal-icon { width: 44px; height: 44px; border-radius: 12px; background: linear-gradient(135deg, var(--navy-2), var(--gold)); display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; }
+.goal-title-text { font-weight: 800; font-size: 15px; color: var(--ink); margin-bottom: 3px; }
+.goal-role-tag { display: inline-flex; align-items: center; gap: 5px; padding: 2px 9px; background: rgba(27,58,107,.09); border-radius: 20px; font-size: 11px; font-weight: 700; color: var(--navy-2); }
+.goal-days-left { margin-left: auto; font-size: 12px; font-weight: 800; padding: 4px 10px; border-radius: 20px; white-space: nowrap; }
+.goal-days-ok { background: var(--green-lt); color: var(--green); }
+.goal-days-warn { background: var(--amber-lt); color: var(--amber); }
+.goal-days-over { background: var(--red-lt); color: var(--red); }
+.goal-body { padding: 16px 20px; }
+.goal-prog-bar { background: var(--border); border-radius: 20px; height: 8px; overflow: hidden; margin-bottom: 6px; }
+.goal-prog-fill { height: 100%; border-radius: 20px; background: linear-gradient(90deg, var(--navy-2), var(--gold)); transition: width .6s; }
+.goal-prog-lbl { font-size: 11px; color: var(--ink-m); font-weight: 600; margin-bottom: 12px; }
+.milestone-item { display: flex; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--border-lt); }
+.milestone-item:last-child { border-bottom: none; }
+.ms-chk { width: 20px; height: 20px; border-radius: 50%; border: 2px solid var(--border); flex-shrink: 0; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 10px; transition: all var(--trans); }
+.ms-chk.done { background: var(--green); border-color: var(--green); color: #fff; }
+.ms-chk.late { border-color: var(--red); }
+.ms-body { flex: 1; min-width: 0; }
+.ms-title { font-size: 13px; font-weight: 600; color: var(--ink); }
+.ms-title.done { text-decoration: line-through; opacity: .5; }
+.ms-date { font-size: 10px; color: var(--ink-m); margin-top: 1px; }
+.ms-date.late { color: var(--red); font-weight: 700; }
+
+/* Values-behavior gap in reflection */
+.gap-card { background: rgba(192,57,43,.05); border: 1px solid rgba(192,57,43,.15); border-radius: var(--r); padding: 16px 20px; margin-bottom: 14px; }
+.gap-card-ok { background: rgba(46,125,50,.05); border-color: rgba(46,125,50,.15); }
+.gap-title { font-size: 13px; font-weight: 800; color: var(--red); margin-bottom: 10px; }
+.gap-title-ok { color: var(--green); }
+.gap-row { display: flex; align-items: center; gap: 10px; padding: 6px 0; font-size: 12px; border-bottom: 1px solid rgba(0,0,0,.06); }
+.gap-row:last-child { border-bottom: none; }
+.gap-val-name { font-weight: 700; color: var(--ink-l); flex: 1; }
+.gap-indicator { padding: 3px 9px; border-radius: 20px; font-size: 10px; font-weight: 800; white-space: nowrap; }
+.gap-ind-yes { background: var(--green-lt); color: var(--green); }
+.gap-ind-no { background: var(--red-lt); color: var(--red); }
+.gap-ind-part { background: var(--amber-lt); color: var(--amber); }
+
+/* Habit heatmap in habits view */
+.habit-heatmap { display: flex; gap: 3px; margin-top: 8px; }
+.hh-day { width: 12px; height: 12px; border-radius: 3px; }
+.hh-on { background: var(--navy-2); }
+.hh-off { background: var(--border); }
+
+/* Goal modal */
+.m-goal .modal { max-width: 600px; }
 </style>
 </head>
 <body>
@@ -981,6 +1095,12 @@ body.dark .q2-title{color:var(--gold)}
   <!-- Advanced Nav -->
   <div class="sb-section">
     <span class="sb-section-label">Advanced</span>
+    <div class="ni" data-view="patterns" onclick="nav('patterns')" title="Patterns — 8-Week View">
+      <span class="ni-icon">📊</span><span class="ni-text">Patterns</span>
+    </div>
+    <div class="ni" data-view="goals" onclick="nav('goals')" title="Goals & Milestones">
+      <span class="ni-icon">🎯</span><span class="ni-text">Goals</span>
+    </div>
     <div class="ni" data-view="quadrant" onclick="nav('quadrant')" title="Covey Quadrant">
       <span class="ni-icon">🎯</span><span class="ni-text">Quadrant</span>
     </div>
@@ -994,7 +1114,8 @@ body.dark .q2-title{color:var(--gold)}
 
   <!-- Effectiveness Scores -->
   <div class="sb-eff" id="sb-eff">
-    <div class="sb-eff-label">⚡ Effectiveness</div>
+    <div class="sb-eff-big" id="sb-big-eff">0%</div>
+    <div class="sb-eff-big-lbl">Effectiveness Score</div>
     <div class="sb-score-row">
       <div class="sb-score-lbl">Alignment</div>
       <div class="sb-score-bar-w"><div class="sb-score-bar" id="sb-bar-align" style="width:0%;background:var(--gold)"></div></div>
@@ -1040,6 +1161,9 @@ body.dark .q2-title{color:var(--gold)}
     </div>
     <button class="btn btn-primary" onclick="openAddPriority()">+ Priority</button>
   </div>
+
+  <!-- Gratitude Trigger -->
+  <button class="grat-trigger-btn" id="grat-trigger-btn" onclick="openGratitude()">🌅 Morning Gratitude Practice — Open</button>
 
   <!-- Coach -->
   <div class="coach-card">
@@ -1212,7 +1336,47 @@ body.dark .q2-title{color:var(--gold)}
     <div class="reflect-hint">Not a list. One specific, role-aligned commitment that moves your future forward.</div>
     <textarea class="fta" id="r4" placeholder="Write here..." oninput="saveLocal('r_commit',this.value)"></textarea>
   </div>
+  <!-- Values-Behavior Gap -->
+  <div id="values-gap-container" style="margin-bottom:16px"></div>
+
   <button class="btn btn-primary" onclick="saveReflection()" style="width:100%;padding:14px;font-size:14px;margin-bottom:24px">✦ Save This Week's Reflection</button>
+</div>
+
+<!-- ══ PATTERNS (8-Week Heatmap) ══ -->
+<div class="view" id="view-patterns">
+  <div class="pg-hdr">
+    <div>
+      <div class="pg-title">Patterns 📊</div>
+      <div class="pg-sub">8 weeks of role coverage — behavioral drift made visible</div>
+    </div>
+  </div>
+  <div id="heatmap-week-labels" class="hm-week-labels"></div>
+  <div class="heatmap-grid" id="heatmap-grid"></div>
+  <div style="margin-top:20px;padding:14px 18px;background:rgba(27,58,107,.04);border:1px solid rgba(27,58,107,.12);border-radius:var(--r);font-size:13px;color:var(--ink-l);line-height:1.6">
+    <strong style="color:var(--navy-2)">How to read this:</strong> Each column is one day. Darker = more roles served that day. A role going grey for weeks isn't a data point — it's a behavior pattern. Covey: what gets scheduled gets done.
+  </div>
+  <div style="display:flex;align-items:center;gap:10px;margin-top:14px;font-size:11px;color:var(--ink-m);flex-wrap:wrap">
+    <span>Intensity:</span>
+    <span style="display:flex;align-items:center;gap:4px"><span style="width:14px;height:14px;border-radius:3px;background:var(--border-lt);display:inline-block"></span> None</span>
+    <span style="display:flex;align-items:center;gap:4px"><span style="width:14px;height:14px;border-radius:3px;background:rgba(27,58,107,.35);display:inline-block"></span> Light</span>
+    <span style="display:flex;align-items:center;gap:4px"><span style="width:14px;height:14px;border-radius:3px;background:rgba(27,58,107,.6);display:inline-block"></span> Moderate</span>
+    <span style="display:flex;align-items:center;gap:4px"><span style="width:14px;height:14px;border-radius:3px;background:var(--navy-2);display:inline-block"></span> Full</span>
+  </div>
+</div>
+
+<!-- ══ GOALS ══ -->
+<div class="view" id="view-goals">
+  <div class="pg-hdr">
+    <div>
+      <div class="pg-title">Goals 🎯</div>
+      <div class="pg-sub">Habit 2: Begin with the end in mind — define outcomes, plan backward</div>
+    </div>
+    <button class="btn btn-primary" onclick="openAddGoal()">+ New Goal</button>
+  </div>
+  <div style="background:rgba(201,168,76,.07);border:1px solid rgba(201,168,76,.18);border-radius:12px;padding:14px 18px;margin-bottom:18px;font-size:13px;color:#8B6914;line-height:1.6">
+    <strong>Covey's backward planning:</strong> Start with the end outcome. Define the target date. Add milestones working backward to today. Attach to a role so the goal shows up where it belongs.
+  </div>
+  <div id="goals-list"></div>
 </div>
 
 <!-- ══ QUADRANT ══ -->
@@ -1440,6 +1604,94 @@ body.dark .q2-title{color:var(--gold)}
       </div>
     </div>
     <div class="m-foot"><button class="btn btn-ghost" onclick="closeModal('m-habit')">Cancel</button><button class="btn btn-primary" onclick="saveHabit()">Save Habit</button></div>
+  </div>
+</div>
+
+
+<!-- GRATITUDE MODAL -->
+<div class="grat-overlay" id="m-gratitude">
+  <div class="grat-card">
+    <div class="grat-header">
+      <div class="grat-header-title" id="grat-time-title">Good Morning 🌅</div>
+      <button class="m-close" onclick="closeGratitude()">✕</button>
+    </div>
+    <div class="grat-body">
+      <div style="font-size:12px;color:var(--ink-m);line-height:1.6;margin-bottom:18px;font-style:italic">
+        For Covey, gratitude is a proactive practice — not just feeling thankful, but actively aligning your mindset with abundance and your daily actions with your deepest values.
+      </div>
+
+      <!-- Values-Behavior Gap Alert -->
+      <div id="grat-gap-alert" style="display:none" class="grat-gap-alert">
+        <strong>⚠️ Values-Behavior Gap Detected</strong>
+        <span id="grat-gap-msg"></span>
+      </div>
+
+      <!-- Role-by-Role Gratitude -->
+      <div class="grat-section">
+        <div class="grat-section-title">Gratitude by Role — What in each role are you thankful for?</div>
+        <div id="grat-roles-container"></div>
+        <div class="grat-role-row" style="margin-top:4px">
+          <div class="grat-role-tag" style="background:rgba(201,168,76,.1);color:var(--gold);min-width:110px">✦ General</div>
+          <input class="grat-role-inp" id="grat-general" placeholder="Something else I'm grateful for...">
+        </div>
+      </div>
+
+      <!-- Abundance vs Scarcity Reframe (H4) -->
+      <div class="abundance-card">
+        <div class="abundance-label">Abundance Mindset — Habit 4: Think Win-Win</div>
+        <div style="font-size:11px;color:var(--ink-m);margin-bottom:8px;line-height:1.5">Where did you notice scarcity thinking yesterday? What's the abundance reframe?</div>
+        <input class="abundance-inp" id="grat-scarcity" placeholder="Scarcity thought I noticed...">
+        <input class="abundance-inp" id="grat-abundance" placeholder="Abundance reframe..." style="margin-top:7px">
+      </div>
+
+      <!-- Mood -->
+      <div class="grat-section">
+        <div class="grat-section-title">How are you starting this day?</div>
+        <div class="grat-mood-row" id="grat-mood-row">
+          <button class="grat-mood-btn" data-mood="drained" onclick="setMood(this)">😔</button>
+          <button class="grat-mood-btn" data-mood="tired" onclick="setMood(this)">😐</button>
+          <button class="grat-mood-btn" data-mood="steady" onclick="setMood(this)">🙂</button>
+          <button class="grat-mood-btn" data-mood="energized" onclick="setMood(this)">😄</button>
+          <button class="grat-mood-btn" data-mood="charged" onclick="setMood(this)">🔥</button>
+        </div>
+      </div>
+
+      <button class="grat-save-btn" onclick="saveGratitude()">✦ Begin My Day with Intention</button>
+      <button onclick="closeGratitude()" style="width:100%;padding:9px;background:transparent;border:none;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--ink-m);cursor:pointer;margin-top:8px">Skip for now</button>
+    </div>
+  </div>
+</div>
+
+<!-- GOAL MODAL -->
+<div class="overlay m-goal" id="m-goal">
+  <div class="modal" style="max-width:600px">
+    <div class="m-hdr"><div class="m-title" id="goal-modal-title">New Goal</div><button class="m-close" onclick="closeModal('m-goal')">✕</button></div>
+    <div class="m-body">
+      <div class="fg"><label class="flbl">Goal — The End in Mind</label><input class="fi" id="g-title" placeholder="e.g. Launch Solo Passport with 10K users, Run a marathon..."></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+        <div class="fg">
+          <label class="flbl">Attached Role</label>
+          <select class="fsel" id="g-role"></select>
+        </div>
+        <div class="fg"><label class="flbl">Target Date</label><input class="fi" type="date" id="g-date"></div>
+      </div>
+      <div class="fg"><label class="flbl">Why This Matters</label><input class="fi" id="g-why" placeholder="When I achieve this, I will..."></div>
+      <div class="fg">
+        <label class="flbl">Milestones — Working Backward from Target</label>
+        <div style="font-size:11px;color:var(--ink-m);margin-bottom:8px">Add checkpoints backward from your target date. What must be true 3 months before? 1 month?</div>
+        <div id="milestone-list" style="margin-bottom:8px"></div>
+        <div style="display:flex;gap:8px">
+          <input class="fi" id="ms-title-inp" placeholder="Milestone..." style="flex:1">
+          <input class="fi" type="date" id="ms-date-inp" style="width:150px">
+          <button class="btn btn-primary" onclick="addMilestone()" style="padding:10px 14px">+</button>
+        </div>
+        <button onclick="aiMilestones()" style="margin-top:8px;padding:7px 14px;background:rgba(27,58,107,.08);border:1px solid rgba(27,58,107,.15);border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;color:var(--navy-2);font-family:'DM Sans',sans-serif">✨ AI: Generate backward milestones</button>
+      </div>
+      <div id="goal-delete-row" style="display:none;margin-top:4px">
+        <button class="btn btn-danger" onclick="deleteGoal()" style="width:100%">🗑️ Delete Goal</button>
+      </div>
+    </div>
+    <div class="m-foot"><button class="btn btn-ghost" onclick="closeModal('m-goal')">Cancel</button><button class="btn btn-primary" onclick="saveGoal()">Save Goal</button></div>
   </div>
 </div>
 
@@ -1707,6 +1959,8 @@ function nav(view){
   else if(view==='reflection') renderReflection();
   else if(view==='quadrant') renderQuadrant();
   else if(view==='habits') renderHabits();
+  else if(view==='patterns') renderPatterns();
+  else if(view==='goals') renderGoals();
   else if(view==='settings') renderSettings();
 }
 function setMobActive(btn){
@@ -1757,6 +2011,7 @@ function calcScores(){
   return {align,q2,ren,role,eff};
 }
 function updateScores(){
+  const big=document.getElementById('sb-big-eff'); if(big){const se=calcScores();big.textContent=se.eff+'%';}
   const s=calcScores();
   const bars=[
     {bar:'sb-bar-align',val:'sb-val-align',score:s.align},
@@ -2419,25 +2674,37 @@ async function genCoach(){
   const el=document.getElementById('coach-body'); if(!el)return;
   if(!geminiKey){el.textContent='Add your Gemini key in Settings to activate decision coaching.';return;}
   el.innerHTML='<div class="dots"><span>●</span><span>●</span><span>●</span></div>';
-  const plist=priorities.map(p=>{const r=roles.find(x=>x.id===p.roleId);return p.title+(r?' ['+r.name+']':'[unassigned]');}).join(', ')||'none added';
-  const rlist=roles.map(r=>r.name).join(', ')||'none defined';
-  const rend=RENEWAL_ITEMS.filter(x=>(renewalState[TODAY]||{})[x.id]).map(x=>x.label).join(', ')||'none yet';
+  const plist=priorities.map(p=>{const r=roles.find(x=>x.id===p.roleId);return p.title+(r?' ['+r.name+']':' [no role]');}).join(', ')||'none added';
+  const roleLines=roles.map(r=>r.name+': success="'+(r.successDef||'undefined')+'", week="'+(r.weeklyCommitment||'none')+'"').join('; ')||'no roles defined';
+  const rend=RENEWAL_ITEMS.filter(x=>(renewalState[TODAY]||{})[x.id]).map(x=>x.label).join(', ')||'none';
   const s=calcScores();
+  const miss=missionStatement?missionStatement.slice(0,120):'not defined';
+  const fut=futureself?futureself.slice(0,80):'not defined';
+  const unserved=roles.filter(r=>(roleServed[TODAY]||{})[r.id]!==true).map(r=>r.name);
   const day=new Date().toLocaleDateString('en-US',{weekday:'long'});
-  const prompt=`You are a sharp, direct Covey-based decision coach. No fluff, no cheerleading.
-
-Context for ${day}:
-- Today's priorities: ${plist}
-- Defined roles: ${rlist}  
-- Alignment score: ${s.align}%
-- Q2 focus: ${s.q2}%
-- Renewal: ${rend}
-
-Surface ONE specific misalignment or challenge ONE assumption in their thinking. Be direct and provocative. Max 2 sentences. Observation first, hard question second. Do not start with "I". Do not use platitudes.`;
+  const lines=[
+    'You are a sharp Covey-based decision coach. No fluff. No cheerleading.',
+    '',
+    'IDENTITY:',
+    '- Mission: "'+miss+'"',
+    '- Future self: "'+fut+'"',
+    '- Values: '+(values.join(', ')||'none'),
+    '',
+    'ROLES: '+roleLines,
+    '',
+    'TODAY ('+day+'):',
+    '- Priorities: '+plist,
+    '- Unserved roles: '+(unserved.join(', ')||'all served'),
+    '- Align:'+s.align+'% Q2:'+s.q2+'% Renewal:'+rend,
+    '',
+    'Surface ONE gap between stated identity and actual behavior. Name their specific mission/role/value. 2 sentences max. Observation then hard question. Never start with I.'
+  ];
+  const prompt=lines.join('
+');
   try{
-    const text=await callAI(prompt,120);
-    el.textContent=text||'Your priorities and your roles — do they actually match?';
-  }catch(e){ el.textContent='What matters most today — and is it actually on your list?'; }
+    const text=await callAI(prompt,140);
+    el.textContent=text||'Your priorities and your mission — do they actually match?';
+  }catch(e){ el.textContent='What does your mission require of you today — and is that in your Top 3?'; }
 }
 
 // ══════════════════════════════
@@ -2479,6 +2746,458 @@ function toggleDark(){
   }
   // Show auth
 })();
+
+
+// ══════════════════════════════════════════════
+// FEATURE 1: FUNCTIONAL GRATITUDE PRACTICE
+// ══════════════════════════════════════════════
+let gratMood = 'steady';
+let gratEditingToday = false;
+
+function openGratitude(){
+  // Detect time of day
+  const h = new Date().getHours();
+  const titleEl = document.getElementById('grat-time-title');
+  if(titleEl) titleEl.textContent = h < 12 ? 'Good Morning 🌅' : h < 17 ? 'Afternoon Check-In ☀️' : 'Evening Reflection 🌙';
+
+  // Check values-behavior gap
+  renderGratGapAlert();
+
+  // Build role gratitude rows
+  const container = document.getElementById('grat-roles-container');
+  if(container){
+    container.innerHTML = roles.slice(0,4).map(r => {
+      const saved = loadLocal('grat_role_'+TODAY+'_'+r.id);
+      return '<div class="grat-role-row">'
+        + '<div class="grat-role-tag">' + r.icon + ' ' + r.name + '</div>'
+        + '<input class="grat-role-inp" id="grat-r-'+r.id+'" value="'+saved+'" placeholder="What in '+r.name+' am I grateful for...">'
+        + '</div>';
+    }).join('');
+  }
+
+  // Restore other fields
+  const ggen = document.getElementById('grat-general'); if(ggen) ggen.value = loadLocal('grat_general_'+TODAY)||'';
+  const gsc  = document.getElementById('grat-scarcity'); if(gsc) gsc.value = loadLocal('grat_scarcity_'+TODAY)||'';
+  const gabd = document.getElementById('grat-abundance'); if(gabd) gabd.value = loadLocal('grat_abundance_'+TODAY)||'';
+
+  // Set mood
+  gratMood = loadLocal('grat_mood_'+TODAY)||'steady';
+  document.querySelectorAll('.grat-mood-btn').forEach(b => b.classList.toggle('active', b.dataset.mood===gratMood));
+
+  document.getElementById('m-gratitude').classList.add('open');
+
+  // Update trigger button
+  const tb = document.getElementById('grat-trigger-btn');
+  if(tb) tb.textContent = '🌅 Morning Gratitude Practice — Open';
+}
+
+function closeGratitude(){
+  document.getElementById('m-gratitude').classList.remove('open');
+}
+
+function setMood(btn){
+  gratMood = btn.dataset.mood;
+  document.querySelectorAll('.grat-mood-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  saveLocal('grat_mood_'+TODAY, gratMood);
+}
+
+function renderGratGapAlert(){
+  const alertEl = document.getElementById('grat-gap-alert');
+  const msgEl   = document.getElementById('grat-gap-msg');
+  if(!alertEl || !msgEl) return;
+
+  // Check which selected values have had zero role activity in past 7 days
+  const gaps = [];
+  const valueToRoleMap = {
+    'Family': roles.filter(r => /fam|parent|spouse|partner/i.test(r.name)),
+    'Health': roles.filter(r => /health|fitness|physical/i.test(r.name)),
+    'Growth': roles.filter(r => /learn|growth|student|develop/i.test(r.name)),
+    'Faith':  roles.filter(r => /spirit|faith|church|prayer|god/i.test(r.name)),
+    'Service':roles.filter(r => /community|service|leader|ward/i.test(r.name)),
+  };
+
+  values.forEach(v => {
+    const matched = valueToRoleMap[v];
+    if(!matched || !matched.length) return;
+    // Check if any matched role was served in past 7 days
+    let anyActivity = false;
+    for(let i=0; i<7; i++){
+      const d = new Date(); d.setDate(d.getDate()-i);
+      const ds = d.toISOString().slice(0,10);
+      const dayState = JSON.parse(localStorage.getItem(uid_key('today_'+ds))||'{}');
+      const rs = dayState.roleServed || {};
+      if(matched.some(r => rs[r.id]===true)){ anyActivity=true; break; }
+    }
+    if(!anyActivity) gaps.push(v);
+  });
+
+  if(gaps.length > 0){
+    alertEl.style.display = 'block';
+    msgEl.textContent = ' You selected ' + gaps.join(', ') + ' as core values, but these had no role activity in the past 7 days. Gratitude without aligned action is decoration.';
+  } else {
+    alertEl.style.display = 'none';
+  }
+}
+
+function saveGratitude(){
+  // Save role entries
+  roles.forEach(r => {
+    const el = document.getElementById('grat-r-'+r.id);
+    if(el) saveLocal('grat_role_'+TODAY+'_'+r.id, el.value);
+  });
+  const ggen = document.getElementById('grat-general'); if(ggen) saveLocal('grat_general_'+TODAY, ggen.value);
+  const gsc  = document.getElementById('grat-scarcity'); if(gsc) saveLocal('grat_scarcity_'+TODAY, gsc.value);
+  const gabd = document.getElementById('grat-abundance'); if(gabd) saveLocal('grat_abundance_'+TODAY, gabd.value);
+  saveLocal('grat_mood_'+TODAY, gratMood);
+  saveLocal('grat_done_'+TODAY, '1');
+
+  // Update trigger button
+  const tb = document.getElementById('grat-trigger-btn');
+  if(tb) tb.textContent = '🌅 Gratitude Practice — Done ✓';
+
+  closeGratitude();
+  toast('✦ Day begun with intention.');
+}
+
+// Auto-show once per day on first load
+function checkAutoGratitude(){
+  const done = loadLocal('grat_done_'+TODAY);
+  const h = new Date().getHours();
+  if(!done && h >= 5 && h <= 11) {
+    setTimeout(openGratitude, 1200);
+  } else if(done){
+    const tb = document.getElementById('grat-trigger-btn');
+    if(tb) tb.textContent = '🌅 Gratitude Practice — Done ✓';
+  }
+}
+
+// ══════════════════════════════════════════════
+// FEATURE 2: VALUES-BEHAVIOR GAP in REFLECTION
+// ══════════════════════════════════════════════
+function renderValuesBehaviorGap(){
+  const c = document.getElementById('values-gap-container'); if(!c) return;
+  if(!values.length){ c.innerHTML=''; return; }
+
+  // Analyse past 7 days of role service
+  const valueActivity = {};
+  values.forEach(v => { valueActivity[v] = 0; });
+
+  const valueToRoleKeywords = {
+    'Family':    /fam|parent|spouse|partner|child/i,
+    'Health':    /health|fitness|physical|exercise/i,
+    'Growth':    /learn|growth|student|develop|read/i,
+    'Faith':     /spirit|faith|church|prayer|worship/i,
+    'Service':   /community|service|leader|ward|volunteer/i,
+    'Integrity': /work|professional|business|lead/i,
+    'Discipline':/habit|routine|discipline|practice/i,
+    'Excellence':/quality|excel|craft|mastery/i,
+    'Courage':   /challenge|speak|difficult|bold/i,
+  };
+
+  for(let i=0; i<7; i++){
+    const d = new Date(); d.setDate(d.getDate()-i);
+    const ds = d.toISOString().slice(0,10);
+    const dayState = JSON.parse(localStorage.getItem(uid_key('today_'+ds))||'{}');
+    const rs = dayState.roleServed || {};
+    const servedRoles = roles.filter(r => rs[r.id]===true);
+    values.forEach(v => {
+      const kw = valueToRoleKeywords[v];
+      if(!kw) return;
+      if(servedRoles.some(r => kw.test(r.name + ' ' + (r.successDef||'')))){ valueActivity[v]++; }
+    });
+  }
+
+  const gaps = values.filter(v => (valueActivity[v]||0) === 0);
+  const partial = values.filter(v => (valueActivity[v]||0) > 0 && (valueActivity[v]||0) < 4);
+  const strong = values.filter(v => (valueActivity[v]||0) >= 4);
+
+  if(!gaps.length && !partial.length && !strong.length){ c.innerHTML=''; return; }
+
+  const rows = values.map(v => {
+    const count = valueActivity[v]||0;
+    let cls = 'gap-ind-no', label = '0/7 days — gap';
+    if(count >= 4){ cls='gap-ind-yes'; label=count+'/7 days — aligned'; }
+    else if(count > 0){ cls='gap-ind-part'; label=count+'/7 days — partial'; }
+    return '<div class="gap-row"><div class="gap-val-name">'+v+'</div><span class="gap-indicator '+cls+'">'+label+'</span></div>';
+  }).join('');
+
+  const isGap = gaps.length > 0;
+  c.innerHTML = '<div class="gap-card'+(isGap?'':' gap-card-ok')+'">'
+    + '<div class="gap-title'+(isGap?'':' gap-title-ok')+'">'
+    + (isGap ? '⚠️ Values-Behavior Gap — '+gaps.length+' value'+(gaps.length>1?'s':'')+' with zero activity this week'
+             : '✓ Values-Behavior Alignment — Last 7 Days')
+    + '</div>'
+    + rows
+    + (isGap ? '<div style="font-size:11px;color:var(--ink-m);margin-top:10px;line-height:1.5">A value you do not live is not a value — it is an aspiration. Covey: the gap between your values and your schedule is where integrity breaks down.</div>' : '')
+    + '</div>';
+}
+
+// ══════════════════════════════════════════════
+// FEATURE 4: 8-WEEK ROLE COVERAGE HEATMAP
+// ══════════════════════════════════════════════
+function renderPatterns(){
+  // Build 56-day date array (8 weeks)
+  const days = [];
+  for(let i=55; i>=0; i--){
+    const d = new Date(); d.setDate(d.getDate()-i);
+    days.push(d.toISOString().slice(0,10));
+  }
+
+  // Week labels
+  const wlCont = document.getElementById('heatmap-week-labels');
+  if(wlCont){
+    const weeks = [];
+    for(let w=0; w<8; w++){
+      const d = new Date(days[w*7]);
+      weeks.push(d.toLocaleDateString('en-US',{month:'short',day:'numeric'}));
+    }
+    wlCont.innerHTML = weeks.map(w => '<div class="hm-week-lbl">'+w+'</div>').join('');
+    // Adjust column count per week (7 days each)
+    wlCont.style.gridTemplateColumns = 'repeat(8, calc(7 * 21px))';
+    wlCont.style.display = 'flex';
+    wlCont.style.gap = '0';
+    wlCont.innerHTML = weeks.map(w => '<div style="width:'+(7*21)+'px;font-size:9px;color:var(--ink-lt);overflow:hidden;white-space:nowrap">'+w+'</div>').join('');
+  }
+
+  // Load all day states
+  const dayData = {};
+  days.forEach(ds => {
+    const state = JSON.parse(localStorage.getItem(uid_key('today_'+ds))||'{}');
+    dayData[ds] = state.roleServed || {};
+  });
+
+  const grid = document.getElementById('heatmap-grid'); if(!grid) return;
+
+  if(!roles.length){
+    grid.innerHTML = '<div style="text-align:center;padding:40px;color:var(--ink-m);font-size:13px">Define your roles in End in Mind to see behavioral patterns.</div>';
+    return;
+  }
+
+  grid.innerHTML = roles.slice(0,4).map(r => {
+    const dayDivs = days.map(ds => {
+      const rs = dayData[ds];
+      const served = rs[r.id]===true;
+      const isToday = ds===TODAY;
+      // Count total roles served that day for intensity
+      const total = Object.values(rs).filter(Boolean).length;
+      const maxRoles = Math.max(roles.length,1);
+      let intensityClass = 'hm-day-0';
+      if(served){
+        const pct = total/maxRoles;
+        if(pct >= .75) intensityClass='hm-day-3';
+        else if(pct >= .5) intensityClass='hm-day-2';
+        else intensityClass='hm-day-1';
+      }
+      return '<div class="hm-day '+intensityClass+(isToday?' today-dot':'')+'" title="'+ds+(served?' — served':'')+'"></div>';
+    }).join('');
+    return '<div class="heatmap-role-row">'
+      + '<div class="heatmap-role-name"><span style="font-size:16px">'+r.icon+'</span>'+r.name+'</div>'
+      + '<div class="heatmap-days">'+dayDivs+'</div>'
+      + '</div>';
+  }).join('');
+}
+
+// ══════════════════════════════════════════════
+// FEATURE 5 & 6: GOAL BACKWARD PLANNER
+// ══════════════════════════════════════════════
+let goals = [];
+let editingGoalId = null;
+let goalMilestones = [];
+
+function loadGoals(){ goals = load('goals', []); }
+function saveGoalsData(){ save('goals', goals); }
+
+function renderGoals(){
+  const c = document.getElementById('goals-list'); if(!c) return;
+  if(!goals.length){
+    c.innerHTML = '<div style="text-align:center;padding:48px;color:var(--ink-m)">'
+      + '<div style="font-size:44px;margin-bottom:12px">🎯</div>'
+      + '<div style="font-weight:700;font-size:15px;margin-bottom:6px">No goals defined yet</div>'
+      + '<div style="font-size:13px;margin-bottom:18px">Begin with the end in mind.</div>'
+      + '<button class="btn btn-primary" onclick="openAddGoal()">+ Create Your First Goal</button></div>';
+    return;
+  }
+  c.innerHTML = goals.map(g => {
+    const role = roles.find(r => r.id===g.roleId);
+    const ms = g.milestones||[];
+    const done = ms.filter(m=>m.done).length;
+    const pct = ms.length ? Math.round(done/ms.length*100) : 0;
+    const daysLeft = g.targetDate ? Math.ceil((new Date(g.targetDate)-new Date())/86400000) : null;
+    const daysCls = daysLeft===null?'':daysLeft<0?'goal-days-over':daysLeft<30?'goal-days-warn':'goal-days-ok';
+    const daysLabel = daysLeft===null?'':daysLeft<0?Math.abs(daysLeft)+' days overdue':daysLeft+' days left';
+
+    const msHTML = ms.length ? ms.map(m=>{
+      const late = m.date && m.date < TODAY && !m.done;
+      return '<div class="milestone-item">'
+        + '<div class="ms-chk'+(m.done?' done':late?' late':'')+'" onclick="toggleMilestone(''+g.id+'',''+m.id+'')">'+(m.done?'✓':'')+'</div>'
+        + '<div class="ms-body"><div class="ms-title'+(m.done?' done':'')+'">'+m.title+'</div>'
+        + '<div class="ms-date'+(late?' late':'')+'">'+( m.date||(late?' overdue':''))+'</div></div>'
+        + '</div>';
+    }).join('') : '<div style="font-size:12px;color:var(--ink-m);padding:8px 0">No milestones yet. Edit to add backward-planned checkpoints.</div>';
+
+    return '<div class="goal-card">'
+      + '<div class="goal-header">'
+        + '<div class="goal-icon">'+(g.icon||'🎯')+'</div>'
+        + '<div style="flex:1;min-width:0">'
+          + '<div class="goal-title-text">'+g.title+'</div>'
+          + (role?'<span class="goal-role-tag">'+role.icon+' '+role.name+'</span>':'')
+          + (g.why?'<div style="font-size:11px;color:var(--ink-m);margin-top:4px;font-style:italic">"'+g.why+'"</div>':'')
+        + '</div>'
+        + (daysLabel?'<div class="goal-days-left '+daysCls+'">'+daysLabel+'</div>':'')
+      + '</div>'
+      + '<div class="goal-body">'
+        + '<div class="goal-prog-bar"><div class="goal-prog-fill" style="width:'+pct+'%"></div></div>'
+        + '<div class="goal-prog-lbl">'+pct+'% of milestones complete ('+done+'/'+ms.length+')</div>'
+        + '<div style="display:flex;gap:8px;margin-bottom:12px">'
+          + '<button class="btn btn-ghost" onclick="editGoal(''+g.id+'')" style="font-size:11px;padding:6px 12px">✏️ Edit</button>'
+          + '<button onclick="addPriorityFromGoal(''+g.id+'')" style="padding:6px 12px;background:rgba(27,58,107,.08);border:1px solid rgba(27,58,107,.15);border-radius:8px;font-size:11px;font-weight:700;cursor:pointer;color:var(--navy-2);font-family:'DM Sans',sans-serif">→ Add as Priority</button>'
+        + '</div>'
+        + msHTML
+      + '</div>'
+    + '</div>';
+  }).join('');
+}
+
+function openAddGoal(){
+  editingGoalId = null; goalMilestones = [];
+  document.getElementById('goal-modal-title').textContent = 'New Goal';
+  document.getElementById('g-title').value = '';
+  document.getElementById('g-date').value = '';
+  document.getElementById('g-why').value = '';
+  document.getElementById('goal-delete-row').style.display = 'none';
+  renderMilestoneList();
+  // Populate role select
+  const sel = document.getElementById('g-role');
+  sel.innerHTML = '<option value="">— No role —</option>'+roles.map(r=>'<option value="'+r.id+'">'+r.icon+' '+r.name+'</option>').join('');
+  openModal('m-goal');
+}
+
+function editGoal(id){
+  const g = goals.find(x=>x.id===id); if(!g) return;
+  editingGoalId = id; goalMilestones = JSON.parse(JSON.stringify(g.milestones||[]));
+  document.getElementById('goal-modal-title').textContent = 'Edit Goal';
+  document.getElementById('g-title').value = g.title||'';
+  document.getElementById('g-date').value = g.targetDate||'';
+  document.getElementById('g-why').value = g.why||'';
+  document.getElementById('goal-delete-row').style.display = 'block';
+  renderMilestoneList();
+  const sel = document.getElementById('g-role');
+  sel.innerHTML = '<option value="">— No role —</option>'+roles.map(r=>'<option value="'+r.id+'"'+(r.id===g.roleId?' selected':'')+'>'+r.icon+' '+r.name+'</option>').join('');
+  openModal('m-goal');
+}
+
+function saveGoal(){
+  const title = document.getElementById('g-title').value.trim();
+  if(!title){ toast('Enter a goal title'); return; }
+  const g = {
+    id: editingGoalId||'g'+Date.now(),
+    title,
+    roleId: document.getElementById('g-role').value,
+    targetDate: document.getElementById('g-date').value,
+    why: document.getElementById('g-why').value.trim(),
+    icon: '🎯',
+    milestones: goalMilestones,
+    createdAt: editingGoalId?(goals.find(x=>x.id===editingGoalId)||{}).createdAt:new Date().toISOString()
+  };
+  if(editingGoalId){ const i=goals.findIndex(x=>x.id===editingGoalId); if(i>-1)goals[i]=g; toast('✅ Goal updated'); }
+  else { goals.unshift(g); toast('🎯 Goal created'); }
+  saveGoalsData(); closeModal('m-goal'); renderGoals();
+}
+
+function deleteGoal(){
+  if(!editingGoalId) return;
+  const g = goals.find(x=>x.id===editingGoalId);
+  if(!confirm('Delete "'+( g?.title)+'"?')) return;
+  goals = goals.filter(x=>x.id!==editingGoalId);
+  saveGoalsData(); closeModal('m-goal'); renderGoals();
+}
+
+function addMilestone(){
+  const t = document.getElementById('ms-title-inp').value.trim();
+  if(!t){ toast('Enter a milestone'); return; }
+  const d = document.getElementById('ms-date-inp').value;
+  goalMilestones.push({id:'ms'+Date.now(), title:t, date:d, done:false});
+  goalMilestones.sort((a,b)=>new Date(b.date)-new Date(a.date));
+  document.getElementById('ms-title-inp').value='';
+  document.getElementById('ms-date-inp').value='';
+  renderMilestoneList();
+}
+
+function renderMilestoneList(){
+  const c = document.getElementById('milestone-list'); if(!c) return;
+  if(!goalMilestones.length){ c.innerHTML='<div style="font-size:12px;color:var(--ink-m);padding:6px">No milestones yet.</div>'; return; }
+  c.innerHTML = goalMilestones.map((m,i)=>'<div style="display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid var(--border-lt)">'
+    + '<span style="font-size:14px">'+(i===0?'🏁':'📅')+'</span>'
+    + '<div style="flex:1"><div style="font-size:13px;font-weight:600">'+m.title+'</div><div style="font-size:10px;color:var(--ink-m)">'+( m.date||'No date')+'</div></div>'
+    + '<span onclick="removeMilestone('+i+')" style="cursor:pointer;color:var(--ink-lt);font-size:13px">✕</span>'
+    + '</div>').join('');
+}
+
+function removeMilestone(i){ goalMilestones.splice(i,1); renderMilestoneList(); }
+
+function toggleMilestone(goalId, msId){
+  const g = goals.find(x=>x.id===goalId); if(!g) return;
+  const m = (g.milestones||[]).find(x=>x.id===msId); if(!m) return;
+  m.done = !m.done;
+  if(m.done) toast('✦ Milestone complete — one step closer.');
+  saveGoalsData(); renderGoals();
+}
+
+function addPriorityFromGoal(goalId){
+  const g = goals.find(x=>x.id===goalId); if(!g) return;
+  if(priorities.length>=3){ toast('✦ Max 3 priorities. Finish one first.'); return; }
+  priorities.push({id:'p'+Date.now(), title:'Work toward: '+g.title, roleId:g.roleId, quadrant:'2', done:false});
+  saveTodayState(); nav('today'); toast('→ Added as a priority for today');
+}
+
+async function aiMilestones(){
+  const title = document.getElementById('g-title').value.trim();
+  const date = document.getElementById('g-date').value;
+  if(!title){ toast('Enter a goal title first'); return; }
+  if(!geminiKey){ toast('Add Gemini key in Settings'); return; }
+  toast('✨ Generating backward milestones...');
+  const prompt = 'You are a Covey-inspired planning coach. For the goal: "'+title+'"'+(date?' (target: '+date+')':'')+', generate 5-6 key milestones working BACKWARD from the target date to today. Each is a major checkpoint. Return ONLY a JSON array: [{"title":"...","date":"YYYY-MM-DD"}]. Order furthest date first.';
+  try{
+    const text = await callAI(prompt, 400);
+    const clean = text.replace(/```json|```/g,'').trim();
+    const items = JSON.parse(clean);
+    goalMilestones = items.map((x,i)=>({id:'ms'+Date.now()+i, title:x.title, date:x.date, done:false}));
+    renderMilestoneList(); toast('✨ Milestones generated!');
+  }catch(e){ toast('❌ AI unavailable. Add milestones manually.'); }
+}
+
+// ══════════════════════════════════════════════
+// FEATURE 3 SUPPORT: renderReflection upgrade
+// ══════════════════════════════════════════════
+// Wrap original renderReflection to also render gap
+const _origRenderReflection = renderReflection;
+function renderReflection(){
+  _origRenderReflection();
+  renderValuesBehaviorGap();
+}
+
+// ══════════════════════════════════════════════
+// LOAD GOALS INTO loadAll
+// ══════════════════════════════════════════════
+const _origLoadAll = loadAll;
+function loadAll(){
+  _origLoadAll();
+  loadGoals();
+  // Restore future self input
+  const fs2 = document.getElementById('future-self-inp'); if(fs2) fs2.value = futureself;
+}
+
+// ══════════════════════════════════════════════
+// INIT HOOK — check gratitude + load goals
+// ══════════════════════════════════════════════
+const _origShowApp = showApp;
+function showApp(){
+  _origShowApp();
+  loadGoals();
+  checkAutoGratitude();
+}
+
 </script>
 </body>
 </html>
