@@ -880,18 +880,13 @@ body.dark .mtitle { color: #E8EDF5 !important; }
     <div class="auth-tagline">Live with intention. Begin with the end in mind.</div>
 
     <!-- Profile picker -->
-    <div id="auth-main">
+    <div id="auth-main" style="display: block;">
       <div style="font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:var(--ink-m);margin-bottom:14px;">Who's planning today?</div>
-      <div id="profile-grid" style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:16px;"><div onclick="selectProfile(&#39;u_filipe&#39;)" style="display:flex;flex-direction:column;align-items:center;gap:8px;padding:18px 12px;background:var(--surface);border:2px solid var(--border);border-radius:16px;cursor:pointer;transition:all .2s;position:relative;" onmouseover="this.style.borderColor=&#39;var(--peach)&#39;;this.style.transform=&#39;translateY(-2px)&#39;;this.querySelector(&#39;.pdel&#39;).style.opacity=&#39;1&#39;" onmouseout="this.style.borderColor=&#39;var(--border)&#39;;this.style.transform=&#39;translateY(0)&#39;;this.querySelector(&#39;.pdel&#39;).style.opacity=&#39;0&#39;">
+      <div id="profile-grid" style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:16px;"><div onclick="selectProfile(&#39;u_filipe&#39;)" style="display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 18px 12px; background: var(--surface); border-color: var(--border); border-top-style: ; border-top-width: ; border-right-style: ; border-right-width: ; border-bottom-style: ; border-bottom-width: ; border-left-style: ; border-left-width: ; border-image-source: ; border-image-slice: ; border-image-width: ; border-image-outset: ; border-image-repeat: ; border-radius: 16px; cursor: pointer; transition: 0.2s; position: relative; transform: translateY(0px);" onmouseover="this.style.borderColor=&#39;var(--peach)&#39;;this.style.transform=&#39;translateY(-2px)&#39;;this.querySelector(&#39;.pdel&#39;).style.opacity=&#39;1&#39;" onmouseout="this.style.borderColor=&#39;var(--border)&#39;;this.style.transform=&#39;translateY(0)&#39;;this.querySelector(&#39;.pdel&#39;).style.opacity=&#39;0&#39;">
       <div style="width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,var(--peach),var(--gold));display:flex;align-items:center;justify-content:center;font-size:26px;">🔥</div>
       <div style="font-weight:800;font-size:14px;">Filipe</div>
-      <div style="font-size:10px;color:var(--ink-m);font-weight:600;">9 tasks</div>
-      <button class="pdel" onclick="event.stopPropagation();deleteProfile(&#39;u_filipe&#39;)" style="position:absolute;top:6px;right:8px;background:none;border:none;cursor:pointer;font-size:13px;color:var(--ink-m);opacity:0;transition:opacity .2s;">✕</button>
-    </div><div onclick="selectProfile(&#39;u_1774971090981&#39;)" style="display:flex;flex-direction:column;align-items:center;gap:8px;padding:18px 12px;background:var(--surface);border:2px solid var(--border);border-radius:16px;cursor:pointer;transition:all .2s;position:relative;" onmouseover="this.style.borderColor=&#39;var(--peach)&#39;;this.style.transform=&#39;translateY(-2px)&#39;;this.querySelector(&#39;.pdel&#39;).style.opacity=&#39;1&#39;" onmouseout="this.style.borderColor=&#39;var(--border)&#39;;this.style.transform=&#39;translateY(0)&#39;;this.querySelector(&#39;.pdel&#39;).style.opacity=&#39;0&#39;">
-      <div style="width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,var(--peach),var(--gold));display:flex;align-items:center;justify-content:center;font-size:26px;">🌟</div>
-      <div style="font-weight:800;font-size:14px;">Levila</div>
-      <div style="font-size:10px;color:var(--ink-m);font-weight:600;">0 tasks</div>
-      <button class="pdel" onclick="event.stopPropagation();deleteProfile(&#39;u_1774971090981&#39;)" style="position:absolute;top:6px;right:8px;background:none;border:none;cursor:pointer;font-size:13px;color:var(--ink-m);opacity:0;transition:opacity .2s;">✕</button>
+      <div style="font-size:10px;color:var(--ink-m);font-weight:600;">3 tasks</div>
+      <button class="pdel" onclick="event.stopPropagation();deleteProfile(&#39;u_filipe&#39;)" style="position: absolute; top: 6px; right: 8px; background: none; border: none; cursor: pointer; font-size: 13px; color: var(--ink-m); opacity: 0; transition: opacity 0.2s;">✕</button>
     </div></div>
       <button onclick="openAddProfile()" style="width:100%;padding:11px;background:transparent;border:2px dashed var(--border);border-radius:14px;font-family:&#39;DM Sans&#39;,sans-serif;font-size:13px;font-weight:700;color:var(--ink-m);cursor:pointer;transition:all .2s;" onmouseover="this.style.borderColor=&#39;var(--peach)&#39;;this.style.color=&#39;var(--peach)&#39;" onmouseout="this.style.borderColor=&#39;var(--border)&#39;;this.style.color=&#39;var(--ink-m)&#39;">+ Add New User</button>
     </div>
@@ -926,11 +921,11 @@ body.dark .mtitle { color: #E8EDF5 !important; }
 
 <!-- ═══════════════════ MAIN APP ═══════════════════ -->
 <button class="dark-btn" id="dark-btn" onclick="toggleDark()">🌙</button>
-<div id="karma-toast"></div>
-<div id="toast"></div>
+<div id="karma-toast" class="">+3 karma — backfill! 📅</div>
+<div id="toast" class="">📅 Logged: 2026-04-07</div>
 
 <!-- GRATITUDE OVERLAY -->
-<div id="gratitude-overlay">
+<div id="gratitude-overlay" class="">
   <div class="gc-card">
     <div class="gc-sun">🌅</div>
     <div class="gc-title">Good Morning!</div>
@@ -1039,7 +1034,7 @@ body.dark .mtitle { color: #E8EDF5 !important; }
   </div>
 </div>
 
-<aside class="sidebar collapsed">
+<aside class="sidebar">
   <div class="sb-top" style="display:flex;align-items:center;justify-content:space-between;">
     <div class="sb-user" style="margin-bottom:0;flex:1;">
       <div class="sb-avatar" id="sb-avatar">🔥</div>
@@ -1060,7 +1055,7 @@ body.dark .mtitle { color: #E8EDF5 !important; }
       <span class="sb-section-hdr-arrow open">▼</span>
     </div>
     <div class="sb-section-body open" data-section="plan">
-      <div class="ni" data-v="today" onclick="nav(&#39;today&#39;)" title="Today"><span class="ni-icon">☀️</span><span class="ni-text">Today</span><span class="ni-badge" id="nb-today">0</span></div>
+      <div class="ni" data-v="today" onclick="nav(&#39;today&#39;)" title="Today"><span class="ni-icon">☀️</span><span class="ni-text">Today</span><span class="ni-badge" id="nb-today">3</span></div>
       <div class="ni" data-v="quadrant" onclick="nav(&#39;quadrant&#39;)" title="Covey Quadrant"><span class="ni-icon">🎯</span><span class="ni-text">Covey Quadrant</span></div>
       <div class="ni" data-v="upcoming" onclick="nav(&#39;upcoming&#39;)" title="Upcoming"><span class="ni-icon">📅</span><span class="ni-text">Upcoming</span></div>
       <div class="ni" data-v="inbox" onclick="nav(&#39;inbox&#39;)" title="Inbox"><span class="ni-icon">📥</span><span class="ni-text">Inbox</span><span class="ni-badge" id="nb-inbox">0</span></div>
@@ -1085,10 +1080,11 @@ body.dark .mtitle { color: #E8EDF5 !important; }
       <span class="sb-section-hdr-arrow open">▼</span>
     </div>
     <div class="sb-section-body open" data-section="tools">
+      <div class="ni" data-v="goals" onclick="nav('goals')" title="End in Mind Goals"><span class="ni-icon">🎯</span><span class="ni-text">End in Mind Goals</span></div>
       <div class="ni" data-v="timeblock" onclick="nav(&#39;timeblock&#39;)" title="Time Blocks"><span class="ni-icon">⏱️</span><span class="ni-text">Time Blocks</span></div>
       <div class="ni active" data-v="habits" onclick="nav(&#39;habits&#39;)" title="Habits"><span class="ni-icon">🔥</span><span class="ni-text">Habits</span></div>
       <div class="ni" data-v="pomodoro" onclick="nav(&#39;pomodoro&#39;)" title="Pomodoro"><span class="ni-icon">🍅</span><span class="ni-text">Pomodoro</span></div>
-      <div class="ni" data-v="notes" onclick="nav(&#39;notes&#39;)" title="Notes &amp; Journal"><span class="ni-icon">📓</span><span class="ni-text">Notes &amp; Journal</span><span class="ni-badge" id="nb-notes">2</span></div>
+      <div class="ni" data-v="notes" onclick="nav(&#39;notes&#39;)" title="Notes &amp; Journal"><span class="ni-icon">📓</span><span class="ni-text">Notes &amp; Journal</span><span class="ni-badge" id="nb-notes">0</span></div>
       <div class="ni" data-v="analytics" onclick="nav(&#39;analytics&#39;)" title="Analytics"><span class="ni-icon">📊</span><span class="ni-text">Analytics</span></div>
     </div>
   </div>
@@ -1099,7 +1095,7 @@ body.dark .mtitle { color: #E8EDF5 !important; }
       <span class="sb-section-hdr-arrow open">▼</span>
     </div>
     <div class="sb-section-body open" data-section="account">
-      <div class="ni" data-v="settings" onclick="nav(&#39;settings&#39;)" title="Settings"><span class="ni-icon">⚙️</span><span class="ni-text">Settings</span><span class="ni-badge" id="nb-ai" style="background: var(--sage-p); color: var(--sage);">✓</span></div>
+      <div class="ni" data-v="settings" onclick="nav(&#39;settings&#39;)" title="Settings"><span class="ni-icon">⚙️</span><span class="ni-text">Settings</span><span class="ni-badge" id="nb-ai" style="background: var(--border); color: var(--ink-m);">–</span></div>
       <div class="ni" data-v="deploy" onclick="nav(&#39;deploy&#39;)" title="Go Live"><span class="ni-icon">🚀</span><span class="ni-text">Go Live</span></div>
       <div class="ni" onclick="signOut()" title="Switch User" style="color:var(--ink-m);"><span class="ni-icon">🔀</span><span class="ni-text">Switch User</span></div>
     </div>
@@ -1115,8 +1111,8 @@ body.dark .mtitle { color: #E8EDF5 !important; }
   </div>
   <div class="sb-bottom">
     <div class="sb-stats">
-      <div class="sb-stat"><div class="sb-stat-n" id="streak-n">1</div><div class="sb-stat-l">🔥 Streak</div></div>
-      <div class="sb-stat"><div class="sb-stat-n" id="karma-n">175</div><div class="sb-stat-l">⚡ Karma</div></div>
+      <div class="sb-stat"><div class="sb-stat-n" id="streak-n">0</div><div class="sb-stat-l">🔥 Streak</div></div>
+      <div class="sb-stat"><div class="sb-stat-n" id="karma-n">14</div><div class="sb-stat-l">⚡ Karma</div></div>
     </div>
   </div>
 </aside>
@@ -1147,7 +1143,7 @@ body.dark .mtitle { color: #E8EDF5 !important; }
         <div class="ai-icon-wrap">✨</div>
         <div><div class="ai-brief-title">Your Daily Brief</div><div class="ai-brief-by">Powered by Google Gemini — Free</div></div>
       </div>
-      <div class="ai-brief-body" id="brief-body">Put first things first today — your most important work awaits. 💪</div>
+      <div class="ai-brief-body" id="brief-body">✨ Add your free Gemini key in Settings to unlock AI features!</div>
     </div>
 
     <div class="ai-focus" id="ai-focus">
@@ -1190,84 +1186,58 @@ body.dark .mtitle { color: #E8EDF5 !important; }
         <div class="fchip" data-f="q3" onclick="setF(&#39;q3&#39;)" style="border-color:rgba(255,217,61,.3);color:#C8900A;">🟡 Q3</div>
         <div class="fchip" data-f="done" onclick="setF(&#39;done&#39;)">✅ Done</div>
         <div class="fchip" data-f="overdue" onclick="setF(&#39;overdue&#39;)">⏰ Overdue</div>
-      <div class="fchip" data-f="tag:startup">#startup</div></div>
+      <div class="fchip" data-f="tag:work">#work</div><div class="fchip" data-f="tag:startup">#startup</div><div class="fchip" data-f="tag:ward">#ward</div></div>
       <input class="fsearch" id="fsearch" placeholder="🔍 Search..." oninput="renderToday()">
       <button class="afbtn afbtn-s" onclick="showFocus()">🎯 AI Focus</button>
     </div>
 
     <div class="stats">
-      <div class="scard"><div class="scard-ico">✅</div><div class="scard-n pop" id="s-done">2</div><div class="scard-l">Completed</div></div>
-      <div class="scard"><div class="scard-ico">📋</div><div class="scard-n pop" id="s-left">0</div><div class="scard-l">Remaining</div></div>
-      <div class="scard"><div class="scard-ico">⚡</div><div class="scard-n" id="s-pct">100%</div><div class="scard-l">Progress</div></div>
-      <div class="karma-card"><div style="font-size:26px;">⚡</div><div><div class="karma-n" id="karma-big">175</div><div class="karma-l">Karma Points</div><div class="karma-lvl" id="karma-lvl">⚡ Productive</div></div></div>
+      <div class="scard"><div class="scard-ico">✅</div><div class="scard-n pop" id="s-done">0</div><div class="scard-l">Completed</div></div>
+      <div class="scard"><div class="scard-ico">📋</div><div class="scard-n pop" id="s-left">3</div><div class="scard-l">Remaining</div></div>
+      <div class="scard"><div class="scard-ico">⚡</div><div class="scard-n" id="s-pct">0%</div><div class="scard-l">Progress</div></div>
+      <div class="karma-card"><div style="font-size:26px;">⚡</div><div><div class="karma-n" id="karma-big">14</div><div class="karma-l">Karma Points</div><div class="karma-lvl" id="karma-lvl">🌱 Beginner</div></div></div>
     </div>
   </div>
 
   <div style="padding:0 32px 28px;">
-    <div id="task-list" style="display: none;"><div class="tsec"><div class="tsec-hdr"><div class="tsec-title">⏰ Overdue</div><div class="tsec-line"></div><div class="tsec-ct">3</div></div><div class="tc q2 " id="tc-t1775072604498" draggable="true" ondragstart="dragStart(event,&#39;t1775072604498&#39;)" ondragover="dragOver(event,&#39;t1775072604498&#39;)" ondragend="dragEnd()">
+    <div id="task-list" style="display: none;"><div class="tsec"><div class="tsec-hdr"><div class="tsec-title">🔴 Q1 — Do First</div><div class="tsec-line"></div><div class="tsec-ct">1</div></div><div class="tc q1 " id="tc-t1" draggable="true" ondragstart="dragStart(event,&#39;t1&#39;)" ondragover="dragOver(event,&#39;t1&#39;)" ondragend="dragEnd()">
     <div class="q-bar"></div>
     <div class="drag-h">⋮⋮</div>
-    <div class="tchk" id="chk-t1775072604498" onclick="toggleTask(&#39;t1775072604498&#39;)"><span class="tchk-ico">✓</span></div>
-    <div class="tc-body" onclick="openEdit(&#39;t1775072604498&#39;)">
-      <div class="tc-title">Revamp Ministering Assignments and have link for Interviews</div>
-      <div class="tc-meta"><span class="tag t-time">🕐 09:00</span><span class="q-badge qb-2">Q2</span><span class="e-med">🟡 Med</span><span class="t-dur">⏱ 1h 30m</span></div>
+    <div class="tchk" id="chk-t1" onclick="toggleTask(&#39;t1&#39;)"><span class="tchk-ico">✓</span></div>
+    <div class="tc-body" onclick="openEdit(&#39;t1&#39;)">
+      <div class="tc-title">Review Q2 sales report</div>
+      <div class="tc-meta"><span class="tag t-proj">📁 Action Plumbing</span><span class="q-badge qb-1">Q1</span><span style="font-size:10px;color:var(--ink-m);font-weight:700;">✔ 0/1</span><span class="tag t-tag">#work</span></div>
     </div>
     <div class="tc-acts">
-      <button class="tc-focus-btn" title="Focus Mode" onclick="event.stopPropagation();openFocusMode(&#39;t1775072604498&#39;)">🎯</button>
-      <button class="tc-act" onclick="openEdit(&#39;t1775072604498&#39;)">✏️</button>
-      <button class="tc-act" onclick="delTask(&#39;t1775072604498&#39;)">🗑️</button>
+      <button class="tc-focus-btn" title="Focus Mode" onclick="event.stopPropagation();openFocusMode(&#39;t1&#39;)">🎯</button>
+      <button class="tc-act" onclick="openEdit(&#39;t1&#39;)">✏️</button>
+      <button class="tc-act" onclick="delTask(&#39;t1&#39;)">🗑️</button>
     </div>
-  </div><div class="tc q2 " id="tc-t1775068471144" draggable="true" ondragstart="dragStart(event,&#39;t1775068471144&#39;)" ondragover="dragOver(event,&#39;t1775068471144&#39;)" ondragend="dragEnd()">
+  </div></div><div class="tsec"><div class="tsec-hdr"><div class="tsec-title">🔵 Q2 — Schedule</div><div class="tsec-line"></div><div class="tsec-ct">2</div></div><div class="tc q2 " id="tc-t2" draggable="true" ondragstart="dragStart(event,&#39;t2&#39;)" ondragover="dragOver(event,&#39;t2&#39;)" ondragend="dragEnd()">
     <div class="q-bar"></div>
     <div class="drag-h">⋮⋮</div>
-    <div class="tchk" id="chk-t1775068471144" onclick="toggleTask(&#39;t1775068471144&#39;)"><span class="tchk-ico">✓</span></div>
-    <div class="tc-body" onclick="openEdit(&#39;t1775068471144&#39;)">
-      <div class="tc-title">Read the Book of Mormon</div>
-      <div class="tc-meta"><span class="tag t-time">🕐 17:00</span><span class="tag t-rec">🔄 daily</span><span class="q-badge qb-2">Q2</span><span class="e-med">🟡 Med</span><span class="t-dur">⏱ 30m</span></div>
+    <div class="tchk" id="chk-t2" onclick="toggleTask(&#39;t2&#39;)"><span class="tchk-ico">✓</span></div>
+    <div class="tc-body" onclick="openEdit(&#39;t2&#39;)">
+      <div class="tc-title">Solo Passport investor deck</div>
+      <div class="tc-meta"><span class="tag t-proj">📁 Solo Passport</span><span class="q-badge qb-2">Q2</span><span class="tag t-tag">#startup</span></div>
     </div>
     <div class="tc-acts">
-      <button class="tc-focus-btn" title="Focus Mode" onclick="event.stopPropagation();openFocusMode(&#39;t1775068471144&#39;)">🎯</button>
-      <button class="tc-act" onclick="openEdit(&#39;t1775068471144&#39;)">✏️</button>
-      <button class="tc-act" onclick="delTask(&#39;t1775068471144&#39;)">🗑️</button>
+      <button class="tc-focus-btn" title="Focus Mode" onclick="event.stopPropagation();openFocusMode(&#39;t2&#39;)">🎯</button>
+      <button class="tc-act" onclick="openEdit(&#39;t2&#39;)">✏️</button>
+      <button class="tc-act" onclick="delTask(&#39;t2&#39;)">🗑️</button>
     </div>
-  </div><div class="tc q1 " id="tc-t1775068195979" draggable="true" ondragstart="dragStart(event,&#39;t1775068195979&#39;)" ondragover="dragOver(event,&#39;t1775068195979&#39;)" ondragend="dragEnd()">
+  </div><div class="tc q2 " id="tc-t3" draggable="true" ondragstart="dragStart(event,&#39;t3&#39;)" ondragover="dragOver(event,&#39;t3&#39;)" ondragend="dragEnd()">
     <div class="q-bar"></div>
     <div class="drag-h">⋮⋮</div>
-    <div class="tchk" id="chk-t1775068195979" onclick="toggleTask(&#39;t1775068195979&#39;)"><span class="tchk-ico">✓</span></div>
-    <div class="tc-body" onclick="openEdit(&#39;t1775068195979&#39;)">
-      <div class="tc-title">Sales Process Completed for Elev8 &amp; Revos</div>
-      <div class="tc-meta"><span class="tag t-time">🕐 14:00</span><span class="tag t-proj">📁 Elev8 &amp; Revos</span><span class="q-badge qb-1">Q1</span><span style="font-size:10px;color:var(--ink-m);font-weight:700;">✔ 0/4</span><span class="e-med">🟡 Med</span><span class="t-dur">⏱ 2h</span></div>
+    <div class="tchk" id="chk-t3" onclick="toggleTask(&#39;t3&#39;)"><span class="tchk-ico">✓</span></div>
+    <div class="tc-body" onclick="openEdit(&#39;t3&#39;)">
+      <div class="tc-title">Ward council prep</div>
+      <div class="tc-meta"><span class="tag t-proj">📁 Ward</span><span class="q-badge qb-2">Q2</span><span class="tag t-tag">#ward</span></div>
     </div>
     <div class="tc-acts">
-      <button class="tc-focus-btn" title="Focus Mode" onclick="event.stopPropagation();openFocusMode(&#39;t1775068195979&#39;)">🎯</button>
-      <button class="tc-act" onclick="openEdit(&#39;t1775068195979&#39;)">✏️</button>
-      <button class="tc-act" onclick="delTask(&#39;t1775068195979&#39;)">🗑️</button>
-    </div>
-  </div></div><div class="tsec"><div class="tsec-hdr"><div class="tsec-title">🔵 Q2 — Schedule</div><div class="tsec-line"></div><div class="tsec-ct">2</div></div><div class="tc q2 done" id="tc-t1775575337610" draggable="true" ondragstart="dragStart(event,&#39;t1775575337610&#39;)" ondragover="dragOver(event,&#39;t1775575337610&#39;)" ondragend="dragEnd()">
-    <div class="q-bar"></div>
-    <div class="drag-h">⋮⋮</div>
-    <div class="tchk" id="chk-t1775575337610" onclick="toggleTask(&#39;t1775575337610&#39;)"><span class="tchk-ico">✓</span></div>
-    <div class="tc-body" onclick="openEdit(&#39;t1775575337610&#39;)">
-      <div class="tc-title">Create Sign Up List for Security for YSA Dance</div>
-      <div class="tc-meta"><span class="tag t-time">🕐 10:00</span><span class="tag t-proj">📁 Sign Up Sheet/WARD</span><span class="q-badge qb-2">Q2</span><span style="font-size:10px;color:var(--ink-m);font-weight:700;">✔ 0/3</span><span class="e-high">🔴 High</span><span class="t-dur">⏱ 1h</span></div>
-    </div>
-    <div class="tc-acts">
-      <button class="tc-focus-btn" title="Focus Mode" onclick="event.stopPropagation();openFocusMode(&#39;t1775575337610&#39;)">🎯</button>
-      <button class="tc-act" onclick="openEdit(&#39;t1775575337610&#39;)">✏️</button>
-      <button class="tc-act" onclick="delTask(&#39;t1775575337610&#39;)">🗑️</button>
-    </div>
-  </div><div class="tc q2 done" id="tc-t1775068644809" draggable="true" ondragstart="dragStart(event,&#39;t1775068644809&#39;)" ondragover="dragOver(event,&#39;t1775068644809&#39;)" ondragend="dragEnd()">
-    <div class="q-bar"></div>
-    <div class="drag-h">⋮⋮</div>
-    <div class="tchk" id="chk-t1775068644809" onclick="toggleTask(&#39;t1775068644809&#39;)"><span class="tchk-ico">✓</span></div>
-    <div class="tc-body" onclick="openEdit(&#39;t1775068644809&#39;)">
-      <div class="tc-title">EQ Presidency MTG</div>
-      <div class="tc-meta"><span class="tag t-time">🕐 19:00</span><span class="tag t-proj">📁 EQ</span><span class="q-badge qb-2">Q2</span><span class="e-med">🟡 Med</span><span class="t-dur">⏱ 1h 30m</span></div>
-    </div>
-    <div class="tc-acts">
-      <button class="tc-focus-btn" title="Focus Mode" onclick="event.stopPropagation();openFocusMode(&#39;t1775068644809&#39;)">🎯</button>
-      <button class="tc-act" onclick="openEdit(&#39;t1775068644809&#39;)">✏️</button>
-      <button class="tc-act" onclick="delTask(&#39;t1775068644809&#39;)">🗑️</button>
+      <button class="tc-focus-btn" title="Focus Mode" onclick="event.stopPropagation();openFocusMode(&#39;t3&#39;)">🎯</button>
+      <button class="tc-act" onclick="openEdit(&#39;t3&#39;)">✏️</button>
+      <button class="tc-act" onclick="delTask(&#39;t3&#39;)">🗑️</button>
     </div>
   </div></div></div>
     <div id="kanban-board" style="display: block;"><div class="kb">
@@ -1320,7 +1290,11 @@ body.dark .mtitle { color: #E8EDF5 !important; }
       <div class="quad-cell q1-cell" id="qcell-1">
         <div class="quad-label" style="color:var(--q1);">Q1 — Do First</div>
         <div class="quad-desc">Urgent &amp; Important · Crises, deadlines</div>
-        <div class="quad-tasks" id="qt1"></div>
+        <div class="quad-tasks" id="qt1"><div class="quad-task " onclick="toggleTask(&#39;t1&#39;)">
+      <div class="qt-dot" style="background:var(--q1);"></div>
+      <span>Review Q2 sales report</span>
+      
+    </div></div>
         <button class="quad-add" onclick="openAddQ(1)">+ Add Q1 task</button>
       </div>
       <div class="quad-cell q3-cell" id="qcell-3">
@@ -1334,14 +1308,14 @@ body.dark .mtitle { color: #E8EDF5 !important; }
       <div class="quad-cell q2-cell" id="qcell-2">
         <div class="quad-label" style="color:var(--q2);">Q2 — Schedule</div>
         <div class="quad-desc">Important but Not Urgent · Growth, relationships</div>
-        <div class="quad-tasks" id="qt2"><div class="quad-task done" onclick="toggleTask(&#39;t1775575337610&#39;)">
+        <div class="quad-tasks" id="qt2"><div class="quad-task " onclick="toggleTask(&#39;t2&#39;)">
       <div class="qt-dot" style="background:var(--q2);"></div>
-      <span>Create Sign Up List for Security for YSA Dance</span>
-      <span style="margin-left:auto;font-size:11px;">✅</span>
-    </div><div class="quad-task done" onclick="toggleTask(&#39;t1775068644809&#39;)">
+      <span>Solo Passport investor deck</span>
+      
+    </div><div class="quad-task " onclick="toggleTask(&#39;t3&#39;)">
       <div class="qt-dot" style="background:var(--q2);"></div>
-      <span>EQ Presidency MTG</span>
-      <span style="margin-left:auto;font-size:11px;">✅</span>
+      <span>Ward council prep</span>
+      
     </div></div>
         <button class="quad-add" onclick="openAddQ(2)">+ Add Q2 task</button>
       </div>
@@ -1364,46 +1338,46 @@ body.dark .mtitle { color: #E8EDF5 !important; }
     <div><div class="pg-title">Upcoming 📅</div><div class="pg-sub">Next 7 days</div></div>
     <button class="btn btn-p" onclick="openAdd()">+ Task</button>
   </div>
-  <div style="padding:0 32px 28px;" id="upcoming-list"><div class="tsec" style="padding:0 32px;"><div class="tsec-hdr"><div class="tsec-title">Today</div><div class="tsec-line"></div><div class="tsec-ct">2</div></div><div class="tc q2 done" id="tc-t1775575337610" draggable="true" ondragstart="dragStart(event,&#39;t1775575337610&#39;)" ondragover="dragOver(event,&#39;t1775575337610&#39;)" ondragend="dragEnd()">
+  <div style="padding:0 32px 28px;" id="upcoming-list"><div class="tsec" style="padding:0 32px;"><div class="tsec-hdr"><div class="tsec-title">Today</div><div class="tsec-line"></div><div class="tsec-ct">3</div></div><div class="tc q1 " id="tc-t1" draggable="true" ondragstart="dragStart(event,&#39;t1&#39;)" ondragover="dragOver(event,&#39;t1&#39;)" ondragend="dragEnd()">
     <div class="q-bar"></div>
     <div class="drag-h">⋮⋮</div>
-    <div class="tchk" id="chk-t1775575337610" onclick="toggleTask(&#39;t1775575337610&#39;)"><span class="tchk-ico">✓</span></div>
-    <div class="tc-body" onclick="openEdit(&#39;t1775575337610&#39;)">
-      <div class="tc-title">Create Sign Up List for Security for YSA Dance</div>
-      <div class="tc-meta"><span class="tag t-time">🕐 10:00</span><span class="tag t-proj">📁 Sign Up Sheet/WARD</span><span class="q-badge qb-2">Q2</span><span style="font-size:10px;color:var(--ink-m);font-weight:700;">✔ 0/3</span><span class="e-high">🔴 High</span><span class="t-dur">⏱ 1h</span></div>
+    <div class="tchk" id="chk-t1" onclick="toggleTask(&#39;t1&#39;)"><span class="tchk-ico">✓</span></div>
+    <div class="tc-body" onclick="openEdit(&#39;t1&#39;)">
+      <div class="tc-title">Review Q2 sales report</div>
+      <div class="tc-meta"><span class="tag t-proj">📁 Action Plumbing</span><span class="q-badge qb-1">Q1</span><span style="font-size:10px;color:var(--ink-m);font-weight:700;">✔ 0/1</span><span class="tag t-tag">#work</span></div>
     </div>
     <div class="tc-acts">
-      <button class="tc-focus-btn" title="Focus Mode" onclick="event.stopPropagation();openFocusMode(&#39;t1775575337610&#39;)">🎯</button>
-      <button class="tc-act" onclick="openEdit(&#39;t1775575337610&#39;)">✏️</button>
-      <button class="tc-act" onclick="delTask(&#39;t1775575337610&#39;)">🗑️</button>
+      <button class="tc-focus-btn" title="Focus Mode" onclick="event.stopPropagation();openFocusMode(&#39;t1&#39;)">🎯</button>
+      <button class="tc-act" onclick="openEdit(&#39;t1&#39;)">✏️</button>
+      <button class="tc-act" onclick="delTask(&#39;t1&#39;)">🗑️</button>
     </div>
-  </div><div class="tc q2 done" id="tc-t1775068644809" draggable="true" ondragstart="dragStart(event,&#39;t1775068644809&#39;)" ondragover="dragOver(event,&#39;t1775068644809&#39;)" ondragend="dragEnd()">
+  </div><div class="tc q2 " id="tc-t2" draggable="true" ondragstart="dragStart(event,&#39;t2&#39;)" ondragover="dragOver(event,&#39;t2&#39;)" ondragend="dragEnd()">
     <div class="q-bar"></div>
     <div class="drag-h">⋮⋮</div>
-    <div class="tchk" id="chk-t1775068644809" onclick="toggleTask(&#39;t1775068644809&#39;)"><span class="tchk-ico">✓</span></div>
-    <div class="tc-body" onclick="openEdit(&#39;t1775068644809&#39;)">
-      <div class="tc-title">EQ Presidency MTG</div>
-      <div class="tc-meta"><span class="tag t-time">🕐 19:00</span><span class="tag t-proj">📁 EQ</span><span class="q-badge qb-2">Q2</span><span class="e-med">🟡 Med</span><span class="t-dur">⏱ 1h 30m</span></div>
+    <div class="tchk" id="chk-t2" onclick="toggleTask(&#39;t2&#39;)"><span class="tchk-ico">✓</span></div>
+    <div class="tc-body" onclick="openEdit(&#39;t2&#39;)">
+      <div class="tc-title">Solo Passport investor deck</div>
+      <div class="tc-meta"><span class="tag t-proj">📁 Solo Passport</span><span class="q-badge qb-2">Q2</span><span class="tag t-tag">#startup</span></div>
     </div>
     <div class="tc-acts">
-      <button class="tc-focus-btn" title="Focus Mode" onclick="event.stopPropagation();openFocusMode(&#39;t1775068644809&#39;)">🎯</button>
-      <button class="tc-act" onclick="openEdit(&#39;t1775068644809&#39;)">✏️</button>
-      <button class="tc-act" onclick="delTask(&#39;t1775068644809&#39;)">🗑️</button>
+      <button class="tc-focus-btn" title="Focus Mode" onclick="event.stopPropagation();openFocusMode(&#39;t2&#39;)">🎯</button>
+      <button class="tc-act" onclick="openEdit(&#39;t2&#39;)">✏️</button>
+      <button class="tc-act" onclick="delTask(&#39;t2&#39;)">🗑️</button>
     </div>
-  </div></div><div class="tsec" style="padding:0 32px;"><div class="tsec-hdr"><div class="tsec-title">Tomorrow</div><div class="tsec-line"></div><div class="tsec-ct">0</div></div><div style="font-size:12px;color:var(--ink-m);padding:7px 0 14px;">Nothing planned</div></div><div class="tsec" style="padding:0 32px;"><div class="tsec-hdr"><div class="tsec-title">Thursday, Apr 9</div><div class="tsec-line"></div><div class="tsec-ct">0</div></div><div style="font-size:12px;color:var(--ink-m);padding:7px 0 14px;">Nothing planned</div></div><div class="tsec" style="padding:0 32px;"><div class="tsec-hdr"><div class="tsec-title">Friday, Apr 10</div><div class="tsec-line"></div><div class="tsec-ct">0</div></div><div style="font-size:12px;color:var(--ink-m);padding:7px 0 14px;">Nothing planned</div></div><div class="tsec" style="padding:0 32px;"><div class="tsec-hdr"><div class="tsec-title">Saturday, Apr 11</div><div class="tsec-line"></div><div class="tsec-ct">0</div></div><div style="font-size:12px;color:var(--ink-m);padding:7px 0 14px;">Nothing planned</div></div><div class="tsec" style="padding:0 32px;"><div class="tsec-hdr"><div class="tsec-title">Sunday, Apr 12</div><div class="tsec-line"></div><div class="tsec-ct">0</div></div><div style="font-size:12px;color:var(--ink-m);padding:7px 0 14px;">Nothing planned</div></div><div class="tsec" style="padding:0 32px;"><div class="tsec-hdr"><div class="tsec-title">Monday, Apr 13</div><div class="tsec-line"></div><div class="tsec-ct">1</div></div><div class="tc q2 " id="tc-t1775068454027" draggable="true" ondragstart="dragStart(event,&#39;t1775068454027&#39;)" ondragover="dragOver(event,&#39;t1775068454027&#39;)" ondragend="dragEnd()">
+  </div><div class="tc q2 " id="tc-t3" draggable="true" ondragstart="dragStart(event,&#39;t3&#39;)" ondragover="dragOver(event,&#39;t3&#39;)" ondragend="dragEnd()">
     <div class="q-bar"></div>
     <div class="drag-h">⋮⋮</div>
-    <div class="tchk" id="chk-t1775068454027" onclick="toggleTask(&#39;t1775068454027&#39;)"><span class="tchk-ico">✓</span></div>
-    <div class="tc-body" onclick="openEdit(&#39;t1775068454027&#39;)">
-      <div class="tc-title">Sign Up at Vasa</div>
-      <div class="tc-meta"><span class="tag t-time">🕐 18:00</span><span class="tag t-proj">📁 Gym Membership</span><span class="q-badge qb-2">Q2</span><span class="e-med">🟡 Med</span></div>
+    <div class="tchk" id="chk-t3" onclick="toggleTask(&#39;t3&#39;)"><span class="tchk-ico">✓</span></div>
+    <div class="tc-body" onclick="openEdit(&#39;t3&#39;)">
+      <div class="tc-title">Ward council prep</div>
+      <div class="tc-meta"><span class="tag t-proj">📁 Ward</span><span class="q-badge qb-2">Q2</span><span class="tag t-tag">#ward</span></div>
     </div>
     <div class="tc-acts">
-      <button class="tc-focus-btn" title="Focus Mode" onclick="event.stopPropagation();openFocusMode(&#39;t1775068454027&#39;)">🎯</button>
-      <button class="tc-act" onclick="openEdit(&#39;t1775068454027&#39;)">✏️</button>
-      <button class="tc-act" onclick="delTask(&#39;t1775068454027&#39;)">🗑️</button>
+      <button class="tc-focus-btn" title="Focus Mode" onclick="event.stopPropagation();openFocusMode(&#39;t3&#39;)">🎯</button>
+      <button class="tc-act" onclick="openEdit(&#39;t3&#39;)">✏️</button>
+      <button class="tc-act" onclick="delTask(&#39;t3&#39;)">🗑️</button>
     </div>
-  </div></div></div>
+  </div></div><div class="tsec" style="padding:0 32px;"><div class="tsec-hdr"><div class="tsec-title">Tomorrow</div><div class="tsec-line"></div><div class="tsec-ct">0</div></div><div style="font-size:12px;color:var(--ink-m);padding:7px 0 14px;">Nothing planned</div></div><div class="tsec" style="padding:0 32px;"><div class="tsec-hdr"><div class="tsec-title">Thursday, Apr 9</div><div class="tsec-line"></div><div class="tsec-ct">0</div></div><div style="font-size:12px;color:var(--ink-m);padding:7px 0 14px;">Nothing planned</div></div><div class="tsec" style="padding:0 32px;"><div class="tsec-hdr"><div class="tsec-title">Friday, Apr 10</div><div class="tsec-line"></div><div class="tsec-ct">0</div></div><div style="font-size:12px;color:var(--ink-m);padding:7px 0 14px;">Nothing planned</div></div><div class="tsec" style="padding:0 32px;"><div class="tsec-hdr"><div class="tsec-title">Saturday, Apr 11</div><div class="tsec-line"></div><div class="tsec-ct">0</div></div><div style="font-size:12px;color:var(--ink-m);padding:7px 0 14px;">Nothing planned</div></div><div class="tsec" style="padding:0 32px;"><div class="tsec-hdr"><div class="tsec-title">Sunday, Apr 12</div><div class="tsec-line"></div><div class="tsec-ct">0</div></div><div style="font-size:12px;color:var(--ink-m);padding:7px 0 14px;">Nothing planned</div></div><div class="tsec" style="padding:0 32px;"><div class="tsec-hdr"><div class="tsec-title">Monday, Apr 13</div><div class="tsec-line"></div><div class="tsec-ct">0</div></div><div style="font-size:12px;color:var(--ink-m);padding:7px 0 14px;">Nothing planned</div></div></div>
 </div>
 
 <!-- ══ INBOX ══ -->
@@ -1494,7 +1468,7 @@ body.dark .mtitle { color: #E8EDF5 !important; }
         <button class="tgnbtn" onclick="shiftTB(1)">›</button>
       </div>
     </div>
-    <div class="tslots" id="tslots"><div class="tslot "><div class="tslbl">6 AM</div><div class="tscont" onclick="openTB(6)" style="cursor:pointer;"><div style="height:24px;"></div></div></div><div class="tslot "><div class="tslbl">7 AM</div><div class="tscont" onclick="openTB(7)" style="cursor:pointer;"><div style="height:24px;"></div></div></div><div class="tslot "><div class="tslbl">8 AM</div><div class="tscont" onclick="openTB(8)" style="cursor:pointer;"><div style="height:24px;"></div></div></div><div class="tslot "><div class="tslbl">9 AM</div><div class="tscont" onclick="openTB(9)" style="cursor:pointer;"><div style="height:24px;"></div></div></div><div class="tslot "><div class="tslbl">10 AM</div><div class="tscont" onclick="openTB(10)" style="cursor:pointer;"><div style="height:24px;"></div></div></div><div class="tslot "><div class="tslbl">11 AM</div><div class="tscont" onclick="openTB(11)" style="cursor:pointer;"><div style="height:24px;"></div></div></div><div class="tslot "><div class="tslbl">12 PM</div><div class="tscont" onclick="openTB(12)" style="cursor:pointer;"><div style="height:24px;"></div></div></div><div class="tslot "><div class="tslbl">1 PM</div><div class="tscont" onclick="openTB(13)" style="cursor:pointer;"><div style="height:24px;"></div></div></div><div class="tslot "><div class="tslbl">2 PM</div><div class="tscont" onclick="openTB(14)" style="cursor:pointer;"><div style="height:24px;"></div></div></div><div class="tslot "><div class="tslbl">3 PM</div><div class="tscont" onclick="openTB(15)" style="cursor:pointer;"><div style="height:24px;"></div></div></div><div class="tslot "><div class="tslbl">4 PM</div><div class="tscont" onclick="openTB(16)" style="cursor:pointer;"><div style="height:24px;"></div></div></div><div class="tslot now"><div class="tslbl">5 PM</div><div class="tscont" onclick="openTB(17)" style="cursor:pointer;"><div style="height:24px;"></div></div></div><div class="tslot "><div class="tslbl">6 PM</div><div class="tscont" onclick="openTB(18)" style="cursor:pointer;"><div style="height:24px;"></div></div></div><div class="tslot "><div class="tslbl">7 PM</div><div class="tscont" onclick="openTB(19)" style="cursor:pointer;"><div style="height:24px;"></div></div></div><div class="tslot "><div class="tslbl">8 PM</div><div class="tscont" onclick="openTB(20)" style="cursor:pointer;"><div style="height:24px;"></div></div></div><div class="tslot "><div class="tslbl">9 PM</div><div class="tscont" onclick="openTB(21)" style="cursor:pointer;"><div style="height:24px;"></div></div></div><div class="tslot "><div class="tslbl">10 PM</div><div class="tscont" onclick="openTB(22)" style="cursor:pointer;"><div style="height:24px;"></div></div></div></div>
+    <div class="tslots" id="tslots"><div class="tslot "><div class="tslbl">6 AM</div><div class="tscont" onclick="openTB(6)" style="cursor:pointer;"><div style="height:24px;"></div></div></div><div class="tslot "><div class="tslbl">7 AM</div><div class="tscont" onclick="openTB(7)" style="cursor:pointer;"><div style="height:24px;"></div></div></div><div class="tslot "><div class="tslbl">8 AM</div><div class="tscont" onclick="openTB(8)" style="cursor:pointer;"><div style="height:24px;"></div></div></div><div class="tslot "><div class="tslbl">9 AM</div><div class="tscont" onclick="openTB(9)" style="cursor:pointer;"><div style="height:24px;"></div></div></div><div class="tslot "><div class="tslbl">10 AM</div><div class="tscont" onclick="openTB(10)" style="cursor:pointer;"><div style="height:24px;"></div></div></div><div class="tslot "><div class="tslbl">11 AM</div><div class="tscont" onclick="openTB(11)" style="cursor:pointer;"><div style="height:24px;"></div></div></div><div class="tslot "><div class="tslbl">12 PM</div><div class="tscont" onclick="openTB(12)" style="cursor:pointer;"><div style="height:24px;"></div></div></div><div class="tslot "><div class="tslbl">1 PM</div><div class="tscont" onclick="openTB(13)" style="cursor:pointer;"><div style="height:24px;"></div></div></div><div class="tslot "><div class="tslbl">2 PM</div><div class="tscont" onclick="openTB(14)" style="cursor:pointer;"><div style="height:24px;"></div></div></div><div class="tslot "><div class="tslbl">3 PM</div><div class="tscont" onclick="openTB(15)" style="cursor:pointer;"><div style="height:24px;"></div></div></div><div class="tslot "><div class="tslbl">4 PM</div><div class="tscont" onclick="openTB(16)" style="cursor:pointer;"><div style="height:24px;"></div></div></div><div class="tslot "><div class="tslbl">5 PM</div><div class="tscont" onclick="openTB(17)" style="cursor:pointer;"><div style="height:24px;"></div></div></div><div class="tslot now"><div class="tslbl">6 PM</div><div class="tscont" onclick="openTB(18)" style="cursor:pointer;"><div style="height:24px;"></div></div></div><div class="tslot "><div class="tslbl">7 PM</div><div class="tscont" onclick="openTB(19)" style="cursor:pointer;"><div style="height:24px;"></div></div></div><div class="tslot "><div class="tslbl">8 PM</div><div class="tscont" onclick="openTB(20)" style="cursor:pointer;"><div style="height:24px;"></div></div></div><div class="tslot "><div class="tslbl">9 PM</div><div class="tscont" onclick="openTB(21)" style="cursor:pointer;"><div style="height:24px;"></div></div></div><div class="tslot "><div class="tslbl">10 PM</div><div class="tscont" onclick="openTB(22)" style="cursor:pointer;"><div style="height:24px;"></div></div></div></div>
   </div>
 </div>
 
@@ -1503,7 +1477,7 @@ body.dark .mtitle { color: #E8EDF5 !important; }
   <div class="pg-hdr">
     <div><div class="pg-title">Habits 🔥</div><div class="pg-sub">Habit 7: Sharpen the saw — renew yourself daily</div></div>
   </div>
-  <div id="habits-list"><div class="hcard"><div class="hico hc-peach">💪</div><div class="hbody"><div class="hname">Morning Workout</div><div class="hstreak">🔥 <strong>0</strong> day streak · 0/7 this week</div><div class="hweek"><div class="hday  ">W</div><div class="hday  ">T</div><div class="hday  ">F</div><div class="hday  ">S</div><div class="hday  ">S</div><div class="hday  ">M</div><div class="hday  today">T</div></div><div class="hprog"><div class="hprog-fill" style="width:0%;"></div></div></div><button class="hchk " onclick="togHabit(&#39;h1&#39;)">⭕</button></div><div class="hcard"><div class="hico hc-gold">📚</div><div class="hbody"><div class="hname">Read 20 Minutes</div><div class="hstreak">🔥 <strong>1</strong> day streak · 1/7 this week</div><div class="hweek"><div class="hday  ">W</div><div class="hday  ">T</div><div class="hday  ">F</div><div class="hday  ">S</div><div class="hday  ">S</div><div class="hday  ">M</div><div class="hday on today">T</div></div><div class="hprog"><div class="hprog-fill" style="width:14%;"></div></div></div><button class="hchk on" onclick="togHabit(&#39;h2&#39;)">✅</button></div><div class="hcard"><div class="hico hc-lav">🙏</div><div class="hbody"><div class="hname">Prayer &amp; Meditation</div><div class="hstreak">🔥 <strong>1</strong> day streak · 1/7 this week</div><div class="hweek"><div class="hday  ">W</div><div class="hday  ">T</div><div class="hday  ">F</div><div class="hday  ">S</div><div class="hday  ">S</div><div class="hday  ">M</div><div class="hday on today">T</div></div><div class="hprog"><div class="hprog-fill" style="width:14%;"></div></div></div><button class="hchk on" onclick="togHabit(&#39;h3&#39;)">✅</button></div><div class="hcard"><div class="hico hc-peach">⭐</div><div class="hbody"><div class="hname">Work on Craft</div><div class="hstreak">🔥 <strong>1</strong> day streak · 1/7 this week</div><div class="hweek"><div class="hday  ">W</div><div class="hday  ">T</div><div class="hday  ">F</div><div class="hday  ">S</div><div class="hday  ">S</div><div class="hday  ">M</div><div class="hday on today">T</div></div><div class="hprog"><div class="hprog-fill" style="width:14%;"></div></div></div><button class="hchk on" onclick="togHabit(&#39;h1775602741424&#39;)">✅</button></div></div>
+  <div id="habits-list"><div class="hcard" id="hcard-h1"><div class="hico hc-peach">💪</div><div class="hbody"><div style="display:flex;align-items:center;gap:8px"><div class="hname">Morning Workout</div><button class="h-edit-btn" onclick="openEditHabit(&#39;h1&#39;)">✏️</button></div><div class="hstreak" style="margin-top:4px">🔥 <strong>1</strong> day streak · 1/7 this week</div><div class="hweek" style="margin-top:7px"><div class="hday past-clickable" onclick="habDayClick(&#39;h1&#39;,&#39;2026-04-02&#39;)" title="Backfill: 2026-04-02">W</div><div class="hday past-clickable" onclick="habDayClick(&#39;h1&#39;,&#39;2026-04-03&#39;)" title="Backfill: 2026-04-03">T</div><div class="hday past-clickable" onclick="habDayClick(&#39;h1&#39;,&#39;2026-04-04&#39;)" title="Backfill: 2026-04-04">F</div><div class="hday past-clickable" onclick="habDayClick(&#39;h1&#39;,&#39;2026-04-05&#39;)" title="Backfill: 2026-04-05">S</div><div class="hday past-clickable" onclick="habDayClick(&#39;h1&#39;,&#39;2026-04-06&#39;)" title="Backfill: 2026-04-06">S</div><div class="hday on past-clickable" onclick="habDayClick(&#39;h1&#39;,&#39;2026-04-07&#39;)" title="Remove: 2026-04-07">M</div><div class="hday today" onclick="habDayClick(&#39;h1&#39;,&#39;2026-04-08&#39;)" title="Today">T</div></div><div class="hprog"><div class="hprog-fill" style="width:14%"></div></div><div class="backfill-hint">← tap past days to backfill</div></div><button class="hchk" onclick="togHabit(&#39;h1&#39;)">⭕</button></div><div class="hcard" id="hcard-h2"><div class="hico hc-gold">📚</div><div class="hbody"><div style="display:flex;align-items:center;gap:8px"><div class="hname">Read BOM 20 Minutes</div><button class="h-edit-btn" onclick="openEditHabit(&#39;h2&#39;)">✏️</button></div><div><span class="covey-align-badge ca-h7">🏛️ H7 · Sharpen the Saw</span></div><div class="hstreak" style="margin-top:4px">🔥 <strong>0</strong> day streak · 0/7 this week</div><div class="hweek" style="margin-top:7px"><div class="hday past-clickable" onclick="habDayClick(&#39;h2&#39;,&#39;2026-04-02&#39;)" title="Backfill: 2026-04-02">W</div><div class="hday past-clickable" onclick="habDayClick(&#39;h2&#39;,&#39;2026-04-03&#39;)" title="Backfill: 2026-04-03">T</div><div class="hday past-clickable" onclick="habDayClick(&#39;h2&#39;,&#39;2026-04-04&#39;)" title="Backfill: 2026-04-04">F</div><div class="hday past-clickable" onclick="habDayClick(&#39;h2&#39;,&#39;2026-04-05&#39;)" title="Backfill: 2026-04-05">S</div><div class="hday past-clickable" onclick="habDayClick(&#39;h2&#39;,&#39;2026-04-06&#39;)" title="Backfill: 2026-04-06">S</div><div class="hday past-clickable" onclick="habDayClick(&#39;h2&#39;,&#39;2026-04-07&#39;)" title="Backfill: 2026-04-07">M</div><div class="hday today" onclick="habDayClick(&#39;h2&#39;,&#39;2026-04-08&#39;)" title="Today">T</div></div><div class="hprog"><div class="hprog-fill" style="width:0%"></div></div><div class="backfill-hint">← tap past days to backfill</div></div><button class="hchk" onclick="togHabit(&#39;h2&#39;)">⭕</button></div><div class="hcard" id="hcard-h3"><div class="hico hc-lav">🙏</div><div class="hbody"><div style="display:flex;align-items:center;gap:8px"><div class="hname">Prayer &amp; Meditation</div><button class="h-edit-btn" onclick="openEditHabit(&#39;h3&#39;)">✏️</button></div><div class="hstreak" style="margin-top:4px">🔥 <strong>3</strong> day streak · 3/7 this week</div><div class="hweek" style="margin-top:7px"><div class="hday past-clickable" onclick="habDayClick(&#39;h3&#39;,&#39;2026-04-02&#39;)" title="Backfill: 2026-04-02">W</div><div class="hday past-clickable" onclick="habDayClick(&#39;h3&#39;,&#39;2026-04-03&#39;)" title="Backfill: 2026-04-03">T</div><div class="hday past-clickable" onclick="habDayClick(&#39;h3&#39;,&#39;2026-04-04&#39;)" title="Backfill: 2026-04-04">F</div><div class="hday past-clickable" onclick="habDayClick(&#39;h3&#39;,&#39;2026-04-05&#39;)" title="Backfill: 2026-04-05">S</div><div class="hday on past-clickable" onclick="habDayClick(&#39;h3&#39;,&#39;2026-04-06&#39;)" title="Remove: 2026-04-06">S</div><div class="hday on past-clickable" onclick="habDayClick(&#39;h3&#39;,&#39;2026-04-07&#39;)" title="Remove: 2026-04-07">M</div><div class="hday on today" onclick="habDayClick(&#39;h3&#39;,&#39;2026-04-08&#39;)" title="Today">T</div></div><div class="hprog"><div class="hprog-fill" style="width:43%"></div></div><div class="backfill-hint">← tap past days to backfill</div></div><button class="hchk on" onclick="togHabit(&#39;h3&#39;)">✅</button></div></div>
   <button class="add-h-btn" onclick="openHabit()">+ Add New Habit</button>
 </div>
 
@@ -1537,7 +1511,7 @@ body.dark .mtitle { color: #E8EDF5 !important; }
   </div>
   <div class="pcrd">
     <div class="pcrd-t">📋 Select task to focus on</div>
-    <div id="pomo-tasks" style="font-size:13px;color:var(--ink-m);"><div style="color:var(--ink-m);font-size:13px;">No pending tasks for today</div></div>
+    <div id="pomo-tasks" style="font-size:13px;color:var(--ink-m);"><div style="display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:1px solid var(--border);cursor:pointer;" onclick="selPomoTask(&#39;t1&#39;)"><div style="width:7px;height:7px;border-radius:50%;background:var(--q1);flex-shrink:0;"></div><span style="font-size:12px;font-weight:600;color:var(--ink);">Review Q2 sales report</span></div><div style="display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:1px solid var(--border);cursor:pointer;" onclick="selPomoTask(&#39;t2&#39;)"><div style="width:7px;height:7px;border-radius:50%;background:var(--q2);flex-shrink:0;"></div><span style="font-size:12px;font-weight:600;color:var(--ink);">Solo Passport investor deck</span></div><div style="display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:1px solid var(--border);cursor:pointer;" onclick="selPomoTask(&#39;t3&#39;)"><div style="width:7px;height:7px;border-radius:50%;background:var(--q2);flex-shrink:0;"></div><span style="font-size:12px;font-weight:600;color:var(--ink);">Ward council prep</span></div></div>
   </div>
 </div>
 
@@ -1551,7 +1525,7 @@ body.dark .mtitle { color: #E8EDF5 !important; }
     <div class="scrd-hdr">
       <div class="scrd-ico" style="background:linear-gradient(135deg,#4285F4,#34A853);">✨</div>
       <div><div class="scrd-title">AI — Google Gemini</div><div class="scrd-sub"><strong style="color:var(--sage);">100% Free</strong> · 1,500 requests/day · No credit card</div></div>
-      <div id="ai-badge" class="sbadge sb-on">✅ Free</div>
+      <div id="ai-badge" class="sbadge sb-off">Not Connected</div>
     </div>
     <div class="scrd-body">
       <div class="sinfo" style="background:linear-gradient(135deg,#f0f9f4,#e8f4fd);border-color:#b8e0ca;">
@@ -1583,7 +1557,7 @@ body.dark .mtitle { color: #E8EDF5 !important; }
     <div class="scrd-hdr">
       <div class="scrd-ico" style="background:linear-gradient(135deg,#F5A623,#E8533A);">🔥</div>
       <div><div class="scrd-title">Firebase Sync</div><div class="scrd-sub">Cross-device sync · Your data in the cloud</div></div>
-      <div id="fb-badge" class="sbadge sb-on">✅ Connected</div>
+      <div id="fb-badge" class="sbadge sb-off">Not Connected</div>
     </div>
     <div class="scrd-body">
       <div class="sinfo">
@@ -1787,11 +1761,53 @@ body.dark .mtitle { color: #E8EDF5 !important; }
 
 </main>
 
+
+<!-- END IN MIND GOALS VIEW -->
+<div class="view" id="view-goals" style="padding:28px 32px;">
+  <div class="pg-hdr">
+    <div><div class="pg-title">End in Mind Goals 🎯</div><div class="pg-sub">Habit 2: Begin with the end in mind — envision the destination, plan backward to today</div></div>
+    <button class="btn btn-p" onclick="openAddGoal()">+ New Goal</button>
+  </div>
+  <div style="background:linear-gradient(135deg,rgba(27,58,107,.06),rgba(201,168,76,.06));border-radius:var(--r);padding:16px 20px;margin-bottom:22px;border:1px solid rgba(201,168,76,.2);font-size:13px;color:var(--ink-l);line-height:1.7;"><strong style="color:#1B3A6B;display:block;margin-bottom:6px;">💡 Covey's Backward Planning</strong>"Start with the end outcome and work backward to make your dream possible." — Covey<br>Define your ultimate vision, then add milestones working <strong>backward</strong> from that date to today.</div>
+  <div id="goals-list"></div>
+</div>
+
+<!-- GOAL MODAL -->
+<div class="overlay" id="m-goal">
+  <div class="modal" style="max-width:600px;">
+    <div class="mhdr"><div class="mtitle" id="m-goal-title">New End-in-Mind Goal</div><button class="mx" onclick="closeModal('m-goal')">&#x2715;</button></div>
+    <div class="mbody">
+      <div class="fg"><label class="flbl">Ultimate Vision (The End)</label><input class="fi" id="goal-title" placeholder="e.g. Launch Solo Passport with 100K users, Run a marathon..."></div>
+      <div class="frow">
+        <div class="fg"><label class="flbl">Target Date</label><input class="fi" type="date" id="goal-date"></div>
+        <div class="fg"><label class="flbl">Category</label><select class="fsel" id="goal-cat"><option value="personal">Personal Growth</option><option value="career">Career / Business</option><option value="health">Health & Fitness</option><option value="family">Family & Relationships</option><option value="financial">Financial</option><option value="spiritual">Spiritual</option><option value="community">Community / Service</option></select></div>
+      </div>
+      <div class="fg"><label class="flbl">Why does this matter?</label><textarea class="fta" id="goal-why" placeholder="When I achieve this..." style="min-height:60px;"></textarea></div>
+      <div class="fg">
+        <label class="flbl">🔙 Backward Milestones (furthest first)</label>
+        <div style="font-size:11px;color:var(--ink-m);margin-bottom:8px;">Add milestones working BACKWARD from your target date. What must be true 1 year before? 6 months? 3 months?</div>
+        <div id="milestone-list" style="margin-bottom:8px;"></div>
+        <div style="display:flex;gap:8px;margin-bottom:8px;">
+          <input class="fi" id="ms-title" placeholder="Milestone..." style="flex:1;">
+          <input class="fi" type="date" id="ms-date" style="width:150px;">
+          <button class="st-btn" onclick="addMilestone()">+ Add</button>
+        </div>
+        <button onclick="autoMilestones()" style="padding:7px 14px;background:rgba(27,58,107,.1);border:1px solid rgba(27,58,107,.2);border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;color:#1B3A6B;">✨ AI: Generate milestones backward</button>
+      </div>
+    </div>
+    <div class="mfoot">
+      <div id="goal-delete-row" style="display:none;margin-right:auto;"><button onclick="deleteGoal()" style="padding:9px 14px;background:rgba(192,57,43,.08);border:1px solid rgba(192,57,43,.2);border-radius:10px;color:#C0392B;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:700;cursor:pointer;">🗑️ Delete</button></div>
+      <button class="btn btn-s" onclick="closeModal('m-goal')">Cancel</button>
+      <button class="btn btn-p" onclick="saveGoal()">Save Goal</button>
+    </div>
+  </div>
+</div>
+
 <!-- RIGHT PANEL -->
 <aside class="rpanel">
   <div class="pcrd">
     <div class="pcrd-t">📅 Calendar</div>
-    <div id="mini-cal"><div class="mc-hdr"><button class="mc-nav" onclick="shiftCal(-1)">‹</button><div class="mc-month">Apr 2026</div><button class="mc-nav" onclick="shiftCal(1)">›</button></div><div class="mc-grid"><div class="mc-dow">S</div><div class="mc-dow">M</div><div class="mc-dow">T</div><div class="mc-dow">W</div><div class="mc-dow">T</div><div class="mc-dow">F</div><div class="mc-dow">S</div><div class="mc-day empty"></div><div class="mc-day empty"></div><div class="mc-day empty"></div><div class="mc-day  has" onclick="mcJump(&#39;2026-04-01&#39;)">1</div><div class="mc-day  has" onclick="mcJump(&#39;2026-04-02&#39;)">2</div><div class="mc-day  " onclick="mcJump(&#39;2026-04-03&#39;)">3</div><div class="mc-day  has" onclick="mcJump(&#39;2026-04-04&#39;)">4</div><div class="mc-day  " onclick="mcJump(&#39;2026-04-05&#39;)">5</div><div class="mc-day  " onclick="mcJump(&#39;2026-04-06&#39;)">6</div><div class="mc-day today has" onclick="mcJump(&#39;2026-04-07&#39;)">7</div><div class="mc-day  " onclick="mcJump(&#39;2026-04-08&#39;)">8</div><div class="mc-day  " onclick="mcJump(&#39;2026-04-09&#39;)">9</div><div class="mc-day  " onclick="mcJump(&#39;2026-04-10&#39;)">10</div><div class="mc-day  " onclick="mcJump(&#39;2026-04-11&#39;)">11</div><div class="mc-day  " onclick="mcJump(&#39;2026-04-12&#39;)">12</div><div class="mc-day  has" onclick="mcJump(&#39;2026-04-13&#39;)">13</div><div class="mc-day  " onclick="mcJump(&#39;2026-04-14&#39;)">14</div><div class="mc-day  " onclick="mcJump(&#39;2026-04-15&#39;)">15</div><div class="mc-day  " onclick="mcJump(&#39;2026-04-16&#39;)">16</div><div class="mc-day  " onclick="mcJump(&#39;2026-04-17&#39;)">17</div><div class="mc-day  " onclick="mcJump(&#39;2026-04-18&#39;)">18</div><div class="mc-day  " onclick="mcJump(&#39;2026-04-19&#39;)">19</div><div class="mc-day  " onclick="mcJump(&#39;2026-04-20&#39;)">20</div><div class="mc-day  " onclick="mcJump(&#39;2026-04-21&#39;)">21</div><div class="mc-day  " onclick="mcJump(&#39;2026-04-22&#39;)">22</div><div class="mc-day  " onclick="mcJump(&#39;2026-04-23&#39;)">23</div><div class="mc-day  " onclick="mcJump(&#39;2026-04-24&#39;)">24</div><div class="mc-day  " onclick="mcJump(&#39;2026-04-25&#39;)">25</div><div class="mc-day  " onclick="mcJump(&#39;2026-04-26&#39;)">26</div><div class="mc-day  " onclick="mcJump(&#39;2026-04-27&#39;)">27</div><div class="mc-day  " onclick="mcJump(&#39;2026-04-28&#39;)">28</div><div class="mc-day  " onclick="mcJump(&#39;2026-04-29&#39;)">29</div><div class="mc-day  " onclick="mcJump(&#39;2026-04-30&#39;)">30</div></div></div>
+    <div id="mini-cal"><div class="mc-hdr"><button class="mc-nav" onclick="shiftCal(-1)">‹</button><div class="mc-month">Apr 2026</div><button class="mc-nav" onclick="shiftCal(1)">›</button></div><div class="mc-grid"><div class="mc-dow">S</div><div class="mc-dow">M</div><div class="mc-dow">T</div><div class="mc-dow">W</div><div class="mc-dow">T</div><div class="mc-dow">F</div><div class="mc-dow">S</div><div class="mc-day empty"></div><div class="mc-day empty"></div><div class="mc-day empty"></div><div class="mc-day  " onclick="mcJump(&#39;2026-04-01&#39;)">1</div><div class="mc-day  " onclick="mcJump(&#39;2026-04-02&#39;)">2</div><div class="mc-day  " onclick="mcJump(&#39;2026-04-03&#39;)">3</div><div class="mc-day  " onclick="mcJump(&#39;2026-04-04&#39;)">4</div><div class="mc-day  " onclick="mcJump(&#39;2026-04-05&#39;)">5</div><div class="mc-day  " onclick="mcJump(&#39;2026-04-06&#39;)">6</div><div class="mc-day  " onclick="mcJump(&#39;2026-04-07&#39;)">7</div><div class="mc-day today has" onclick="mcJump(&#39;2026-04-08&#39;)">8</div><div class="mc-day  " onclick="mcJump(&#39;2026-04-09&#39;)">9</div><div class="mc-day  " onclick="mcJump(&#39;2026-04-10&#39;)">10</div><div class="mc-day  " onclick="mcJump(&#39;2026-04-11&#39;)">11</div><div class="mc-day  " onclick="mcJump(&#39;2026-04-12&#39;)">12</div><div class="mc-day  " onclick="mcJump(&#39;2026-04-13&#39;)">13</div><div class="mc-day  " onclick="mcJump(&#39;2026-04-14&#39;)">14</div><div class="mc-day  " onclick="mcJump(&#39;2026-04-15&#39;)">15</div><div class="mc-day  " onclick="mcJump(&#39;2026-04-16&#39;)">16</div><div class="mc-day  " onclick="mcJump(&#39;2026-04-17&#39;)">17</div><div class="mc-day  " onclick="mcJump(&#39;2026-04-18&#39;)">18</div><div class="mc-day  " onclick="mcJump(&#39;2026-04-19&#39;)">19</div><div class="mc-day  " onclick="mcJump(&#39;2026-04-20&#39;)">20</div><div class="mc-day  " onclick="mcJump(&#39;2026-04-21&#39;)">21</div><div class="mc-day  " onclick="mcJump(&#39;2026-04-22&#39;)">22</div><div class="mc-day  " onclick="mcJump(&#39;2026-04-23&#39;)">23</div><div class="mc-day  " onclick="mcJump(&#39;2026-04-24&#39;)">24</div><div class="mc-day  " onclick="mcJump(&#39;2026-04-25&#39;)">25</div><div class="mc-day  " onclick="mcJump(&#39;2026-04-26&#39;)">26</div><div class="mc-day  " onclick="mcJump(&#39;2026-04-27&#39;)">27</div><div class="mc-day  " onclick="mcJump(&#39;2026-04-28&#39;)">28</div><div class="mc-day  " onclick="mcJump(&#39;2026-04-29&#39;)">29</div><div class="mc-day  " onclick="mcJump(&#39;2026-04-30&#39;)">30</div></div></div>
   </div>
   <div class="pcrd">
     <div class="pcrd-t">⚡ Today's Progress</div>
@@ -1799,26 +1815,32 @@ body.dark .mtitle { color: #E8EDF5 !important; }
       <div class="pr-ring">
         <svg class="pr-svg" viewBox="0 0 64 64">
           <circle class="pr-bg" cx="32" cy="32" r="26"></circle>
-          <circle class="pr-fill" id="pr-ring" cx="32" cy="32" r="26" stroke-dasharray="163.4" stroke-dashoffset="163.4" style="stroke-dashoffset: 0;"></circle>
+          <circle class="pr-fill" id="pr-ring" cx="32" cy="32" r="26" stroke-dasharray="163.4" stroke-dashoffset="163.4" style="stroke-dashoffset: 163.4;"></circle>
         </svg>
-        <div class="pr-txt" id="pr-pct">100%</div>
+        <div class="pr-txt" id="pr-pct">0%</div>
       </div>
       <div>
-        <div class="pr-lbl" id="pr-lbl">2 of 2</div>
-        <div class="pr-sub" id="pr-sub">🎉 All done!</div>
+        <div class="pr-lbl" id="pr-lbl">0 of 3</div>
+        <div class="pr-sub" id="pr-sub">Keep going! 💪</div>
       </div>
     </div>
   </div>
   <div class="pcrd">
     <div class="pcrd-t">🔜 Coming Up</div>
     <div id="coming-up" style="font-size:12px;color:var(--ink-m);"><div style="padding:5px 0;border-bottom:1px solid var(--border);display:flex;gap:7px;align-items:flex-start;">
+    <div style="width:6px;height:6px;border-radius:50%;background:var(--q1);flex-shrink:0;margin-top:4px;"></div>
+    <div><div style="font-size:11px;font-weight:600;">Review Q2 sales report</div><div style="font-size:10px;color:var(--ink-m);">Today</div></div>
+  </div><div style="padding:5px 0;border-bottom:1px solid var(--border);display:flex;gap:7px;align-items:flex-start;">
     <div style="width:6px;height:6px;border-radius:50%;background:var(--q2);flex-shrink:0;margin-top:4px;"></div>
-    <div><div style="font-size:11px;font-weight:600;">Sign Up at Vasa</div><div style="font-size:10px;color:var(--ink-m);">2026-04-13 · 18:00</div></div>
+    <div><div style="font-size:11px;font-weight:600;">Solo Passport investor deck</div><div style="font-size:10px;color:var(--ink-m);">Today</div></div>
+  </div><div style="padding:5px 0;border-bottom:1px solid var(--border);display:flex;gap:7px;align-items:flex-start;">
+    <div style="width:6px;height:6px;border-radius:50%;background:var(--q2);flex-shrink:0;margin-top:4px;"></div>
+    <div><div style="font-size:11px;font-weight:600;">Ward council prep</div><div style="font-size:10px;color:var(--ink-m);">Today</div></div>
   </div></div>
   </div>
   <div class="pcrd">
     <div class="pcrd-t">🧭 Q2 Focus</div>
-    <div style="font-size:12px;color:var(--ink-l);line-height:1.6;" id="q2-panel"><div style="color:var(--ink-m);">No Q2 tasks today. Add important-but-not-urgent activities!</div></div>
+    <div style="font-size:12px;color:var(--ink-l);line-height:1.6;" id="q2-panel"><div style="padding:5px 0;border-bottom:1px solid var(--border);font-size:12px;font-weight:600;color:var(--ink-l);">🔵 Solo Passport investor deck</div><div style="padding:5px 0;border-bottom:1px solid var(--border);font-size:12px;font-weight:600;color:var(--ink-l);">🔵 Ward council prep</div><div style="font-size:11px;color:var(--q2);margin-top:6px;font-weight:700;">↑ Important, non-urgent. Do these!</div></div>
   </div>
 </aside>
 </div><!-- #app -->
@@ -1926,24 +1948,24 @@ body.dark .mtitle { color: #E8EDF5 !important; }
 <!-- Habit Modal -->
 <div class="overlay" id="m-habit">
   <div class="modal">
-    <div class="mhdr"><div class="mtitle" id="m-habit-title">New Habit</div><button class="mx" onclick="closeModal(&#39;m-habit&#39;)">✕</button></div>
+    <div class="mhdr"><div class="mtitle" id="m-habit-title">Edit Habit</div><button class="mx" onclick="closeModal(&#39;m-habit&#39;)">✕</button></div>
     <div class="mbody">
       <div class="fg"><label class="flbl">Habit Name</label><input class="fi" id="h-name" placeholder="e.g. Morning Walk, Read 20 min"></div>
       <div class="fg"><label class="flbl">Icon</label><input class="fi" id="h-icon" placeholder="🏃" maxlength="4"></div>
       <div class="fg">
         <label class="flbl">Color</label>
         <div style="display:flex;gap:7px;" id="h-colors">
-          <div style="width:30px;height:30px;border-radius:8px;background:var(--peach-p);border:2px solid var(--peach);cursor:pointer;display:flex;align-items:center;justify-content:center;" data-c="peach" onclick="setHC(&#39;peach&#39;)">✓</div>
-          <div style="width:30px;height:30px;border-radius:8px;background:var(--gold-p);border:2px solid var(--border);cursor:pointer;" data-c="gold" onclick="setHC(&#39;gold&#39;)"></div>
-          <div style="width:30px;height:30px;border-radius:8px;background:var(--sage-p);border:2px solid var(--border);cursor:pointer;" data-c="sage" onclick="setHC(&#39;sage&#39;)"></div>
-          <div style="width:30px;height:30px;border-radius:8px;background:var(--sky-p);border:2px solid var(--border);cursor:pointer;" data-c="sky" onclick="setHC(&#39;sky&#39;)"></div>
-          <div style="width:30px;height:30px;border-radius:8px;background:var(--lav-p);border:2px solid var(--border);cursor:pointer;" data-c="lav" onclick="setHC(&#39;lav&#39;)"></div>
+          <div style="width: 30px; height: 30px; border-radius: 8px; background: var(--peach-p); border-color: var(--border); border-top-style: ; border-top-width: ; border-right-style: ; border-right-width: ; border-bottom-style: ; border-bottom-width: ; border-left-style: ; border-left-width: ; border-image-source: ; border-image-slice: ; border-image-width: ; border-image-outset: ; border-image-repeat: ; cursor: pointer; display: flex; align-items: center; justify-content: center;" data-c="peach" onclick="setHC(&#39;peach&#39;)"></div>
+          <div style="width: 30px; height: 30px; border-radius: 8px; background: var(--gold-p); border-color: var(--peach); border-top-style: ; border-top-width: ; border-right-style: ; border-right-width: ; border-bottom-style: ; border-bottom-width: ; border-left-style: ; border-left-width: ; border-image-source: ; border-image-slice: ; border-image-width: ; border-image-outset: ; border-image-repeat: ; cursor: pointer;" data-c="gold" onclick="setHC(&#39;gold&#39;)">✓</div>
+          <div style="width: 30px; height: 30px; border-radius: 8px; background: var(--sage-p); border-color: var(--border); border-top-style: ; border-top-width: ; border-right-style: ; border-right-width: ; border-bottom-style: ; border-bottom-width: ; border-left-style: ; border-left-width: ; border-image-source: ; border-image-slice: ; border-image-width: ; border-image-outset: ; border-image-repeat: ; cursor: pointer;" data-c="sage" onclick="setHC(&#39;sage&#39;)"></div>
+          <div style="width: 30px; height: 30px; border-radius: 8px; background: var(--sky-p); border-color: var(--border); border-top-style: ; border-top-width: ; border-right-style: ; border-right-width: ; border-bottom-style: ; border-bottom-width: ; border-left-style: ; border-left-width: ; border-image-source: ; border-image-slice: ; border-image-width: ; border-image-outset: ; border-image-repeat: ; cursor: pointer;" data-c="sky" onclick="setHC(&#39;sky&#39;)"></div>
+          <div style="width: 30px; height: 30px; border-radius: 8px; background: var(--lav-p); border-color: var(--border); border-top-style: ; border-top-width: ; border-right-style: ; border-right-width: ; border-bottom-style: ; border-bottom-width: ; border-left-style: ; border-left-width: ; border-image-source: ; border-image-slice: ; border-image-width: ; border-image-outset: ; border-image-repeat: ; cursor: pointer;" data-c="lav" onclick="setHC(&#39;lav&#39;)"></div>
         </div>
       </div>
       <div class="fg">
         <label class="flbl">Quick Emoji</label>
         <div style="display:flex;gap:5px;flex-wrap:wrap;">
-          <span onclick="document.getElementById(&#39;h-icon&#39;).value=&#39;💪&#39;" style="cursor:pointer;font-size:20px;padding:4px;border-radius:6px;transition:background .15s;" onmouseover="this.style.background=&#39;var(--peach-p)&#39;" onmouseout="this.style.background=&#39;&#39;">💪</span><span onclick="document.getElementById(&#39;h-icon&#39;).value=&#39;📚&#39;" style="cursor:pointer;font-size:20px;padding:4px;border-radius:6px;transition:background .15s;" onmouseover="this.style.background=&#39;var(--peach-p)&#39;" onmouseout="this.style.background=&#39;&#39;">📚</span><span onclick="document.getElementById(&#39;h-icon&#39;).value=&#39;🙏&#39;" style="cursor:pointer;font-size:20px;padding:4px;border-radius:6px;transition:background .15s;" onmouseover="this.style.background=&#39;var(--peach-p)&#39;" onmouseout="this.style.background=&#39;&#39;">🙏</span><span onclick="document.getElementById(&#39;h-icon&#39;).value=&#39;🏃&#39;" style="cursor:pointer;font-size:20px;padding:4px;border-radius:6px;transition:background .15s;" onmouseover="this.style.background=&#39;var(--peach-p)&#39;" onmouseout="this.style.background=&#39;&#39;">🏃</span><span onclick="document.getElementById(&#39;h-icon&#39;).value=&#39;🧘&#39;" style="cursor:pointer;font-size:20px;padding:4px;border-radius:6px;transition:background .15s;" onmouseover="this.style.background=&#39;var(--peach-p)&#39;" onmouseout="this.style.background=&#39;&#39;">🧘</span><span onclick="document.getElementById(&#39;h-icon&#39;).value=&#39;💧&#39;" style="cursor:pointer;font-size:20px;padding:4px;border-radius:6px;transition:background .15s;" onmouseover="this.style.background=&#39;var(--peach-p)&#39;" onmouseout="this.style.background=&#39;&#39;">💧</span><span onclick="document.getElementById(&#39;h-icon&#39;).value=&#39;😴&#39;" style="cursor:pointer;font-size:20px;padding:4px;border-radius:6px;transition:background .15s;" onmouseover="this.style.background=&#39;var(--peach-p)&#39;" onmouseout="this.style.background=&#39;&#39;">😴</span><span onclick="document.getElementById(&#39;h-icon&#39;).value=&#39;✍️&#39;" style="cursor:pointer;font-size:20px;padding:4px;border-radius:6px;transition:background .15s;" onmouseover="this.style.background=&#39;var(--peach-p)&#39;" onmouseout="this.style.background=&#39;&#39;">✍️</span><span onclick="document.getElementById(&#39;h-icon&#39;).value=&#39;🎯&#39;" style="cursor:pointer;font-size:20px;padding:4px;border-radius:6px;transition:background .15s;" onmouseover="this.style.background=&#39;var(--peach-p)&#39;" onmouseout="this.style.background=&#39;&#39;">🎯</span><span onclick="document.getElementById(&#39;h-icon&#39;).value=&#39;🌅&#39;" style="cursor:pointer;font-size:20px;padding:4px;border-radius:6px;transition:background .15s;" onmouseover="this.style.background=&#39;var(--peach-p)&#39;" onmouseout="this.style.background=&#39;&#39;">🌅</span><span onclick="document.getElementById(&#39;h-icon&#39;).value=&#39;🥗&#39;" style="cursor:pointer;font-size:20px;padding:4px;border-radius:6px;transition:background .15s;" onmouseover="this.style.background=&#39;var(--peach-p)&#39;" onmouseout="this.style.background=&#39;&#39;">🥗</span><span onclick="document.getElementById(&#39;h-icon&#39;).value=&#39;🏋️&#39;" style="cursor:pointer;font-size:20px;padding:4px;border-radius:6px;transition:background .15s;" onmouseover="this.style.background=&#39;var(--peach-p)&#39;" onmouseout="this.style.background=&#39;&#39;">🏋️</span><span onclick="document.getElementById(&#39;h-icon&#39;).value=&#39;🧠&#39;" style="cursor:pointer;font-size:20px;padding:4px;border-radius:6px;transition:background .15s;" onmouseover="this.style.background=&#39;var(--peach-p)&#39;" onmouseout="this.style.background=&#39;&#39;">🧠</span><span onclick="document.getElementById(&#39;h-icon&#39;).value=&#39;🤝&#39;" style="cursor:pointer;font-size:20px;padding:4px;border-radius:6px;transition:background .15s;" onmouseover="this.style.background=&#39;var(--peach-p)&#39;" onmouseout="this.style.background=&#39;&#39;">🤝</span><span onclick="document.getElementById(&#39;h-icon&#39;).value=&#39;📖&#39;" style="cursor:pointer;font-size:20px;padding:4px;border-radius:6px;transition:background .15s;" onmouseover="this.style.background=&#39;var(--peach-p)&#39;" onmouseout="this.style.background=&#39;&#39;">📖</span><span onclick="document.getElementById(&#39;h-icon&#39;).value=&#39;🎵&#39;" style="cursor:pointer;font-size:20px;padding:4px;border-radius:6px;transition:background .15s;" onmouseover="this.style.background=&#39;var(--peach-p)&#39;" onmouseout="this.style.background=&#39;&#39;">🎵</span>
+          <span onclick="document.getElementById(&#39;h-icon&#39;).value=&#39;💪&#39;" style="cursor:pointer;font-size:20px;padding:4px;border-radius:6px;transition:background .15s;" onmouseover="this.style.background=&#39;var(--peach-p)&#39;" onmouseout="this.style.background=&#39;&#39;">💪</span><span onclick="document.getElementById(&#39;h-icon&#39;).value=&#39;📚&#39;" style="cursor: pointer; font-size: 20px; padding: 4px; border-radius: 6px; transition: background 0.15s;" onmouseover="this.style.background=&#39;var(--peach-p)&#39;" onmouseout="this.style.background=&#39;&#39;">📚</span><span onclick="document.getElementById(&#39;h-icon&#39;).value=&#39;🙏&#39;" style="cursor: pointer; font-size: 20px; padding: 4px; border-radius: 6px; transition: background 0.15s;" onmouseover="this.style.background=&#39;var(--peach-p)&#39;" onmouseout="this.style.background=&#39;&#39;">🙏</span><span onclick="document.getElementById(&#39;h-icon&#39;).value=&#39;🏃&#39;" style="cursor: pointer; font-size: 20px; padding: 4px; border-radius: 6px; transition: background 0.15s;" onmouseover="this.style.background=&#39;var(--peach-p)&#39;" onmouseout="this.style.background=&#39;&#39;">🏃</span><span onclick="document.getElementById(&#39;h-icon&#39;).value=&#39;🧘&#39;" style="cursor:pointer;font-size:20px;padding:4px;border-radius:6px;transition:background .15s;" onmouseover="this.style.background=&#39;var(--peach-p)&#39;" onmouseout="this.style.background=&#39;&#39;">🧘</span><span onclick="document.getElementById(&#39;h-icon&#39;).value=&#39;💧&#39;" style="cursor:pointer;font-size:20px;padding:4px;border-radius:6px;transition:background .15s;" onmouseover="this.style.background=&#39;var(--peach-p)&#39;" onmouseout="this.style.background=&#39;&#39;">💧</span><span onclick="document.getElementById(&#39;h-icon&#39;).value=&#39;😴&#39;" style="cursor:pointer;font-size:20px;padding:4px;border-radius:6px;transition:background .15s;" onmouseover="this.style.background=&#39;var(--peach-p)&#39;" onmouseout="this.style.background=&#39;&#39;">😴</span><span onclick="document.getElementById(&#39;h-icon&#39;).value=&#39;✍️&#39;" style="cursor:pointer;font-size:20px;padding:4px;border-radius:6px;transition:background .15s;" onmouseover="this.style.background=&#39;var(--peach-p)&#39;" onmouseout="this.style.background=&#39;&#39;">✍️</span><span onclick="document.getElementById(&#39;h-icon&#39;).value=&#39;🎯&#39;" style="cursor:pointer;font-size:20px;padding:4px;border-radius:6px;transition:background .15s;" onmouseover="this.style.background=&#39;var(--peach-p)&#39;" onmouseout="this.style.background=&#39;&#39;">🎯</span><span onclick="document.getElementById(&#39;h-icon&#39;).value=&#39;🌅&#39;" style="cursor:pointer;font-size:20px;padding:4px;border-radius:6px;transition:background .15s;" onmouseover="this.style.background=&#39;var(--peach-p)&#39;" onmouseout="this.style.background=&#39;&#39;">🌅</span><span onclick="document.getElementById(&#39;h-icon&#39;).value=&#39;🥗&#39;" style="cursor:pointer;font-size:20px;padding:4px;border-radius:6px;transition:background .15s;" onmouseover="this.style.background=&#39;var(--peach-p)&#39;" onmouseout="this.style.background=&#39;&#39;">🥗</span><span onclick="document.getElementById(&#39;h-icon&#39;).value=&#39;🏋️&#39;" style="cursor:pointer;font-size:20px;padding:4px;border-radius:6px;transition:background .15s;" onmouseover="this.style.background=&#39;var(--peach-p)&#39;" onmouseout="this.style.background=&#39;&#39;">🏋️</span><span onclick="document.getElementById(&#39;h-icon&#39;).value=&#39;🧠&#39;" style="cursor:pointer;font-size:20px;padding:4px;border-radius:6px;transition:background .15s;" onmouseover="this.style.background=&#39;var(--peach-p)&#39;" onmouseout="this.style.background=&#39;&#39;">🧠</span><span onclick="document.getElementById(&#39;h-icon&#39;).value=&#39;🤝&#39;" style="cursor:pointer;font-size:20px;padding:4px;border-radius:6px;transition:background .15s;" onmouseover="this.style.background=&#39;var(--peach-p)&#39;" onmouseout="this.style.background=&#39;&#39;">🤝</span><span onclick="document.getElementById(&#39;h-icon&#39;).value=&#39;📖&#39;" style="cursor:pointer;font-size:20px;padding:4px;border-radius:6px;transition:background .15s;" onmouseover="this.style.background=&#39;var(--peach-p)&#39;" onmouseout="this.style.background=&#39;&#39;">📖</span><span onclick="document.getElementById(&#39;h-icon&#39;).value=&#39;🎵&#39;" style="cursor:pointer;font-size:20px;padding:4px;border-radius:6px;transition:background .15s;" onmouseover="this.style.background=&#39;var(--peach-p)&#39;" onmouseout="this.style.background=&#39;&#39;">🎵</span>
         </div>
       </div>
       
@@ -1961,7 +1983,7 @@ body.dark .mtitle { color: #E8EDF5 !important; }
           <div class="covey-sel-opt" data-ch="none" onclick="setCoveyHabit(&#39;none&#39;)">No Alignment<br><span style="font-weight:500;font-size:10px;opacity:.7">General habit</span></div>
         </div>
       </div>
-      <div id="h-delete-row" style="display:none;margin-top:4px">
+      <div id="h-delete-row" style="display: block; margin-top: 4px;">
         <button onclick="deleteHabit()" style="width:100%;padding:9px;background:rgba(192,57,43,.08);border:1px solid rgba(192,57,43,.2);border-radius:10px;color:#C0392B;font-family:&#39;DM Sans&#39;,sans-serif;font-size:13px;font-weight:700;cursor:pointer">🗑️ Delete This Habit</button>
       </div>
     <div class="mfoot"><button class="btn btn-s" onclick="closeModal(&#39;m-habit&#39;)">Cancel</button><button class="btn btn-p" onclick="saveHabit()">Save Habit</button></div>
@@ -1969,7 +1991,7 @@ body.dark .mtitle { color: #E8EDF5 !important; }
 </div>
 
 <!-- Time Block Modal -->
-<div class="overlay" id="m-tb">
+<div class="overlay open" id="m-tb">
   <div class="modal">
     <div class="mhdr"><div class="mtitle">Add Time Block</div><button class="mx" onclick="closeModal(&#39;m-tb&#39;)">✕</button></div>
     <div class="mbody">
@@ -2510,46 +2532,85 @@ function setQ(q){selQ=q;document.querySelectorAll('.qopt').forEach(el=>el.classL
 // ROLES & GOALS
 // ═══════════════════════════════════════════════════════
 function renderRoles() {
-  const grid=document.getElementById('roles-grid');
-  if(!roles.length){grid.innerHTML=`<div class="empty-v2"><svg width="110" height="110" viewBox="0 0 110 110" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="55" cy="55" r="42" fill="var(--lav-p)" stroke="var(--lav)" stroke-width="2" opacity=".4"/><circle cx="55" cy="55" r="5" fill="var(--lav)"/><line x1="55" y1="13" x2="55" y2="50" stroke="var(--lav)" stroke-width="2" opacity=".6"/><line x1="55" y1="60" x2="55" y2="97" stroke="var(--lav)" stroke-width="2" opacity=".3"/><line x1="13" y1="55" x2="50" y2="55" stroke="var(--lav)" stroke-width="2" opacity=".3"/><line x1="60" y1="55" x2="97" y2="55" stroke="var(--lav)" stroke-width="2" opacity=".3"/><polygon points="55,13 59,24 55,20 51,24" fill="var(--peach)"/><circle cx="55" cy="13" r="5" fill="var(--peach)"/><circle cx="55" cy="97" r="4" fill="var(--lav)" opacity=".4"/><circle cx="13" cy="55" r="4" fill="var(--lav)" opacity=".4"/><circle cx="97" cy="55" r="4" fill="var(--lav)" opacity=".4"/></svg><div class="empty-v2-title">Define Your Roles 🧭</div><div class="empty-v2-sub">Who are you? Father, entrepreneur, leader, learner? Your roles shape your priorities.</div><div class="empty-v2-quote">“Identify your key roles, then ask what one result to accomplish in each.” — Covey</div><button class="empty-v2-btn" onclick="openAddRole()">+ Add Your First Role</button></div>`;document.getElementById("role-tasks-panel").style.display="none";return;}
-  grid.innerHTML=roles.map(r=>`<div class="role-card ${activeRoleId===r.id?'active-role':''}" onclick="selectRole('${r.id}')">
-    <div class="role-icon">${r.icon||'⭐'}</div>
-    <div class="role-name">${r.name}</div>
-    <div class="role-goal">${r.goal||'No goal set for this week'}</div>
-    <div class="role-tasks-count">${tasks.filter(t=>t.role===r.id&&!t.done).length} active tasks</div>
-  </div>`).join('')+`<div class="role-card add-role-card" onclick="openAddRole()"><span style="font-size:28px;">+</span>Add Role</div>`;
-
-  if(activeRoleId) {
-    const r=roles.find(x=>x.id===activeRoleId);
-    if(r) {
-      document.getElementById('role-tasks-panel').style.display='block';
-      document.getElementById('role-tasks-title').textContent=`${r.icon} ${r.name} — Active Tasks`;
-      const rTasks=tasks.filter(t=>t.role===activeRoleId&&!t.done);
-      document.getElementById('role-tasks-list').innerHTML=rTasks.length?rTasks.map(t=>tCard(t)).join(''):`<div class="empty"><div class="empty-ico">🎯</div><div class="empty-t">No tasks for this role</div><div class="empty-s">Add a task and assign it to this role</div></div>`;
-    }
-  } else {
-    document.getElementById('role-tasks-panel').style.display='none';
+  var grid = document.getElementById("roles-grid"); if (!grid) return;
+  if (!roles.length) {
+    grid.innerHTML = '<div class="empty-v2">'
+      + '<div style="font-size:48px;text-align:center;margin-bottom:12px">🧭</div>'
+      + '<div class="empty-v2-title">Define Your Roles</div>'
+      + '<div class="empty-v2-sub">Father, entrepreneur, leader, learner? Your roles shape your priorities.</div>'
+      + '<div class="empty-v2-quote">"Identify your key roles." — Covey</div>'
+      + '<button class="empty-v2-btn" onclick="openAddRole()">+ Add Your First Role</button></div>';
+    document.getElementById("role-tasks-panel").style.display = "none";
+    return;
   }
+  var cards = roles.map(function(r) {
+    var ct = tasks.filter(function(t){return t.role===r.id&&!t.done;}).length;
+    var active = activeRoleId === r.id;
+    return '<div class="role-card ' + (active?"active-role":"") + '" onclick="selectRole(\"' + r.id + '\")">'
+      + '<div class="role-icon">' + (r.icon||"⭐") + '</div>'
+      + '<div class="role-name">' + r.name + '</div>'
+      + '<div class="role-goal">' + (r.goal||"No goal set for this week") + '</div>'
+      + '<div class="role-tasks-count">' + ct + ' active tasks</div>'
+      + '<div style="margin-top:10px;display:flex;gap:6px;">'
+        + '<button onclick="event.stopPropagation();openEditRole(\"' + r.id + '\")" style="padding:5px 10px;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.2);border-radius:8px;font-size:11px;font-weight:700;cursor:pointer;color:#8B6400;">✏️ Edit</button>'
+        + '<button onclick="event.stopPropagation();deleteRole(\"' + r.id + '\")" style="padding:5px 10px;background:rgba(192,57,43,.07);border:1px solid rgba(192,57,43,.15);border-radius:8px;font-size:11px;font-weight:700;cursor:pointer;color:#C0392B;">🗑️</button>'
+      + '</div></div>';
+  }).join("");
+  grid.innerHTML = cards + '<div class="role-card add-role-card" onclick="openAddRole()"><span style="font-size:28px;">+</span>Add Role</div>';
+  var panel = document.getElementById("role-tasks-panel");
+  if (activeRoleId) {
+    var r = roles.find(function(x){return x.id===activeRoleId;});
+    if (r) {
+      panel.style.display = "block";
+      document.getElementById("role-tasks-title").textContent = (r.icon||"⭐") + " " + r.name + " — Tasks";
+      var rt = tasks.filter(function(t){return t.role===activeRoleId&&!t.done;});
+      document.getElementById("role-tasks-list").innerHTML = rt.length ? rt.map(function(t){return tCard(t);}).join("") : '<div class="empty"><div class="empty-ico">🎯</div><div class="empty-t">No tasks for this role</div></div>';
+    }
+  } else { panel.style.display = "none"; }
 }
 
 function selectRole(id){activeRoleId=activeRoleId===id?null:id;renderRoles();}
 
-function openAddRole(id){
-  document.getElementById('m-role-t').textContent=id?'Edit Role':'Add Life Role';
-  const r=id?roles.find(x=>x.id===id):null;
-  document.getElementById('r-name').value=r?r.name:'';
-  document.getElementById('r-icon').value=r?r.icon:'';
-  document.getElementById('r-goal').value=r?r.goal:'';
-  openModal('m-role');
+function openAddRole(id) {
+  document.getElementById("m-role-t").textContent = "Add Life Role";
+  document.getElementById("r-name").value = "";
+  document.getElementById("r-icon").value = "";
+  document.getElementById("r-goal").value = "";
+  document.getElementById("m-role").dataset.eid = "";
+  openModal("m-role");
 }
 
-function saveRole(){
-  const name=document.getElementById('r-name').value.trim();
-  if(!name){toast('⚠️ Enter a role name');return;}
-  roles.push({id:'r'+Date.now(),name,icon:document.getElementById('r-icon').value.trim()||'⭐',goal:document.getElementById('r-goal').value.trim(),color:'peach'});
-  cloudSave('roles',roles);closeModal('m-role');renderRoles();populateRoleSelect();toast('👤 Role added!');
+
+function saveRole() {
+  var name = ((document.getElementById("r-name")||{}).value||"").trim();
+  if (!name) { toast("⚠️ Enter a role name"); return; }
+  var eid = document.getElementById("m-role").dataset.eid||"";
+  var role = { id:eid||("r"+Date.now()), name:name,
+    icon:((document.getElementById("r-icon")||{}).value||"").trim()||"⭐",
+    goal:((document.getElementById("r-goal")||{}).value||"").trim(), color:"peach" };
+  if (eid) { var idx=roles.findIndex(function(x){return x.id===eid;}); if(idx>-1)roles[idx]=role; toast("✅ Role updated!"); }
+  else { roles.push(role); toast("👤 Role added!"); }
+  cloudSave("roles",roles); closeModal("m-role"); renderRoles(); populateRoleSelect();
 }
 
+function openEditRole(id) {
+  var r = roles.find(function(x){return x.id===id;}); if(!r) return;
+  document.getElementById("m-role-t").textContent = "Edit Role";
+  document.getElementById("r-name").value = r.name||"";
+  document.getElementById("r-icon").value = r.icon||"";
+  document.getElementById("r-goal").value = r.goal||"";
+  document.getElementById("m-role").dataset.eid = id;
+  openModal("m-role");
+}
+function deleteRole(id) {
+  var r = roles.find(function(x){return x.id===id;});
+  if (!confirm("Delete role \"" + (r?r.name:"") + "\"?")) return;
+  roles = roles.filter(function(x){return x.id!==id;});
+  tasks.forEach(function(t){if(t.role===id)t.role="";});
+  if(activeRoleId===id) activeRoleId=null;
+  cloudSave("roles",roles); cloudSave("tasks",tasks);
+  renderRoles(); populateRoleSelect(); toast("🗑️ Role deleted");
+}
 function openAddForRole(){addingForRole=true;openAdd();document.getElementById('m-role').value=activeRoleId||'';}
 
 function populateRoleSelect(){
@@ -3129,8 +3190,30 @@ function renderTB(){
   document.getElementById('tb-date-sub').textContent=tbDate.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'});
 }
 function shiftTB(d){tbDate.setDate(tbDate.getDate()+d);renderTB();}
-function openTB(h){document.getElementById('tb-st').value=`${String(h).padStart(2,'0')}:00`;document.getElementById('tb-lbl').value='';openModal('m-tb');}
-function saveTB(){const label=document.getElementById('tb-lbl').value.trim();if(!label){toast('⚠️ Enter a label');return;}const st=document.getElementById('tb-st').value;const sh=st?parseInt(st.split(':')[0]):9;timeBlocks.push({id:'tb'+Date.now(),label,startHour:sh,duration:parseInt(document.getElementById('tb-dur').value),color:document.getElementById('tb-col').value,date:dStr(tbDate)});cloudSave('timeBlocks',timeBlocks);closeModal('m-tb');renderTB();toast('⏱️ Block added!');}
+function openTB(hr) {
+  var ts = (hr < 10 ? "0" : "") + hr + ":00";
+  var l = document.getElementById("tb-lbl"); if (l) l.value = "";
+  var s = document.getElementById("tb-st"); if (s) s.value = ts;
+  var d = document.getElementById("tb-dur"); if (d) d.value = "60";
+  var c = document.getElementById("tb-col"); if (c) c.value = "peach";
+  openModal("m-tb");
+  setTimeout(function() { var l2=document.getElementById("tb-lbl"); if(l2) l2.focus(); }, 150);
+}
+
+function saveTB() {
+  var label = ((document.getElementById("tb-lbl")||{}).value||"").trim();
+  if (!label) { toast("⚠️ Enter a label"); return; }
+  var stVal = (document.getElementById("tb-st")||{}).value || "09:00";
+  var sh = parseInt(stVal.split(":")[0]) || 9;
+  var dur = parseInt((document.getElementById("tb-dur")||{}).value) || 60;
+  var col = (document.getElementById("tb-col")||{}).value || "peach";
+  timeBlocks.push({id:"tb"+Date.now(),label:label,startHour:sh,duration:dur,color:col,date:dStr(tbDate)});
+  cloudSave("timeBlocks",timeBlocks);
+  closeModal("m-tb");
+  renderTB();
+  toast("⏱️ Block added!");
+}
+
 function delTB(id){timeBlocks=timeBlocks.filter(b=>b.id!==id);cloudSave('timeBlocks',timeBlocks);renderTB();toast('🗑️ Removed');}
 
 // ═══════════════════════════════════════════════════════
@@ -3567,17 +3650,35 @@ async function aiPlanMyDay() {
 // GRATITUDE CHECK-IN
 var gratMood = "😊";
 function openGratitude(manual) {
+  var now = new Date();
+  var mstOffset = -7 * 60;
+  var mst = new Date(now.getTime() + (mstOffset + now.getTimezoneOffset()) * 60000);
+  var hh = mst.getHours();
+  var todayKey = mst.getFullYear() + "-" + String(mst.getMonth()+1).padStart(2,"0") + "-" + String(mst.getDate()).padStart(2,"0");
   if (!manual) {
-    var key = "df_grat_" + todayStr() + "_" + (currentUser ? currentUser.uid : "guest");
+    var key = "df_grat_" + todayKey + "_" + (currentUser ? currentUser.uid : "guest");
     if (localStorage.getItem(key)) return;
+  }
+  var sunEl = document.querySelector(".gc-sun");
+  var titleEl = document.querySelector(".gc-title");
+  if (hh >= 5 && hh < 12) {
+    if (sunEl) sunEl.textContent = "🌅";
+    if (titleEl) titleEl.textContent = "Good Morning!";
+  } else if (hh >= 12 && hh < 17) {
+    if (sunEl) sunEl.textContent = "🌤️";
+    if (titleEl) titleEl.textContent = "Good Afternoon!";
+  } else {
+    if (sunEl) sunEl.textContent = "🌙";
+    if (titleEl) titleEl.textContent = "Good Evening!";
   }
   gratMood = "😊";
   document.querySelectorAll(".gc-mood-btn").forEach(function(b) { b.classList.remove("on"); });
-  var def = document.querySelector(".gc-mood-btn[data-mood='😊']");
+  var def = document.querySelector('.gc-mood-btn[data-mood="😊"]');
   if (def) def.classList.add("on");
   ["grat-1","grat-2","grat-3"].forEach(function(id) { var el=document.getElementById(id); if(el) el.value=""; });
   document.getElementById("gratitude-overlay").classList.add("open");
 }
+
 function closeGratitude() {
   document.getElementById("gratitude-overlay").classList.remove("open");
 }
@@ -3747,29 +3848,202 @@ document.addEventListener("DOMContentLoaded", function() {
   }, 500);
 });
 
+
+// ======= GOALS JS =======
+var goals = [];
+var editGoalId = null;
+var goalMilestones = [];
+
+function renderGoals() {
+  var c = document.getElementById("goals-list"); if (!c) return;
+  if (!goals.length) {
+    c.innerHTML = '<div class="empty-v2"><div style="font-size:52px;text-align:center;margin-bottom:14px">🎯</div>'
+      + '<div class="empty-v2-title">No Goals Yet</div>'
+      + '<div class="empty-v2-sub">Define your ultimate vision, then plan backward to today. Habit 2 in action.</div>'
+      + '<button class="empty-v2-btn" onclick="openAddGoal()">+ Create Your First Goal</button></div>';
+    return;
+  }
+  var ICONS = {personal:"🌱",career:"💼",health:"🏃",family:"👨‍👩‍👧",financial:"💰",spiritual:"🙏",community:"🤝"};
+  var today = todayStr();
+  c.innerHTML = goals.map(function(g) {
+    var ms = g.milestones || [];
+    var doneCt = ms.filter(function(m){return m.done;}).length;
+    var pct = ms.length ? Math.round(doneCt/ms.length*100) : 0;
+    var daysLeft = g.date ? Math.ceil((new Date(g.date)-new Date())/86400000) : null;
+    var icon = ICONS[g.category] || "🎯";
+    var msHTML = ms.length
+      ? ms.slice().sort(function(a,b){return new Date(a.date)-new Date(b.date);}).map(function(m){
+          var late = m.date && m.date < today && !m.done;
+          return '<div style="display:flex;align-items:center;gap:10px;padding:6px 0;border-bottom:1px solid var(--border);">'
+            + '<div onclick="toggleMilestone(\"'+g.id+'\",\"'+m.id+'\")" '
+            + 'style="width:18px;height:18px;border-radius:50%;border:2px solid '
+            + (m.done ? 'var(--sage)' : late ? 'var(--q1)' : 'var(--border)')
+            + ';' + (m.done ? 'background:var(--sage);' : '')
+            + 'cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:10px;color:#fff;">'
+            + (m.done ? '✓' : '') + '</div>'
+            + '<div style="flex:1;"><div style="font-size:13px;font-weight:600;'
+            + (m.done ? 'text-decoration:line-through;color:var(--ink-m)' : late ? 'color:var(--q1)' : 'color:var(--ink)')
+            + '">' + m.title + '</div>'
+            + '<div style="font-size:10px;color:' + (late ? 'var(--q1)' : 'var(--ink-m)') + ';font-weight:600;">' + (m.date||"No date") + (late ? ' ⚠️ Overdue' : '') + '</div></div>'
+          + '</div>';
+        }).join("")
+      : '<div style="font-size:12px;color:var(--ink-m);padding:8px 0;">No milestones yet. Edit to add backward-planned steps.</div>';
+    var pillStyle = daysLeft === null ? ''
+      : 'background:' + (daysLeft<0 ? 'var(--q1-p)' : daysLeft<30 ? 'rgba(212,160,23,.12)' : 'rgba(46,125,50,.1)')
+      + ';color:' + (daysLeft<0 ? 'var(--q1)' : daysLeft<30 ? '#8B6914' : 'var(--sage)');
+    var pillTxt = daysLeft === null ? ''
+      : '<span style="font-size:11px;font-weight:800;padding:3px 10px;border-radius:20px;' + pillStyle + '">' + (daysLeft<0 ? Math.abs(daysLeft)+' days overdue' : daysLeft+' days left') + '</span>';
+    return '<div style="background:var(--surface);border-radius:var(--r);padding:20px;border:1px solid var(--border);box-shadow:0 2px 8px var(--sh);margin-bottom:16px;">'
+      + '<div style="display:flex;align-items:flex-start;gap:12px;margin-bottom:14px;">'
+        + '<div style="width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,#1B3A6B,#C9A84C);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;">' + icon + '</div>'
+        + '<div style="flex:1;min-width:0;">'
+          + '<div style="font-weight:800;font-size:16px;margin-bottom:4px;">' + g.title + '</div>'
+          + (g.why ? '<div style="font-size:12px;color:var(--ink-m);font-style:italic;margin-bottom:6px;">&ldquo;' + g.why + '&rdquo;</div>' : '')
+          + pillTxt
+        + '</div>'
+        + '<button onclick="openEditGoal(\"' + g.id + '\")" style="padding:7px 14px;background:var(--cream);border:1px solid var(--border);border-radius:10px;font-size:12px;font-weight:700;cursor:pointer;">✏️ Edit</button>'
+      + '</div>'
+      + '<div style="background:var(--border);border-radius:20px;height:8px;overflow:hidden;margin-bottom:6px;">'
+        + '<div style="height:100%;background:linear-gradient(90deg,#1B3A6B,#C9A84C);border-radius:20px;width:' + pct + '%;"></div></div>'
+      + '<div style="font-size:11px;color:var(--ink-m);font-weight:600;margin-bottom:12px;">' + pct + '% of milestones complete (' + doneCt + '/' + ms.length + ')</div>'
+      + '<div style="background:var(--cream);border-radius:10px;padding:12px 14px;">'
+        + '<div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:var(--ink-m);margin-bottom:8px;">🔙 Backward Plan' + (ms.length ? ' — ' + ms.length + ' milestones' : '') + '</div>'
+        + msHTML
+      + '</div>'
+      + '<div style="margin-top:12px;">'
+        + '<button onclick="addTaskFromGoal(\"' + g.id + '\")" style="padding:7px 14px;background:rgba(27,58,107,.08);border:1px solid rgba(27,58,107,.2);border-radius:10px;font-size:12px;font-weight:700;cursor:pointer;color:#1B3A6B;">→ Create Task from this Goal</button>'
+      + '</div></div>';
+  }).join("");
+}
+
+function openAddGoal() {
+  editGoalId = null; goalMilestones = [];
+  document.getElementById("m-goal-title").textContent = "New End-in-Mind Goal";
+  ["goal-title","goal-why"].forEach(function(id){var el=document.getElementById(id);if(el)el.value="";});
+  document.getElementById("goal-date").value = "";
+  document.getElementById("goal-cat").value = "personal";
+  document.getElementById("goal-delete-row").style.display = "none";
+  renderMilestonesModal(); openModal("m-goal");
+}
+
+function openEditGoal(id) {
+  var g = goals.find(function(x){return x.id===id;}); if(!g) return;
+  editGoalId = id;
+  goalMilestones = JSON.parse(JSON.stringify(g.milestones||[]));
+  document.getElementById("m-goal-title").textContent = "Edit Goal";
+  document.getElementById("goal-title").value = g.title||"";
+  document.getElementById("goal-date").value = g.date||"";
+  document.getElementById("goal-why").value = g.why||"";
+  document.getElementById("goal-cat").value = g.category||"personal";
+  document.getElementById("goal-delete-row").style.display = "block";
+  renderMilestonesModal(); openModal("m-goal");
+}
+
+function saveGoal() {
+  var title = ((document.getElementById("goal-title")||{}).value||"").trim();
+  if (!title) { toast("⚠️ Enter a goal title"); return; }
+  var goal = { id: editGoalId||("g"+Date.now()), title: title,
+    date: (document.getElementById("goal-date")||{}).value||"",
+    why: ((document.getElementById("goal-why")||{}).value||"").trim(),
+    category: (document.getElementById("goal-cat")||{}).value||"personal",
+    milestones: goalMilestones,
+    createdAt: editGoalId ? ((goals.find(function(x){return x.id===editGoalId;})||{}).createdAt||new Date().toISOString()) : new Date().toISOString()
+  };
+  if (editGoalId) { var idx=goals.findIndex(function(x){return x.id===editGoalId;}); if(idx>-1)goals[idx]=goal; toast("✅ Goal updated!"); }
+  else { goals.unshift(goal); toast("🎯 Goal created!"); }
+  cloudSave("goals",goals); closeModal("m-goal"); renderGoals(); editGoalId=null;
+}
+
+function deleteGoal() {
+  if (!editGoalId) return;
+  var g = goals.find(function(x){return x.id===editGoalId;});
+  if (!confirm("Delete \"" + (g?g.title:"this goal") + "\"?")) return;
+  goals = goals.filter(function(x){return x.id!==editGoalId;});
+  cloudSave("goals",goals); closeModal("m-goal"); renderGoals(); editGoalId=null; toast("🗑️ Deleted");
+}
+
+function addMilestone() {
+  var t = ((document.getElementById("ms-title")||{}).value||"").trim();
+  if (!t) { toast("⚠️ Enter a milestone title"); return; }
+  var d = (document.getElementById("ms-date")||{}).value||"";
+  goalMilestones.push({id:"ms"+Date.now(),title:t,date:d,done:false});
+  goalMilestones.sort(function(a,b){return new Date(b.date)-new Date(a.date);});
+  document.getElementById("ms-title").value="";
+  document.getElementById("ms-date").value="";
+  renderMilestonesModal();
+}
+
+function renderMilestonesModal() {
+  var c = document.getElementById("milestone-list"); if(!c) return;
+  if (!goalMilestones.length) {
+    c.innerHTML = '<div style="font-size:12px;color:var(--ink-m);padding:8px;font-style:italic;">No milestones yet. Add them working backward from your target date.</div>';
+    return;
+  }
+  c.innerHTML = goalMilestones.map(function(m,i) {
+    var ico = i===0 ? "🏁" : i===goalMilestones.length-1 ? "🚀" : "📅";
+    return '<div style="display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid var(--border);">'
+      + '<span style="font-size:16px;">' + ico + '</span>'
+      + '<div style="flex:1;"><div style="font-size:13px;font-weight:600;">' + m.title + '</div><div style="font-size:10px;color:var(--ink-m);">' + (m.date||"No date") + '</div></div>'
+      + '<span onclick="removeMilestone(' + i + ')" style="cursor:pointer;color:var(--ink-m);font-size:14px;">✕</span>'
+    + '</div>';
+  }).join("");
+}
+
+function removeMilestone(i) { goalMilestones.splice(i,1); renderMilestonesModal(); }
+
+function toggleMilestone(gid, mid) {
+  var g = goals.find(function(x){return x.id===gid;}); if(!g) return;
+  var m = (g.milestones||[]).find(function(x){return x.id===mid;}); if(!m) return;
+  m.done = !m.done;
+  if (m.done) addKarma(10, "milestone done! 🎯");
+  cloudSave("goals",goals); renderGoals();
+}
+
+function addTaskFromGoal(gid) {
+  var g = goals.find(function(x){return x.id===gid;}); if(!g) return;
+  openAdd();
+  setTimeout(function(){
+    var t=document.getElementById("m-title"); if(t) t.value="Work toward: "+g.title;
+    var n=document.getElementById("m-notes"); if(n) n.value="Goal: "+g.title+(g.date?" (Target: "+g.date+")" : "");
+    setQ(2);
+  },200);
+}
+
+async function autoMilestones() {
+  var title = ((document.getElementById("goal-title")||{}).value||"").trim();
+  var date = (document.getElementById("goal-date")||{}).value||"";
+  if (!title) { toast("⚠️ Enter a goal title first"); return; }
+  toast("✨ AI generating backward milestones...");
+  var prompt = "You are a Covey-inspired planning coach. For the goal: \"" + title + "\"" + (date?" (target: "+date+")":"") + ", generate 5-6 key milestones working BACKWARD from the target date to today. Each is a major checkpoint. Return ONLY a JSON array: [{title:string,date:string(YYYY-MM-DD)}]. Order from furthest date to nearest.";
+  try {
+    var text = await callAI(prompt, 400);
+    var items = JSON.parse(text.replace(/```json|```/g,"").trim());
+    goalMilestones = items.map(function(x,i){return {id:"ms"+Date.now()+i,title:x.title,date:x.date,done:false};});
+    renderMilestonesModal();
+    toast("✨ Milestones generated!");
+  } catch(e) { toast("❌ AI unavailable. Add milestones manually."); }
+}
+
+// Hook nav for goals
+var _dfNavOrig = nav;
+nav = function(v) {
+  _dfNavOrig(v);
+  if (v === "goals") {
+    cloudLoad("goals").then(function(g){ goals = g||[]; renderGoals(); });
+  }
+};
+
+// Hook loadAllData
+var _dfLoadOrig = loadAllData;
+loadAllData = async function() {
+  await _dfLoadOrig();
+  goals = await cloudLoad("goals") || [];
+};
+
 initApp();
 </script>
 
-<style>
 
-.rpanel{width:272px;flex-shrink:0;padding:20px 16px;display:flex;flex-direction:column;gap:14px;overflow-y:auto;max-height:100vh;position:sticky;top:0;}
-.pcrd{background:var(--surface);border-radius:var(--r);padding:14px 16px;border:1px solid var(--border);box-shadow:0 1px 4px var(--sh);}
-.pcrd-t{font-weight:800;font-size:12px;margin-bottom:10px;display:flex;align-items:center;gap:6px;color:var(--ink);}
-#coming-up{max-height:160px;overflow-y:auto;font-size:12px;}
-#q2-panel{max-height:160px;overflow-y:auto;font-size:12px;}
-.mc-grid{display:grid !important;grid-template-columns:repeat(7,1fr) !important;gap:2px !important;width:100% !important;}
-.mc-dow{text-align:center !important;font-size:9px !important;font-weight:700 !important;padding:3px 1px !important;color:var(--ink-m);}
-.mc-day{text-align:center !important;font-size:10px !important;padding:4px 1px !important;border-radius:5px !important;overflow:hidden !important;min-width:0 !important;cursor:pointer;}
-.pr-wrap{display:flex;align-items:center;gap:10px;}
-.pr-ring{width:54px;height:54px;position:relative;flex-shrink:0;}
-.pr-svg{width:100%;height:100%;transform:rotate(-90deg);}
-.pr-bg{fill:none;stroke:var(--peach-p);stroke-width:6;}
-.pr-fill{fill:none;stroke:var(--gold);stroke-width:6;stroke-linecap:round;transition:stroke-dashoffset .8s cubic-bezier(.4,0,.2,1);}
-.pr-txt{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:'DM Serif Display',serif;font-size:13px;font-weight:700;}
-.pr-lbl{font-weight:800;font-size:13px;color:var(--ink);}
-.pr-sub{font-size:11px;color:var(--ink-m);margin-top:3px;font-weight:500;}
-
-</style>
 
 
 
@@ -3801,4 +4075,25 @@ initApp();
 
 
 </div>
+
+<style>
+.h-edit-btn{width:26px;height:26px;border-radius:8px;border:none;background:rgba(201,168,76,.15);cursor:pointer;display:inline-flex;align-items:center;justify-content:center;font-size:12px;color:#C9A84C;transition:all .2s;flex-shrink:0}
+.h-edit-btn:hover{background:#C9A84C;color:#fff}
+.covey-align-badge{display:inline-flex;align-items:center;gap:4px;padding:2px 9px;border-radius:20px;font-size:10px;font-weight:800;margin-top:4px}
+.ca-h1{background:rgba(192,57,43,.1);color:#C0392B;border:1px solid rgba(192,57,43,.2)}
+.ca-h2{background:rgba(27,58,107,.1);color:#1B3A6B;border:1px solid rgba(27,58,107,.2)}
+.ca-h3{background:rgba(212,160,23,.1);color:#8B6914;border:1px solid rgba(212,160,23,.2)}
+.ca-h4{background:rgba(46,125,50,.1);color:#2E7D32;border:1px solid rgba(46,125,50,.2)}
+.ca-h5{background:rgba(21,101,192,.1);color:#1565C0;border:1px solid rgba(21,101,192,.2)}
+.ca-h6{background:rgba(74,35,90,.1);color:#4A235A;border:1px solid rgba(74,35,90,.2)}
+.ca-h7{background:rgba(78,205,196,.1);color:#1B7B75;border:1px solid rgba(78,205,196,.2)}
+.backfill-hint{font-size:10px;color:var(--ink-m);margin-top:4px;font-weight:600;opacity:.7}
+.hday:not(.on):hover{background:rgba(201,168,76,.2)!important;border-color:rgba(201,168,76,.6)!important}
+.covey-sel-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:6px}
+.covey-sel-opt{padding:9px 11px;border-radius:10px;border:2px solid var(--border);font-size:11px;font-weight:700;cursor:pointer;transition:all .2s;line-height:1.4;background:var(--surface);color:var(--ink-l)}
+.covey-sel-opt:hover{border-color:var(--peach);background:var(--peach-p)}
+.covey-sel-opt.on{border-color:var(--peach);background:var(--peach-p);color:var(--peach)}
+.sidebar:not(.collapsed){width:268px!important}
+.tscont{min-height:48px;}
+</style>
 </body></html>
