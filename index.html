@@ -695,6 +695,14 @@ body.dark .proactive-nudge{background:rgba(27,58,107,.2);color:var(--gold)}
     <input class="fi" id="who-today" placeholder="Who deserves your real attention today?" oninput="saveLocal('who_today',this.value)">
   </div>
   <div id="relationships-list"></div>
+  </div><!-- /rel-people-panel -->
+
+  <div id="rel-eba-panel" style="display:none">
+    <div style="font-size:13px;color:var(--ink-l);line-height:1.6;margin-bottom:16px;background:rgba(27,58,107,.04);border:1px solid rgba(27,58,107,.12);border-radius:12px;padding:14px 18px">
+      <strong style="color:var(--navy-2)">Emotional Bank Account</strong> — every interaction either builds or costs trust. Deposits: keeping commitments, listening deeply, showing loyalty. Withdrawals: breaking promises, being dismissive, letting people down.
+    </div>
+    <div id="eba-list"></div>
+  </div>
 </div>
 
 <!-- REFLECTION -->
@@ -941,6 +949,11 @@ let editingGoalId  = null;
 let goalMilestones = [];
 let selectedEmoji  = '🔥';
 let gratMood       = 'steady';
+let eveMood        = 3;
+let ebaRelId       = null;
+let ebaType        = 'deposit';
+let ebaImpact      = 3;
+let ebaHistOpen    = {};
 let setupStep      = 0;
 
 // ── STORAGE ──
@@ -1120,6 +1133,7 @@ function showApp(){
   updateScores();
   genCoach();
   checkAutoGratitude();
+  checkAutoEvening();
 }
 function signOut(){
   document.getElementById('app').style.display='none';
@@ -1538,7 +1552,7 @@ async function aiMilestones(){
   toast('✨ Generating milestones...');
   const date=document.getElementById('g-date').value;
   const prompt='You are a Covey planning coach. For goal: "'+title+'"'+(date?' target: '+date:'')+'. Generate 5-6 milestones working BACKWARD from target date. Return ONLY JSON array: [{"title":"...","date":"YYYY-MM-DD"}]. Furthest date first. No other text.';
-  try{ const text=await callAI(prompt,400); const clean=text.replace(/```json/g,'').replace(/```/g,'').trim(); const items=JSON.parse(clean); goalMilestones=items.map((x,i)=>({id:'ms'+Date.now()+i,title:x.title,date:x.date,done:false})); renderMilestoneList(); toast('✨ Milestones generated!'); }
+  try{ const text=await callAI(prompt,400); const clean=text.replace(/\x60\x60\x60json/g,'').replace(/\x60\x60\x60/g,'').trim(); const items=JSON.parse(clean); goalMilestones=items.map((x,i)=>({id:'ms'+Date.now()+i,title:x.title,date:x.date,done:false})); renderMilestoneList(); toast('✨ Milestones generated!'); }
   catch(e){ toast('❌ Try again or add milestones manually.'); }
 }
 
@@ -1714,10 +1728,7 @@ document.addEventListener('keydown',e=>{ if(e.key==='Escape') document.querySele
 const EBA_DEP = ['Kept a commitment','Listened deeply','Showed appreciation','Apologized sincerely','Was loyal in absence','Kept a confidence','Small act of kindness','Followed through','Gave honest feedback','Celebrated their win'];
 const EBA_WD  = ['Broke a promise','Was dismissive','Forgot something important','Interrupted repeatedly','Was harsh','Let them down','Was disloyal','Prioritized myself unfairly'];
 
-let ebaRelId = null;
-let ebaType  = 'deposit';
-let ebaImpact = 3;
-let ebaHistOpen = {};
+// EBA state vars declared in state block above
 
 function ebaBalance(relId){
   return (load('eba_'+relId,[])).reduce((s,tx) => s + (tx.type==='deposit' ? tx.impact : -tx.impact), 0);
@@ -1917,7 +1928,6 @@ function wireProactiveDetector(){
 // ══════════════════════════════════════════════
 // EVENING REVIEW
 // ══════════════════════════════════════════════
-let eveMood = 3;
 
 function openEvening(){
   const g = id => document.getElementById(id);
