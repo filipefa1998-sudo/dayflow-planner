@@ -1538,7 +1538,7 @@ async function aiMilestones(){
   toast('✨ Generating milestones...');
   const date=document.getElementById('g-date').value;
   const prompt='You are a Covey planning coach. For goal: "'+title+'"'+(date?' target: '+date:'')+'. Generate 5-6 milestones working BACKWARD from target date. Return ONLY JSON array: [{"title":"...","date":"YYYY-MM-DD"}]. Furthest date first. No other text.';
-  try{ const text=await callAI(prompt,400); const clean=text.replace(/```json|```/g,'').trim(); const items=JSON.parse(clean); goalMilestones=items.map((x,i)=>({id:'ms'+Date.now()+i,title:x.title,date:x.date,done:false})); renderMilestoneList(); toast('✨ Milestones generated!'); }
+  try{ const text=await callAI(prompt,400); const clean=text.replace(/```json/g,'').replace(/```/g,'').trim(); const items=JSON.parse(clean); goalMilestones=items.map((x,i)=>({id:'ms'+Date.now()+i,title:x.title,date:x.date,done:false})); renderMilestoneList(); toast('✨ Milestones generated!'); }
   catch(e){ toast('❌ Try again or add milestones manually.'); }
 }
 
