@@ -447,102 +447,75 @@ body.dark .q2-title{color:var(--gold)}
   .score-grid,.renewal-grid,.quad-grid{grid-template-columns:1fr}
 }
 
-/* ════ v3.2 ADDITIONS ════ */
+/* ════ v3.2 ════ */
+:root{--surface:#FEFCF8;--surface-2:#F9F6F0;--bg:#F0EDE6;--cream:#FAF7F2}
+body.dark{--surface:#0F2040;--surface-2:#162035;--bg:#0A1628;--cream:#0F2040}
 
-/* Warmer surface tones — leather planner feel */
-:root{
-  --surface:#FEFCF8;
-  --surface-2:#F9F6F0;
-  --bg:#F0EDE6;
-  --cream:#FAF7F2;
-}
-body.dark{
-  --surface:#0F2040;
-  --surface-2:#162035;
-  --bg:#0A1628;
-  --cream:#0F2040;
-}
-
-/* ── EMOTIONAL BANK ACCOUNT ── */
+/* EBA */
 .eba-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);margin-bottom:10px;overflow:hidden;box-shadow:var(--sh);transition:all var(--trans)}
-.eba-card:hover{box-shadow:var(--sh2);transform:translateY(-1px)}
+.eba-card:hover{box-shadow:var(--sh2)}
 .eba-header{display:flex;align-items:center;gap:14px;padding:14px 18px}
 .eba-avatar{width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,var(--navy-2),var(--gold));display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
-.eba-body{flex:1;min-width:0}
-.eba-name{font-weight:800;font-size:14px;color:var(--ink)}
+.eba-meta{flex:1;min-width:0}
+.eba-name{font-weight:800;font-size:14px}
 .eba-type{font-size:11px;color:var(--ink-m);margin-top:1px}
-.eba-balance-wrap{display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex-shrink:0}
-.eba-balance{font-family:'DM Serif Display',serif;font-size:22px;font-weight:700;line-height:1}
-.eba-balance.positive{color:var(--green)}
-.eba-balance.negative{color:var(--red)}
-.eba-balance.neutral{color:var(--ink-m)}
-.eba-balance-lbl{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.8px;color:var(--ink-lt)}
-.eba-bar-wrap{padding:0 18px 10px;display:flex;align-items:center;gap:10px}
+.eba-bal-wrap{display:flex;flex-direction:column;align-items:flex-end;gap:2px;flex-shrink:0}
+.eba-bal{font-family:'DM Serif Display',serif;font-size:24px;font-weight:700;line-height:1}
+.eba-bal.pos{color:var(--green)}.eba-bal.neg{color:var(--red)}.eba-bal.zero{color:var(--ink-m)}
+.eba-bal-lbl{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.8px;color:var(--ink-lt)}
+.eba-bar-row{padding:0 18px 10px;display:flex;align-items:center;gap:10px}
 .eba-bar-track{flex:1;height:6px;background:var(--border);border-radius:20px;overflow:hidden}
-.eba-bar-fill{height:100%;border-radius:20px;transition:width .6s,background .3s}
-.eba-bar-fill.pos{background:linear-gradient(90deg,var(--green),#4CAF50)}
-.eba-bar-fill.neg{background:linear-gradient(90deg,var(--red),#E57373)}
-.eba-last{font-size:10px;color:var(--ink-lt);font-weight:600}
+.eba-bar-fill{height:100%;border-radius:20px;transition:width .6s}
+.eba-bar-pos{background:linear-gradient(90deg,var(--green),#4CAF50)}
+.eba-bar-neg{background:linear-gradient(90deg,var(--red),#E57373)}
+.eba-last-lbl{font-size:10px;color:var(--ink-lt);font-weight:600}
 .eba-actions{display:flex;gap:6px;padding:0 18px 14px}
-.eba-btn{flex:1;padding:7px 10px;border-radius:9px;font-size:11px;font-weight:800;cursor:pointer;font-family:'DM Sans',sans-serif;border:none;transition:all var(--trans);display:flex;align-items:center;justify-content:center;gap:5px}
-.eba-btn-dep{background:var(--green-lt);color:var(--green)}
-.eba-btn-dep:hover{background:var(--green);color:#fff}
-.eba-btn-wd{background:var(--red-lt);color:var(--red)}
-.eba-btn-wd:hover{background:var(--red);color:#fff}
-.eba-btn-hist{background:var(--surface-2);color:var(--ink-m);border:1px solid var(--border)}
-.eba-btn-hist:hover{border-color:var(--navy-2);color:var(--navy-2)}
+.eba-act-btn{flex:1;padding:7px;border-radius:9px;font-size:11px;font-weight:800;cursor:pointer;font-family:'DM Sans',sans-serif;border:none;transition:all var(--trans);display:flex;align-items:center;justify-content:center;gap:4px}
+.eba-dep{background:var(--green-lt);color:var(--green)}.eba-dep:hover{background:var(--green);color:#fff}
+.eba-wd{background:var(--red-lt);color:var(--red)}.eba-wd:hover{background:var(--red);color:#fff}
+.eba-hist{background:var(--surface-2);color:var(--ink-m);border:1px solid var(--border)}.eba-hist:hover{border-color:var(--navy-2);color:var(--navy-2)}
 .eba-tx-list{border-top:1px solid var(--border-lt);max-height:160px;overflow-y:auto}
 .eba-tx-row{display:flex;align-items:center;gap:10px;padding:8px 18px;border-bottom:1px solid var(--border-lt);font-size:12px}
 .eba-tx-row:last-child{border-bottom:none}
-.eba-tx-icon{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0}
-.eba-tx-icon.dep{background:var(--green-lt);color:var(--green)}
-.eba-tx-icon.wd{background:var(--red-lt);color:var(--red)}
+.eba-tx-ico{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0}
+.eba-tx-ico.d{background:var(--green-lt);color:var(--green)}.eba-tx-ico.w{background:var(--red-lt);color:var(--red)}
 .eba-tx-body{flex:1;min-width:0}
 .eba-tx-note{font-weight:600;color:var(--ink-l);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .eba-tx-date{font-size:10px;color:var(--ink-lt)}
-.eba-tx-amount{font-weight:800;font-size:13px;flex-shrink:0}
-.eba-tx-amount.pos{color:var(--green)}
-.eba-tx-amount.neg{color:var(--red)}
+.eba-tx-amt{font-weight:800;font-size:13px;flex-shrink:0}
+.eba-tx-amt.p{color:var(--green)}.eba-tx-amt.n{color:var(--red)}
 
-/* EBA transaction modal */
+/* EBA Modal */
 .eba-type-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
 .eba-type-btn{padding:12px;border-radius:10px;border:2px solid var(--border);background:transparent;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:all var(--trans);text-align:center}
 .eba-type-btn.dep-sel{border-color:var(--green);background:var(--green-lt);color:var(--green)}
 .eba-type-btn.wd-sel{border-color:var(--red);background:var(--red-lt);color:var(--red)}
-.eba-type-btn:hover{opacity:.8}
-.eba-deposit-examples{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
-.eba-example{padding:4px 10px;border-radius:20px;font-size:11px;font-weight:600;cursor:pointer;transition:all var(--trans);border:1px solid var(--border);background:transparent;color:var(--ink-m);font-family:'DM Sans',sans-serif}
-.eba-example:hover{border-color:var(--navy-2);color:var(--navy-2)}
+.eba-examples{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+.eba-ex{padding:4px 10px;border-radius:20px;font-size:11px;font-weight:600;cursor:pointer;border:1px solid var(--border);background:transparent;color:var(--ink-m);font-family:'DM Sans',sans-serif;transition:all var(--trans)}
+.eba-ex:hover{border-color:var(--navy-2);color:var(--navy-2)}
+.impact-btn{flex:1;padding:9px;border-radius:8px;border:1.5px solid var(--border);background:transparent;font-size:14px;font-weight:800;cursor:pointer;font-family:'DM Sans',sans-serif;color:var(--ink-m);transition:all var(--trans)}
+.impact-btn.sel{background:var(--navy-2);border-color:var(--navy-2);color:var(--gold)}
 
-/* ── PROACTIVE LANGUAGE DETECTOR ── */
-.proactive-nudge{background:rgba(27,58,107,.06);border:1px solid rgba(27,58,107,.15);border-radius:10px;padding:10px 14px;font-size:12px;color:var(--navy-2);line-height:1.6;margin-top:8px;display:none}
-body.dark .proactive-nudge{background:rgba(27,58,107,.2);color:var(--gold)}
-.proactive-nudge strong{display:block;margin-bottom:3px;font-weight:800}
-.proactive-nudge .reframe-btn{display:inline-block;margin-top:6px;padding:4px 12px;background:var(--navy-2);color:var(--gold);border:none;border-radius:20px;font-size:11px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all var(--trans)}
-.proactive-nudge .reframe-btn:hover{background:var(--navy)}
-
-/* ── EVENING REVIEW ── */
-.eve-card{background:linear-gradient(135deg,rgba(15,36,71,.04),rgba(201,168,76,.05));border:1px solid rgba(201,168,76,.18);border-radius:var(--r);padding:20px 22px;margin-bottom:16px;position:relative;overflow:hidden}
-.eve-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gold),var(--navy-2));border-radius:var(--r) var(--r) 0 0}
-.eve-title{font-family:'DM Serif Display',serif;font-size:17px;font-weight:400;color:var(--ink);margin-bottom:4px}
-.eve-sub{font-size:12px;color:var(--ink-m);margin-bottom:16px;line-height:1.5}
-.eve-q{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.8px;color:var(--ink-m);margin-bottom:6px}
-.eve-inp{width:100%;padding:10px 13px;border:1.5px solid var(--border);border-radius:9px;font-family:'DM Serif Display',serif;font-style:italic;font-size:13px;color:var(--ink);background:var(--surface-2);outline:none;transition:border var(--trans);resize:none;min-height:64px;line-height:1.6}
-.eve-inp:focus{border-color:var(--gold)}
-.eve-trigger-btn{width:100%;padding:11px;background:rgba(201,168,76,.08);border:1.5px solid rgba(201,168,76,.2);border-radius:11px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:700;color:var(--gold);cursor:pointer;transition:all var(--trans);margin-bottom:12px}
-.eve-trigger-btn:hover{background:rgba(201,168,76,.15)}
-.eve-trigger-btn.done{background:rgba(46,125,50,.08);border-color:rgba(46,125,50,.2);color:var(--green)}
-.eve-save-btn{width:100%;padding:12px;background:linear-gradient(135deg,var(--navy-2),var(--gold));border:none;border-radius:11px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:800;color:#fff;cursor:pointer;transition:all var(--trans);margin-top:8px}
-.eve-save-btn:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(201,168,76,.3)}
-.eve-overlay{position:fixed;inset:0;z-index:2000;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(10,22,40,.6);backdrop-filter:blur(8px)}
-.eve-overlay.open{display:flex}
-.eve-modal-card{background:var(--surface);border-radius:22px;width:100%;max-width:520px;max-height:90vh;overflow-y:auto;box-shadow:var(--sh3);animation:modalIn .28s cubic-bezier(.34,1.56,.64,1)}
-
-/* Relationship view tabs */
+/* Rel tabs */
 .rel-tab-row{display:flex;gap:0;margin-bottom:18px;border:1px solid var(--border);border-radius:10px;overflow:hidden}
 .rel-tab{flex:1;padding:9px;font-size:12px;font-weight:700;cursor:pointer;border:none;background:transparent;font-family:'DM Sans',sans-serif;color:var(--ink-m);transition:all var(--trans);text-align:center}
 .rel-tab.active{background:var(--navy-2);color:var(--gold)}
-.rel-tab:hover:not(.active){background:var(--surface-2)}
+
+/* Proactive nudge */
+.proactive-nudge{background:rgba(27,58,107,.06);border:1px solid rgba(27,58,107,.15);border-radius:10px;padding:10px 14px;font-size:12px;color:var(--navy-2);line-height:1.6;margin-top:8px;display:none}
+body.dark .proactive-nudge{background:rgba(27,58,107,.2);color:var(--gold)}
+.proactive-nudge b{display:block;margin-bottom:3px;font-weight:800}
+.reframe-btn{display:inline-block;margin-top:6px;padding:4px 12px;background:var(--navy-2);color:var(--gold);border:none;border-radius:20px;font-size:11px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif}
+
+/* Evening review */
+.eve-trigger-btn{width:100%;padding:12px;background:rgba(201,168,76,.08);border:1.5px solid rgba(201,168,76,.2);border-radius:11px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:700;color:var(--gold);cursor:pointer;transition:all var(--trans);margin-bottom:12px}
+.eve-trigger-btn.done{background:rgba(46,125,50,.08);border-color:rgba(46,125,50,.2);color:var(--green)}
+.eve-overlay{position:fixed;inset:0;z-index:2000;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(10,22,40,.6);backdrop-filter:blur(8px)}
+.eve-overlay.open{display:flex}
+.eve-modal{background:var(--surface);border-radius:22px;width:100%;max-width:520px;max-height:90vh;overflow-y:auto;box-shadow:var(--sh3);animation:modalIn .28s cubic-bezier(.34,1.56,.64,1)}
+.eve-q{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.8px;color:var(--ink-m);margin-bottom:6px}
+.eve-inp{width:100%;padding:10px 13px;border:1.5px solid var(--border);border-radius:9px;font-family:'DM Serif Display',serif;font-style:italic;font-size:13px;color:var(--ink);background:var(--surface-2);outline:none;resize:none;min-height:64px;line-height:1.6;transition:border var(--trans)}
+.eve-inp:focus{border-color:var(--gold)}
 
 </style>
 </head>
@@ -715,7 +688,6 @@ body.dark .proactive-nudge{background:rgba(27,58,107,.2);color:var(--gold)}
     <button class="rel-tab active" id="rel-tab-people" onclick="switchRelTab('people')">👥 People</button>
     <button class="rel-tab" id="rel-tab-eba" onclick="switchRelTab('eba')">💳 Bank Accounts</button>
   </div>
-
   <div id="rel-people-panel">
   <div class="who-today-card">
     <div class="card-label"><span class="dot" style="background:var(--gold)"></span>Today's Relationship Intention</div>
@@ -870,7 +842,7 @@ body.dark .proactive-nudge{background:rgba(27,58,107,.2);color:var(--gold)}
 </div>
 
 
-<!-- EBA TRANSACTION MODAL -->
+<!-- EBA MODAL -->
 <div class="overlay" id="m-eba">
   <div class="modal">
     <div class="m-hdr"><div class="m-title" id="eba-modal-title">Log Transaction</div><button class="m-close" onclick="closeModal('m-eba')">✕</button></div>
@@ -879,15 +851,16 @@ body.dark .proactive-nudge{background:rgba(27,58,107,.2);color:var(--gold)}
         <button class="eba-type-btn dep-sel" id="eba-type-dep" onclick="setEbaType('deposit')">🟢 Deposit<br><span style="font-size:10px;font-weight:400;opacity:.7">Builds trust</span></button>
         <button class="eba-type-btn" id="eba-type-wd" onclick="setEbaType('withdrawal')">🔴 Withdrawal<br><span style="font-size:10px;font-weight:400;opacity:.7">Costs trust</span></button>
       </div>
-      <div class="fg">
-        <label class="flbl">Quick examples — tap to use</label>
-        <div class="eba-deposit-examples" id="eba-examples"></div>
-      </div>
+      <div class="fg"><label class="flbl">Quick examples</label><div class="eba-examples" id="eba-examples"></div></div>
       <div class="fg"><label class="flbl">Note (optional)</label><input class="fi" id="eba-note" placeholder="What happened?"></div>
       <div class="fg">
         <label class="flbl">Impact (1–5)</label>
         <div style="display:flex;gap:8px" id="eba-impact-row">
-          <button onclick="setEbaImpact(1)" id="eba-imp-1" style="flex:1;padding:9px;border-radius:8px;border:1.5px solid var(--border);background:transparent;font-size:14px;font-weight:800;cursor:pointer;font-family:'DM Sans',sans-serif;color:var(--ink-m);transition:all var(--trans)">1</button><button onclick="setEbaImpact(2)" id="eba-imp-2" style="flex:1;padding:9px;border-radius:8px;border:1.5px solid var(--border);background:transparent;font-size:14px;font-weight:800;cursor:pointer;font-family:'DM Sans',sans-serif;color:var(--ink-m);transition:all var(--trans)">2</button><button onclick="setEbaImpact(3)" id="eba-imp-3" style="flex:1;padding:9px;border-radius:8px;border:1.5px solid var(--border);background:transparent;font-size:14px;font-weight:800;cursor:pointer;font-family:'DM Sans',sans-serif;color:var(--ink-m);transition:all var(--trans)">3</button><button onclick="setEbaImpact(4)" id="eba-imp-4" style="flex:1;padding:9px;border-radius:8px;border:1.5px solid var(--border);background:transparent;font-size:14px;font-weight:800;cursor:pointer;font-family:'DM Sans',sans-serif;color:var(--ink-m);transition:all var(--trans)">4</button><button onclick="setEbaImpact(5)" id="eba-imp-5" style="flex:1;padding:9px;border-radius:8px;border:1.5px solid var(--border);background:transparent;font-size:14px;font-weight:800;cursor:pointer;font-family:'DM Sans',sans-serif;color:var(--ink-m);transition:all var(--trans)">5</button>
+          <button class="impact-btn" id="imp-1" onclick="setEbaImpact(1)">1</button>
+          <button class="impact-btn" id="imp-2" onclick="setEbaImpact(2)">2</button>
+          <button class="impact-btn sel" id="imp-3" onclick="setEbaImpact(3)">3</button>
+          <button class="impact-btn" id="imp-4" onclick="setEbaImpact(4)">4</button>
+          <button class="impact-btn" id="imp-5" onclick="setEbaImpact(5)">5</button>
         </div>
       </div>
     </div>
@@ -897,32 +870,27 @@ body.dark .proactive-nudge{background:rgba(27,58,107,.2);color:var(--gold)}
 
 <!-- EVENING REVIEW OVERLAY -->
 <div class="eve-overlay" id="m-evening">
-  <div class="eve-modal-card">
+  <div class="eve-modal">
     <div style="padding:24px 26px 0;display:flex;align-items:center;justify-content:space-between">
       <div style="font-family:'DM Serif Display',serif;font-size:22px;font-weight:400">Evening Review 🌙</div>
       <button class="m-close" onclick="closeEvening()">✕</button>
     </div>
     <div style="padding:16px 26px 26px">
-      <div style="font-size:12px;color:var(--ink-m);line-height:1.6;margin-bottom:18px;font-style:italic">Habit 5: Seek first to understand. Habit 1: Be proactive. Close the day with intention, not just exhaustion.</div>
-      <div style="margin-bottom:14px">
-        <div class="eve-q">What did I learn today?</div>
-        <textarea class="eve-inp" id="eve-learn" placeholder="One insight, observation, or lesson..."></textarea>
-      </div>
-      <div style="margin-bottom:14px">
-        <div class="eve-q">Where did I seek to understand rather than be understood?</div>
-        <textarea class="eve-inp" id="eve-understand" placeholder="A conversation, a moment of listening..."></textarea>
-      </div>
-      <div style="margin-bottom:14px">
-        <div class="eve-q">What is one proactive move for tomorrow?</div>
-        <textarea class="eve-inp" id="eve-proactive" placeholder="Not reactive. Something I choose — in my Circle of Influence..."></textarea>
-      </div>
-      <div style="margin-bottom:14px">
-        <div class="eve-q">Overall — how did today feel?</div>
+      <div style="font-size:12px;color:var(--ink-m);line-height:1.6;margin-bottom:18px;font-style:italic">Habit 5: Seek first to understand. Habit 1: Be proactive. Close the day with intention.</div>
+      <div style="margin-bottom:14px"><div class="eve-q">What did I learn today?</div><textarea class="eve-inp" id="eve-learn" placeholder="One insight, observation, or lesson..."></textarea></div>
+      <div style="margin-bottom:14px"><div class="eve-q">Where did I seek to understand rather than be understood?</div><textarea class="eve-inp" id="eve-understand" placeholder="A conversation, a moment of real listening..."></textarea></div>
+      <div style="margin-bottom:14px"><div class="eve-q">What is one proactive move for tomorrow?</div><textarea class="eve-inp" id="eve-proactive" placeholder="In my Circle of Influence — something I choose, not react to..."></textarea></div>
+      <div style="margin-bottom:18px">
+        <div class="eve-q">How did today feel?</div>
         <div style="display:flex;gap:8px">
-          <button class="grat-mood-btn" data-mood="1" onclick="setEveMood(this)">😤</button><button class="grat-mood-btn" data-mood="2" onclick="setEveMood(this)">😐</button><button class="grat-mood-btn" data-mood="3" onclick="setEveMood(this)">🙂</button><button class="grat-mood-btn" data-mood="4" onclick="setEveMood(this)">😊</button><button class="grat-mood-btn" data-mood="5" onclick="setEveMood(this)">🔥</button>
+          <button class="grat-mood-btn" data-mood="1" onclick="setEveMood(this)">😤</button>
+          <button class="grat-mood-btn" data-mood="2" onclick="setEveMood(this)">😐</button>
+          <button class="grat-mood-btn" data-mood="3" onclick="setEveMood(this)">🙂</button>
+          <button class="grat-mood-btn" data-mood="4" onclick="setEveMood(this)">😊</button>
+          <button class="grat-mood-btn" data-mood="5" onclick="setEveMood(this)">🔥</button>
         </div>
       </div>
-      <button class="eve-save-btn" onclick="saveEvening()">✦ Close My Day with Clarity</button>
+      <button onclick="saveEvening()" style="width:100%;padding:13px;background:linear-gradient(135deg,var(--navy-2),var(--gold));border:none;border-radius:12px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:800;color:#fff;cursor:pointer">✦ Close My Day with Clarity</button>
       <button onclick="closeEvening()" style="width:100%;padding:9px;background:transparent;border:none;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--ink-m);cursor:pointer;margin-top:6px">Skip for now</button>
     </div>
   </div>
@@ -1740,274 +1708,264 @@ document.addEventListener('keydown',e=>{ if(e.key==='Escape') document.querySele
 })();
 
 
-// ══════════════════════════════════════════════════════════
+// ══════════════════════════════════════════════
 // EMOTIONAL BANK ACCOUNT
-// ══════════════════════════════════════════════════════════
+// ══════════════════════════════════════════════
+const EBA_DEP = ['Kept a commitment','Listened deeply','Showed appreciation','Apologized sincerely','Was loyal in absence','Kept a confidence','Small act of kindness','Followed through','Gave honest feedback','Celebrated their win'];
+const EBA_WD  = ['Broke a promise','Was dismissive','Forgot something important','Interrupted repeatedly','Was harsh','Let them down','Was disloyal','Prioritized myself unfairly'];
+
 let ebaRelId = null;
-let ebaType = 'deposit';
+let ebaType  = 'deposit';
 let ebaImpact = 3;
 let ebaHistOpen = {};
 
-const EBA_DEPOSIT_EXAMPLES = [
-  'Kept a commitment','Listened deeply','Showed appreciation',
-  'Apologized sincerely','Was loyal in absence','Kept a confidence',
-  'Small act of kindness','Followed through','Gave honest feedback','Celebrated their win'
-];
-const EBA_WD_EXAMPLES = [
-  'Broke a promise','Was dismissive','Forgot something important',
-  'Interrupted repeatedly','Was harsh or unkind','Let them down',
-  'Was disloyal','Prioritized myself unfairly'
-];
-
-function getEbaBalance(relId){
-  const txs = load('eba_'+relId, []);
-  return txs.reduce((sum,tx) => sum + (tx.type==='deposit'?tx.impact:-tx.impact), 0);
+function ebaBalance(relId){
+  return (load('eba_'+relId,[])).reduce((s,tx) => s + (tx.type==='deposit' ? tx.impact : -tx.impact), 0);
 }
 
 function renderEbaList(){
-  const c = document.getElementById('eba-list'); if(!c) return;
+  const c = document.getElementById('eba-list');
+  if(!c) return;
   if(!relationships.length){
-    c.innerHTML = '<div style="text-align:center;padding:40px;color:var(--ink-m);font-size:13px;font-style:italic">Add people in the People tab first, then track your emotional bank accounts here.</div>';
+    c.innerHTML = '<div style="text-align:center;padding:40px;color:var(--ink-m);font-size:13px;font-style:italic">Add people in the People tab first.</div>';
     return;
   }
-  c.innerHTML = relationships.map(r => {
-    const bal = getEbaBalance(r.id);
-    const balCls = bal > 0 ? 'positive' : bal < 0 ? 'negative' : 'neutral';
-    const maxBal = 25;
-    const pct = Math.min(Math.abs(bal)/maxBal*100, 100);
-    const txs = load('eba_'+r.id, []);
+  c.innerHTML = '';
+  relationships.forEach(r => {
+    const txs  = load('eba_'+r.id, []);
+    const bal  = txs.reduce((s,tx) => s + (tx.type==='deposit' ? tx.impact : -tx.impact), 0);
+    const pct  = Math.min(Math.abs(bal)/25*100, 100);
     const last = txs[0];
-    const histOpen = ebaHistOpen[r.id];
-    const recentTxs = histOpen ? txs.slice(0,8).map(tx =>
-      '<div class="eba-tx-row">'
-      +'<div class="eba-tx-icon '+(tx.type==='deposit'?'dep':'wd')+'">'+(tx.type==='deposit'?'+':'-')+'</div>'
-      +'<div class="eba-tx-body"><div class="eba-tx-note">'+(tx.note||tx.category)+'</div><div class="eba-tx-date">'+tx.date+'</div></div>'
-      +'<div class="eba-tx-amount '+(tx.type==='deposit'?'pos':'neg')+'">'+(tx.type==='deposit'?'+':'-')+tx.impact+'</div>'
-      +'</div>'
-    ).join('') : '';
-    return '<div class="eba-card">'
-      +'<div class="eba-header">'
-        +'<div class="eba-avatar">'+(r.emoji||'👤')+'</div>'
-        +'<div class="eba-body"><div class="eba-name">'+r.name+'</div><div class="eba-type">'+(r.type||'Key relationship')+'</div></div>'
-        +'<div class="eba-balance-wrap"><div class="eba-balance '+balCls+'">'+(bal>0?'+':'')+bal+'</div><div class="eba-balance-lbl">Balance</div></div>'
-      +'</div>'
-      +'<div class="eba-bar-wrap">'
-        +'<div class="eba-bar-track"><div class="eba-bar-fill '+(bal>=0?'pos':'neg')+'" style="width:'+pct+'%"></div></div>'
-        +'<div class="eba-last">'+(last?'Last: '+last.date:'No transactions yet')+'</div>'
-      +'</div>'
-      +'<div class="eba-actions">'
-        +'<button class="eba-btn eba-btn-dep" onclick="openEbaTx(''+r.id+'','deposit')">+ Deposit</button>'
-        +'<button class="eba-btn eba-btn-wd" onclick="openEbaTx(''+r.id+'','withdrawal')">− Withdrawal</button>'
-        +'<button class="eba-btn eba-btn-hist" onclick="toggleEbaHist(''+r.id+'')">'+(histOpen?'▲ Hide':'▼ History')+'</button>'
-      +'</div>'
-      +(histOpen && txs.length ? '<div class="eba-tx-list">'+recentTxs+'</div>' : '')
-      +(histOpen && !txs.length ? '<div style="padding:12px 18px;font-size:12px;color:var(--ink-m)">No transactions yet.</div>' : '')
-    +'</div>';
-  }).join('');
-}
+    const open = ebaHistOpen[r.id];
 
-function toggleEbaHist(relId){
-  ebaHistOpen[relId] = !ebaHistOpen[relId];
-  renderEbaList();
+    const card = document.createElement('div');
+    card.className = 'eba-card';
+
+    // Header
+    const hdr = document.createElement('div');
+    hdr.className = 'eba-header';
+    hdr.innerHTML = '<div class="eba-avatar">'+(r.emoji||'👤')+'</div>'
+      +'<div class="eba-meta"><div class="eba-name">'+r.name+'</div><div class="eba-type">'+(r.type||'Key relationship')+'</div></div>'
+      +'<div class="eba-bal-wrap"><div class="eba-bal '+(bal>0?'pos':bal<0?'neg':'zero')+'">'+(bal>0?'+':'')+bal+'</div><div class="eba-bal-lbl">Balance</div></div>';
+    card.appendChild(hdr);
+
+    // Bar
+    const barRow = document.createElement('div');
+    barRow.className = 'eba-bar-row';
+    barRow.innerHTML = '<div class="eba-bar-track"><div class="eba-bar-fill '+(bal>=0?'eba-bar-pos':'eba-bar-neg')+'" style="width:'+pct+'%"></div></div>'
+      +'<div class="eba-last-lbl">'+(last ? 'Last: '+last.date : 'No transactions')+'</div>';
+    card.appendChild(barRow);
+
+    // Action buttons — using addEventListener, no onclick strings
+    const acts = document.createElement('div');
+    acts.className = 'eba-actions';
+
+    const depBtn = document.createElement('button');
+    depBtn.className = 'eba-act-btn eba-dep';
+    depBtn.textContent = '+ Deposit';
+    depBtn.addEventListener('click', () => openEbaTx(r.id, 'deposit'));
+
+    const wdBtn = document.createElement('button');
+    wdBtn.className = 'eba-act-btn eba-wd';
+    wdBtn.textContent = '− Withdrawal';
+    wdBtn.addEventListener('click', () => openEbaTx(r.id, 'withdrawal'));
+
+    const histBtn = document.createElement('button');
+    histBtn.className = 'eba-act-btn eba-hist';
+    histBtn.textContent = open ? '▲ Hide' : '▼ History';
+    histBtn.addEventListener('click', () => { ebaHistOpen[r.id] = !open; renderEbaList(); });
+
+    acts.appendChild(depBtn); acts.appendChild(wdBtn); acts.appendChild(histBtn);
+    card.appendChild(acts);
+
+    // History
+    if(open){
+      const txList = document.createElement('div');
+      txList.className = 'eba-tx-list';
+      if(!txs.length){
+        txList.innerHTML = '<div style="padding:12px 18px;font-size:12px;color:var(--ink-m)">No transactions yet.</div>';
+      } else {
+        txs.slice(0,8).forEach(tx => {
+          const row = document.createElement('div');
+          row.className = 'eba-tx-row';
+          const isDep = tx.type==='deposit';
+          row.innerHTML = '<div class="eba-tx-ico '+(isDep?'d':'w')+'">'+(isDep?'+':'-')+'</div>'
+            +'<div class="eba-tx-body"><div class="eba-tx-note">'+tx.note+'</div><div class="eba-tx-date">'+tx.date+'</div></div>'
+            +'<div class="eba-tx-amt '+(isDep?'p':'n')+'">'+(isDep?'+':'-')+tx.impact+'</div>';
+          txList.appendChild(row);
+        });
+      }
+      card.appendChild(txList);
+    }
+
+    c.appendChild(card);
+  });
 }
 
 function openEbaTx(relId, type){
-  ebaRelId = relId;
-  ebaImpact = 3;
+  ebaRelId = relId; ebaImpact = 3;
   const r = relationships.find(x=>x.id===relId);
-  document.getElementById('eba-modal-title').textContent = 'Log — '+(r?.name||'');
-  setEbaType(type);
+  document.getElementById('eba-modal-title').textContent = 'Log — '+(r ? r.name : '');
   document.getElementById('eba-note').value = '';
-  // Reset impact buttons
+  setEbaType(type);
   for(let i=1;i<=5;i++){
-    const btn = document.getElementById('eba-imp-'+i);
-    if(btn){ btn.style.background=i===3?'var(--navy-2)':'transparent'; btn.style.color=i===3?'var(--gold)':'var(--ink-m)'; btn.style.borderColor=i===3?'var(--navy-2)':'var(--border)'; }
+    const b = document.getElementById('imp-'+i);
+    if(b){ b.className = 'impact-btn'+(i===3?' sel':''); }
   }
   openModal('m-eba');
 }
 
 function setEbaType(type){
   ebaType = type;
-  const depBtn = document.getElementById('eba-type-dep');
-  const wdBtn  = document.getElementById('eba-type-wd');
-  if(type==='deposit'){
-    depBtn.className='eba-type-btn dep-sel'; wdBtn.className='eba-type-btn';
-  } else {
-    wdBtn.className='eba-type-btn wd-sel'; depBtn.className='eba-type-btn';
-  }
-  // Render examples
-  const examples = type==='deposit' ? EBA_DEPOSIT_EXAMPLES : EBA_WD_EXAMPLES;
+  document.getElementById('eba-type-dep').className = 'eba-type-btn'+(type==='deposit'?' dep-sel':'');
+  document.getElementById('eba-type-wd').className  = 'eba-type-btn'+(type==='withdrawal'?' wd-sel':'');
+  const examples = type==='deposit' ? EBA_DEP : EBA_WD;
   const cont = document.getElementById('eba-examples');
-  if(cont) cont.innerHTML = examples.map(e=>'<button class="eba-example" onclick="setEbaExample(''+e+'')">'+e+'</button>').join('');
-}
-
-function setEbaExample(text){
-  const inp = document.getElementById('eba-note');
-  if(inp) inp.value = text;
+  if(cont){
+    cont.innerHTML = '';
+    examples.forEach(e => {
+      const btn = document.createElement('button');
+      btn.className = 'eba-ex';
+      btn.textContent = e;
+      btn.addEventListener('click', () => { document.getElementById('eba-note').value = e; });
+      cont.appendChild(btn);
+    });
+  }
 }
 
 function setEbaImpact(n){
   ebaImpact = n;
   for(let i=1;i<=5;i++){
-    const btn = document.getElementById('eba-imp-'+i);
-    if(btn){
-      const sel = i===n;
-      btn.style.background = sel?'var(--navy-2)':'transparent';
-      btn.style.color = sel?'var(--gold)':'var(--ink-m)';
-      btn.style.borderColor = sel?'var(--navy-2)':'var(--border)';
-    }
+    const b = document.getElementById('imp-'+i);
+    if(b) b.className = 'impact-btn'+(i===n?' sel':'');
   }
 }
 
 function saveEbaTx(){
   if(!ebaRelId) return;
-  const tx = {
-    id: 'tx'+Date.now(),
-    type: ebaType,
-    note: document.getElementById('eba-note').value.trim() || (ebaType==='deposit'?'Deposit':'Withdrawal'),
-    impact: ebaImpact,
-    date: TODAY,
-    createdAt: new Date().toISOString()
-  };
+  const note = document.getElementById('eba-note').value.trim() || (ebaType==='deposit'?'Deposit':'Withdrawal');
+  const tx = {id:'tx'+Date.now(), type:ebaType, note, impact:ebaImpact, date:TODAY, createdAt:new Date().toISOString()};
   const txs = load('eba_'+ebaRelId, []);
   txs.unshift(tx);
-  if(txs.length > 100) txs.splice(100);
-  save('eba_'+ebaRelId, txs);
+  save('eba_'+ebaRelId, txs.slice(0,100));
   closeModal('m-eba');
   renderEbaList();
-  const bal = getEbaBalance(ebaRelId);
+  const bal = ebaBalance(ebaRelId);
   const r = relationships.find(x=>x.id===ebaRelId);
-  if(ebaType==='deposit') toast('✓ Deposit logged for '+( r?.name||'')+'. Balance: '+(bal>0?'+':'')+bal);
-  else toast('⚡ Withdrawal logged. Balance: '+(bal>0?'+':'')+bal);
+  toast((ebaType==='deposit'?'✓ Deposit logged':'⚡ Withdrawal logged')+' for '+(r?r.name:'')+'. Balance: '+(bal>0?'+':'')+bal);
 }
 
 function switchRelTab(tab){
-  document.getElementById('rel-people-panel').style.display = tab==='people'?'block':'none';
-  document.getElementById('rel-eba-panel').style.display = tab==='eba'?'block':'none';
+  document.getElementById('rel-people-panel').style.display = tab==='people' ? 'block' : 'none';
+  document.getElementById('rel-eba-panel').style.display   = tab==='eba'    ? 'block' : 'none';
   document.getElementById('rel-tab-people').className = 'rel-tab'+(tab==='people'?' active':'');
-  document.getElementById('rel-tab-eba').className = 'rel-tab'+(tab==='eba'?' active':'');
+  document.getElementById('rel-tab-eba').className    = 'rel-tab'+(tab==='eba'?' active':'');
   if(tab==='eba') renderEbaList();
 }
 
-// ══════════════════════════════════════════════════════════
+// ══════════════════════════════════════════════
 // PROACTIVE LANGUAGE DETECTOR
-// ══════════════════════════════════════════════════════════
-const REACTIVE_PATTERNS = [
-  {pattern:/\bI have to\b/i, reframe:'I choose to'},
-  {pattern:/\bI need to\b/i, reframe:'I want to'},
-  {pattern:/\bI must\b/i, reframe:'I will'},
-  {pattern:/\bI can't\b/i, reframe:'I haven't yet'},
-  {pattern:/\bI should\b/i, reframe:'I intend to'},
-  {pattern:/\bif only\b/i, reframe:'I can'},
-  {pattern:/\bI hope\b/i, reframe:'I will'},
+// ══════════════════════════════════════════════
+const REACTIVE = [
+  {re:/I have to /i, fix:'I choose to '},
+  {re:/I need to /i, fix:'I want to '},
+  {re:/I must /i,    fix:'I will '},
+  {re:/I can't /i,   fix:"I haven't yet "},
+  {re:/I should /i,  fix:'I intend to '},
+  {re:/if only /i,   fix:'I can '},
 ];
 
-function checkProactiveLanguage(text, nudgeElId){
-  const nudge = document.getElementById(nudgeElId); if(!nudge) return;
-  const found = REACTIVE_PATTERNS.find(p => p.pattern.test(text));
-  if(found){
-    nudge.style.display = 'block';
-    nudge.innerHTML = '<strong>🔄 Proactive reframe (Habit 1)</strong>'
-      +'"'+text.replace(found.pattern, '<strong style="color:var(--red)"></script>
-</body></strong>')+'"'
-      +' → try: <em>"'+text.replace(found.pattern, found.reframe)+'"</em>'
-      +'<button class="reframe-btn" onclick="applyReframe(this,''+found.reframe.replace(/'/g,"\'")+'')" data-pattern="'+found.pattern.source+'">Use reframe</button>';
+function checkProactive(text, nudgeId){
+  const el = document.getElementById(nudgeId); if(!el) return;
+  const hit = REACTIVE.find(r => r.re.test(text));
+  if(hit){
+    el.style.display = 'block';
+    el.innerHTML = '<b>🔄 Proactive reframe (Habit 1)</b>'
+      +'Try: <em>"'+text.replace(hit.re, hit.fix)+'"</em>';
+    const btn = document.createElement('button');
+    btn.className = 'reframe-btn';
+    btn.textContent = 'Use reframe';
+    btn.addEventListener('click', () => {
+      const inp = document.getElementById('p-title');
+      if(inp) inp.value = inp.value.replace(hit.re, hit.fix);
+      el.style.display = 'none';
+      toast('✦ Proactive language applied.');
+    });
+    el.appendChild(btn);
   } else {
-    nudge.style.display = 'none';
+    el.style.display = 'none';
   }
 }
 
-function applyReframe(btn, reframe){
-  // Find the input above this nudge div
-  const nudge = btn.closest('.proactive-nudge');
-  const inp = nudge?.previousElementSibling;
-  if(!inp) return;
-  const pattern = REACTIVE_PATTERNS.find(p => p.reframe === reframe)?.pattern;
-  if(pattern && inp.value) inp.value = inp.value.replace(pattern, reframe);
-  nudge.style.display = 'none';
-  toast('✦ Proactive language applied.');
+// Wire proactive detector into priority modal
+// Called from openAddPriority after modal opens
+function wireProactiveDetector(){
+  const inp = document.getElementById('p-title'); if(!inp) return;
+  let nudge = document.getElementById('proactive-nudge-p');
+  if(!nudge){
+    nudge = document.createElement('div');
+    nudge.className = 'proactive-nudge';
+    nudge.id = 'proactive-nudge-p';
+    inp.parentNode.appendChild(nudge);
+  }
+  // Remove old listeners by cloning
+  const newInp = inp.cloneNode(true);
+  inp.parentNode.replaceChild(newInp, inp);
+  newInp.addEventListener('input', () => checkProactive(newInp.value, 'proactive-nudge-p'));
 }
 
-// ══════════════════════════════════════════════════════════
+// ══════════════════════════════════════════════
 // EVENING REVIEW
-// ══════════════════════════════════════════════════════════
+// ══════════════════════════════════════════════
 let eveMood = 3;
 
 function openEvening(){
-  // Restore saved values
-  const el = s => document.getElementById(s);
-  if(el('eve-learn')) el('eve-learn').value = loadLocal('eve_learn_'+TODAY)||'';
-  if(el('eve-understand')) el('eve-understand').value = loadLocal('eve_understand_'+TODAY)||'';
-  if(el('eve-proactive')) el('eve-proactive').value = loadLocal('eve_proactive_'+TODAY)||'';
+  const g = id => document.getElementById(id);
+  if(g('eve-learn'))      g('eve-learn').value      = loadLocal('eve_learn_'+TODAY)||'';
+  if(g('eve-understand')) g('eve-understand').value = loadLocal('eve_understand_'+TODAY)||'';
+  if(g('eve-proactive'))  g('eve-proactive').value  = loadLocal('eve_proactive_'+TODAY)||'';
   eveMood = parseInt(loadLocal('eve_mood_'+TODAY)||'3');
-  document.querySelectorAll('#m-evening .grat-mood-btn').forEach(b=>b.classList.toggle('active',parseInt(b.dataset.mood)===eveMood));
+  document.querySelectorAll('#m-evening .grat-mood-btn').forEach(b => b.classList.toggle('active', parseInt(b.dataset.mood)===eveMood));
   document.getElementById('m-evening').classList.add('open');
 }
 function closeEvening(){ document.getElementById('m-evening').classList.remove('open'); }
 function setEveMood(btn){
   eveMood = parseInt(btn.dataset.mood);
-  document.querySelectorAll('#m-evening .grat-mood-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('#m-evening .grat-mood-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
   saveLocal('eve_mood_'+TODAY, eveMood);
 }
 function saveEvening(){
-  const learn = document.getElementById('eve-learn')?.value||'';
-  const understand = document.getElementById('eve-understand')?.value||'';
-  const proactive = document.getElementById('eve-proactive')?.value||'';
-  saveLocal('eve_learn_'+TODAY, learn);
-  saveLocal('eve_understand_'+TODAY, understand);
-  saveLocal('eve_proactive_'+TODAY, proactive);
+  saveLocal('eve_learn_'+TODAY,      document.getElementById('eve-learn')?.value||'');
+  saveLocal('eve_understand_'+TODAY, document.getElementById('eve-understand')?.value||'');
+  saveLocal('eve_proactive_'+TODAY,  document.getElementById('eve-proactive')?.value||'');
   saveLocal('eve_done_'+TODAY, '1');
   const tb = document.getElementById('eve-trigger-btn');
-  if(tb){ tb.textContent='🌙 Evening Review — Done ✓'; tb.classList.add('done'); }
+  if(tb){ tb.textContent = '🌙 Evening Review — Done ✓'; tb.classList.add('done'); }
   closeEvening();
   toast('✦ Day closed with clarity.');
 }
-function checkAutoEvening(){
+
+// ══════════════════════════════════════════════
+// PATCH existing functions — inline, no wrappers
+// Add wireProactiveDetector call inside openModal
+// Add checkAutoEvening inside renderToday
+// ══════════════════════════════════════════════
+// Monkey-patch openModal to wire detector when priority modal opens
+const _origOpenModal = openModal;
+openModal = function(id){
+  _origOpenModal(id);
+  if(id === 'm-priority') setTimeout(wireProactiveDetector, 100);
+};
+
+// Check evening done state on today render
+const _origRenderToday = renderToday;
+renderToday = function(){
+  _origRenderToday();
   if(loadLocal('eve_done_'+TODAY)){
     const tb = document.getElementById('eve-trigger-btn');
-    if(tb){ tb.textContent='🌙 Evening Review — Done ✓'; tb.classList.add('done'); }
+    if(tb){ tb.textContent = '🌙 Evening Review — Done ✓'; tb.classList.add('done'); }
   }
-}
-
-// ══════════════════════════════════════════════════════════
-// PATCH: renderToday — add evening check + proactive detector
-// ══════════════════════════════════════════════════════════
-const _rtOrig = renderToday;
-renderToday = function(){
-  _rtOrig();
-  checkAutoEvening();
-  // Wire proactive detector to priority input after modal opens
-};
-
-// Patch openAddPriority to add proactive nudge to the modal
-const _oapOrig = openAddPriority;
-openAddPriority = function(){
-  _oapOrig();
-  // Add nudge div after p-title input if not present
-  setTimeout(()=>{
-    const inp = document.getElementById('p-title');
-    if(inp && !document.getElementById('proactive-nudge-priority')){
-      const nudge = document.createElement('div');
-      nudge.className = 'proactive-nudge';
-      nudge.id = 'proactive-nudge-priority';
-      inp.parentNode.appendChild(nudge);
-      inp.addEventListener('input', ()=>checkProactiveLanguage(inp.value,'proactive-nudge-priority'));
-    }
-  }, 150);
-};
-
-// Also wire EBA export to include eba data
-const _expOrig = exportData;
-exportData = function(){
-  // Add eba data to export
-  const ebaData = {};
-  relationships.forEach(r=>{ ebaData[r.id] = load('eba_'+r.id,[]); });
-  const data={roles,habits,habitLogs,relationships,goals,missionStatement,futureself,values,reflections,ebaData,exportedAt:new Date().toISOString(),user:currentUser?.name};
-  const a=document.createElement('a');
-  a.href=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:'application/json'}));
-  a.download='dayflow-v3-'+(currentUser?.name||'data').toLowerCase()+'-'+TODAY+'.json';
-  a.click(); toast('📤 Exported');
 };
 
 </script>
