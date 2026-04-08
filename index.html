@@ -799,18 +799,25 @@ console.log('Firebase ready');
     </div>
   </div>
   <div class="settings-card">
-    <div class="settings-hdr"><div class="settings-ico" style="background:linear-gradient(135deg,var(--green),#1B5E20)">💾</div><div><div class="settings-title">Your Data</div><div class="settings-sub">All data stored locally in your browser</div></div></div>
+    <div class="settings-hdr">
+      <div class="settings-ico" style="background:linear-gradient(135deg,#F57C00,#FFA000)">🔥</div>
+      <div><div class="settings-title">Firebase Sync</div><div class="settings-sub">dayflow-a2c14 · Cross-device persistence</div></div>
+      <div id="fb-badge" class="settings-badge badge-off">Checking...</div>
+    </div>
     <div class="settings-body">
+      <div id="fb-status-detail" style="font-size:12px;color:var(--ink-m);margin-bottom:12px;line-height:1.6">Connecting to Firebase...</div>
       <div style="display:flex;gap:8px;flex-wrap:wrap">
-        <button class="btn btn-ghost" onclick="exportData()">📤 Export</button>
-        <button class="btn btn-ghost" onclick="document.getElementById('import-file').click()">📥 Import</button>
-        <button class="btn btn-danger" onclick="clearAllData()">⚠️ Clear All Data</button>
+        <button class="btn btn-primary" onclick="manualSync()" style="font-size:12px">☁️ Sync Now</button>
+        <button class="btn btn-ghost" onclick="migrateLocalToFirebase()" style="font-size:12px">📤 Migrate Local Data</button>
       </div>
-      <input type="file" id="import-file" accept=".json" style="display:none" onchange="importData(event)">
-      <div style="margin-top:10px;font-size:12px;color:var(--ink-m)" id="data-summary"></div>
-
+      <div id="sync-status" style="margin-top:8px;font-size:11px;color:var(--ink-m)"></div>
+      <div style="margin-top:14px;padding-top:14px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px">
+        <div style="font-size:12px;color:var(--ink-m)" id="data-summary"></div>
+        <button class="btn btn-danger" onclick="clearAllData()" style="font-size:12px">⚠️ Clear All Data</button>
+      </div>
     </div>
   </div>
+  
 </div>
 
 </main>
