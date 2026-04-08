@@ -870,6 +870,122 @@ body.dark .mtitle { color: #E8EDF5 !important; }
 .hday:not(.on):hover{background:rgba(201,168,76,.2) !important;border-color:rgba(201,168,76,.6) !important}
 .backfill-hint{font-size:10px;color:var(--ink-m);margin-top:4px;font-weight:600;opacity:.7}
 </style>
+
+<style id="v3patch">
+/* ══ DAYFLOW v3 PATCH ══ */
+/* Hide bloat */
+[data-v="notes"],[data-v="pomodoro"],[data-v="deploy"],[data-v="analytics"],[data-v="inbox"]{display:none!important}
+#view-notes,#view-pomodoro,#view-deploy,#view-analytics,#view-inbox{display:none!important}
+#kanban-board{display:none!important}
+.vtoggle{display:none!important}
+/* Hide sb sections - replaced by v3-nav */
+.sb-section{display:none!important}
+/* v3 nav */
+#v3-nav{display:flex;flex-direction:column;padding:8px 12px;gap:3px;overflow-y:auto}
+.v3ni{display:flex;align-items:center;gap:10px;padding:10px 13px;border-radius:10px;cursor:pointer;transition:all .18s;color:rgba(255,255,255,.55);font-size:13px;font-weight:600;position:relative}
+.v3ni:hover{background:rgba(201,168,76,.1);color:#C9A84C}
+.v3ni.on{background:linear-gradient(135deg,rgba(27,58,107,.8),rgba(27,58,107,.5));color:#C9A84C;border-left:3px solid #C9A84C}
+.v3ni-ic{font-size:17px;width:22px;text-align:center;flex-shrink:0}
+.v3ni-tx{flex:1}
+.v3ni-bd{font-size:10px;font-weight:800;background:rgba(201,168,76,.2);color:#C9A84C;padding:2px 7px;border-radius:10px}
+.v3sec-hdr{font-size:9.5px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;color:rgba(201,168,76,.45);padding:10px 13px 3px}
+#v3-scores{margin:0 12px 12px;background:linear-gradient(135deg,rgba(27,58,107,.4),rgba(201,168,76,.08));border:1px solid rgba(201,168,76,.15);border-radius:12px;padding:12px 14px}
+.v3sc-lbl{font-size:9.5px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:rgba(201,168,76,.7);margin-bottom:8px}
+.v3sr{display:flex;align-items:center;gap:8px;margin-bottom:5px}
+.v3sl{font-size:10px;color:rgba(255,255,255,.35);font-weight:600;width:68px;flex-shrink:0}
+.v3sb-w{flex:1;background:rgba(255,255,255,.08);border-radius:20px;height:5px;overflow:hidden}
+.v3sb{height:100%;border-radius:20px;transition:width .6s}
+.v3sv{font-size:10px;font-weight:800;color:#C9A84C;width:28px;text-align:right}
+/* v3 view base */
+.v3view{display:none;padding:28px 32px;max-width:760px}
+.v3view.on{display:block}
+/* section card */
+.v3card{background:#fff;border-radius:14px;border:1px solid var(--border,#D5DCE8);padding:20px 22px;margin-bottom:16px;box-shadow:0 1px 4px var(--sh,rgba(15,27,45,.08))}
+.v3clbl{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:1.4px;color:var(--ink-m,#7F8C8D);margin-bottom:14px;display:flex;align-items:center;gap:7px}
+.v3dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+/* priorities */
+.v3pslot{display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:10px;border:1.5px solid var(--border,#D5DCE8);margin-bottom:8px;background:var(--cream,#F4F6F9);transition:all .2s}
+.v3pslot:hover{border-color:#1B3A6B;background:rgba(27,58,107,.04)}
+.v3pslot.done .v3ptitle{text-decoration:line-through;opacity:.5}
+.v3pnum{width:26px;height:26px;border-radius:50%;background:#1B3A6B;color:#C9A84C;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.v3pbody{flex:1;min-width:0}
+.v3ptitle{font-size:14px;font-weight:600;color:var(--ink,#0F1B2D)}
+.v3pmeta{font-size:11px;color:var(--ink-m,#7F8C8D);margin-top:2px}
+.v3pchk{width:24px;height:24px;border-radius:50%;border:2px solid var(--border,#D5DCE8);flex-shrink:0;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:11px;transition:all .2s}
+.v3pchk:hover{border-color:#2E7D32;background:rgba(46,125,50,.08)}
+.v3pchk.on{background:#2E7D32;border-color:#2E7D32;color:#fff}
+.v3addbtn{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--ink-m,#7F8C8D);cursor:pointer;padding:9px 14px;border:1.5px dashed var(--border,#D5DCE8);border-radius:10px;transition:all .2s;background:transparent;font-family:'DM Sans',sans-serif;font-weight:600;width:100%}
+.v3addbtn:hover{border-color:#1B3A6B;color:#1B3A6B}
+.v3capnote{font-size:11px;color:#C9A84C;font-weight:700;text-align:center;margin-top:8px;opacity:.85}
+/* role alignment */
+.v3rc{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--border,#D5DCE8)}
+.v3rc:last-child{border:none}
+.v3rserve{padding:4px 10px;border-radius:20px;font-size:10px;font-weight:800;cursor:pointer;border:none;font-family:'DM Sans',sans-serif;transition:all .2s}
+.v3rserve.yes{background:rgba(46,125,50,.12);color:#2E7D32}
+.v3rserve.no{background:rgba(192,57,43,.1);color:#C0392B}
+.v3rserve.none{background:var(--border,#D5DCE8);color:var(--ink-m,#7F8C8D)}
+/* inputs */
+.v3inp{width:100%;padding:11px 14px;border:1.5px solid var(--border,#D5DCE8);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:14px;color:var(--ink,#0F1B2D);background:var(--cream,#F4F6F9);outline:none;transition:border .2s;margin-bottom:8px}
+.v3inp:focus{border-color:#C9A84C}
+.v3inp:last-child{margin-bottom:0}
+/* renewal */
+.v3rengrid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.v3renitem{display:flex;align-items:center;gap:9px;padding:10px 13px;border:1.5px solid var(--border,#D5DCE8);border-radius:10px;cursor:pointer;transition:all .2s;font-size:13px;font-weight:600;color:var(--ink-l,#2C3E50);background:var(--cream,#F4F6F9)}
+.v3renitem:hover{border-color:#1B3A6B}
+.v3renitem.done{background:rgba(46,125,50,.08);border-color:rgba(46,125,50,.3);color:#2E7D32}
+.v3renck{width:18px;height:18px;border-radius:5px;border:2px solid var(--border,#D5DCE8);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:10px;transition:all .2s}
+.v3renitem.done .v3renck{background:#2E7D32;border-color:#2E7D32;color:#fff}
+/* coach */
+#v3coach{background:linear-gradient(135deg,rgba(15,36,71,.06),rgba(201,168,76,.06));border:1px solid rgba(201,168,76,.2);border-radius:12px;padding:14px 18px;margin-bottom:16px;position:relative;overflow:hidden}
+#v3coach::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#1B3A6B,#C9A84C);border-radius:12px 12px 0 0}
+.v3chdr{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.v3cico{width:28px;height:28px;border-radius:8px;background:#C9A84C;display:flex;align-items:center;justify-content:center;font-size:13px;color:#fff;flex-shrink:0}
+.v3ctitle{font-weight:800;font-size:13px;color:#1B3A6B}
+.v3cbody{font-size:13px;color:var(--ink-l,#2C3E50);line-height:1.6}
+/* week view */
+.v3rccard{background:#fff;border:1px solid var(--border,#D5DCE8);border-radius:14px;margin-bottom:14px;overflow:hidden}
+.v3rchdr{display:flex;align-items:center;gap:12px;padding:14px 20px;background:rgba(27,58,107,.03);border-bottom:1px solid var(--border,#D5DCE8)}
+.v3rcinp{width:100%;padding:10px 13px;border:1.5px solid var(--border,#D5DCE8);border-radius:9px;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--ink,#0F1B2D);background:var(--cream,#F4F6F9);outline:none;transition:border .2s}
+.v3rcinp:focus{border-color:#C9A84C}
+.v3q2sec{background:rgba(27,58,107,.04);border:1px solid rgba(27,58,107,.12);border-radius:14px;padding:18px 22px;margin-bottom:16px}
+.v3q2item{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid rgba(27,58,107,.08)}
+.v3q2item:last-child{border:none}
+.v3q2ck{width:18px;height:18px;border-radius:5px;border:2px solid rgba(27,58,107,.2);flex-shrink:0;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:9px;transition:all .2s}
+.v3q2ck.on{background:#1B3A6B;border-color:#1B3A6B;color:#C9A84C}
+/* end in mind */
+.v3mhero{background:linear-gradient(135deg,rgba(27,58,107,.06),rgba(201,168,76,.08));border:1px solid rgba(201,168,76,.2);border-radius:18px;padding:28px;margin-bottom:18px;position:relative;overflow:hidden}
+.v3mhero::before{content:'✦';position:absolute;right:20px;top:14px;font-size:44px;opacity:.07;color:#C9A84C}
+.v3mlbl{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:1.2px;color:#C9A84C;margin-bottom:8px}
+.v3mtext{font-family:'DM Serif Display',serif;font-size:18px;color:var(--ink,#0F1B2D);line-height:1.55;font-style:italic}
+.v3valtag{padding:6px 14px;background:rgba(27,58,107,.08);border:1.5px solid rgba(27,58,107,.18);border-radius:20px;font-size:12px;font-weight:700;color:#1B3A6B;cursor:pointer;transition:all .2s}
+.v3valtag.on{background:#1B3A6B;color:#C9A84C;border-color:#1B3A6B}
+/* relationships */
+.v3relcard{background:#fff;border:1px solid var(--border,#D5DCE8);border-radius:14px;padding:16px 20px;margin-bottom:10px;display:flex;align-items:center;gap:14px;box-shadow:0 1px 4px var(--sh,rgba(15,27,45,.08));transition:all .2s}
+.v3relcard:hover{box-shadow:0 4px 14px var(--sh2,rgba(15,27,45,.16));transform:translateY(-1px)}
+.v3relav{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#1B3A6B,#C9A84C);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.v3renergy{padding:4px 10px;border-radius:20px;font-size:10px;font-weight:800}
+.v3renergy.high{background:rgba(46,125,50,.1);color:#2E7D32}
+.v3renergy.med{background:rgba(201,168,76,.12);color:#8B6914}
+.v3renergy.low{background:rgba(192,57,43,.1);color:#C0392B}
+/* reflection */
+.v3rcard{background:#fff;border:1px solid var(--border,#D5DCE8);border-radius:14px;padding:20px 22px;margin-bottom:16px}
+.v3rq{font-weight:800;font-size:14px;color:var(--ink,#0F1B2D);margin-bottom:4px}
+.v3rh{font-size:12px;color:var(--ink-m,#7F8C8D);margin-bottom:12px}
+.v3rta{width:100%;padding:12px 14px;border:1.5px solid var(--border,#D5DCE8);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:14px;color:var(--ink,#0F1B2D);background:var(--cream,#F4F6F9);outline:none;resize:vertical;min-height:90px;transition:border .2s;line-height:1.6}
+.v3rta:focus{border-color:#1B3A6B}
+.v3sgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px}
+.v3scard{background:#fff;border:1px solid var(--border,#D5DCE8);border-radius:14px;padding:16px 18px;text-align:center}
+.v3slbl{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.8px;color:var(--ink-m,#7F8C8D);margin-bottom:10px}
+.v3sring{position:relative;width:80px;height:80px;margin:0 auto 10px}
+.v3snum{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:'DM Serif Display',serif;font-size:22px;font-weight:700;color:var(--ink,#0F1B2D)}
+.v3savebtn{width:100%;padding:13px;background:#1B3A6B;border:none;border-radius:12px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:800;color:#C9A84C;cursor:pointer;transition:all .2s}
+.v3savebtn:hover{background:#0F2447;transform:translateY(-1px)}
+/* ph title */
+.v3pgtitle{font-family:'DM Serif Display',serif;font-size:26px;font-weight:400;letter-spacing:-.3px;color:var(--ink,#0F1B2D);margin-bottom:6px}
+.v3pgsub{font-size:12.5px;color:var(--ink-m,#7F8C8D);margin-bottom:24px}
+/* mobile */
+@media(max-width:768px){.v3view{padding:14px 16px}.v3rengrid{grid-template-columns:1fr 1fr}.v3sgrid{grid-template-columns:1fr}}
+</style>
 </head>
 <body data-new-gr-c-s-check-loaded="14.1280.0" data-gr-ext-installed="">
 
@@ -882,11 +998,11 @@ body.dark .mtitle { color: #E8EDF5 !important; }
     <!-- Profile picker -->
     <div id="auth-main" style="display: block;">
       <div style="font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:var(--ink-m);margin-bottom:14px;">Who's planning today?</div>
-      <div id="profile-grid" style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:16px;"><div onclick="selectProfile(&#39;u_filipe&#39;)" style="display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 18px 12px; background: var(--surface); border-color: var(--border); border-top-style: ; border-top-width: ; border-right-style: ; border-right-width: ; border-bottom-style: ; border-bottom-width: ; border-left-style: ; border-left-width: ; border-image-source: ; border-image-slice: ; border-image-width: ; border-image-outset: ; border-image-repeat: ; border-radius: 16px; cursor: pointer; transition: 0.2s; position: relative; transform: translateY(0px);" onmouseover="this.style.borderColor=&#39;var(--peach)&#39;;this.style.transform=&#39;translateY(-2px)&#39;;this.querySelector(&#39;.pdel&#39;).style.opacity=&#39;1&#39;" onmouseout="this.style.borderColor=&#39;var(--border)&#39;;this.style.transform=&#39;translateY(0)&#39;;this.querySelector(&#39;.pdel&#39;).style.opacity=&#39;0&#39;">
+      <div id="profile-grid" style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:16px;"><div onclick="selectProfile(&#39;u_filipe&#39;)" style="display:flex;flex-direction:column;align-items:center;gap:8px;padding:18px 12px;background:var(--surface);border:2px solid var(--border);border-radius:16px;cursor:pointer;transition:all .2s;position:relative;" onmouseover="this.style.borderColor=&#39;var(--peach)&#39;;this.style.transform=&#39;translateY(-2px)&#39;;this.querySelector(&#39;.pdel&#39;).style.opacity=&#39;1&#39;" onmouseout="this.style.borderColor=&#39;var(--border)&#39;;this.style.transform=&#39;translateY(0)&#39;;this.querySelector(&#39;.pdel&#39;).style.opacity=&#39;0&#39;">
       <div style="width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,var(--peach),var(--gold));display:flex;align-items:center;justify-content:center;font-size:26px;">🔥</div>
       <div style="font-weight:800;font-size:14px;">Filipe</div>
       <div style="font-size:10px;color:var(--ink-m);font-weight:600;">3 tasks</div>
-      <button class="pdel" onclick="event.stopPropagation();deleteProfile(&#39;u_filipe&#39;)" style="position: absolute; top: 6px; right: 8px; background: none; border: none; cursor: pointer; font-size: 13px; color: var(--ink-m); opacity: 0; transition: opacity 0.2s;">✕</button>
+      <button class="pdel" onclick="event.stopPropagation();deleteProfile(&#39;u_filipe&#39;)" style="position:absolute;top:6px;right:8px;background:none;border:none;cursor:pointer;font-size:13px;color:var(--ink-m);opacity:0;transition:opacity .2s;">✕</button>
     </div></div>
       <button onclick="openAddProfile()" style="width:100%;padding:11px;background:transparent;border:2px dashed var(--border);border-radius:14px;font-family:&#39;DM Sans&#39;,sans-serif;font-size:13px;font-weight:700;color:var(--ink-m);cursor:pointer;transition:all .2s;" onmouseover="this.style.borderColor=&#39;var(--peach)&#39;;this.style.color=&#39;var(--peach)&#39;" onmouseout="this.style.borderColor=&#39;var(--border)&#39;;this.style.color=&#39;var(--ink-m)&#39;">+ Add New User</button>
     </div>
@@ -927,8 +1043,8 @@ body.dark .mtitle { color: #E8EDF5 !important; }
 <!-- GRATITUDE OVERLAY -->
 <div id="gratitude-overlay" class="">
   <div class="gc-card">
-    <div class="gc-sun">🌅</div>
-    <div class="gc-title">Good Morning!</div>
+    <div class="gc-sun">🌙</div>
+    <div class="gc-title">Good Evening!</div>
     <div class="gc-sub">Habit 7 — Sharpen the Saw<br>Start with gratitude to center your mind.</div>
     <span class="gc-label">3 things I'm grateful for today</span>
     <input class="gc-input" id="grat-1" placeholder="I&#39;m grateful for...">
@@ -948,6 +1064,154 @@ body.dark .mtitle { color: #E8EDF5 !important; }
 </div>
 
 <div id="app" style="display: flex;">
+<!-- ════ DAYFLOW v3 VIEWS ════ -->
+
+<!-- TODAY -->
+<div id="v3-today" class="v3view">
+  <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:22px;flex-wrap:wrap">
+    <div>
+      <div class="v3pgtitle" id="v3g">Good morning ☀️</div>
+      <div class="v3pgsub" id="v3d"></div>
+    </div>
+    <button onclick="v3AddP()" style="padding:10px 20px;border-radius:10px;border:none;background:#1B3A6B;color:#C9A84C;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:800;cursor:pointer">+ Add Priority</button>
+  </div>
+
+  <div id="v3coach">
+    <div class="v3chdr">
+      <div class="v3cico">✦</div>
+      <div class="v3ctitle">Decision Coach</div>
+      <button onclick="v3Coach()" style="margin-left:auto;background:rgba(201,168,76,.15);border:none;border-radius:7px;padding:4px 10px;font-size:11px;font-weight:700;color:#C9A84C;cursor:pointer;font-family:'DM Sans',sans-serif">↺ Refresh</button>
+    </div>
+    <div class="v3cbody" id="v3cbody">Add your Gemini key in Settings to unlock decision coaching.</div>
+  </div>
+
+  <div class="v3card">
+    <div class="v3clbl"><span class="v3dot" style="background:#C0392B"></span>Top 3 Priorities — What moves the needle today?</div>
+    <div id="v3ps"></div>
+  </div>
+
+  <div class="v3card">
+    <div class="v3clbl"><span class="v3dot" style="background:#1B3A6B"></span>Role Alignment — Does today reflect who you're becoming?</div>
+    <div id="v3ra"></div>
+  </div>
+
+  <div class="v3card">
+    <div class="v3clbl"><span class="v3dot" style="background:#C9A84C"></span>Relationship Intention — Who needs your attention today?</div>
+    <input class="v3inp" id="v3ri" placeholder="Name someone who needs your presence or support..." oninput="v3sl('ri',this.value)">
+    <input class="v3inp" id="v3ria" placeholder="What specific action will you take?" oninput="v3sl('ria',this.value)" style="margin-bottom:0">
+  </div>
+
+  <div class="v3card">
+    <div class="v3clbl"><span class="v3dot" style="background:#2E7D32"></span>Renewal — Sharpen the saw</div>
+    <div class="v3rengrid" id="v3ren"></div>
+  </div>
+
+  <div class="v3card" style="background:rgba(27,58,107,.03);border-color:rgba(27,58,107,.15)">
+    <div class="v3clbl"><span class="v3dot" style="background:#C9A84C"></span>End in Mind Check</div>
+    <div style="font-size:14px;color:var(--ink-l,#2C3E50);margin-bottom:14px;line-height:1.6;font-style:italic" id="v3mt">Define your mission to see it here.</div>
+    <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+      <span style="font-size:13px;color:var(--ink-l,#2C3E50);font-weight:700">Does today reflect your future self?</span>
+      <button onclick="v3AC('yes')" id="v3ay" style="padding:7px 16px;border-radius:20px;border:1.5px solid var(--border,#D5DCE8);background:transparent;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:800;cursor:pointer;color:var(--ink-m,#7F8C8D);transition:all .2s">✓ Yes</button>
+      <button onclick="v3AC('no')" id="v3an" style="padding:7px 16px;border-radius:20px;border:1.5px solid var(--border,#D5DCE8);background:transparent;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:800;cursor:pointer;color:var(--ink-m,#7F8C8D);transition:all .2s">✕ No</button>
+    </div>
+    <div id="v3ar" style="display:none;margin-top:10px;font-size:13px;font-weight:700"></div>
+  </div>
+</div>
+
+<!-- THIS WEEK -->
+<div id="v3-week" class="v3view">
+  <div class="v3pgtitle">This Week 📅</div>
+  <div class="v3pgsub" id="v3wr"></div>
+
+  <div id="v3rcw" style="display:none;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.25);border-radius:10px;padding:10px 14px;font-size:12px;color:#8B6914;font-weight:700;margin-bottom:16px">
+    ⚠️ Maximum 4 roles reached. Focus creates effectiveness.
+  </div>
+
+  <div class="v3q2sec">
+    <div style="font-weight:800;font-size:14px;color:#1B3A6B;margin-bottom:4px;display:flex;align-items:center;gap:7px">🔵 Q2 Focus This Week</div>
+    <div style="font-size:12px;color:var(--ink-m,#7F8C8D);margin-bottom:14px;line-height:1.5">Important but not urgent. Schedule these first — everything else fills the gaps.</div>
+    <div id="v3q2"></div>
+  </div>
+
+  <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:1.4px;color:var(--ink-m,#7F8C8D);margin-bottom:14px">One Commitment Per Role This Week</div>
+  <div id="v3rcom"></div>
+
+  <div style="background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.2);border-radius:12px;padding:14px 18px;font-size:13px;color:#8B6914;line-height:1.6">
+    <strong>Covey:</strong> Plan by role, not by task list. Schedule Q2 first. Commitments you make to yourself are the most important — and the most broken.
+  </div>
+</div>
+
+<!-- END IN MIND -->
+<div id="v3-endmind" class="v3view">
+  <div class="v3pgtitle">End in Mind 🧭</div>
+  <div class="v3pgsub">Your personal constitution. All habits, roles, and priorities flow from this.</div>
+
+  <div class="v3mhero">
+    <div class="v3mlbl">My Mission Statement</div>
+    <div class="v3mtext" id="v3misd">Click ✏️ Edit to write your mission statement.</div>
+    <button onclick="openMissionEditor()" style="margin-top:14px;display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:#1B3A6B;color:#C9A84C;border:none;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:700;cursor:pointer">✏️ Edit Mission</button>
+  </div>
+
+  <div class="v3card">
+    <div class="v3clbl"><span class="v3dot" style="background:#C9A84C"></span>Future Self — In 3 years, I am:</div>
+    <input class="v3inp" id="v3fs" placeholder="Describe your future self in present tense..." oninput="v3sl('future_self',this.value)" style="font-family:'DM Serif Display',serif;font-size:15px;font-style:italic;margin-bottom:0">
+  </div>
+
+  <div class="v3card">
+    <div class="v3clbl"><span class="v3dot" style="background:#C9A84C"></span>Core Values</div>
+    <div style="display:flex;flex-wrap:wrap;gap:7px" id="v3vals"></div>
+  </div>
+
+  <div class="v3card">
+    <div class="v3clbl"><span class="v3dot" style="background:#1B3A6B"></span>My Roles (Max 4)</div>
+    <div id="v3emroles"></div>
+    <div id="v3emrolecta" style="margin-top:10px"></div>
+  </div>
+</div>
+
+<!-- RELATIONSHIPS -->
+<div id="v3-rel" class="v3view">
+  <div class="v3pgtitle">Relationships 🤝</div>
+  <div class="v3pgsub">Habits 4–6: Win-Win · Seek to Understand · Synergize. Effectiveness is built through people.</div>
+
+  <div style="background:rgba(27,58,107,.05);border:1.5px solid rgba(27,58,107,.15);border-radius:14px;padding:18px 22px;margin-bottom:16px">
+    <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:var(--ink-m,#7F8C8D);margin-bottom:10px">Today's Intention</div>
+    <div style="font-size:14px;color:var(--ink-l,#2C3E50);line-height:1.6;margin-bottom:12px;font-style:italic">"Seek first to understand, then to be understood." Who needs your real attention right now?</div>
+    <input class="v3inp" id="v3who" placeholder="Name someone..." oninput="v3sl('who_today',this.value)" style="margin-bottom:0">
+  </div>
+
+  <div id="v3rels"></div>
+  <button onclick="v3AddRel()" style="width:100%;padding:13px;border-radius:12px;border:2px dashed var(--border,#D5DCE8);background:transparent;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:700;color:var(--ink-m,#7F8C8D);cursor:pointer;transition:all .2s" onmouseover="this.style.borderColor='#1B3A6B';this.style.color='#1B3A6B'" onmouseout="this.style.borderColor='var(--border,#D5DCE8)';this.style.color='var(--ink-m,#7F8C8D)'">+ Add Key Relationship</button>
+</div>
+
+<!-- REFLECTION -->
+<div id="v3-reflect" class="v3view">
+  <div class="v3pgtitle">Reflection 🪞</div>
+  <div class="v3pgsub">Habit 7: Sharpen the Saw. Effectiveness compounds through continuous renewal and learning.</div>
+  <div class="v3sgrid" id="v3sg"></div>
+  <div class="v3rcard">
+    <div class="v3rq">🏆 What moved the needle this week?</div>
+    <div class="v3rh">Real wins, not activity. What actually mattered?</div>
+    <textarea class="v3rta" id="v3r1" placeholder="Write here..." oninput="v3sl('r_win',this.value)"></textarea>
+  </div>
+  <div class="v3rcard">
+    <div class="v3rq">⚡ Where did I operate reactively instead of proactively?</div>
+    <div class="v3rh">Identify Q1 fires you could have prevented with Q2 investment.</div>
+    <textarea class="v3rta" id="v3r2" placeholder="Write here..." oninput="v3sl('r_reactive',this.value)"></textarea>
+  </div>
+  <div class="v3rcard">
+    <div class="v3rq">🧭 Where was I most aligned with my roles?</div>
+    <div class="v3rh">When did your actions match your identity? Double down on that.</div>
+    <textarea class="v3rta" id="v3r3" placeholder="Write here..." oninput="v3sl('r_aligned',this.value)"></textarea>
+  </div>
+  <div class="v3rcard">
+    <div class="v3rq">🎯 What one commitment will I make for next week?</div>
+    <div class="v3rh">Not a list. One specific, role-aligned commitment.</div>
+    <textarea class="v3rta" id="v3r4" placeholder="Write here..." oninput="v3sl('r_commit',this.value)"></textarea>
+  </div>
+  <button class="v3savebtn" onclick="v3SaveRef()">✦ Save This Week's Reflection</button>
+</div>
+<!-- ════ END V3 VIEWS ════ -->
 <!-- FOCUS MODE OVERLAY -->
 <div id="focus-mode">
 <div class="fm-bg"><div class="fm-orb fm-orb1"></div><div class="fm-orb fm-orb2"></div><div class="fm-orb fm-orb3"></div></div>
@@ -1077,10 +1341,10 @@ body.dark .mtitle { color: #E8EDF5 !important; }
   <div class="sb-section">
     <div class="sb-section-hdr" onclick="toggleSection(&#39;tools&#39;)">
       <span class="sb-section-hdr-label">Tools</span>
-      <span class="sb-section-hdr-arrow open">▼</span>
+      <span class="sb-section-hdr-arrow open closed">▼</span>
     </div>
-    <div class="sb-section-body open" data-section="tools">
-      <div class="ni" data-v="goals" onclick="nav('goals')" title="End in Mind Goals"><span class="ni-icon">🎯</span><span class="ni-text">End in Mind Goals</span></div>
+    <div class="sb-section-body open closed" data-section="tools">
+      <div class="ni" data-v="goals" onclick="nav(&#39;goals&#39;)" title="End in Mind Goals"><span class="ni-icon">🎯</span><span class="ni-text">End in Mind Goals</span></div>
       <div class="ni" data-v="timeblock" onclick="nav(&#39;timeblock&#39;)" title="Time Blocks"><span class="ni-icon">⏱️</span><span class="ni-text">Time Blocks</span></div>
       <div class="ni active" data-v="habits" onclick="nav(&#39;habits&#39;)" title="Habits"><span class="ni-icon">🔥</span><span class="ni-text">Habits</span></div>
       <div class="ni" data-v="pomodoro" onclick="nav(&#39;pomodoro&#39;)" title="Pomodoro"><span class="ni-icon">🍅</span><span class="ni-text">Pomodoro</span></div>
@@ -1100,7 +1364,27 @@ body.dark .mtitle { color: #E8EDF5 !important; }
       <div class="ni" onclick="signOut()" title="Switch User" style="color:var(--ink-m);"><span class="ni-icon">🔀</span><span class="ni-text">Switch User</span></div>
     </div>
   </div>
-  <div class="sb-mission" onclick="nav(&#39;mission&#39;)" id="sb-mission-teaser">
+  
+<div id="v3-nav">
+  <div class="v3sec-hdr">Core</div>
+  <div class="v3ni on" id="v3n-today" onclick="v3Nav('today')"><span class="v3ni-ic">☀️</span><span class="v3ni-tx">Today</span><span class="v3ni-bd" id="v3nb">0</span></div>
+  <div class="v3ni" id="v3n-week" onclick="v3Nav('week')"><span class="v3ni-ic">📅</span><span class="v3ni-tx">This Week</span></div>
+  <div class="v3ni" id="v3n-endmind" onclick="v3Nav('endmind')"><span class="v3ni-ic">🧭</span><span class="v3ni-tx">End in Mind</span></div>
+  <div class="v3ni" id="v3n-rel" onclick="v3Nav('rel')"><span class="v3ni-ic">🤝</span><span class="v3ni-tx">Relationships</span></div>
+  <div class="v3ni" id="v3n-reflect" onclick="v3Nav('reflect')"><span class="v3ni-ic">🪞</span><span class="v3ni-tx">Reflection</span></div>
+  <div class="v3sec-hdr" style="margin-top:8px">Advanced</div>
+  <div class="v3ni" onclick="v3Legacy('quadrant')"><span class="v3ni-ic">🎯</span><span class="v3ni-tx">Quadrant View</span></div>
+  <div class="v3ni" onclick="v3Legacy('habits')"><span class="v3ni-ic">🔥</span><span class="v3ni-tx">Habits</span></div>
+  <div class="v3ni" onclick="v3Legacy('settings')"><span class="v3ni-ic">⚙️</span><span class="v3ni-tx">Settings</span></div>
+  <div class="v3ni" onclick="signOut()" style="margin-top:auto"><span class="v3ni-ic">🔀</span><span class="v3ni-tx">Switch User</span></div>
+</div>
+<div id="v3-scores">
+  <div class="v3sc-lbl">⚡ Effectiveness</div>
+  <div class="v3sr"><div class="v3sl">Alignment</div><div class="v3sb-w"><div class="v3sb" id="v3b1" style="width:0;background:#C9A84C"></div></div><div class="v3sv" id="v3v1">0%</div></div>
+  <div class="v3sr"><div class="v3sl">Q2 Focus</div><div class="v3sb-w"><div class="v3sb" id="v3b2" style="width:0;background:#1B3A6B"></div></div><div class="v3sv" id="v3v2">0%</div></div>
+  <div class="v3sr"><div class="v3sl">Renewal</div><div class="v3sb-w"><div class="v3sb" id="v3b3" style="width:0;background:#2E7D32"></div></div><div class="v3sv" id="v3v3">0%</div></div>
+</div>
+<div class="sb-mission" onclick="nav(&#39;mission&#39;)" id="sb-mission-teaser">
     <div class="sb-mission-label">🧭 My Mission</div>
     <div class="sb-mission-text" id="sb-mission-txt">Click to define your mission statement...</div>
   </div>
@@ -1468,7 +1752,7 @@ body.dark .mtitle { color: #E8EDF5 !important; }
         <button class="tgnbtn" onclick="shiftTB(1)">›</button>
       </div>
     </div>
-    <div class="tslots" id="tslots"><div class="tslot "><div class="tslbl">6 AM</div><div class="tscont" onclick="openTB(6)" style="cursor:pointer;"><div style="height:24px;"></div></div></div><div class="tslot "><div class="tslbl">7 AM</div><div class="tscont" onclick="openTB(7)" style="cursor:pointer;"><div style="height:24px;"></div></div></div><div class="tslot "><div class="tslbl">8 AM</div><div class="tscont" onclick="openTB(8)" style="cursor:pointer;"><div style="height:24px;"></div></div></div><div class="tslot "><div class="tslbl">9 AM</div><div class="tscont" onclick="openTB(9)" style="cursor:pointer;"><div style="height:24px;"></div></div></div><div class="tslot "><div class="tslbl">10 AM</div><div class="tscont" onclick="openTB(10)" style="cursor:pointer;"><div style="height:24px;"></div></div></div><div class="tslot "><div class="tslbl">11 AM</div><div class="tscont" onclick="openTB(11)" style="cursor:pointer;"><div style="height:24px;"></div></div></div><div class="tslot "><div class="tslbl">12 PM</div><div class="tscont" onclick="openTB(12)" style="cursor:pointer;"><div style="height:24px;"></div></div></div><div class="tslot "><div class="tslbl">1 PM</div><div class="tscont" onclick="openTB(13)" style="cursor:pointer;"><div style="height:24px;"></div></div></div><div class="tslot "><div class="tslbl">2 PM</div><div class="tscont" onclick="openTB(14)" style="cursor:pointer;"><div style="height:24px;"></div></div></div><div class="tslot "><div class="tslbl">3 PM</div><div class="tscont" onclick="openTB(15)" style="cursor:pointer;"><div style="height:24px;"></div></div></div><div class="tslot "><div class="tslbl">4 PM</div><div class="tscont" onclick="openTB(16)" style="cursor:pointer;"><div style="height:24px;"></div></div></div><div class="tslot "><div class="tslbl">5 PM</div><div class="tscont" onclick="openTB(17)" style="cursor:pointer;"><div style="height:24px;"></div></div></div><div class="tslot now"><div class="tslbl">6 PM</div><div class="tscont" onclick="openTB(18)" style="cursor:pointer;"><div style="height:24px;"></div></div></div><div class="tslot "><div class="tslbl">7 PM</div><div class="tscont" onclick="openTB(19)" style="cursor:pointer;"><div style="height:24px;"></div></div></div><div class="tslot "><div class="tslbl">8 PM</div><div class="tscont" onclick="openTB(20)" style="cursor:pointer;"><div style="height:24px;"></div></div></div><div class="tslot "><div class="tslbl">9 PM</div><div class="tscont" onclick="openTB(21)" style="cursor:pointer;"><div style="height:24px;"></div></div></div><div class="tslot "><div class="tslbl">10 PM</div><div class="tscont" onclick="openTB(22)" style="cursor:pointer;"><div style="height:24px;"></div></div></div></div>
+    <div class="tslots" id="tslots"><div class="tslot "><div class="tslbl">6 AM</div><div class="tscont" onclick="openTB(6)" style="cursor:pointer;"><div style="height:24px;"></div></div></div><div class="tslot "><div class="tslbl">7 AM</div><div class="tscont" onclick="openTB(7)" style="cursor:pointer;"><div style="height:24px;"></div></div></div><div class="tslot "><div class="tslbl">8 AM</div><div class="tscont" onclick="openTB(8)" style="cursor:pointer;"><div style="height:24px;"></div></div></div><div class="tslot "><div class="tslbl">9 AM</div><div class="tscont" onclick="openTB(9)" style="cursor:pointer;"><div style="height:24px;"></div></div></div><div class="tslot "><div class="tslbl">10 AM</div><div class="tscont" onclick="openTB(10)" style="cursor:pointer;"><div style="height:24px;"></div></div></div><div class="tslot "><div class="tslbl">11 AM</div><div class="tscont" onclick="openTB(11)" style="cursor:pointer;"><div style="height:24px;"></div></div></div><div class="tslot "><div class="tslbl">12 PM</div><div class="tscont" onclick="openTB(12)" style="cursor:pointer;"><div style="height:24px;"></div></div></div><div class="tslot "><div class="tslbl">1 PM</div><div class="tscont" onclick="openTB(13)" style="cursor:pointer;"><div style="height:24px;"></div></div></div><div class="tslot "><div class="tslbl">2 PM</div><div class="tscont" onclick="openTB(14)" style="cursor:pointer;"><div style="height:24px;"></div></div></div><div class="tslot "><div class="tslbl">3 PM</div><div class="tscont" onclick="openTB(15)" style="cursor:pointer;"><div style="height:24px;"></div></div></div><div class="tslot "><div class="tslbl">4 PM</div><div class="tscont" onclick="openTB(16)" style="cursor:pointer;"><div style="height:24px;"></div></div></div><div class="tslot "><div class="tslbl">5 PM</div><div class="tscont" onclick="openTB(17)" style="cursor:pointer;"><div style="height:24px;"></div></div></div><div class="tslot "><div class="tslbl">6 PM</div><div class="tscont" onclick="openTB(18)" style="cursor:pointer;"><div style="height:24px;"></div></div></div><div class="tslot "><div class="tslbl">7 PM</div><div class="tscont" onclick="openTB(19)" style="cursor:pointer;"><div style="height:24px;"></div></div></div><div class="tslot "><div class="tslbl">8 PM</div><div class="tscont" onclick="openTB(20)" style="cursor:pointer;"><div style="height:24px;"></div></div></div><div class="tslot "><div class="tslbl">9 PM</div><div class="tscont" onclick="openTB(21)" style="cursor:pointer;"><div style="height:24px;"></div></div></div><div class="tslot now"><div class="tslbl">10 PM</div><div class="tscont" onclick="openTB(22)" style="cursor:pointer;"><div style="height:24px;"></div></div></div></div>
   </div>
 </div>
 
@@ -1775,12 +2059,12 @@ body.dark .mtitle { color: #E8EDF5 !important; }
 <!-- GOAL MODAL -->
 <div class="overlay" id="m-goal">
   <div class="modal" style="max-width:600px;">
-    <div class="mhdr"><div class="mtitle" id="m-goal-title">New End-in-Mind Goal</div><button class="mx" onclick="closeModal('m-goal')">&#x2715;</button></div>
+    <div class="mhdr"><div class="mtitle" id="m-goal-title">New End-in-Mind Goal</div><button class="mx" onclick="closeModal(&#39;m-goal&#39;)">✕</button></div>
     <div class="mbody">
       <div class="fg"><label class="flbl">Ultimate Vision (The End)</label><input class="fi" id="goal-title" placeholder="e.g. Launch Solo Passport with 100K users, Run a marathon..."></div>
       <div class="frow">
         <div class="fg"><label class="flbl">Target Date</label><input class="fi" type="date" id="goal-date"></div>
-        <div class="fg"><label class="flbl">Category</label><select class="fsel" id="goal-cat"><option value="personal">Personal Growth</option><option value="career">Career / Business</option><option value="health">Health & Fitness</option><option value="family">Family & Relationships</option><option value="financial">Financial</option><option value="spiritual">Spiritual</option><option value="community">Community / Service</option></select></div>
+        <div class="fg"><label class="flbl">Category</label><select class="fsel" id="goal-cat"><option value="personal">Personal Growth</option><option value="career">Career / Business</option><option value="health">Health &amp; Fitness</option><option value="family">Family &amp; Relationships</option><option value="financial">Financial</option><option value="spiritual">Spiritual</option><option value="community">Community / Service</option></select></div>
       </div>
       <div class="fg"><label class="flbl">Why does this matter?</label><textarea class="fta" id="goal-why" placeholder="When I achieve this..." style="min-height:60px;"></textarea></div>
       <div class="fg">
@@ -1796,8 +2080,8 @@ body.dark .mtitle { color: #E8EDF5 !important; }
       </div>
     </div>
     <div class="mfoot">
-      <div id="goal-delete-row" style="display:none;margin-right:auto;"><button onclick="deleteGoal()" style="padding:9px 14px;background:rgba(192,57,43,.08);border:1px solid rgba(192,57,43,.2);border-radius:10px;color:#C0392B;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:700;cursor:pointer;">🗑️ Delete</button></div>
-      <button class="btn btn-s" onclick="closeModal('m-goal')">Cancel</button>
+      <div id="goal-delete-row" style="display:none;margin-right:auto;"><button onclick="deleteGoal()" style="padding:9px 14px;background:rgba(192,57,43,.08);border:1px solid rgba(192,57,43,.2);border-radius:10px;color:#C0392B;font-family:&#39;DM Sans&#39;,sans-serif;font-size:13px;font-weight:700;cursor:pointer;">🗑️ Delete</button></div>
+      <button class="btn btn-s" onclick="closeModal(&#39;m-goal&#39;)">Cancel</button>
       <button class="btn btn-p" onclick="saveGoal()">Save Goal</button>
     </div>
   </div>
@@ -4096,4 +4380,322 @@ initApp();
 .sidebar:not(.collapsed){width:268px!important}
 .tscont{min-height:48px;}
 </style>
+
+
+<script id="v3js">
+// ═══════════════════════════════════════════════════════
+// DAYFLOW v3 — DECISION ARCHITECTURE ENGINE
+// ═══════════════════════════════════════════════════════
+const V3VIEWS = ['today','week','endmind','rel','reflect'];
+const V3TODAY = new Date().toISOString().slice(0,10);
+
+// State
+let v3P = []; // priorities [{id,title,role,done}]
+let v3Ren = [
+  {id:'move',label:'Move Body',icon:'💪',done:false},
+  {id:'pray',label:'Reflect / Pray',icon:'🙏',done:false},
+  {id:'learn',label:'Learn Something',icon:'📚',done:false},
+  {id:'connect',label:'Connect Deeply',icon:'❤️',done:false}
+];
+let v3Q2 = [
+  {id:'strategy',label:'Strategy & Long-term Planning',done:false},
+  {id:'training',label:'Learning & Skill Building',done:false},
+  {id:'rels',label:'Relationship Investment',done:false},
+  {id:'thinking',label:'Deep Thinking & Vision Time',done:false},
+  {id:'health',label:'Physical Health Investment',done:false}
+];
+let v3Rels = JSON.parse(localStorage.getItem('v3rels')||'[]');
+let v3Vals = JSON.parse(localStorage.getItem('v3vals')||JSON.stringify(['Integrity','Discipline','Family','Growth','Faith']));
+let v3RS = {}; // role serviced {roleId: true/false}
+
+function v3sl(k,v){ localStorage.setItem('v3_'+k,v); }
+function v3gl(k){ return localStorage.getItem('v3_'+k)||''; }
+
+function v3SaveDay(){
+  localStorage.setItem('v3day_'+V3TODAY, JSON.stringify({
+    p:v3P, ren:v3Ren.map(x=>({id:x.id,done:x.done})),
+    q2:v3Q2.map(x=>({id:x.id,done:x.done})), rs:v3RS
+  }));
+}
+function v3LoadDay(){
+  const d = JSON.parse(localStorage.getItem('v3day_'+V3TODAY)||'{}');
+  if(d.p) v3P = d.p;
+  if(d.ren) d.ren.forEach(r=>{ const i=v3Ren.find(x=>x.id===r.id); if(i)i.done=r.done; });
+  if(d.q2) d.q2.forEach(q=>{ const i=v3Q2.find(x=>x.id===q.id); if(i)i.done=q.done; });
+  if(d.rs) v3RS = d.rs;
+  ['v3ri','v3ria','v3who'].forEach(id=>{const el=document.getElementById(id);if(el)el.value=v3gl(id.replace('v3',''));});
+  ['v3fs'].forEach(id=>{const el=document.getElementById(id);if(el)el.value=v3gl('future_self');});
+  ['v3r1','v3r2','v3r3','v3r4'].forEach((id,i)=>{const keys=['r_win','r_reactive','r_aligned','r_commit'];const el=document.getElementById(id);if(el)el.value=v3gl(keys[i]);});
+}
+
+// NAVIGATION
+function v3Nav(view){
+  V3VIEWS.forEach(v=>{
+    const el=document.getElementById('v3-'+v); if(el)el.classList.remove('on');
+    const ni=document.getElementById('v3n-'+v); if(ni)ni.classList.remove('on');
+  });
+  document.querySelectorAll('.view').forEach(el=>el.classList.remove('active'));
+  document.querySelectorAll('.ni').forEach(el=>el.classList.remove('active'));
+  const target=document.getElementById('v3-'+view);
+  if(target)target.classList.add('on');
+  const ni=document.getElementById('v3n-'+view);
+  if(ni)ni.classList.add('on');
+  if(view==='today'){v3RTod();v3Coach();}
+  else if(view==='week')v3RWeek();
+  else if(view==='endmind')v3REnd();
+  else if(view==='rel')v3RRel();
+  else if(view==='reflect')v3RRef();
+}
+function v3Legacy(v){
+  V3VIEWS.forEach(vv=>{const el=document.getElementById('v3-'+vv);if(el)el.classList.remove('on');const ni=document.getElementById('v3n-'+vv);if(ni)ni.classList.remove('on');});
+  if(typeof nav==='function') nav(v);
+}
+
+// GREETING
+function v3Greet(){
+  const h=new Date().getHours();
+  const el=document.getElementById('v3g');
+  if(el)el.textContent=h<12?'Good morning ☀️':h<17?'Good afternoon 🌤️':'Good evening 🌙';
+  const d=document.getElementById('v3d');
+  if(d)d.textContent=new Date().toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+  const wr=document.getElementById('v3wr');
+  if(wr){const n=new Date(),s=new Date(n);s.setDate(n.getDate()-n.getDay());const e=new Date(s);e.setDate(s.getDate()+6);wr.textContent='Week of '+s.toLocaleDateString('en-US',{month:'long',day:'numeric'})+' – '+e.toLocaleDateString('en-US',{month:'long',day:'numeric'});}
+}
+
+// TODAY VIEW
+function v3RTod(){
+  v3Greet(); v3RPri(); v3RRA(); v3RRen(); v3Scores();
+  const mt=document.getElementById('v3mt');
+  if(mt&&typeof missionStatement!=='undefined'&&missionStatement)
+    mt.textContent='"'+(missionStatement.length>120?missionStatement.slice(0,120)+'...':missionStatement)+'"';
+}
+
+function v3RPri(){
+  const c=document.getElementById('v3ps'); if(!c)return;
+  const cap=document.getElementById('v3capnote');
+  const items=v3P.slice(0,3);
+  const full=items.length>=3;
+  let h=items.map((p,i)=>`
+    <div class="v3pslot ${p.done?'done':''}" id="vp${p.id}">
+      <div class="v3pnum">${i+1}</div>
+      <div class="v3pbody">
+        <div class="v3ptitle">${p.title}</div>
+        <div class="v3pmeta">${p.role?'👤 '+p.role:''} ${p.quadrant?'· Q'+p.quadrant:''}</div>
+      </div>
+      <div class="v3pchk ${p.done?'on':''}" onclick="v3TP('${p.id}')">${p.done?'✓':''}</div>
+      <div onclick="v3DP('${p.id}')" style="cursor:pointer;color:var(--ink-m,#7F8C8D);font-size:12px;padding:4px;opacity:.5" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=.5">✕</div>
+    </div>
+  `).join('');
+  if(!full) h+=`<button class="v3addbtn" onclick="v3AddP()">+ Add Priority ${items.length>0?'('+( 3-items.length)+' remaining)':''}</button>`;
+  else h+=`<div style="font-size:11px;color:#C9A84C;font-weight:700;text-align:center;margin-top:8px;opacity:.85">✦ Maximum 3 priorities. Finish one first, then add another.</div>`;
+  c.innerHTML=h;
+  document.getElementById('v3nb').textContent=items.filter(p=>!p.done).length;
+}
+
+function v3AddP(){
+  if(v3P.length>=3){v3Tst('✦ Maximum 3 priorities. Finish one first, then add another.');return;}
+  const t=prompt('What is this priority?
+
+Make it specific. Which role does it serve?');
+  if(!t||!t.trim())return;
+  const rlist=typeof roles!=='undefined'&&roles.length>0?roles.map(r=>r.name).join(', '):'';
+  const role=rlist?prompt('Which role does this serve?
+
+Your roles: '+rlist)||'':'';
+  v3P.push({id:'p'+Date.now(),title:t.trim(),role:role.trim(),quadrant:2,done:false});
+  v3SaveDay(); v3RPri(); v3Scores();
+}
+function v3TP(id){
+  const p=v3P.find(x=>x.id===id);if(!p)return;
+  p.done=!p.done; v3SaveDay(); v3RPri(); v3Scores();
+  if(p.done)v3Tst('✓ Priority completed. Does your next action also move the needle?');
+}
+function v3DP(id){v3P=v3P.filter(x=>x.id!==id);v3SaveDay();v3RPri();v3Scores();}
+
+function v3RRA(){
+  const c=document.getElementById('v3ra');if(!c)return;
+  const rl=typeof roles!=='undefined'&&roles.length>0?roles.slice(0,4):[];
+  if(!rl.length){c.innerHTML='<div style="font-size:13px;color:var(--ink-m,#7F8C8D);font-style:italic">Define your roles in End in Mind to see alignment checks.</div>';return;}
+  c.innerHTML=rl.map(r=>{
+    const s=v3RS[r.id];
+    return `<div class="v3rc">
+      <div style="font-size:18px;flex-shrink:0">${r.icon||'⭐'}</div>
+      <div style="flex:1"><div style="font-weight:700;font-size:13px;color:var(--ink,#0F1B2D)">${r.name}</div><div style="font-size:11px;color:var(--ink-m,#7F8C8D)">${r.goal?(r.goal.length>55?r.goal.slice(0,55)+'...':r.goal):'No goal set'}</div></div>
+      <button class="v3rserve ${s===true?'yes':s===false?'no':'none'}" onclick="v3TRS('${r.id}')">${s===true?'✓ Served':s===false?'✕ Not today':'Check in'}</button>
+    </div>`;
+  }).join('');
+}
+function v3TRS(id){
+  if(v3RS[id]===true)v3RS[id]=false;
+  else if(v3RS[id]===false)delete v3RS[id];
+  else v3RS[id]=true;
+  v3SaveDay();v3RRA();v3Scores();
+}
+
+function v3RRen(){
+  const c=document.getElementById('v3ren');if(!c)return;
+  c.innerHTML=v3Ren.map(x=>`<div class="v3renitem ${x.done?'done':''}" onclick="v3TRen('${x.id}')"><div class="v3renck">${x.done?'✓':''}</div>${x.icon} ${x.label}</div>`).join('');
+}
+function v3TRen(id){const i=v3Ren.find(x=>x.id===id);if(i){i.done=!i.done;v3SaveDay();v3RRen();v3Scores();}}
+
+function v3AC(val){
+  const y=document.getElementById('v3ay'),n=document.getElementById('v3an'),r=document.getElementById('v3ar');
+  if(!r)return;
+  if(val==='yes'){y.style.cssText='padding:7px 16px;border-radius:20px;border:none;background:#2E7D32;color:#fff;font-family:"DM Sans",sans-serif;font-size:12px;font-weight:800;cursor:pointer';n.style.cssText='padding:7px 16px;border-radius:20px;border:1.5px solid var(--border,#D5DCE8);background:transparent;color:var(--ink-m,#7F8C8D);font-family:"DM Sans",sans-serif;font-size:12px;font-weight:800;cursor:pointer';r.style.display='block';r.style.color='#2E7D32';r.textContent='✓ Aligned. Keep compounding these days.';}
+  else{n.style.cssText='padding:7px 16px;border-radius:20px;border:none;background:#C0392B;color:#fff;font-family:"DM Sans",sans-serif;font-size:12px;font-weight:800;cursor:pointer';y.style.cssText='padding:7px 16px;border-radius:20px;border:1.5px solid var(--border,#D5DCE8);background:transparent;color:var(--ink-m,#7F8C8D);font-family:"DM Sans",sans-serif;font-size:12px;font-weight:800;cursor:pointer';r.style.display='block';r.style.color='#C0392B';r.textContent='⚡ Misaligned. One action toward your mission before the day ends.';}
+  v3sl('ac',val);
+}
+
+// WEEK VIEW
+function v3RWeek(){
+  v3Greet();
+  const c=document.getElementById('v3rcom');if(!c)return;
+  const rl=typeof roles!=='undefined'&&roles.length>0?roles.slice(0,4):[];
+  const cw=document.getElementById('v3rcw');
+  if(cw)cw.style.display=typeof roles!=='undefined'&&roles.length>=4?'block':'none';
+  if(!rl.length){c.innerHTML='<div style="font-size:13px;color:var(--ink-m,#7F8C8D);font-style:italic;margin-bottom:16px">Define your roles in End in Mind first.</div>';}
+  else{c.innerHTML=rl.map(r=>`
+    <div class="v3rccard">
+      <div class="v3rchdr">
+        <div style="font-size:24px">${r.icon||'⭐'}</div>
+        <div><div style="font-weight:800;font-size:15px;color:var(--ink,#0F1B2D)">${r.name}</div><div style="font-size:11px;color:var(--ink-m,#7F8C8D)">${typeof tasks!=='undefined'?tasks.filter(t=>t.role===r.id&&!t.done).length:0} active tasks</div></div>
+      </div>
+      <div style="padding:16px 20px">
+        <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:var(--ink-m,#7F8C8D);margin-bottom:7px">This week's commitment:</div>
+        <input class="v3rcinp" value="${r.goal||''}" placeholder="What one result would make the biggest difference this week?" onchange="v3URC('${r.id}',this.value)">
+      </div>
+    </div>
+  `).join('');}
+  const q2c=document.getElementById('v3q2');
+  if(q2c)q2c.innerHTML=v3Q2.map(x=>`<div class="v3q2item"><div class="v3q2ck ${x.done?'on':''}" onclick="v3TQ2('${x.id}')">${x.done?'✓':''}</div><div style="font-size:13px;color:var(--ink-l,#2C3E50);font-weight:600">${x.label}</div></div>`).join('');
+}
+function v3URC(id,val){if(typeof roles!=='undefined'){const r=roles.find(x=>x.id===id);if(r){r.goal=val;if(typeof cloudSave==='function')cloudSave('roles',roles);}}}
+function v3TQ2(id){const i=v3Q2.find(x=>x.id===id);if(i){i.done=!i.done;v3SaveDay();v3RWeek();}}
+
+// END IN MIND VIEW
+function v3REnd(){
+  const md=document.getElementById('v3misd');
+  if(md&&typeof missionStatement!=='undefined')md.textContent=missionStatement||'Click ✏️ Edit to write your mission statement.';
+  const fs=document.getElementById('v3fs');if(fs)fs.value=v3gl('future_self');
+  const vg=document.getElementById('v3vals');
+  if(vg){
+    const defaults=['Integrity','Discipline','Family','Growth','Faith','Service','Excellence','Courage'];
+    vg.innerHTML=defaults.map(v=>`<div class="v3valtag ${v3Vals.includes(v)?'on':''}" onclick="v3TV('${v}')">${v}</div>`).join('')+`<button onclick="v3AV()" style="padding:6px 14px;border:1.5px dashed var(--border,#D5DCE8);border-radius:20px;font-size:12px;font-weight:700;color:var(--ink-m,#7F8C8D);cursor:pointer;background:transparent;font-family:'DM Sans',sans-serif;transition:all .2s">+ Add</button>`;
+  }
+  const rg=document.getElementById('v3emroles'),ra=document.getElementById('v3emrolecta');
+  const rl=typeof roles!=='undefined'&&roles.length>0?roles:[];
+  if(rg){
+    if(!rl.length){rg.innerHTML='<div style="font-size:13px;color:var(--ink-m,#7F8C8D);font-style:italic">No roles defined yet.</div>';}
+    else{rg.innerHTML=rl.slice(0,4).map(r=>`<div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border,#D5DCE8)"><div style="font-size:22px">${r.icon||'⭐'}</div><div style="flex:1"><div style="font-weight:700;font-size:14px;color:var(--ink,#0F1B2D)">${r.name}</div><div style="font-size:11px;color:var(--ink-m,#7F8C8D)">${r.goal||'No goal set'}</div></div><button onclick="openEditRole('${r.id}')" style="padding:5px 10px;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.2);border-radius:8px;font-size:11px;font-weight:700;cursor:pointer;color:#8B6400;font-family:'DM Sans',sans-serif">✏️ Edit</button></div>`).join('');}
+  }
+  if(ra){
+    if(rl.length<4)ra.innerHTML=`<button onclick="openAddRole()" style="width:100%;padding:11px;border:2px dashed var(--border,#D5DCE8);border-radius:10px;background:transparent;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:700;color:var(--ink-m,#7F8C8D);cursor:pointer;transition:all .2s" onmouseover="this.style.borderColor='#1B3A6B';this.style.color='#1B3A6B'" onmouseout="this.style.borderColor='var(--border,#D5DCE8)';this.style.color='var(--ink-m,#7F8C8D)'">+ Add Role (${4-rl.length} remaining)</button>`;
+    else ra.innerHTML=`<div style="font-size:12px;color:#C9A84C;font-weight:700;text-align:center;padding:8px">✦ Maximum 4 roles reached. Focus creates effectiveness.</div>`;
+  }
+}
+function v3TV(v){if(v3Vals.includes(v))v3Vals=v3Vals.filter(x=>x!==v);else v3Vals.push(v);localStorage.setItem('v3vals',JSON.stringify(v3Vals));v3REnd();}
+function v3AV(){const v=prompt('Add a core value:');if(v&&v.trim()){v3Vals.push(v.trim());localStorage.setItem('v3vals',JSON.stringify(v3Vals));v3REnd();}}
+
+// RELATIONSHIPS
+function v3RRel(){
+  const c=document.getElementById('v3rels');if(!c)return;
+  const who=document.getElementById('v3who');if(who)who.value=v3gl('who_today');
+  if(!v3Rels.length){c.innerHTML='<div style="text-align:center;padding:32px;color:var(--ink-m,#7F8C8D);font-size:13px;font-style:italic;margin-bottom:14px">No key relationships added yet. Who in your life matters most?</div>';return;}
+  c.innerHTML=v3Rels.map(r=>{
+    const days=r.last?Math.floor((Date.now()-new Date(r.last))/86400000):null;
+    return `<div class="v3relcard">
+      <div class="v3relav">${r.emoji||'👤'}</div>
+      <div style="flex:1"><div style="font-weight:800;font-size:14px;color:var(--ink,#0F1B2D)">${r.name}</div><div style="font-size:11px;color:var(--ink-m,#7F8C8D)">${r.type||'Key relationship'}</div><div style="font-size:11px;color:var(--ink-m,#7F8C8D);margin-top:3px">${days!==null?(days===0?'Connected today':days+' days since last interaction'):'No interaction logged'}</div></div>
+      <div style="text-align:right"><div class="v3renergy ${r.energy||'med'}">${r.energy==='high'?'🟢 High':r.energy==='low'?'🔴 Low':'🟡 Med'}</div><button onclick="v3LI('${r.id}')" style="margin-top:6px;display:block;width:100%;padding:4px 8px;border:1px solid var(--border,#D5DCE8);border-radius:7px;font-size:10px;font-weight:700;cursor:pointer;background:transparent;font-family:'DM Sans',sans-serif;color:var(--ink-m,#7F8C8D)">Log today</button></div>
+    </div>`;
+  }).join('');
+}
+function v3AddRel(){
+  const n=prompt('Name:');if(!n||!n.trim())return;
+  const t=prompt('Relationship type (Spouse, Team, Friend, Mentor...):')||'';
+  const e=prompt('Emoji (optional):')||'👤';
+  v3Rels.push({id:'r'+Date.now(),name:n.trim(),type:t.trim(),emoji:e.trim(),energy:'med',last:null});
+  localStorage.setItem('v3rels',JSON.stringify(v3Rels));v3RRel();
+}
+function v3LI(id){const r=v3Rels.find(x=>x.id===id);if(!r)return;r.last=new Date().toISOString();localStorage.setItem('v3rels',JSON.stringify(v3Rels));v3RRel();v3Tst('✓ Interaction logged for '+r.name);}
+
+// REFLECTION
+function v3RRef(){
+  v3Scores();
+  ['v3r1','v3r2','v3r3','v3r4'].forEach((id,i)=>{const keys=['r_win','r_reactive','r_aligned','r_commit'];const el=document.getElementById(id);if(el)el.value=v3gl(keys[i]);});
+  const sg=document.getElementById('v3sg');if(!sg)return;
+  const sc=v3CalcS();
+  const cards=[{l:'Alignment Score',v:sc.align,c:'#C9A84C',d:'Priorities tied to roles'},{l:'Q2 Focus',v:sc.q2,c:'#1B3A6B',d:'Time in important work'},{l:'Renewal',v:sc.ren,c:'#2E7D32',d:'Daily energy balance'},{l:'Effectiveness',v:sc.eff,c:'#C0392B',d:'Composite score'}];
+  const circ=2*Math.PI*34;
+  sg.innerHTML=cards.map(s=>`<div class="v3scard"><div class="v3slbl">${s.l}</div><div class="v3sring"><svg width="80" height="80" style="transform:rotate(-90deg)"><circle cx="40" cy="40" r="34" fill="none" stroke="var(--border,#D5DCE8)" stroke-width="5"/><circle cx="40" cy="40" r="34" fill="none" stroke="${s.c}" stroke-width="5" stroke-linecap="round" stroke-dasharray="${circ}" stroke-dashoffset="${circ-(s.v/100)*circ}" style="transition:stroke-dashoffset .8s"/></svg><div class="v3snum">${s.v}%</div></div><div style="font-size:12px;font-weight:700;color:var(--ink-l,#2C3E50)">${s.d}</div></div>`).join('');
+}
+function v3SaveRef(){
+  const data={win:v3gl('r_win'),reactive:v3gl('r_reactive'),aligned:v3gl('r_aligned'),commit:v3gl('r_commit'),scores:v3CalcS(),saved:new Date().toISOString()};
+  const refs=JSON.parse(localStorage.getItem('v3refs')||'[]');refs.unshift(data);localStorage.setItem('v3refs',JSON.stringify(refs.slice(0,52)));
+  v3Tst('✦ Reflection saved. Growth compounds.');
+}
+
+// SCORES
+function v3CalcS(){
+  const total=v3P.length,wr=v3P.filter(p=>p.role&&p.role.trim()).length;
+  const align=total>0?Math.round((wr/total)*100):0;
+  const q2done=v3Q2.filter(x=>x.done).length;
+  const q2=Math.round((q2done/v3Q2.length)*100);
+  const rendone=v3Ren.filter(x=>x.done).length;
+  const ren=Math.round((rendone/v3Ren.length)*100);
+  const rl=typeof roles!=='undefined'?roles.slice(0,4):[];
+  const rsCount=Object.values(v3RS).filter(v=>v===true).length;
+  const roleS=rl.length>0?Math.round((rsCount/rl.length)*100):0;
+  const eff=Math.round((align+q2+ren+roleS)/4);
+  return {align,q2,ren,roleS,eff};
+}
+function v3Scores(){
+  const s=v3CalcS();
+  const bars=[{b:'v3b1',v:'v3v1',val:s.align},{b:'v3b2',v:'v3v2',val:s.q2},{b:'v3b3',v:'v3v3',val:s.ren}];
+  bars.forEach(b=>{const bar=document.getElementById(b.b),val=document.getElementById(b.v);if(bar)bar.style.width=b.val+'%';if(val)val.textContent=b.val+'%';});
+}
+
+// AI COACH
+async function v3Coach(){
+  const el=document.getElementById('v3cbody');if(!el)return;
+  const key=typeof GEMINI_KEY!=='undefined'?GEMINI_KEY:localStorage.getItem('df_gemini')||'';
+  if(!key){el.textContent='Add your Gemini key in Settings to unlock decision coaching.';return;}
+  el.innerHTML='<span style="opacity:.6">Analyzing your decisions...</span>';
+  const plist=v3P.map(p=>p.title+(p.role?' ['+p.role+']':'')).join(', ')||'none';
+  const rlist=typeof roles!=='undefined'&&roles.length?roles.map(r=>r.name).join(', '):'none defined';
+  const rendone=v3Ren.filter(x=>x.done).map(x=>x.label).join(', ')||'none';
+  const sc=v3CalcS();
+  const day=new Date().toLocaleDateString('en-US',{weekday:'long'});
+  const prompt=`You are a sharp, direct Covey-based decision coach. No fluff. No cheerleading.
+
+Context:
+- Today (${day}): ${plist}
+- Defined roles: ${rlist}
+- Alignment score: ${sc.align}%
+- Q2 focus: ${sc.q2}%
+- Renewal done: ${rendone}
+
+Surface ONE specific misalignment or challenge ONE assumption. Be direct and provocative. Max 2 sentences. Start with the observation, end with a hard question. Don't start with "I".`;
+  try{
+    const res=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${key}`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({contents:[{parts:[{text:prompt}]}],generationConfig:{maxOutputTokens:120,temperature:.85}})});
+    const data=await res.json();
+    const text=data.candidates?.[0]?.content?.parts?.[0]?.text;
+    if(text)el.textContent=text;
+    else el.textContent='Your priorities and your roles — do they actually match?';
+  }catch(e){el.textContent='What matters most today — and is it actually on your list?';}
+}
+
+// TOAST
+function v3Tst(msg){if(typeof toast==='function'){toast(msg);return;}const el=document.createElement('div');el.textContent=msg;el.style.cssText='position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:#0F1B2D;color:#fff;padding:11px 22px;border-radius:50px;font-size:13px;font-weight:700;z-index:9999;box-shadow:0 8px 24px rgba(0,0,0,.3);white-space:nowrap';document.body.appendChild(el);setTimeout(()=>el.remove(),2800);}
+
+// INIT
+function v3Init(){
+  v3LoadDay(); v3Nav('today');
+  // Hook showApp
+  const _sa=window.showApp;
+  if(_sa)window.showApp=function(){_sa();setTimeout(()=>{v3Nav('today');v3Coach();},400);};
+}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>setTimeout(v3Init,900));
+else setTimeout(v3Init,900);
+</script>
 </body></html>
