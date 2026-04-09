@@ -2771,6 +2771,43 @@ document.addEventListener('click', e => {
   if(overlay && e.target === overlay) closeReportModal();
 });
 
+
+function toggleMobDrawer(){
+  const overlay = document.getElementById('mob-drawer-overlay');
+  const drawer  = document.getElementById('mob-drawer');
+  const isOpen  = drawer.style.display !== 'none';
+  if(isOpen){ closeMobDrawer(); }
+  else {
+    overlay.style.display = 'block';
+    drawer.style.display  = 'block';
+    // Animate in
+    drawer.style.transform = 'translateY(100%)';
+    drawer.style.transition = 'transform .25s cubic-bezier(.34,1.2,.64,1)';
+    setTimeout(() => drawer.style.transform = 'translateY(0)', 10);
+  }
+}
+function closeMobDrawer(){
+  const overlay = document.getElementById('mob-drawer-overlay');
+  const drawer  = document.getElementById('mob-drawer');
+  drawer.style.transform = 'translateY(100%)';
+  setTimeout(() => {
+    drawer.style.display  = 'none';
+    overlay.style.display = 'none';
+    drawer.style.transform = '';
+  }, 220);
+}
+function mobNavTo(view){
+  closeMobDrawer();
+  setTimeout(() => {
+    nav(view);
+    // Update bottom nav active state — clear all, set More as active
+    document.querySelectorAll('.mob-nav-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('mob-more-btn').classList.add('active');
+    // Highlight active drawer btn
+    document.querySelectorAll('.mob-drawer-btn').forEach(b => b.classList.remove('active-view'));
+  }, 100);
+}
+
 </script>
 </body>
 </html>
