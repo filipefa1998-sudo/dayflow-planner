@@ -788,8 +788,9 @@ console.log('Firebase ready');
     </div>
   </div>
 
+  <!-- Covey framing -->
   <div style="background:rgba(27,58,107,.04);border:1px solid rgba(27,58,107,.12);border-radius:var(--r);padding:16px 20px;margin-bottom:20px;font-size:13px;color:var(--ink-l);line-height:1.7">
-    Reactive people focus on their <strong style="color:var(--red)">Circle of Concern</strong> — things outside their control. Proactive people focus on their <strong style="color:var(--navy-2)">Circle of Influence</strong> — things they can actually affect. Log what's occupying your mental energy, classify it, and train yourself to redirect concern into influence.
+    Reactive people focus on their <strong style="color:var(--red)">Circle of Concern</strong> — things outside their control. Proactive people focus on their <strong style="color:var(--navy-2)">Circle of Influence</strong> — things they can actually affect. Log what's on your mind, classify it, and train yourself to redirect energy toward what you can control.
   </div>
 
   <!-- Stats -->
@@ -798,47 +799,52 @@ console.log('Firebase ready');
   <!-- AI Insight -->
   <div id="coi-ai-insight" style="display:none" class="coi-insight-card"></div>
 
-  <!-- Add form -->
-  <div class="coi-add-form">
-    <div class="coi-add-title">What's occupying your mental energy?</div>
-    <input class="fi" id="coi-text" placeholder="e.g. Worried about the team's performance, anxious about the product launch..." style="margin-bottom:12px">
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px">
+  <!-- Add form — styled like coach card -->
+  <div style="background:linear-gradient(135deg,rgba(15,36,71,.05),rgba(201,168,76,.06));border:1px solid rgba(201,168,76,.22);border-radius:var(--r);padding:20px 22px;margin-bottom:20px;position:relative;overflow:hidden">
+    <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--navy-2),var(--gold));border-radius:var(--r) var(--r) 0 0"></div>
+    <div style="font-weight:800;font-size:14px;color:var(--ink);margin-bottom:14px">What's occupying your mental energy?</div>
+    <input class="fi" id="coi-text" placeholder="e.g. Worried about team performance, anxious about the product launch..." style="margin-bottom:16px">
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px">
       <div>
-        <label class="flbl" style="margin-bottom:6px">Classification</label>
-        <div class="coi-type-row">
-          <button class="coi-type-btn inf-sel" id="coi-type-inf" id="coi-btn-inf" style="font-family:'DM Sans',sans-serif;font-size:13px">Circle of Influence</button>
-          <button class="coi-type-btn" id="coi-type-con" id="coi-btn-con" style="font-family:'DM Sans',sans-serif;font-size:13px">Circle of Concern</button>
+        <label class="flbl" style="margin-bottom:8px">Classification</label>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+          <button class="btn" id="coi-type-inf" id="coi-btn-inf" style="background:var(--navy-2);color:var(--gold);justify-content:center;font-size:12px;padding:10px 8px">In Influence</button>
+          <button class="btn btn-ghost" id="coi-type-con" id="coi-btn-con" style="justify-content:center;font-size:12px;padding:10px 8px">In Concern</button>
         </div>
       </div>
       <div>
-        <label class="flbl" style="margin-bottom:6px">Mental energy drain</label>
-        <div class="coi-energy-row">
-          <button class="coi-energy-btn" id="coi-e-h" id="coi-btn-eh">High Drain</button>
-          <button class="coi-energy-btn sel-m" id="coi-e-m" id="coi-btn-em">Med Drain</button>
-          <button class="coi-energy-btn" id="coi-e-l" id="coi-btn-el">Low Drain</button>
+        <label class="flbl" style="margin-bottom:8px">Energy drain</label>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px">
+          <button class="btn btn-ghost" id="coi-e-h" id="coi-btn-eh" style="justify-content:center;font-size:12px;padding:10px 4px;color:var(--red);border-color:rgba(192,57,43,.3)">High</button>
+          <button class="btn" id="coi-e-m" id="coi-btn-em" style="background:var(--amber-lt);color:var(--amber);border:1.5px solid rgba(212,160,23,.35);justify-content:center;font-size:12px;padding:10px 4px">Med</button>
+          <button class="btn btn-ghost" id="coi-e-l" id="coi-btn-el" style="justify-content:center;font-size:12px;padding:10px 4px;color:var(--green);border-color:rgba(46,125,50,.3)">Low</button>
         </div>
       </div>
     </div>
-    <div style="display:flex;gap:8px">
-      <button class="btn btn-primary" onclick="addCoiItem()" style="flex:1">+ Log This</button>
-      <button class="btn btn-ghost" onclick="aiClassifyCoi()" style="flex:1">✨ AI Classify</button>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+      <button class="btn btn-primary" onclick="addCoiItem()" style="justify-content:center;padding:12px;font-size:13px">+ Log This</button>
+      <button class="btn btn-ghost" onclick="aiClassifyCoi()" style="justify-content:center;padding:12px;font-size:13px">✨ AI Classify</button>
+    </div>
+  </div>
+
+  <!-- Column headers -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px">
+    <div style="background:rgba(27,58,107,.06);border:1.5px solid rgba(27,58,107,.18);border-radius:10px;padding:12px 16px;text-align:center">
+      <div style="font-weight:800;font-size:13px;color:var(--navy-2);margin-bottom:3px">Circle of Influence</div>
+      <div style="font-size:11px;color:var(--ink-m)">Things you can affect — put your energy here</div>
+    </div>
+    <div style="background:rgba(192,57,43,.05);border:1.5px solid rgba(192,57,43,.18);border-radius:10px;padding:12px 16px;text-align:center">
+      <div style="font-weight:800;font-size:13px;color:var(--red);margin-bottom:3px">Circle of Concern</div>
+      <div style="font-size:11px;color:var(--ink-m)">Outside your control — notice how much energy goes here</div>
     </div>
   </div>
 
   <!-- Items grid -->
-  <div class="coi-header-row">
-    <div class="coi-col-hdr coi-col-inf">
-      <div class="coi-col-title inf" style="font-family:'DM Sans',sans-serif">Circle of Influence</div>
-      <div class="coi-col-sub" style="font-family:'DM Sans',sans-serif">Things you can affect. Put your energy here.</div>
-    </div>
-    <div class="coi-col-hdr coi-col-con">
-      <div class="coi-col-title con" style="font-family:'DM Sans',sans-serif">Circle of Concern</div>
-      <div class="coi-col-sub" style="font-family:'DM Sans',sans-serif">Things outside your control. Notice how much energy goes here.</div>
-    </div>
-  </div>
-  <div class="coi-items">
-    <div class="coi-col" id="coi-influence-col"></div>
-    <div class="coi-col" id="coi-concern-col"></div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+    <div id="coi-influence-col"></div>
+    <div id="coi-concern-col"></div>
   </div>
 
   <div id="coi-empty" style="display:none;text-align:center;padding:32px;color:var(--ink-m);font-size:13px;font-style:italic">
@@ -2570,7 +2576,6 @@ function renderInfluence(){
   renderCoiStats();
   renderCoiColumns();
   renderCoiAiInsight();
-  setTimeout(initCoiButtons, 50);
 }
 
 function renderCoiStats(){
@@ -2684,32 +2689,35 @@ function renderCoiAiInsight(){
 
 function setCoiType(type){
   coiType = type;
-  document.getElementById('coi-type-inf').className = 'coi-type-btn'+(type==='influence'?' inf-sel':'');
-  document.getElementById('coi-type-con').className = 'coi-type-btn'+(type==='concern'?' con-sel':'');
+  const inf = document.getElementById('coi-type-inf');
+  const con = document.getElementById('coi-type-con');
+  if(!inf||!con) return;
+  if(type==='influence'){
+    inf.className='btn'; inf.style.cssText='background:var(--navy-2);color:var(--gold);justify-content:center;font-size:12px;padding:10px 8px';
+    con.className='btn btn-ghost'; con.style.cssText='justify-content:center;font-size:12px;padding:10px 8px';
+  } else {
+    con.className='btn'; con.style.cssText='background:var(--red);color:#fff;justify-content:center;font-size:12px;padding:10px 8px';
+    inf.className='btn btn-ghost'; inf.style.cssText='justify-content:center;font-size:12px;padding:10px 8px';
+  }
 }
 
 function setCoiEnergy(energy){
   coiEnergy = energy;
+  const styles = {
+    high: {sel:'background:var(--red-lt);color:var(--red);border-color:rgba(192,57,43,.4)',  def:'justify-content:center;font-size:12px;padding:10px 4px;color:var(--red);border-color:rgba(192,57,43,.3)'},
+    med:  {sel:'background:var(--amber-lt);color:var(--amber);border-color:rgba(212,160,23,.4)', def:'background:var(--amber-lt);color:var(--amber);border:1.5px solid rgba(212,160,23,.35);justify-content:center;font-size:12px;padding:10px 4px'},
+    low:  {sel:'background:var(--green-lt);color:var(--green);border-color:rgba(46,125,50,.4)',  def:'justify-content:center;font-size:12px;padding:10px 4px;color:var(--green);border-color:rgba(46,125,50,.3)'},
+  };
   ['high','med','low'].forEach(e => {
     const btn = document.getElementById('coi-e-'+e[0]);
-    if(btn) btn.className = 'coi-energy-btn'+(energy===e?' sel-'+e[0]:'');
+    if(!btn) return;
+    btn.className = energy===e ? 'btn' : 'btn btn-ghost';
+    btn.style.cssText = energy===e ? styles[e].sel+';justify-content:center;font-size:12px;padding:10px 4px' : styles[e].def;
   });
 }
 
 // Wire COI buttons via addEventListener (no onclick string collisions)
-function initCoiButtons(){
-  const btnMap = [
-    ['coi-btn-inf', () => setCoiType('influence')],
-    ['coi-btn-con', () => setCoiType('concern')],
-    ['coi-btn-eh',  () => setCoiEnergy('high')],
-    ['coi-btn-em',  () => setCoiEnergy('med')],
-    ['coi-btn-el',  () => setCoiEnergy('low')],
-  ];
-  btnMap.forEach(([id, fn]) => {
-    const el = document.getElementById(id);
-    if(el && !el._coiWired){ el.addEventListener('click', fn); el._coiWired = true; }
-  });
-}
+// COI buttons wired directly via setCoiType/setCoiEnergy
 
 function addCoiItem(){
   const text = document.getElementById('coi-text')?.value.trim();
