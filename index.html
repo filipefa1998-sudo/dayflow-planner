@@ -758,7 +758,7 @@ console.log('Firebase ready');
       <div class="pg-title">Weekly AI Report 📋</div>
       <div class="pg-sub">AI-synthesized analysis of your week — effectiveness, gaps, and one recommendation</div>
     </div>
-    <button class="btn btn-primary" onclick="generateWeeklyReport()">✨ Generate</button>
+    <button class="btn btn-primary" onclick="generateWeeklyReport()" style="white-space:nowrap">✨ Generate Report</button>
   </div>
 
   <div id="report-current" style="margin-bottom:18px">
@@ -769,8 +769,8 @@ console.log('Firebase ready');
 
   <div id="report-scores-preview" style="margin-bottom:16px"></div>
 
-  <button class="weekly-report-btn" onclick="generateWeeklyReport()" id="report-gen-trigger">
-    <span>✨</span> Generate This Week's Report
+  <button class="btn btn-primary" onclick="generateWeeklyReport()" id="report-gen-trigger" style="width:100%;padding:14px;font-size:14px;font-weight:800;justify-content:center;margin-bottom:16px">
+    ✨ Generate This Week's Report
   </button>
 
   <div id="report-history-section">
@@ -806,16 +806,16 @@ console.log('Firebase ready');
       <div>
         <label class="flbl" style="margin-bottom:6px">Classification</label>
         <div class="coi-type-row">
-          <button class="coi-type-btn inf-sel" id="coi-type-inf" id="coi-btn-inf">🔵 Influence<br><span style="font-size:9px;font-weight:400;opacity:.7">I can affect this</span></button>
-          <button class="coi-type-btn" id="coi-type-con" id="coi-btn-con">🔴 Concern<br><span style="font-size:9px;font-weight:400;opacity:.7">Outside my control</span></button>
+          <button class="coi-type-btn inf-sel" id="coi-type-inf" id="coi-btn-inf" style="font-family:'DM Sans',sans-serif;font-size:13px">Circle of Influence</button>
+          <button class="coi-type-btn" id="coi-type-con" id="coi-btn-con" style="font-family:'DM Sans',sans-serif;font-size:13px">Circle of Concern</button>
         </div>
       </div>
       <div>
         <label class="flbl" style="margin-bottom:6px">Mental energy drain</label>
         <div class="coi-energy-row">
-          <button class="coi-energy-btn" id="coi-e-h" id="coi-btn-eh">🔴 High</button>
-          <button class="coi-energy-btn sel-m" id="coi-e-m" id="coi-btn-em">🟡 Med</button>
-          <button class="coi-energy-btn" id="coi-e-l" id="coi-btn-el">🟢 Low</button>
+          <button class="coi-energy-btn" id="coi-e-h" id="coi-btn-eh">High Drain</button>
+          <button class="coi-energy-btn sel-m" id="coi-e-m" id="coi-btn-em">Med Drain</button>
+          <button class="coi-energy-btn" id="coi-e-l" id="coi-btn-el">Low Drain</button>
         </div>
       </div>
     </div>
@@ -828,12 +828,12 @@ console.log('Firebase ready');
   <!-- Items grid -->
   <div class="coi-header-row">
     <div class="coi-col-hdr coi-col-inf">
-      <div class="coi-col-title inf">🔵 Circle of Influence</div>
-      <div class="coi-col-sub">Things you can affect. Put your energy here.</div>
+      <div class="coi-col-title inf" style="font-family:'DM Sans',sans-serif">Circle of Influence</div>
+      <div class="coi-col-sub" style="font-family:'DM Sans',sans-serif">Things you can affect. Put your energy here.</div>
     </div>
     <div class="coi-col-hdr coi-col-con">
-      <div class="coi-col-title con">🔴 Circle of Concern</div>
-      <div class="coi-col-sub">Things outside your control. Notice how much energy goes here.</div>
+      <div class="coi-col-title con" style="font-family:'DM Sans',sans-serif">Circle of Concern</div>
+      <div class="coi-col-sub" style="font-family:'DM Sans',sans-serif">Things outside your control. Notice how much energy goes here.</div>
     </div>
   </div>
   <div class="coi-items">
