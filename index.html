@@ -809,16 +809,16 @@ console.log('Firebase ready');
       <div>
         <label class="flbl" style="margin-bottom:8px">Classification</label>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
-          <button class="btn" id="coi-type-inf" id="coi-btn-inf" style="background:var(--navy-2);color:var(--gold);justify-content:center;font-size:12px;padding:10px 8px">In Influence</button>
-          <button class="btn btn-ghost" id="coi-type-con" id="coi-btn-con" style="justify-content:center;font-size:12px;padding:10px 8px">In Concern</button>
+          <button class="btn" id="coi-type-inf" onclick="setCoiType('influence')" style="background:var(--navy-2);color:var(--gold);justify-content:center;font-size:12px;padding:10px 8px">In Influence</button>
+          <button class="btn btn-ghost" id="coi-type-con" onclick="setCoiType('concern')" style="justify-content:center;font-size:12px;padding:10px 8px">In Concern</button>
         </div>
       </div>
       <div>
         <label class="flbl" style="margin-bottom:8px">Energy drain</label>
         <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px">
-          <button class="btn btn-ghost" id="coi-e-h" id="coi-btn-eh" style="justify-content:center;font-size:12px;padding:10px 4px;color:var(--red);border-color:rgba(192,57,43,.3)">High</button>
-          <button class="btn" id="coi-e-m" id="coi-btn-em" style="background:var(--amber-lt);color:var(--amber);border:1.5px solid rgba(212,160,23,.35);justify-content:center;font-size:12px;padding:10px 4px">Med</button>
-          <button class="btn btn-ghost" id="coi-e-l" id="coi-btn-el" style="justify-content:center;font-size:12px;padding:10px 4px;color:var(--green);border-color:rgba(46,125,50,.3)">Low</button>
+          <button class="btn btn-ghost" id="coi-e-h" onclick="setCoiEnergy('high')" style="justify-content:center;font-size:12px;padding:10px 4px;color:var(--red);border-color:rgba(192,57,43,.3)">High</button>
+          <button class="btn" id="coi-e-m" onclick="setCoiEnergy('med')" style="background:var(--amber-lt);color:var(--amber);border:1.5px solid rgba(212,160,23,.35);justify-content:center;font-size:12px;padding:10px 4px">Med</button>
+          <button class="btn btn-ghost" id="coi-e-l" onclick="setCoiEnergy('low')" style="justify-content:center;font-size:12px;padding:10px 4px;color:var(--green);border-color:rgba(46,125,50,.3)">Low</button>
         </div>
       </div>
     </div>
