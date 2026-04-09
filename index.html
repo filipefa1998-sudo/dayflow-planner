@@ -42,7 +42,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--ink);min-
 .sidebar{width:var(--sidebar-w);flex-shrink:0;background:var(--navy);display:flex;flex-direction:column;position:sticky;top:0;height:100vh;overflow-y:auto;overflow-x:hidden;transition:width var(--trans);z-index:200;scrollbar-width:thin;scrollbar-color:rgba(201,168,76,.2) transparent}
 .sidebar.collapsed{width:var(--sidebar-coll)}
 .sb-top{display:flex;align-items:center;justify-content:space-between;padding:20px 14px 16px;border-bottom:1px solid rgba(201,168,76,.12);flex-shrink:0}
-.sb-logo{font-family:'DM Serif Display',serif;font-size:20px;color:var(--gold);white-space:nowrap;overflow:hidden;transition:opacity var(--trans)}
+.sb-logo{font-family:DM Serif Display,serif;font-size:20px;color:var(--gold);white-space:nowrap;overflow:hidden;transition:opacity var(--trans)}
 .sb-logo span{color:rgba(255,255,255,.8)}
 .sidebar.collapsed .sb-logo{opacity:0;width:0;padding:0}
 .sb-collapse{width:28px;height:28px;border-radius:8px;border:1px solid rgba(201,168,76,.2);background:rgba(255,255,255,.04);color:rgba(201,168,76,.7);font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all var(--trans)}
@@ -609,6 +609,8 @@ console.log('Firebase ready');
   </div>
   <div class="sb-section">
     <span class="sb-section-label">Advanced</span>
+    <div class="ni" data-view="report" onclick="nav('report')" title="Weekly AI Report"><span class="ni-icon">📋</span><span class="ni-text">Weekly Report</span></div>
+    <div class="ni" data-view="influence" onclick="nav('influence')" title="Circle of Influence"><span class="ni-icon">⭕</span><span class="ni-text">My Influence</span></div>
     <div class="ni" data-view="patterns" onclick="nav('patterns')" title="Patterns — 8 Weeks"><span class="ni-icon">📊</span><span class="ni-text">Patterns</span></div>
     <div class="ni" data-view="goals" onclick="nav('goals')" title="Goals & Milestones"><span class="ni-icon">🎯</span><span class="ni-text">Goals</span></div>
     <div class="ni" data-view="quadrant" onclick="nav('quadrant')" title="Covey Quadrant"><span class="ni-icon">⊞</span><span class="ni-text">Quadrant</span></div>
@@ -746,6 +748,102 @@ console.log('Firebase ready');
   <div class="reflect-card"><div class="reflect-q">🧭 Where was I most aligned with my roles?</div><div class="reflect-hint">When did your actions match your identity?</div><textarea class="fta" id="r3" placeholder="Write here..." oninput="saveLocal('r_aligned',this.value)"></textarea></div>
   <div class="reflect-card"><div class="reflect-q">🎯 What one commitment will I make for next week?</div><div class="reflect-hint">Not a list. One specific, role-aligned commitment.</div><textarea class="fta" id="r4" placeholder="Write here..." oninput="saveLocal('r_commit',this.value)"></textarea></div>
   <button class="btn btn-primary" onclick="saveReflection()" style="width:100%;padding:14px;font-size:14px;margin-bottom:24px">✦ Save This Week's Reflection</button>
+</div>
+
+
+<!-- WEEKLY REPORT -->
+<div class="view" id="view-report">
+  <div class="pg-hdr">
+    <div>
+      <div class="pg-title">Weekly AI Report 📋</div>
+      <div class="pg-sub">AI-synthesized analysis of your week — effectiveness, gaps, and one recommendation</div>
+    </div>
+    <button class="btn btn-primary" onclick="generateWeeklyReport()">✨ Generate</button>
+  </div>
+
+  <div id="report-current" style="margin-bottom:18px">
+    <div style="background:rgba(201,168,76,.07);border:1px solid rgba(201,168,76,.18);border-radius:12px;padding:16px 20px;font-size:13px;color:#8B6914;line-height:1.6">
+      <strong>How this works:</strong> Tap Generate to have Gemini analyze your week — effectiveness scores, role coverage, values-behavior gaps, reflection entries, and Q2 investment — and produce a 1-page synthesis with one specific recommendation. Requires Gemini API key in Settings.
+    </div>
+  </div>
+
+  <div id="report-scores-preview" style="margin-bottom:16px"></div>
+
+  <button class="weekly-report-btn" onclick="generateWeeklyReport()" id="report-gen-trigger">
+    <span>✨</span> Generate This Week's Report
+  </button>
+
+  <div id="report-history-section">
+    <div style="font-size:9.5px;font-weight:800;text-transform:uppercase;letter-spacing:1.6px;color:var(--ink-m);margin-bottom:12px">Previous Reports</div>
+    <div id="report-history-list"></div>
+  </div>
+</div>
+
+<!-- CIRCLE OF INFLUENCE -->
+<div class="view" id="view-influence">
+  <div class="pg-hdr">
+    <div>
+      <div class="pg-title">Circle of Influence ⭕</div>
+      <div class="pg-sub">Habit 1: Be Proactive — focus your energy where you have control</div>
+    </div>
+  </div>
+
+  <div style="background:rgba(27,58,107,.04);border:1px solid rgba(27,58,107,.12);border-radius:var(--r);padding:16px 20px;margin-bottom:20px;font-size:13px;color:var(--ink-l);line-height:1.7">
+    Reactive people focus on their <strong style="color:var(--red)">Circle of Concern</strong> — things outside their control. Proactive people focus on their <strong style="color:var(--navy-2)">Circle of Influence</strong> — things they can actually affect. Log what's occupying your mental energy, classify it, and train yourself to redirect concern into influence.
+  </div>
+
+  <!-- Stats -->
+  <div class="coi-stat-row" id="coi-stats"></div>
+
+  <!-- AI Insight -->
+  <div id="coi-ai-insight" style="display:none" class="coi-insight-card"></div>
+
+  <!-- Add form -->
+  <div class="coi-add-form">
+    <div class="coi-add-title">What's occupying your mental energy?</div>
+    <input class="fi" id="coi-text" placeholder="e.g. Worried about the team's performance, anxious about the product launch..." style="margin-bottom:12px">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px">
+      <div>
+        <label class="flbl" style="margin-bottom:6px">Classification</label>
+        <div class="coi-type-row">
+          <button class="coi-type-btn inf-sel" id="coi-type-inf" id="coi-btn-inf">🔵 Influence<br><span style="font-size:9px;font-weight:400;opacity:.7">I can affect this</span></button>
+          <button class="coi-type-btn" id="coi-type-con" id="coi-btn-con">🔴 Concern<br><span style="font-size:9px;font-weight:400;opacity:.7">Outside my control</span></button>
+        </div>
+      </div>
+      <div>
+        <label class="flbl" style="margin-bottom:6px">Mental energy drain</label>
+        <div class="coi-energy-row">
+          <button class="coi-energy-btn" id="coi-e-h" id="coi-btn-eh">🔴 High</button>
+          <button class="coi-energy-btn sel-m" id="coi-e-m" id="coi-btn-em">🟡 Med</button>
+          <button class="coi-energy-btn" id="coi-e-l" id="coi-btn-el">🟢 Low</button>
+        </div>
+      </div>
+    </div>
+    <div style="display:flex;gap:8px">
+      <button class="btn btn-primary" onclick="addCoiItem()" style="flex:1">+ Log This</button>
+      <button class="btn btn-ghost" onclick="aiClassifyCoi()" style="flex:1">✨ AI Classify</button>
+    </div>
+  </div>
+
+  <!-- Items grid -->
+  <div class="coi-header-row">
+    <div class="coi-col-hdr coi-col-inf">
+      <div class="coi-col-title inf">🔵 Circle of Influence</div>
+      <div class="coi-col-sub">Things you can affect. Put your energy here.</div>
+    </div>
+    <div class="coi-col-hdr coi-col-con">
+      <div class="coi-col-title con">🔴 Circle of Concern</div>
+      <div class="coi-col-sub">Things outside your control. Notice how much energy goes here.</div>
+    </div>
+  </div>
+  <div class="coi-items">
+    <div class="coi-col" id="coi-influence-col"></div>
+    <div class="coi-col" id="coi-concern-col"></div>
+  </div>
+
+  <div id="coi-empty" style="display:none;text-align:center;padding:32px;color:var(--ink-m);font-size:13px;font-style:italic">
+    Nothing logged yet. What's on your mind that you're spending energy on?
+  </div>
 </div>
 
 <!-- PATTERNS -->
@@ -940,6 +1038,21 @@ console.log('Firebase ready');
       <button onclick="saveEvening()" style="width:100%;padding:13px;background:linear-gradient(135deg,var(--navy-2),var(--gold));border:none;border-radius:12px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:800;color:#fff;cursor:pointer">✦ Close My Day with Clarity</button>
       <button onclick="closeEvening()" style="width:100%;padding:9px;background:transparent;border:none;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--ink-m);cursor:pointer;margin-top:6px">Skip for now</button>
     </div>
+  </div>
+</div>
+
+
+<!-- WEEKLY REPORT MODAL -->
+<div class="report-overlay" id="m-report">
+  <div class="report-modal">
+    <div class="report-hdr">
+      <div>
+        <div class="report-title" id="report-modal-week">Week of —</div>
+        <div class="report-sub">AI-generated effectiveness analysis</div>
+      </div>
+      <button class="m-close" onclick="closeReportModal()">✕</button>
+    </div>
+    <div class="report-body" id="report-modal-body"></div>
   </div>
 </div>
 
@@ -1306,6 +1419,8 @@ function nav(view){
   else if(view==='endmind') renderEndInMind();
   else if(view==='relationships') renderRelationships();
   else if(view==='reflection') renderReflection();
+  else if(view==='report') renderWeeklyReportView();
+  else if(view==='influence') renderInfluence();
   else if(view==='patterns') renderPatterns();
   else if(view==='goals') renderGoals();
   else if(view==='quadrant') renderQuadrant();
@@ -2224,6 +2339,429 @@ async function migrateLocalToFirebase(){
   if(el) el.textContent = '✅ Migrated '+count+' items to Firebase';
   toast('✅ '+count+' items migrated to cloud');
 }
+
+
+
+// ══════════════════════════════════════════════════════════
+// WEEKLY AI REPORT
+// ══════════════════════════════════════════════════════════
+let weeklyReports = [];
+
+function loadWeeklyReports(){ weeklyReports = load('weeklyReports', []); }
+function saveWeeklyReports(){ save('weeklyReports', weeklyReports); }
+
+function renderWeeklyReportView(){
+  loadWeeklyReports();
+  // Score preview
+  const prev = document.getElementById('report-scores-preview');
+  if(prev){
+    const s = calcScores();
+    const circ = 2*Math.PI*28;
+    const cells = [
+      {label:'Alignment', val:s.align, color:'var(--gold)'},
+      {label:'Q2 Focus',  val:s.q2,   color:'var(--navy-2)'},
+      {label:'Renewal',   val:s.ren,  color:'var(--green)'},
+      {label:'Overall',   val:s.eff,  color:'var(--red)'},
+    ];
+    prev.innerHTML = '<div class="report-score-row">'
+      + cells.map(c=>'<div class="report-score-cell">'
+          +'<svg width="60" height="60" style="transform:rotate(-90deg);display:block;margin:0 auto 6px">'
+          +'<circle cx="30" cy="30" r="28" fill="none" stroke="var(--border)" stroke-width="4"/>'
+          +'<circle cx="30" cy="30" r="28" fill="none" stroke="'+c.color+'" stroke-width="4" stroke-linecap="round"'
+          +' stroke-dasharray="'+circ+'" stroke-dashoffset="'+(circ-(c.val/100)*circ)+'"/>'
+          +'</svg>'
+          +'<div class="report-score-num" style="color:'+c.color+'">'+c.val+'%</div>'
+          +'<div class="report-score-lbl">'+c.label+'</div>'
+        +'</div>').join('')
+      +'</div>';
+  }
+  // History
+  renderReportHistory();
+}
+
+function renderReportHistory(){
+  const c = document.getElementById('report-history-list'); if(!c) return;
+  if(!weeklyReports.length){
+    c.innerHTML = '<div style="font-size:13px;color:var(--ink-m);font-style:italic;padding:12px 0">No reports generated yet. Tap Generate to create your first weekly analysis.</div>';
+    return;
+  }
+  c.innerHTML = '';
+  weeklyReports.slice(0,10).forEach(r => {
+    const card = document.createElement('div');
+    card.className = 'report-saved-card';
+    card.innerHTML = '<div class="report-saved-week">'+r.week+'</div>'
+      +'<div class="report-saved-score">Effectiveness: '+r.scores.eff+'% · Alignment: '+r.scores.align+'% · Q2: '+r.scores.q2+'%</div>';
+    card.addEventListener('click', () => openReportModal(r));
+    c.appendChild(card);
+  });
+}
+
+async function generateWeeklyReport(){
+  if(!geminiKey){ toast('Add Gemini key in Settings to generate reports'); return; }
+  const btn = document.getElementById('report-gen-trigger');
+  if(btn){ btn.disabled = true; btn.textContent = '✨ Generating...'; }
+
+  // Gather all context
+  const s = calcScores();
+  const wr = document.getElementById('week-range')?.textContent || 'This week';
+  const roleLines = roles.map(r => r.name+': served='+((roleServed[TODAY]||{})[r.id]===true?'yes':'no')+', commitment="'+(r.weeklyCommitment||'none')+'"').join('; ');
+  const valueGaps = (() => {
+    const kwMap = {'Family':/fam|parent|spouse|partner/i,'Health':/health|fitness|physical/i,'Growth':/learn|growth|develop/i,'Faith':/spirit|faith|church|prayer/i,'Service':/community|service|leader|ward/i};
+    return values.filter(v => {
+      const kw = kwMap[v]; if(!kw) return false;
+      for(let i=0;i<7;i++){
+        const d=new Date(); d.setDate(d.getDate()-i);
+        const ds=d.toISOString().slice(0,10);
+        const st=JSON.parse(localStorage.getItem(uid_key('today_'+ds))||'{}');
+        const rs=st.roleServed||{};
+        if(roles.filter(r=>kw.test(r.name+' '+(r.successDef||''))).some(r=>rs[r.id]===true)) return false;
+      }
+      return true;
+    });
+  })();
+  const lastReflect = reflections[0] || {};
+  const coiItems = load('coiItems', []);
+  const concerns = coiItems.filter(x=>x.type==='concern'&&!x.resolved);
+  const influenced = coiItems.filter(x=>x.type==='influence'&&!x.resolved);
+
+  const prompt = [
+    'You are a sharp Covey-based effectiveness coach writing a weekly review report. Be direct, specific, and honest — no cheerleading.',
+    '',
+    'WEEK: '+wr,
+    'MISSION: "'+(missionStatement||'not defined')+'"',
+    'VALUES: '+(values.join(', ')||'none selected'),
+    '',
+    'EFFECTIVENESS SCORES:',
+    '- Overall: '+s.eff+'%',
+    '- Alignment (priorities tied to roles): '+s.align+'%',
+    '- Q2 Focus (important-not-urgent work): '+s.q2+'%',
+    '- Renewal (daily energy practices): '+s.ren+'%',
+    '- Role Coverage: '+s.role+'%',
+    '',
+    'ROLES THIS WEEK: '+roleLines,
+    'VALUES WITH ZERO ACTIVITY: '+(valueGaps.join(', ')||'none — all values showed up in behavior'),
+    '',
+    'REFLECTION ENTRY: win="'+(lastReflect.win||'none')+'", reactive="'+(lastReflect.reactive||'none')+'", commit="'+(lastReflect.commit||'none')+'"',
+    '',
+    'CIRCLE OF INFLUENCE: '+influenced.length+' active concerns in Circle of Influence, '+concerns.length+' in Circle of Concern (reactive energy)',
+    '',
+    'Write a concise weekly report with these exact sections:',
+    '1. HEADLINE: One sharp sentence summarizing the week (honest — good or bad)',
+    '2. WHAT WORKED: 2-3 specific behaviors that drove effectiveness this week',
+    '3. THE GAP: The single most important gap between stated identity and actual behavior',
+    '4. VALUES CHECK: Comment on the values-behavior alignment (use actual value names)',
+    '5. RECOMMENDATION: One specific, actionable commitment for next week — not generic advice',
+    '',
+    'Format: Use the section labels exactly as shown. Keep each section to 2-3 sentences. Total under 300 words. No bullet points within sections — prose only.'
+  ].join('\n');
+
+  try{
+    const text = await callAI(prompt, 500);
+    if(!text){ throw new Error('No response'); }
+
+    const report = {
+      id: 'rep'+Date.now(),
+      week: wr,
+      scores: s,
+      text,
+      generatedAt: new Date().toISOString()
+    };
+
+    loadWeeklyReports();
+    weeklyReports.unshift(report);
+    if(weeklyReports.length > 12) weeklyReports = weeklyReports.slice(0,12);
+    saveWeeklyReports();
+
+    renderWeeklyReportView();
+    openReportModal(report);
+    toast('✦ Weekly report generated');
+  } catch(e){
+    toast('❌ Could not generate report. Check your Gemini key.');
+    console.error(e);
+  } finally {
+    if(btn){ btn.disabled = false; btn.textContent = '✨ Generate This Week\'s Report'; }
+  }
+}
+
+function openReportModal(report){
+  const weekEl = document.getElementById('report-modal-week');
+  const bodyEl = document.getElementById('report-modal-body');
+  if(!weekEl || !bodyEl) return;
+
+  weekEl.textContent = report.week;
+  const s = report.scores;
+
+  // Parse sections from the report text
+  const sections = ['HEADLINE','WHAT WORKED','THE GAP','VALUES CHECK','RECOMMENDATION'];
+  let formatted = report.text;
+
+  // Score summary
+  const circ = 2*Math.PI*28;
+  const scoreSummary = '<div class="report-score-row" style="margin-bottom:20px">'
+    + [{label:'Overall',val:s.eff,color:'var(--red)'},{label:'Alignment',val:s.align,color:'var(--gold)'},{label:'Q2 Focus',val:s.q2,color:'var(--navy-2)'},{label:'Renewal',val:s.ren,color:'var(--green)'}]
+      .map(c=>'<div class="report-score-cell">'
+        +'<svg width="56" height="56" style="transform:rotate(-90deg);display:block;margin:0 auto 4px">'
+        +'<circle cx="28" cy="28" r="24" fill="none" stroke="var(--border)" stroke-width="4"/>'
+        +'<circle cx="28" cy="28" r="24" fill="none" stroke="'+c.color+'" stroke-width="4" stroke-linecap="round"'
+        +' stroke-dasharray="'+(2*Math.PI*24)+'" stroke-dashoffset="'+((2*Math.PI*24)-(c.val/100)*(2*Math.PI*24))+'"/>'
+        +'</svg>'
+        +'<div style="font-family:serif;font-size:20px;font-weight:700;color:'+c.color+'">'+c.val+'%</div>'
+        +'<div style="font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.8px;color:var(--ink-m);margin-top:3px">'+c.label+'</div>'
+        +'</div>').join('')
+    +'</div>';
+
+  // Render the text with section formatting
+  let html = scoreSummary;
+  const lines = formatted.split('\n').filter(l => l.trim());
+  let inSection = false;
+  let sectionContent = '';
+  let currentSection = '';
+
+  lines.forEach(line => {
+    const sectionMatch = sections.find(s => line.toUpperCase().includes(s+':') || line.toUpperCase() === s);
+    if(sectionMatch){
+      if(inSection && sectionContent){
+        if(currentSection === 'HEADLINE'){
+          html += '<div class="report-insight" style="margin-bottom:20px">'+sectionContent.trim()+'</div>';
+        } else {
+          html += '<div style="margin-bottom:14px;font-size:13px;color:var(--ink-l);line-height:1.7">'+sectionContent.trim()+'</div>';
+        }
+      }
+      const label = sectionMatch === 'RECOMMENDATION' ? '🎯 '+sectionMatch : sectionMatch === 'THE GAP' ? '⚠️ '+sectionMatch : sectionMatch === 'WHAT WORKED' ? '✓ '+sectionMatch : sectionMatch === 'VALUES CHECK' ? '⚖️ '+sectionMatch : '★ '+sectionMatch;
+      html += '<div class="report-section-lbl">'+label+'</div>';
+      inSection = true;
+      currentSection = sectionMatch;
+      sectionContent = line.replace(new RegExp(sectionMatch+':\s*','i'),'').replace(new RegExp(sectionMatch+'\s*','i'),'');
+    } else if(inSection){
+      sectionContent += ' ' + line;
+    }
+  });
+  // Last section
+  if(inSection && sectionContent){
+    if(currentSection === 'RECOMMENDATION'){
+      html += '<div style="background:rgba(27,58,107,.06);border:1px solid rgba(27,58,107,.15);border-radius:12px;padding:14px 18px;font-size:13px;color:var(--navy-2);line-height:1.7;font-weight:600">'+sectionContent.trim()+'</div>';
+    } else {
+      html += '<div style="margin-bottom:14px;font-size:13px;color:var(--ink-l);line-height:1.7">'+sectionContent.trim()+'</div>';
+    }
+  }
+
+  html += '<div style="margin-top:20px;padding-top:16px;border-top:1px solid var(--border);font-size:11px;color:var(--ink-lt)">Generated '+new Date(report.generatedAt).toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric'})+'</div>';
+
+  bodyEl.innerHTML = html;
+  document.getElementById('m-report').classList.add('open');
+}
+
+function closeReportModal(){
+  document.getElementById('m-report').classList.remove('open');
+}
+
+// ══════════════════════════════════════════════════════════
+// CIRCLE OF INFLUENCE
+// ══════════════════════════════════════════════════════════
+let coiItems = [];
+let coiType = 'influence';
+let coiEnergy = 'med';
+
+function loadCoiItems(){ coiItems = load('coiItems', []); }
+function saveCoiItems(){ save('coiItems', coiItems); }
+
+function renderInfluence(){
+  loadCoiItems();
+  renderCoiStats();
+  renderCoiColumns();
+  renderCoiAiInsight();
+  setTimeout(initCoiButtons, 50);
+}
+
+function renderCoiStats(){
+  const c = document.getElementById('coi-stats'); if(!c) return;
+  const active = coiItems.filter(x=>!x.resolved);
+  const influence = active.filter(x=>x.type==='influence');
+  const concern = active.filter(x=>x.type==='concern');
+  const resolved = coiItems.filter(x=>x.resolved);
+  const ratio = active.length > 0 ? Math.round(influence.length/active.length*100) : 0;
+
+  c.innerHTML = [
+    {num: influence.length, lbl: 'In Influence', color: 'var(--navy-2)'},
+    {num: concern.length,   lbl: 'In Concern',   color: 'var(--red)'},
+    {num: ratio+'%',        lbl: 'Proactive Ratio', color: ratio >= 60 ? 'var(--green)' : ratio >= 40 ? 'var(--amber)' : 'var(--red)'},
+  ].map(s=>'<div class="coi-stat"><div class="coi-stat-num" style="color:'+s.color+'">'+s.num+'</div><div class="coi-stat-lbl">'+s.lbl+'</div></div>').join('');
+}
+
+function renderCoiColumns(){
+  const inf = document.getElementById('coi-influence-col');
+  const con = document.getElementById('coi-concern-col');
+  const empty = document.getElementById('coi-empty');
+  if(!inf || !con) return;
+
+  const active = coiItems.filter(x=>!x.resolved);
+  const resolved = coiItems.filter(x=>x.resolved);
+  const influence = active.filter(x=>x.type==='influence');
+  const concern = active.filter(x=>x.type==='concern');
+
+  if(coiItems.length === 0){
+    inf.innerHTML = ''; con.innerHTML = '';
+    if(empty) empty.style.display = 'block';
+    return;
+  }
+  if(empty) empty.style.display = 'none';
+
+  function renderItem(item){
+    const card = document.createElement('div');
+    card.className = 'coi-item '+item.type+(item.resolved?' resolved':'');
+    const energyLbl = item.energy==='high'?'🔴 High drain':item.energy==='low'?'🟢 Low drain':'🟡 Med drain';
+    const energyCls = item.energy==='high'?'coi-energy-h':item.energy==='low'?'coi-energy-l':'coi-energy-m';
+    card.innerHTML = '<div class="coi-item-text">'+item.text+'</div>'
+      +'<div class="coi-item-meta">'
+        +'<span class="coi-item-energy '+energyCls+'">'+energyLbl+'</span>'
+        +'<span class="coi-item-date">'+item.date+'</span>'
+      +'</div>'
+      +'<div class="coi-item-actions"></div>';
+
+    const actRow = card.querySelector('.coi-item-actions');
+
+    if(!item.resolved && item.type==='concern'){
+      const shiftBtn = document.createElement('button');
+      shiftBtn.className = 'coi-act-btn';
+      shiftBtn.textContent = '→ Move to Influence';
+      shiftBtn.addEventListener('click', () => { item.type='influence'; saveCoiItems(); renderInfluence(); toast('✦ Shifted to Circle of Influence'); });
+      actRow.appendChild(shiftBtn);
+    }
+    if(!item.resolved){
+      const resBtn = document.createElement('button');
+      resBtn.className = 'coi-act-btn resolve';
+      resBtn.textContent = '✓ Resolved';
+      resBtn.addEventListener('click', () => { item.resolved=true; item.resolvedAt=new Date().toISOString(); saveCoiItems(); renderInfluence(); toast('✓ Marked resolved'); });
+      actRow.appendChild(resBtn);
+    }
+    const delBtn = document.createElement('button');
+    delBtn.className = 'coi-act-btn del';
+    delBtn.textContent = '✕';
+    delBtn.addEventListener('click', () => { coiItems=coiItems.filter(x=>x.id!==item.id); saveCoiItems(); renderInfluence(); });
+    actRow.appendChild(delBtn);
+
+    return card;
+  }
+
+  inf.innerHTML = '';
+  influence.forEach(item => inf.appendChild(renderItem(item)));
+  if(resolved.filter(x=>x.type==='influence').length){
+    const lbl = document.createElement('div');
+    lbl.style.cssText = 'font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.8px;color:var(--ink-lt);margin:12px 0 6px;opacity:.7';
+    lbl.textContent = 'Resolved';
+    inf.appendChild(lbl);
+    resolved.filter(x=>x.type==='influence').slice(0,3).forEach(item => inf.appendChild(renderItem(item)));
+  }
+
+  con.innerHTML = '';
+  concern.forEach(item => con.appendChild(renderItem(item)));
+  if(resolved.filter(x=>x.type==='concern').length){
+    const lbl = document.createElement('div');
+    lbl.style.cssText = 'font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.8px;color:var(--ink-lt);margin:12px 0 6px;opacity:.7';
+    lbl.textContent = 'Resolved';
+    con.appendChild(lbl);
+    resolved.filter(x=>x.type==='concern').slice(0,3).forEach(item => con.appendChild(renderItem(item)));
+  }
+}
+
+function renderCoiAiInsight(){
+  const c = document.getElementById('coi-ai-insight'); if(!c) return;
+  const active = coiItems.filter(x=>!x.resolved);
+  const concern = active.filter(x=>x.type==='concern');
+  if(concern.length === 0){ c.style.display='none'; return; }
+
+  c.style.display = 'block';
+  const ratio = active.length > 0 ? Math.round((active.length-concern.length)/active.length*100) : 0;
+
+  if(ratio < 40){
+    c.innerHTML = '<strong style="color:var(--red)">⚠️ Reactive orientation detected.</strong> '+concern.length+' of your active items are in your Circle of Concern — things outside your control. Covey: the more you focus on your Circle of Concern, the smaller your Circle of Influence becomes. For each concern, ask: what specific action within my control could I take that would affect this outcome?';
+  } else if(ratio >= 70){
+    c.innerHTML = '<strong style="color:var(--green)">✓ Proactive orientation.</strong> Most of your mental energy is in your Circle of Influence. This is the foundation of Habit 1. Keep asking "what can I do?" rather than "what happened to me?"';
+  } else {
+    c.innerHTML = '<strong style="color:var(--amber)">📊 Mixed orientation.</strong> You have '+concern.length+' concerns and '+(active.length-concern.length)+' influence items active. Where can you take an existing concern and find one action within your control?';
+  }
+}
+
+function setCoiType(type){
+  coiType = type;
+  document.getElementById('coi-type-inf').className = 'coi-type-btn'+(type==='influence'?' inf-sel':'');
+  document.getElementById('coi-type-con').className = 'coi-type-btn'+(type==='concern'?' con-sel':'');
+}
+
+function setCoiEnergy(energy){
+  coiEnergy = energy;
+  ['high','med','low'].forEach(e => {
+    const btn = document.getElementById('coi-e-'+e[0]);
+    if(btn) btn.className = 'coi-energy-btn'+(energy===e?' sel-'+e[0]:'');
+  });
+}
+
+// Wire COI buttons via addEventListener (no onclick string collisions)
+function initCoiButtons(){
+  const btnMap = [
+    ['coi-btn-inf', () => setCoiType('influence')],
+    ['coi-btn-con', () => setCoiType('concern')],
+    ['coi-btn-eh',  () => setCoiEnergy('high')],
+    ['coi-btn-em',  () => setCoiEnergy('med')],
+    ['coi-btn-el',  () => setCoiEnergy('low')],
+  ];
+  btnMap.forEach(([id, fn]) => {
+    const el = document.getElementById(id);
+    if(el && !el._coiWired){ el.addEventListener('click', fn); el._coiWired = true; }
+  });
+}
+
+function addCoiItem(){
+  const text = document.getElementById('coi-text')?.value.trim();
+  if(!text){ toast('Describe what is on your mind'); return; }
+  loadCoiItems();
+  coiItems.unshift({
+    id: 'coi'+Date.now(),
+    text,
+    type: coiType,
+    energy: coiEnergy,
+    date: TODAY,
+    resolved: false,
+    createdAt: new Date().toISOString()
+  });
+  saveCoiItems();
+  document.getElementById('coi-text').value = '';
+  renderInfluence();
+  toast(coiType==='influence' ? '✓ Added to Circle of Influence' : '📝 Logged as Circle of Concern');
+}
+
+async function aiClassifyCoi(){
+  const text = document.getElementById('coi-text')?.value.trim();
+  if(!text){ toast('Enter something first'); return; }
+  if(!geminiKey){ toast('Add Gemini key in Settings'); return; }
+  toast('Classifying...');
+  const pLines = [
+    'Classify this into Circle of Influence (you can affect it) or Circle of Concern (outside your control).',
+    'Concern: "'+'" + text + "'+'"',
+    'Respond exactly: CLASSIFICATION: [INFLUENCE or CONCERN] | REASON: [one sentence] | ACTION: [one action within their control]'
+  ];
+  const prompt = pLines.join(' ');
+  try{
+    const result = await callAI(prompt, 150);
+    if(!result){ throw new Error('no response'); }
+    const classMatch = result.match(/CLASSIFICATION:\s*(INFLUENCE|CONCERN)/i);
+    const reasonMatch = result.match(/REASON:\s*(.+?)\s*\|/i) || result.match(/REASON:\s*(.+)/i);
+    const actionMatch = result.match(/ACTION:\s*(.+)/i);
+    if(classMatch){
+      const type = classMatch[1].toLowerCase();
+      setCoiType(type);
+      let msg = 'AI: '+type.charAt(0).toUpperCase()+type.slice(1);
+      if(reasonMatch) msg += ' — '+reasonMatch[1].trim();
+      toast(msg.slice(0,80));
+    }
+  } catch(e){ toast('AI unavailable'); }
+}
+
+// Close report modal on outside click
+document.addEventListener('click', e => {
+  const overlay = document.getElementById('m-report');
+  if(overlay && e.target === overlay) closeReportModal();
+});
 
 </script>
 </body>
