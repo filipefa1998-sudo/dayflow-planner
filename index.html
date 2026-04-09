@@ -1133,6 +1133,10 @@ let ebaType        = 'deposit';
 let ebaImpact      = 3;
 let ebaHistOpen    = {};
 let setupStep      = 0;
+let coiItems       = [];
+let coiType        = 'influence';
+let coiEnergy      = 'med';
+let weeklyReports  = [];
 
 // ── STORAGE — Firebase + localStorage hybrid ──
 // localStorage = fast, synchronous, used for per-device settings + daily state
@@ -2401,7 +2405,6 @@ async function migrateLocalToFirebase(){
 // ══════════════════════════════════════════════════════════
 // WEEKLY AI REPORT
 // ══════════════════════════════════════════════════════════
-let weeklyReports = [];
 
 function loadWeeklyReports(){ weeklyReports = load('weeklyReports', []); }
 function saveWeeklyReports(){ save('weeklyReports', weeklyReports); }
@@ -2614,9 +2617,6 @@ function closeReportModal(){
 // ══════════════════════════════════════════════════════════
 // CIRCLE OF INFLUENCE
 // ══════════════════════════════════════════════════════════
-let coiItems = [];
-let coiType = 'influence';
-let coiEnergy = 'med';
 
 function loadCoiItems(){ try { coiItems = load('coiItems', []) || []; } catch(e){ coiItems = []; } }
 function saveCoiItems(){ save('coiItems', coiItems); }
