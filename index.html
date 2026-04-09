@@ -929,12 +929,32 @@ console.log('Firebase ready');
 
 <!-- MOBILE NAV -->
 <nav class="mob-nav">
-  <button class="mob-nav-btn active" onclick="nav('today');setMobActive(this)"><span class="mob-nav-ico">☀️</span><span class="mob-nav-lbl">Today</span></button>
-  <button class="mob-nav-btn" onclick="nav('week');setMobActive(this)"><span class="mob-nav-ico">📅</span><span class="mob-nav-lbl">Week</span></button>
-  <button class="mob-nav-btn" onclick="nav('endmind');setMobActive(this)"><span class="mob-nav-ico">🧭</span><span class="mob-nav-lbl">Mission</span></button>
-  <button class="mob-nav-btn" onclick="nav('relationships');setMobActive(this)"><span class="mob-nav-ico">🤝</span><span class="mob-nav-lbl">People</span></button>
-  <button class="mob-nav-btn" onclick="nav('reflection');setMobActive(this)"><span class="mob-nav-ico">🪞</span><span class="mob-nav-lbl">Reflect</span></button>
+  <button class="mob-nav-btn active" onclick="nav('today');setMobActive(this)" data-view="today"><span class="mob-nav-ico">☀️</span><span class="mob-nav-lbl">Today</span></button>
+  <button class="mob-nav-btn" onclick="nav('week');setMobActive(this)" data-view="week"><span class="mob-nav-ico">📅</span><span class="mob-nav-lbl">Week</span></button>
+  <button class="mob-nav-btn" onclick="nav('endmind');setMobActive(this)" data-view="endmind"><span class="mob-nav-ico">🧭</span><span class="mob-nav-lbl">Mission</span></button>
+  <button class="mob-nav-btn" onclick="nav('reflection');setMobActive(this)" data-view="reflection"><span class="mob-nav-ico">🪞</span><span class="mob-nav-lbl">Reflect</span></button>
+  <button class="mob-nav-btn" onclick="toggleMobDrawer()" id="mob-more-btn"><span class="mob-nav-ico">⊞</span><span class="mob-nav-lbl">More</span></button>
 </nav>
+
+<!-- MOBILE DRAWER OVERLAY -->
+<div id="mob-drawer-overlay" onclick="closeMobDrawer()" style="display:none;position:fixed;inset:0;z-index:600;background:rgba(0,0,0,.55)"></div>
+
+<!-- MOBILE DRAWER -->
+<div id="mob-drawer" style="display:none;position:fixed;bottom:0;left:0;right:0;z-index:700;background:var(--navy);border-radius:20px 20px 0 0;padding:14px 0 36px;box-shadow:0 -8px 40px rgba(0,0,0,.5)">
+  <div style="width:40px;height:4px;background:rgba(255,255,255,.2);border-radius:2px;margin:0 auto 18px"></div>
+  <div style="font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:2px;color:rgba(255,255,255,.3);text-align:center;margin-bottom:14px">All Screens</div>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:0 16px">
+    <button class="mob-drawer-btn" onclick="mobNavTo('relationships')"><span>🤝</span><span>People</span></button>
+    <button class="mob-drawer-btn" onclick="mobNavTo('report')"><span>📋</span><span>Report</span></button>
+    <button class="mob-drawer-btn" onclick="mobNavTo('influence')"><span>⭕</span><span>Influence</span></button>
+    <button class="mob-drawer-btn" onclick="mobNavTo('patterns')"><span>📊</span><span>Patterns</span></button>
+    <button class="mob-drawer-btn" onclick="mobNavTo('goals')"><span>🎯</span><span>Goals</span></button>
+    <button class="mob-drawer-btn" onclick="mobNavTo('quadrant')"><span>⊞</span><span>Quadrant</span></button>
+    <button class="mob-drawer-btn" onclick="mobNavTo('habits')"><span>🔥</span><span>Habits</span></button>
+    <button class="mob-drawer-btn" onclick="mobNavTo('settings')"><span>⚙️</span><span>Settings</span></button>
+    <button class="mob-drawer-btn" onclick="closeMobDrawer();signOut()"><span>↩️</span><span>Switch User</span></button>
+  </div>
+</div>
 
 <button class="dark-btn" onclick="toggleDark()" id="dark-btn-float">🌙</button>
 <div id="toast"></div>
@@ -1164,9 +1184,18 @@ function load(k, def=null){
 
 // Full load from Firestore — called once on login, populates localStorage cache
 async function loadAllFromFirestore(){
+  // Wait up to 5 seconds for Firebase SDK to initialise
   if(!window._fbReady || !currentUser?.uid){
-    console.log('Firestore not ready, using localStorage cache');
-    return;
+    let waited = 0;
+    while(!window._fbReady && waited < 5000){
+      await new Promise(r => setTimeout(r, 200));
+      waited += 200;
+    }
+    if(!window._fbReady || !currentUser?.uid){
+      console.log('Firestore not ready after wait — using localStorage cache');
+      return;
+    }
+    console.log('Firebase became ready after', waited, 'ms');
   }
   showSyncIndicator('☁️ Syncing your data...');
   const keys = ['roles','habits','habitLogs','relationships','goals','mission',
@@ -1401,8 +1430,29 @@ function showApp(){
   genCoach();
   checkAutoGratitude();
   checkAutoEvening();
-  // Check Firebase status after short delay to let SDK initialise
-  setTimeout(updateFbBadge, 1500);
+  // Wait for Firebase SDK then pull latest data from Firestore
+  const waitForFb = async () => {
+    let t = 0;
+    while(!window._fbReady && t < 6000){ await new Promise(r=>setTimeout(r,300)); t+=300; }
+    if(window._fbReady && currentUser?.uid){
+      await loadAllFromFirestore();
+      roles         = load('roles', roles);
+      habits        = load('habits', habits);
+      habitLogs     = load('habitLogs', habitLogs);
+      relationships = load('relationships', relationships);
+      goals         = load('goals', goals);
+      missionStatement = load('mission', missionStatement);
+      futureself    = load('futureself', futureself);
+      values        = load('values', values);
+      reflections   = load('reflections', reflections);
+      loadTodayState();
+      const activeView = document.querySelector('.view.active')?.id?.replace('view-','');
+      if(activeView) nav(activeView);
+      updateScores();
+    }
+    updateFbBadge();
+  };
+  waitForFb();
 }
 function signOut(){
   document.getElementById('app').style.display='none';
@@ -2772,40 +2822,40 @@ document.addEventListener('click', e => {
 });
 
 
+
+
 function toggleMobDrawer(){
   const overlay = document.getElementById('mob-drawer-overlay');
   const drawer  = document.getElementById('mob-drawer');
-  const isOpen  = drawer.style.display !== 'none';
-  if(isOpen){ closeMobDrawer(); }
-  else {
-    overlay.style.display = 'block';
-    drawer.style.display  = 'block';
-    // Animate in
-    drawer.style.transform = 'translateY(100%)';
-    drawer.style.transition = 'transform .25s cubic-bezier(.34,1.2,.64,1)';
-    setTimeout(() => drawer.style.transform = 'translateY(0)', 10);
-  }
+  if(!drawer) return;
+  const isOpen = drawer.style.display === 'block';
+  if(isOpen){ closeMobDrawer(); return; }
+  overlay.style.display = 'block';
+  drawer.style.display  = 'block';
+  drawer.style.transform = 'translateY(100%)';
+  drawer.style.transition = 'transform .28s cubic-bezier(.34,1.1,.64,1)';
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    drawer.style.transform = 'translateY(0)';
+  }));
 }
 function closeMobDrawer(){
   const overlay = document.getElementById('mob-drawer-overlay');
   const drawer  = document.getElementById('mob-drawer');
-  drawer.style.transform = 'translateY(100%)';
+  if(!drawer) return;
+  drawer.style.transform = 'translateY(105%)';
   setTimeout(() => {
     drawer.style.display  = 'none';
     overlay.style.display = 'none';
-    drawer.style.transform = '';
-  }, 220);
+  }, 260);
 }
 function mobNavTo(view){
   closeMobDrawer();
   setTimeout(() => {
     nav(view);
-    // Update bottom nav active state — clear all, set More as active
     document.querySelectorAll('.mob-nav-btn').forEach(b => b.classList.remove('active'));
-    document.getElementById('mob-more-btn').classList.add('active');
-    // Highlight active drawer btn
-    document.querySelectorAll('.mob-drawer-btn').forEach(b => b.classList.remove('active-view'));
-  }, 100);
+    const moreBtn = document.getElementById('mob-more-btn');
+    if(moreBtn) moreBtn.classList.add('active');
+  }, 120);
 }
 
 </script>
