@@ -2618,7 +2618,7 @@ let coiItems = [];
 let coiType = 'influence';
 let coiEnergy = 'med';
 
-function loadCoiItems(){ coiItems = load('coiItems', []); }
+function loadCoiItems(){ try { coiItems = load('coiItems', []) || []; } catch(e){ coiItems = []; } }
 function saveCoiItems(){ save('coiItems', coiItems); }
 
 function renderInfluence(){
@@ -2770,22 +2770,30 @@ function setCoiEnergy(energy){
 // COI buttons wired directly via setCoiType/setCoiEnergy
 
 function addCoiItem(){
-  const text = document.getElementById('coi-text')?.value.trim();
-  if(!text){ toast('Describe what is on your mind'); return; }
-  loadCoiItems();
-  coiItems.unshift({
-    id: 'coi'+Date.now(),
-    text,
-    type: coiType,
-    energy: coiEnergy,
-    date: TODAY,
-    resolved: false,
-    createdAt: new Date().toISOString()
-  });
-  saveCoiItems();
-  document.getElementById('coi-text').value = '';
-  renderInfluence();
-  toast(coiType==='influence' ? '✓ Added to Circle of Influence' : '📝 Logged as Circle of Concern');
+  try {
+    const textEl = document.getElementById('coi-text');
+    if(!textEl){ toast('Error: text input not found'); return; }
+    const text = textEl.value.trim();
+    if(!text){ toast('Describe what is on your mind'); return; }
+    loadCoiItems();
+    const newItem = {
+      id: 'coi'+Date.now(),
+      text,
+      type: coiType || 'influence',
+      energy: coiEnergy || 'med',
+      date: TODAY,
+      resolved: false,
+      createdAt: new Date().toISOString()
+    };
+    coiItems.unshift(newItem);
+    saveCoiItems();
+    textEl.value = '';
+    renderInfluence();
+    toast(newItem.type==='influence' ? '✓ Added to Circle of Influence' : '📝 Logged as Circle of Concern');
+  } catch(err) {
+    console.error('addCoiItem error:', err);
+    toast('Error: ' + err.message);
+  }
 }
 
 async function aiClassifyCoi(){
