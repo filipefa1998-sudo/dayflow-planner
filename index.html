@@ -910,6 +910,7 @@ console.log('Firebase ready');
     </div>
     <div class="settings-body">
       <div id="fb-status-detail" style="font-size:12px;color:var(--ink-m);margin-bottom:12px;line-height:1.6">Connecting to Firebase...</div>
+      <div id="fb-rules-warning" style="display:none;background:rgba(192,57,43,.08);border:1px solid rgba(192,57,43,.2);border-radius:8px;padding:10px 13px;font-size:12px;color:var(--red);margin-bottom:10px;line-height:1.6"><strong>⚠️ Firestore rules may be expired.</strong> Go to Firebase Console → Firestore → Rules and update them. <a href="https://console.firebase.google.com" target="_blank" style="color:var(--red);font-weight:800">Open Firebase Console →</a></div>
       <div style="display:flex;gap:8px;flex-wrap:wrap">
         <button class="btn btn-primary" onclick="manualSync()" style="font-size:12px">☁️ Sync Now</button>
         <button class="btn btn-ghost" onclick="migrateLocalToFirebase()" style="font-size:12px">📤 Migrate Local Data</button>
@@ -1154,12 +1155,25 @@ function loadGlobal(k,def=null){ try{ const v=localStorage.getItem('df3_'+k); re
 async function save(k, v){
   // Always write to localStorage immediately (no lag)
   localStorage.setItem(uid_key(k), JSON.stringify(v));
-  // Then persist to Firestore in background
-  if(!window._fbReady || !currentUser?.uid) return;
+  // Persist to Firestore — wait up to 4s for SDK if not ready yet
+  if(!currentUser?.uid) return;
+  let waited = 0;
+  while(!window._fbReady && waited < 4000){
+    await new Promise(r => setTimeout(r, 100));
+    waited += 100;
+  }
+  if(!window._fbReady) return;
   try{
     const ref = window._fbDoc(window._db, 'users', currentUser.uid, 'data', k);
     await window._fbSetDoc(ref, { value: JSON.stringify(v), updatedAt: new Date().toISOString() });
-  } catch(e){ console.warn('Firestore write failed for '+k, e.message); }
+  } catch(e){
+    console.warn('Firestore write failed for '+k, e.message);
+    // If rules expired, show warning once
+    if(e.message && e.message.includes('permission') && !window._fbRulesWarned){
+      window._fbRulesWarned = true;
+      toast('⚠️ Firebase rules may be expired — go to Firebase Console to update');
+    }
+  }
 }
 
 // LOAD — try Firestore first, fall back to localStorage, fall back to default
@@ -1434,29 +1448,8 @@ function showApp(){
   genCoach();
   checkAutoGratitude();
   checkAutoEvening();
-  // Wait for Firebase SDK then pull latest data from Firestore
-  const waitForFb = async () => {
-    let t = 0;
-    while(!window._fbReady && t < 6000){ await new Promise(r=>setTimeout(r,300)); t+=300; }
-    if(window._fbReady && currentUser?.uid){
-      await loadAllFromFirestore();
-      roles         = load('roles', roles);
-      habits        = load('habits', habits);
-      habitLogs     = load('habitLogs', habitLogs);
-      relationships = load('relationships', relationships);
-      goals         = load('goals', goals);
-      missionStatement = load('mission', missionStatement);
-      futureself    = load('futureself', futureself);
-      values        = load('values', values);
-      reflections   = load('reflections', reflections);
-      loadTodayState();
-      const activeView = document.querySelector('.view.active')?.id?.replace('view-','');
-      if(activeView) nav(activeView);
-      updateScores();
-    }
-    updateFbBadge();
-  };
-  waitForFb();
+  // Update Firebase badge after SDK loads
+  setTimeout(updateFbBadge, 1500);
 }
 function signOut(){
   document.getElementById('app').style.display='none';
