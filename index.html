@@ -1493,7 +1493,7 @@ function showApp(){
   updateScores();
   genCoach();
   checkAutoGratitude();
-  checkAutoEvening();
+    if (typeof checkAutoEvening === 'function') checkAutoEvening();
   // Update Firebase badge after SDK loads
   setTimeout(updateFbBadge, 1500);
 }
