@@ -1208,16 +1208,28 @@ async function save(k, v){
     await new Promise(r => setTimeout(r, 100));
     waited += 100;
   }
-  if(!window._fbReady) return;
+  if(!window._fbReady){
+    console.warn('⚠️ Firebase not ready — write to '+k+' is LOCAL ONLY');
+    if(!window._fbWarnedNotReady){ window._fbWarnedNotReady=true; toast('⚠️ Cloud sync offline — saving locally only'); }
+    return;
+  }
   try{
     const ref = window._fbDoc(window._db, 'users', currentUser.uid, 'data', k);
-    await window._fbSetDoc(ref, { value: JSON.stringify(v), updatedAt: new Date().toISOString() });
+    const payload = { value: JSON.stringify(v), updatedAt: new Date().toISOString() };
+    await window._fbSetDoc(ref, payload);
+    // VERIFIED WRITE: read it back to confirm it actually landed
+    const verify = await window._fbGetDoc(ref);
+    if(!verify.exists() || verify.data().updatedAt !== payload.updatedAt){
+      throw new Error('write verification failed for '+k);
+    }
+    // Track last successful sync time
+    localStorage.setItem('df3_lastSync', new Date().toISOString());
   } catch(e){
-    console.warn('Firestore write failed for '+k, e.message);
-    // If rules expired, show warning once
-    if(e.message && e.message.includes('permission') && !window._fbRulesWarned){
-      window._fbRulesWarned = true;
-      toast('⚠️ Firebase rules may be expired — go to Firebase Console to update');
+    console.error('❌ Firestore write FAILED for '+k+':', e.message);
+    if(!window._fbWriteErrorShown){
+      window._fbWriteErrorShown = true;
+      toast('❌ Cloud save failed for "'+k+'" — your data is local only. Check Settings.');
+      setTimeout(()=>{ window._fbWriteErrorShown=false; }, 30000);
     }
   }
 }
@@ -1995,6 +2007,53 @@ function removeGeminiKey(){ geminiKey=''; localStorage.removeItem('df3_gemini');
 function updateAiBadge(){ const b=document.getElementById('ai-badge'); if(!b) return; b.textContent=geminiKey?'✅ Connected':'Not Connected'; b.className='settings-badge '+(geminiKey?'badge-on':'badge-off'); }
 function exportData(){ const data={roles,habits,habitLogs,relationships,goals,missionStatement,futureself,values,reflections,exportedAt:new Date().toISOString(),user:currentUser?.name}; const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:'application/json'})); a.download='dayflow-v3-'+(currentUser?.name||'data').toLowerCase()+'-'+TODAY+'.json'; a.click(); toast('📤 Exported'); }
 function importData(e){ const f=e.target.files[0]; if(!f) return; const r=new FileReader(); r.onload=ev=>{ try{ const d=JSON.parse(ev.target.result); if(d.roles){roles=d.roles;save('roles',roles);} if(d.habits){habits=d.habits;save('habits',habits);} if(d.habitLogs){habitLogs=d.habitLogs;save('habitLogs',habitLogs);} if(d.relationships){relationships=d.relationships;save('relationships',relationships);} if(d.goals){goals=d.goals;save('goals',goals);} if(d.missionStatement){missionStatement=d.missionStatement;save('mission',missionStatement);} if(d.values){values=d.values;save('values',values);} if(d.reflections){reflections=d.reflections;save('reflections',reflections);} toast('📥 Data imported!'); renderSettings(); }catch(err){ toast('❌ Import failed'); } }; r.readAsText(f); e.target.value=''; }
+// ══════════════════════════════════════════════
+// AUTOMATIC BACKUP — JSON export every 7 days + manual button
+// ══════════════════════════════════════════════
+function exportFullBackup(silent){
+  if(silent === undefined) silent = false;
+  try{
+    const backup = {
+      version: 'v3.3',
+      exportedAt: new Date().toISOString(),
+      user: currentUser,
+      data: {}
+    };
+    // Grab every df3_ key for this user
+    for(let i=0;i<localStorage.length;i++){
+      const k = localStorage.key(i);
+      if(k && k.indexOf('df3_')===0){
+        const isUserKey = currentUser && currentUser.uid && k.indexOf(currentUser.uid) >= 0;
+        const isLocalKey = k.indexOf('df3_local_')===0;
+        const isGlobalKey = (k==='df3_profiles' || k==='df3_currentUser' || k==='df3_gemini' || k==='df3_lastBackup' || k==='df3_lastSync');
+        if(isUserKey || isLocalKey || isGlobalKey){
+          backup.data[k] = localStorage.getItem(k);
+        }
+      }
+    }
+    const blob = new Blob([JSON.stringify(backup,null,2)], {type:'application/json'});
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    const userName = (currentUser && currentUser.name) ? currentUser.name.toLowerCase() : 'user';
+    a.download = 'dayflow-backup-'+userName+'-'+TODAY+'.json';
+    a.click();
+    URL.revokeObjectURL(a.href);
+    localStorage.setItem('df3_lastBackup', new Date().toISOString());
+    if(!silent) toast('💾 Backup downloaded: '+a.download);
+  } catch(e){
+    console.error('Backup failed:', e);
+    if(!silent) toast('❌ Backup failed — see console');
+  }
+}
+function checkAutoBackup(){
+  if(!currentUser || !currentUser.uid) return;
+  const last = localStorage.getItem('df3_lastBackup');
+  const SEVEN_DAYS = 7*24*60*60*1000;
+  if(!last || (Date.now() - new Date(last).getTime()) > SEVEN_DAYS){
+    setTimeout(function(){ exportFullBackup(false); toast('💾 Weekly backup downloaded automatically'); }, 3000);
+  }
+}
+
 function clearAllData(){
   if(!confirm('⚠️ Delete ALL your data? This removes it from all devices.')) return;
   roles=[];habits=[];habitLogs={};relationships=[];goals=[];
@@ -2112,7 +2171,18 @@ document.addEventListener('keydown',e=>{ if(e.key==='Escape') document.querySele
   // Auto-login last user
   const saved=loadGlobal('currentUser');
   if(saved?.uid){
-    const p=profiles.find(x=>x.id===saved.uid);
+    // Auto-login last user
+  const saved=loadGlobal('currentUser');
+  if(saved?.uid){
+    let p=profiles.find(x=>x.id===saved.uid);
+    // RECOVERY: if Filipe profile lost, reattach to canonical u_filipe UID
+    if(!p && (saved.name==='Filipe' || saved.uid==='u_filipe')){
+      p={id:'u_filipe', name:'Filipe', emoji:saved.emoji||'🔥', createdAt:new Date().toISOString()};
+      profiles.push(p);
+      saveProfiles();
+      localStorage.setItem('df3_setup_'+p.id,'1');
+      console.log('🔒 Restored canonical Filipe profile');
+    }
     if(p && localStorage.getItem('df3_setup_'+p.id)){
       currentUser={uid:p.id,name:p.name,emoji:p.emoji};
       loadAll(); showApp(); return;
