@@ -964,6 +964,7 @@ console.log('Firebase ready');
       <div id="sync-status" style="margin-top:8px;font-size:11px;color:var(--ink-m)"></div>
       <div style="margin-top:14px;padding-top:14px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px">
         <div style="font-size:12px;color:var(--ink-m)" id="data-summary"></div>
+       <button class="btn btn-primary" onclick="exportFullBackup(false)" style="font-size:12px">💾 Backup Now</button>
         <button class="btn btn-danger" onclick="clearAllData()" style="font-size:12px">⚠️ Clear All Data</button>
       </div>
     </div>
@@ -2106,7 +2107,10 @@ function saveGratitude(){
   const tb=document.getElementById('grat-trigger-btn'); if(tb){ tb.textContent='🌅 Gratitude Practice — Done ✓'; tb.classList.add('done'); }
   closeGratitude(); toast('✦ Day begun with intention.');
 }
-function checkAutoGratitude(){
+function checkAutoGratitude();
+    if (typeof checkAutoEvening === 'function') checkAutoEvening();
+    if (typeof checkAutoBackup === 'function') checkAutoBackup();
+  // Update Firebase badge after SDK loads
   const done=loadLocal('grat_done_'+TODAY);
   const h=new Date().getHours();
   if(!done&&h>=5&&h<=11) setTimeout(openGratitude,1400);
