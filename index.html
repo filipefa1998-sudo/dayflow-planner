@@ -2107,10 +2107,7 @@ function saveGratitude(){
   const tb=document.getElementById('grat-trigger-btn'); if(tb){ tb.textContent='🌅 Gratitude Practice — Done ✓'; tb.classList.add('done'); }
   closeGratitude(); toast('✦ Day begun with intention.');
 }
-function checkAutoGratitude();
-    if (typeof checkAutoEvening === 'function') checkAutoEvening();
-    if (typeof checkAutoBackup === 'function') checkAutoBackup();
-  // Update Firebase badge after SDK loads
+function checkAutoGratitude(){
   const done=loadLocal('grat_done_'+TODAY);
   const h=new Date().getHours();
   if(!done&&h>=5&&h<=11) setTimeout(openGratitude,1400);
@@ -2173,9 +2170,6 @@ document.addEventListener('keydown',e=>{ if(e.key==='Escape') document.querySele
   if(localStorage.getItem('df3_dark')==='1') document.body.classList.add('dark');
   initSidebar();
   // Auto-login last user
-  const saved=loadGlobal('currentUser');
-  if(saved?.uid){
-    // Auto-login last user
   const saved=loadGlobal('currentUser');
   if(saved?.uid){
     let p=profiles.find(x=>x.id===saved.uid);
