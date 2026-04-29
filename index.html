@@ -517,6 +517,85 @@ body.dark .proactive-nudge{background:rgba(27,58,107,.2);color:var(--gold)}
 .eve-inp{width:100%;padding:10px 13px;border:1.5px solid var(--border);border-radius:9px;font-family:'DM Serif Display',serif;font-style:italic;font-size:13px;color:var(--ink);background:var(--surface-2);outline:none;resize:none;min-height:64px;line-height:1.6;transition:border var(--trans)}
 .eve-inp:focus{border-color:var(--gold)}
 
+/* ════ Big Rocks — Sunday Planning Ritual ════ */
+.br-banner{display:flex;align-items:center;gap:12px;padding:14px 18px;background:linear-gradient(135deg,rgba(201,168,76,.14),rgba(27,58,107,.08));border:1.5px solid var(--gold-dim);border-radius:13px;margin-bottom:16px;cursor:pointer;transition:all var(--trans)}
+.br-banner:hover{transform:translateY(-1px);box-shadow:var(--sh2)}
+.br-banner-ico{font-size:24px}
+.br-banner-body{flex:1}
+.br-banner-title{font-family:'DM Serif Display',serif;font-size:16px;color:var(--ink);margin-bottom:2px}
+.br-banner-sub{font-size:12px;color:var(--ink-m);font-weight:600}
+.br-banner-arrow{font-size:18px;color:var(--gold)}
+
+.br-summary{padding:16px 18px;background:var(--surface);border:1px solid var(--border);border-radius:13px;margin-bottom:16px}
+.br-summary-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:8px}
+.br-theme{font-family:'DM Serif Display',serif;font-size:18px;color:var(--ink);font-style:italic}
+.br-theme-empty{color:var(--ink-m);font-style:italic;font-size:14px}
+.br-week-stat{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:var(--gold);background:var(--gold-lt);padding:5px 10px;border-radius:20px}
+.br-list{display:flex;flex-direction:column;gap:8px}
+.br-row{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--surface-2);border:1px solid var(--border-lt);border-radius:9px}
+.br-row.done{opacity:.55}
+.br-row.done .br-row-title{text-decoration:line-through}
+.br-row.carry{border-left:3px solid var(--amber)}
+.br-row-chk{width:20px;height:20px;border:1.5px solid var(--border);border-radius:5px;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;font-size:11px;color:var(--green);transition:all var(--trans)}
+.br-row-chk.done{background:var(--green);border-color:var(--green);color:#fff}
+.br-row-role{font-size:14px;flex-shrink:0}
+.br-row-title{flex:1;font-size:13px;color:var(--ink);font-weight:600;line-height:1.4}
+.br-row-carry-tag{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.6px;color:var(--amber);background:var(--amber-lt);padding:2px 6px;border-radius:10px;flex-shrink:0}
+.br-row-edit{padding:4px 8px;background:transparent;border:1px solid var(--border);border-radius:6px;font-size:10px;font-weight:700;color:var(--ink-m);cursor:pointer;flex-shrink:0;font-family:inherit}
+.br-row-edit:hover{border-color:var(--gold-dim);color:var(--gold)}
+.br-cta-row{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+.br-cta-btn{padding:9px 16px;background:var(--navy);color:var(--gold);border:none;border-radius:9px;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:700;cursor:pointer;transition:all var(--trans)}
+.br-cta-btn:hover{background:var(--navy-2)}
+.br-cta-btn.ghost{background:transparent;color:var(--ink-m);border:1px solid var(--border)}
+.br-cta-btn.ghost:hover{border-color:var(--gold-dim);color:var(--gold)}
+
+/* Ritual modal (multi-step) */
+.br-step{display:none}
+.br-step.active{display:block;animation:fadeIn .25s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+.br-step-num{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:1.2px;color:var(--gold);margin-bottom:6px}
+.br-step-title{font-family:'DM Serif Display',serif;font-size:20px;color:var(--ink);margin-bottom:6px;line-height:1.3}
+.br-step-sub{font-size:13px;color:var(--ink-m);line-height:1.6;margin-bottom:18px}
+.br-progress{display:flex;gap:6px;margin-bottom:20px}
+.br-progress-dot{flex:1;height:4px;background:var(--border-lt);border-radius:2px;transition:background var(--trans)}
+.br-progress-dot.active{background:var(--gold)}
+.br-progress-dot.done{background:var(--green)}
+
+.br-role-card{padding:14px;background:var(--surface-2);border:1px solid var(--border);border-radius:11px;margin-bottom:12px}
+.br-role-card-hdr{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.br-role-card-ico{font-size:20px}
+.br-role-card-name{font-family:'DM Serif Display',serif;font-size:15px;color:var(--ink)}
+.br-role-card-def{font-size:11px;color:var(--ink-m);font-style:italic}
+.br-role-card-prev{font-size:11px;color:var(--gold);font-weight:700;margin-bottom:8px;padding:6px 9px;background:var(--gold-lt);border-radius:6px;display:inline-block}
+.br-rock-inp{width:100%;padding:10px 13px;border:1.5px solid var(--border);border-radius:9px;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--ink);background:var(--surface);outline:none;transition:border var(--trans)}
+.br-rock-inp:focus{border-color:var(--gold)}
+.br-rock-day-row{display:flex;gap:5px;margin-top:8px;flex-wrap:wrap}
+.br-day-pill{padding:5px 10px;border:1.5px solid var(--border);border-radius:14px;font-size:11px;font-weight:700;color:var(--ink-m);background:var(--surface);cursor:pointer;transition:all var(--trans);font-family:inherit}
+.br-day-pill.active{background:var(--navy);color:var(--gold);border-color:var(--navy)}
+.br-day-pill.unset{font-style:italic}
+
+.br-mission-recall{padding:14px 16px;background:linear-gradient(135deg,rgba(27,58,107,.06),rgba(201,168,76,.05));border-left:3px solid var(--gold);border-radius:9px;margin-bottom:16px}
+.br-mission-recall-lbl{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:var(--gold);margin-bottom:4px}
+.br-mission-recall-txt{font-family:'DM Serif Display',serif;font-style:italic;font-size:14px;color:var(--ink);line-height:1.5}
+
+.br-confirm-list{display:flex;flex-direction:column;gap:8px;margin-bottom:14px;max-height:300px;overflow-y:auto}
+.br-confirm-row{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--surface-2);border:1px solid var(--border-lt);border-radius:9px;font-size:13px}
+.br-confirm-day{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.8px;color:var(--gold);background:var(--gold-lt);padding:3px 7px;border-radius:5px;flex-shrink:0;min-width:36px;text-align:center}
+
+.br-foot-row{display:flex;justify-content:space-between;gap:8px;margin-top:14px}
+
+/* Today view: rock suggestion */
+.rock-suggest{padding:13px 15px;background:linear-gradient(135deg,rgba(201,168,76,.1),rgba(27,58,107,.04));border:1.5px solid var(--gold-dim);border-radius:11px;margin-bottom:10px}
+.rock-suggest-hdr{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px}
+.rock-suggest-title{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:var(--gold)}
+.rock-suggest-list{display:flex;flex-direction:column;gap:6px}
+.rock-suggest-item{display:flex;align-items:center;gap:8px;padding:8px 10px;background:var(--surface);border:1px solid var(--border-lt);border-radius:8px}
+.rock-suggest-item-ico{font-size:14px;flex-shrink:0}
+.rock-suggest-item-title{flex:1;font-size:12px;font-weight:600;color:var(--ink);line-height:1.4}
+.rock-suggest-use{padding:5px 11px;background:var(--navy);color:var(--gold);border:none;border-radius:6px;font-size:10px;font-weight:800;cursor:pointer;font-family:inherit;flex-shrink:0;text-transform:uppercase;letter-spacing:.5px}
+.rock-suggest-use:hover{background:var(--navy-2)}
+.rock-suggest-skip{padding:5px 9px;background:transparent;border:1px solid var(--border);border-radius:6px;font-size:10px;font-weight:700;color:var(--ink-m);cursor:pointer;font-family:inherit;flex-shrink:0}
+
 /* ════ v3.3 — Weekly Report + Circle of Influence + Mobile Drawer ════ */
 .report-overlay{position:fixed;inset:0;z-index:2000;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(10,22,40,.65);backdrop-filter:blur(8px)}
 .report-overlay.open{display:flex}
@@ -685,6 +764,8 @@ console.log('Firebase ready');
     <button class="btn btn-primary" onclick="openAddPriority()">+ Priority</button>
   </div>
   <button class="grat-trigger-btn" id="grat-trigger-btn" onclick="openGratitude()">🌅 Morning Gratitude Practice — Open</button>
+  <div id="br-today-nudge"></div>
+  <div id="br-today-suggest"></div>
   <div class="coach-card">
     <div class="coach-hdr"><div class="coach-icon">✦</div><div class="coach-title">Decision Coach</div><button class="coach-refresh" onclick="genCoach()">↺ Refresh</button></div>
     <div class="coach-body" id="coach-body">Add your Gemini key in Settings to activate decision coaching.</div>
@@ -723,6 +804,10 @@ console.log('Firebase ready');
 <!-- THIS WEEK -->
 <div class="view" id="view-week">
   <div class="pg-hdr"><div><div class="pg-title">This Week 📅</div><div class="pg-sub" id="week-range"></div></div></div>
+
+  <!-- Big Rocks Summary (replaces empty state with ritual entry) -->
+  <div id="br-summary-wrap"></div>
+
   <div id="role-cap-warning" style="display:none;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.25);border-radius:10px;padding:10px 14px;font-size:12px;color:#8B6914;font-weight:700;margin-bottom:16px">✦ Maximum 4 roles reached.</div>
   <div class="q2-section">
     <div class="q2-title">🔵 Q2 Focus This Week</div>
@@ -1020,7 +1105,79 @@ console.log('Firebase ready');
 
 <div class="overlay" id="m-goal"><div class="modal" style="max-width:600px"><div class="m-hdr"><div class="m-title" id="goal-modal-title">New Goal</div><button class="m-close" onclick="closeModal('m-goal')">✕</button></div><div class="m-body"><div class="fg"><label class="flbl">Goal — The End in Mind</label><input class="fi" id="g-title" placeholder="e.g. Launch Solo Passport, Run a marathon..."></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:12px"><div class="fg"><label class="flbl">Attached Role</label><select class="fsel" id="g-role"></select></div><div class="fg"><label class="flbl">Target Date</label><input class="fi" type="date" id="g-date"></div></div><div class="fg"><label class="flbl">Why This Matters</label><input class="fi" id="g-why" placeholder="When I achieve this, I will..."></div><div class="fg"><label class="flbl">Milestones — Working Backward</label><div style="font-size:11px;color:var(--ink-m);margin-bottom:8px">What must be true 3 months before? 1 month? Name checkpoints backward from target.</div><div id="milestone-list" style="margin-bottom:8px"></div><div style="display:flex;gap:8px"><input class="fi" id="ms-title-inp" placeholder="Milestone..." style="flex:1"><input class="fi" type="date" id="ms-date-inp" style="width:150px"><button class="btn btn-primary" onclick="addMilestone()" style="padding:10px 14px">+</button></div><button onclick="aiMilestones()" style="margin-top:8px;padding:7px 14px;background:rgba(27,58,107,.08);border:1px solid rgba(27,58,107,.15);border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;color:var(--navy-2);font-family:'DM Sans',sans-serif">✨ AI: Generate milestones</button></div><div id="goal-delete-row" style="display:none;margin-top:4px"><button class="btn btn-danger" onclick="deleteGoal()" style="width:100%">🗑️ Delete Goal</button></div></div><div class="m-foot"><button class="btn btn-ghost" onclick="closeModal('m-goal')">Cancel</button><button class="btn btn-primary" onclick="saveGoal()">Save Goal</button></div></div></div>
 
-<!-- GRATITUDE MODAL -->
+<!-- BIG ROCKS RITUAL MODAL -->
+<div class="overlay" id="m-bigrocks">
+  <div class="modal" style="max-width:560px">
+    <div class="m-hdr">
+      <div class="m-title" id="br-modal-title">🪨 Sunday Planning Ritual</div>
+      <button class="m-close" onclick="closeBigRocks()">✕</button>
+    </div>
+    <div class="m-body">
+      <div class="br-progress" id="br-progress">
+        <div class="br-progress-dot active"></div>
+        <div class="br-progress-dot"></div>
+        <div class="br-progress-dot"></div>
+        <div class="br-progress-dot"></div>
+      </div>
+
+      <!-- STEP 1: Theme + Mission Recall -->
+      <div class="br-step active" id="br-step-1">
+        <div class="br-step-num">Step 1 of 4 · 2 minutes</div>
+        <div class="br-step-title">What's this week's theme?</div>
+        <div class="br-step-sub">One word or short phrase that captures what this week is about. The lens you'll judge tradeoffs through.</div>
+        <div class="br-mission-recall" id="br-mission-recall" style="display:none">
+          <div class="br-mission-recall-lbl">Your mission</div>
+          <div class="br-mission-recall-txt" id="br-mission-recall-txt"></div>
+        </div>
+        <div class="fg">
+          <label class="flbl">Week Theme</label>
+          <input class="fi" id="br-theme-inp" placeholder="e.g. Ship Perfect Service OS · Recover · Reconnect · Build trust">
+        </div>
+        <div id="br-carry-warning" style="display:none;background:var(--amber-lt);border-left:3px solid var(--amber);border-radius:8px;padding:10px 13px;font-size:12px;color:var(--ink-l);line-height:1.5;margin-top:10px"></div>
+      </div>
+
+      <!-- STEP 2: Big Rocks per role -->
+      <div class="br-step" id="br-step-2">
+        <div class="br-step-num">Step 2 of 4 · 5 minutes</div>
+        <div class="br-step-title">One Big Rock per role.</div>
+        <div class="br-step-sub">Not a task list — the <em>one</em> needle-mover for each identity. Optionally tag a day; leave blank if you'll decide that morning.</div>
+        <div id="br-roles-grid"></div>
+      </div>
+
+      <!-- STEP 3: Mission gut-check -->
+      <div class="br-step" id="br-step-3">
+        <div class="br-step-num">Step 3 of 4 · 1 minute</div>
+        <div class="br-step-title">Does this week reflect your future self?</div>
+        <div class="br-step-sub">Quick check. If "no," go back and edit a rock. If "kind of," that's honest — proceed.</div>
+        <div class="br-mission-recall" id="br-mission-recall-2" style="display:none">
+          <div class="br-mission-recall-lbl">Your mission</div>
+          <div class="br-mission-recall-txt" id="br-mission-recall-txt-2"></div>
+        </div>
+        <div class="br-confirm-list" id="br-confirm-list"></div>
+        <div style="display:flex;gap:8px;margin-top:8px">
+          <button class="br-cta-btn ghost" onclick="brStep(2)" style="flex:1">← Edit rocks</button>
+          <button class="br-cta-btn" onclick="brStep(4)" style="flex:1">✓ Yes, lock it in</button>
+        </div>
+      </div>
+
+      <!-- STEP 4: Confirmation -->
+      <div class="br-step" id="br-step-4">
+        <div class="br-step-num">Done</div>
+        <div class="br-step-title">Week locked in.</div>
+        <div class="br-step-sub">Each morning your Big Rocks will surface as priority suggestions. You confirm. Reality changes — your plan adapts. That's the point.</div>
+        <div style="background:var(--gold-lt);border:1px solid var(--gold-dim);border-radius:11px;padding:14px 16px;font-size:13px;color:var(--ink-l);line-height:1.6;margin-bottom:16px">
+          <strong style="color:var(--gold)">Covey:</strong> "The key is not to prioritize what's on your schedule, but to schedule your priorities." Tomorrow morning, your Today view will know what those are.
+        </div>
+        <button class="br-cta-btn" onclick="closeBigRocks()" style="width:100%">Close</button>
+      </div>
+    </div>
+    <div class="m-foot" id="br-foot">
+      <button class="btn btn-ghost" id="br-back-btn" onclick="brStepBack()" style="display:none">← Back</button>
+      <button class="btn btn-primary" id="br-next-btn" onclick="brStepNext()">Next →</button>
+    </div>
+  </div>
+</div>
+
 <div class="grat-overlay" id="m-gratitude">
   <div class="grat-card">
     <div class="grat-header">
@@ -1173,6 +1330,8 @@ let editingRelId   = null;
 let editingHabitId = null;
 let editingGoalId  = null;
 let goalMilestones = [];
+let bigRocks    = {}; // { weekKey: { theme, rocks: [{id,title,roleId,done,plannedDay}], completedAt } }
+let editingRockId = null;
 let selectedEmoji  = '🔥';
 let gratMood       = 'steady';
 let eveMood        = 3;
@@ -1336,6 +1495,7 @@ function loadAll(){
   habitLogs     = load('habitLogs', {});
   relationships = load('relationships', []);
   goals         = load('goals', []);
+  bigRocks      = load('bigRocks', {});
   missionStatement = load('mission', '');
   futureself    = load('futureself', '');
   values        = load('values', [...DEFAULT_VALUES]);
@@ -1357,6 +1517,7 @@ function loadAll(){
     habitLogs     = load('habitLogs', habitLogs);
     relationships = load('relationships', relationships);
     goals         = load('goals', goals);
+    bigRocks      = load('bigRocks', bigRocks);
     missionStatement = load('mission', missionStatement);
     futureself    = load('futureself', futureself);
     values        = load('values', values);
@@ -1587,6 +1748,11 @@ function renderToday(){
   renderRoleAlignment();
   renderRenewal();
   updateScores();
+  renderTodayRockNudge();
+  // Only show rock suggestions if user hasn't skipped them today
+  if(!sessionStorage.getItem('df3_skip_rock_suggest_'+TODAY)){
+    renderTodayRockSuggestions();
+  }
   const el=document.getElementById('eim-mission-text');
   if(el) el.textContent=missionStatement?(missionStatement.length>130?missionStatement.slice(0,130)+'...':missionStatement):'Define your mission statement in End in Mind.';
   // Restore gratitude button state
@@ -1633,6 +1799,14 @@ function savePriority(){
 function togglePriority(id){
   const p=priorities.find(x=>x.id===id); if(!p) return;
   p.done=!p.done; saveTodayState(); renderPriorities();
+  // If linked to a Big Rock, sync its done state
+  if(p.fromRockId){
+    const data = bigRocks[getThisWeekKey()];
+    if(data){
+      const r = data.rocks.find(x=>x.id===p.fromRockId);
+      if(r){ r.done = p.done; save('bigRocks', bigRocks); renderBigRocksSummary(); renderTodayRockSuggestions(); }
+    }
+  }
   if(p.done) toast('✓ Done. Does your next action also move the needle?');
 }
 function deletePriority(id){ priorities=priorities.filter(x=>x.id!==id); saveTodayState(); renderPriorities(); }
@@ -1678,6 +1852,7 @@ function eimCheck(val){
 function renderWeek(){
   updateGreeting();
   const cw=document.getElementById('role-cap-warning'); if(cw) cw.style.display=roles.length>=4?'block':'none';
+  renderBigRocksSummary();
   renderQ2List(); renderRoleCommitments();
 }
 function renderQ2List(){
@@ -1698,8 +1873,414 @@ function renderRoleCommitments(){
 function updateRoleCommit(roleId,val){ const r=roles.find(x=>x.id===roleId); if(!r) return; r.weeklyCommitment=val; save('roles',roles); renderRoleAlignment(); }
 
 // ══════════════════════════════
-// END IN MIND VIEW
+// BIG ROCKS — Sunday Planning Ritual
 // ══════════════════════════════
+
+// Get ISO week key (e.g. "2026-W17") — Monday-start week
+function getWeekKey(date){
+  const d = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+  const dayNum = d.getUTCDay() || 7;
+  d.setUTCDate(d.getUTCDate() + 4 - dayNum);
+  const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
+  const weekNum = Math.ceil((((d - yearStart) / 86400000) + 1) / 7);
+  return d.getUTCFullYear() + '-W' + String(weekNum).padStart(2,'0');
+}
+function getThisWeekKey(){ return getWeekKey(new Date()); }
+function getLastWeekKey(){ const d=new Date(); d.setDate(d.getDate()-7); return getWeekKey(d); }
+function getDayOfWeekShort(){ return ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'][new Date().getDay()]; }
+function isWeekend(){ const d=new Date().getDay(); return d===0||d===6; }
+
+// State helpers
+function getCurrentWeekRocks(){
+  const wk = getThisWeekKey();
+  if(!bigRocks[wk]) bigRocks[wk] = { theme:'', rocks:[], completedAt:null };
+  return bigRocks[wk];
+}
+function hasPlanThisWeek(){
+  const wk = bigRocks[getThisWeekKey()];
+  return !!(wk && wk.completedAt && wk.rocks.length);
+}
+
+function renderBigRocksSummary(){
+  const c = document.getElementById('br-summary-wrap'); if(!c) return;
+  const wk = getThisWeekKey();
+  const data = bigRocks[wk];
+  const planned = !!(data && data.completedAt);
+
+  if(!planned){
+    // No plan yet — show entry banner
+    const last = bigRocks[getLastWeekKey()];
+    const undoneLast = last ? (last.rocks||[]).filter(r=>!r.done).length : 0;
+    c.innerHTML = '<div class="br-banner" onclick="openBigRocks()">'
+      +'<div class="br-banner-ico">🪨</div>'
+      +'<div class="br-banner-body">'
+        +'<div class="br-banner-title">Plan This Week</div>'
+        +'<div class="br-banner-sub">'+(isWeekend()?'It\'s ' + (new Date().getDay()===0?'Sunday':'Saturday') + ' — 8 minutes to set up the week.':'No Big Rocks set yet — 8-minute ritual.')+(undoneLast>0?' · '+undoneLast+' carried from last week':'')+'</div>'
+      +'</div>'
+      +'<div class="br-banner-arrow">→</div>'
+      +'</div>';
+    return;
+  }
+
+  // Plan exists — show summary with progress
+  const rocks = data.rocks||[];
+  const done = rocks.filter(r=>r.done).length;
+  const pct = rocks.length ? Math.round((done/rocks.length)*100) : 0;
+  c.innerHTML = '<div class="br-summary">'
+    +'<div class="br-summary-hdr">'
+      +'<div>'
+        +(data.theme ? '<div class="br-theme">"'+escapeHtml(data.theme)+'"</div>' : '<div class="br-theme-empty">No theme set</div>')
+      +'</div>'
+      +'<div class="br-week-stat">'+done+'/'+rocks.length+' · '+pct+'%</div>'
+    +'</div>'
+    +'<div class="br-list">'
+      + rocks.map(r=>{
+          const role = roles.find(x=>x.id===r.roleId);
+          const carry = r.carriedFrom ? '<span class="br-row-carry-tag">Carry</span>' : '';
+          return '<div class="br-row'+(r.done?' done':'')+(r.carriedFrom?' carry':'')+'">'
+            +'<div class="br-row-chk'+(r.done?' done':'')+'" onclick="toggleRock(\''+r.id+'\')">'+(r.done?'✓':'')+'</div>'
+            +'<div class="br-row-role">'+(role?role.icon:'⭐')+'</div>'
+            +'<div class="br-row-title">'+escapeHtml(r.title)+'</div>'
+            + carry
+            +(r.plannedDay ? '<span class="br-confirm-day">'+r.plannedDay+'</span>' : '')
+            +'<button class="br-row-edit" onclick="editRock(\''+r.id+'\')">Edit</button>'
+            +'</div>';
+        }).join('')
+    +'</div>'
+    +'<div class="br-cta-row">'
+      +'<button class="br-cta-btn" onclick="openBigRocks()">✏️ Edit Week</button>'
+      +'<button class="br-cta-btn ghost" onclick="addRockMidWeek()">+ Add Mid-Week Rock</button>'
+    +'</div>'
+    +'</div>';
+}
+
+function escapeHtml(s){ return String(s||'').replace(/[&<>"']/g, c=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' })[c]); }
+
+function toggleRock(rockId){
+  const wk = getThisWeekKey();
+  const data = bigRocks[wk]; if(!data) return;
+  const r = data.rocks.find(x=>x.id===rockId); if(!r) return;
+  r.done = !r.done;
+  save('bigRocks', bigRocks);
+  renderBigRocksSummary();
+  renderTodayRockSuggestions();
+  if(r.done) toast('🪨 Rock moved. What\'s the next stone?');
+}
+
+function editRock(rockId){
+  const wk = getThisWeekKey();
+  const data = bigRocks[wk]; if(!data) return;
+  const r = data.rocks.find(x=>x.id===rockId); if(!r) return;
+  const newTitle = prompt('Edit Big Rock:', r.title);
+  if(newTitle===null) return;
+  if(!newTitle.trim()){ if(confirm('Delete this Big Rock?')){ data.rocks = data.rocks.filter(x=>x.id!==rockId); save('bigRocks',bigRocks); renderBigRocksSummary(); renderTodayRockSuggestions(); } return; }
+  r.title = newTitle.trim();
+  save('bigRocks', bigRocks);
+  renderBigRocksSummary();
+  renderTodayRockSuggestions();
+}
+
+function addRockMidWeek(){
+  if(!roles.length){ toast('Define a role in End in Mind first.'); return; }
+  const title = prompt('New Big Rock for this week:');
+  if(!title || !title.trim()) return;
+  const roleNames = roles.map((r,i)=>(i+1)+') '+r.icon+' '+r.name).join('\n');
+  const roleIdx = prompt('Which role?\n\n'+roleNames+'\n\nEnter 1-'+roles.length+':');
+  const idx = parseInt(roleIdx,10)-1;
+  if(isNaN(idx)||idx<0||idx>=roles.length){ toast('Cancelled'); return; }
+  const data = getCurrentWeekRocks();
+  data.rocks.push({
+    id:'rock'+Date.now(),
+    title:title.trim(),
+    roleId:roles[idx].id,
+    done:false,
+    plannedDay:null,
+    addedMidWeek:true
+  });
+  save('bigRocks', bigRocks);
+  renderBigRocksSummary();
+  renderTodayRockSuggestions();
+  toast('🪨 Rock added. Now do it.');
+}
+
+// ── RITUAL MODAL ──
+let brCurrentStep = 1;
+let brDraft = null; // working copy during ritual
+
+function openBigRocks(){
+  if(!roles.length){
+    toast('Define your roles in End in Mind first.');
+    nav('endmind');
+    return;
+  }
+  const wk = getThisWeekKey();
+  const existing = bigRocks[wk];
+  // Build draft: existing rocks OR carry undone from last week
+  if(existing && existing.rocks.length){
+    brDraft = JSON.parse(JSON.stringify(existing));
+  } else {
+    const last = bigRocks[getLastWeekKey()];
+    const carry = last ? last.rocks.filter(r=>!r.done).map(r=>({
+      id:'rock'+Date.now()+Math.random().toString(36).slice(2,6),
+      title:r.title,
+      roleId:r.roleId,
+      done:false,
+      plannedDay:null,
+      carriedFrom: getLastWeekKey()
+    })) : [];
+    brDraft = { theme:'', rocks:carry, completedAt:null };
+  }
+  // Ensure each role has a rock slot in draft
+  roles.forEach(role=>{
+    if(!brDraft.rocks.some(r=>r.roleId===role.id)){
+      brDraft.rocks.push({
+        id:'rock'+Date.now()+Math.random().toString(36).slice(2,6),
+        title:'',
+        roleId:role.id,
+        done:false,
+        plannedDay:null
+      });
+    }
+  });
+
+  brCurrentStep = 1;
+  renderBigRocksStep();
+  document.getElementById('br-modal-title').textContent = existing && existing.completedAt ? '✏️ Edit This Week' : '🪨 Plan This Week';
+  document.getElementById('m-bigrocks').classList.add('open');
+}
+
+function closeBigRocks(){
+  document.getElementById('m-bigrocks').classList.remove('open');
+  brDraft = null;
+}
+
+function renderBigRocksStep(){
+  // Update progress dots
+  const dots = document.querySelectorAll('#br-progress .br-progress-dot');
+  dots.forEach((d,i)=>{
+    d.classList.remove('active','done');
+    if(i+1 < brCurrentStep) d.classList.add('done');
+    else if(i+1 === brCurrentStep) d.classList.add('active');
+  });
+
+  // Show right step
+  document.querySelectorAll('.br-step').forEach(s=>s.classList.remove('active'));
+  document.getElementById('br-step-'+brCurrentStep).classList.add('active');
+
+  // Foot buttons
+  const back = document.getElementById('br-back-btn');
+  const next = document.getElementById('br-next-btn');
+  const foot = document.getElementById('br-foot');
+  if(brCurrentStep === 1){
+    back.style.display='none'; next.style.display='inline-flex'; next.textContent='Next →';
+    foot.style.display='flex';
+    // Theme + carry warning
+    document.getElementById('br-theme-inp').value = brDraft.theme||'';
+    if(missionStatement && missionStatement.trim()){
+      document.getElementById('br-mission-recall').style.display='block';
+      document.getElementById('br-mission-recall-txt').textContent = missionStatement;
+    }
+    const carryCount = brDraft.rocks.filter(r=>r.carriedFrom).length;
+    const cw = document.getElementById('br-carry-warning');
+    if(carryCount>0){
+      cw.style.display='block';
+      cw.innerHTML = '<strong>'+carryCount+' rock'+(carryCount>1?'s':'')+' carried from last week.</strong> If something rolls over 3 weeks running, the app will flag it. Consider whether it\'s really a rock — or excellent procrastination.';
+    } else { cw.style.display='none'; }
+  } else if(brCurrentStep === 2){
+    back.style.display='inline-flex'; next.style.display='inline-flex'; next.textContent='Next →';
+    foot.style.display='flex';
+    renderRoleRockEditors();
+  } else if(brCurrentStep === 3){
+    back.style.display='inline-flex'; next.style.display='none';
+    foot.style.display='flex';
+    if(missionStatement && missionStatement.trim()){
+      document.getElementById('br-mission-recall-2').style.display='block';
+      document.getElementById('br-mission-recall-txt-2').textContent = missionStatement;
+    }
+    renderConfirmList();
+  } else if(brCurrentStep === 4){
+    foot.style.display='none';
+  }
+}
+
+function renderRoleRockEditors(){
+  const c = document.getElementById('br-roles-grid'); if(!c) return;
+  c.innerHTML = roles.map(role=>{
+    let rock = brDraft.rocks.find(r=>r.roleId===role.id);
+    if(!rock){
+      rock = { id:'rock'+Date.now()+Math.random().toString(36).slice(2,6), title:'', roleId:role.id, done:false, plannedDay:null };
+      brDraft.rocks.push(rock);
+    }
+    const days = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+    const carryNote = rock.carriedFrom ? '<div class="br-role-card-prev">↻ Carried from last week</div>' : '';
+    return '<div class="br-role-card">'
+      +'<div class="br-role-card-hdr">'
+        +'<div class="br-role-card-ico">'+role.icon+'</div>'
+        +'<div>'
+          +'<div class="br-role-card-name">'+escapeHtml(role.name)+'</div>'
+          +'<div class="br-role-card-def">'+escapeHtml(role.successDef||'Define success')+'</div>'
+        +'</div>'
+      +'</div>'
+      + carryNote
+      +'<input class="br-rock-inp" data-rock-id="'+rock.id+'" value="'+escapeHtml(rock.title)+'" placeholder="The one needle-mover for this role this week..." onchange="updateDraftRockTitle(\''+rock.id+'\',this.value)">'
+      +'<div class="br-rock-day-row">'
+        +'<button class="br-day-pill unset'+(!rock.plannedDay?' active':'')+'" onclick="setRockDay(\''+rock.id+'\',null)">Any day</button>'
+        + days.map(d=>'<button class="br-day-pill'+(rock.plannedDay===d?' active':'')+'" onclick="setRockDay(\''+rock.id+'\',\''+d+'\')">'+d+'</button>').join('')
+      +'</div>'
+    +'</div>';
+  }).join('');
+}
+
+function updateDraftRockTitle(rockId,val){
+  const r = brDraft.rocks.find(x=>x.id===rockId); if(!r) return;
+  r.title = val;
+}
+function setRockDay(rockId,day){
+  const r = brDraft.rocks.find(x=>x.id===rockId); if(!r) return;
+  r.plannedDay = day;
+  renderRoleRockEditors();
+}
+
+function renderConfirmList(){
+  const c = document.getElementById('br-confirm-list'); if(!c) return;
+  const filled = brDraft.rocks.filter(r=>r.title && r.title.trim());
+  if(!filled.length){
+    c.innerHTML = '<div style="font-size:13px;color:var(--ink-m);font-style:italic;padding:12px;text-align:center">No rocks set. Go back and add at least one.</div>';
+    return;
+  }
+  c.innerHTML = filled.map(r=>{
+    const role = roles.find(x=>x.id===r.roleId);
+    return '<div class="br-confirm-row">'
+      +'<span style="font-size:16px">'+(role?role.icon:'⭐')+'</span>'
+      +'<span style="flex:1">'+escapeHtml(r.title)+'</span>'
+      +(r.plannedDay ? '<span class="br-confirm-day">'+r.plannedDay+'</span>' : '<span class="br-confirm-day" style="background:var(--border-lt);color:var(--ink-m)">ANY</span>')
+    +'</div>';
+  }).join('');
+}
+
+function brStepNext(){
+  if(brCurrentStep === 1){
+    brDraft.theme = document.getElementById('br-theme-inp').value.trim();
+    brStep(2);
+  } else if(brCurrentStep === 2){
+    // Strip empty rocks before moving on
+    const filled = brDraft.rocks.filter(r=>r.title && r.title.trim());
+    if(!filled.length){
+      toast('Set at least one Big Rock.');
+      return;
+    }
+    brStep(3);
+  }
+}
+
+function brStepBack(){
+  if(brCurrentStep > 1) brStep(brCurrentStep-1);
+}
+
+function brStep(n){
+  if(n === 4){
+    // Commit the plan
+    const filled = brDraft.rocks.filter(r=>r.title && r.title.trim());
+    if(!filled.length){ toast('Set at least one Big Rock.'); return; }
+    const wk = getThisWeekKey();
+    bigRocks[wk] = {
+      theme: brDraft.theme||'',
+      rocks: filled,
+      completedAt: new Date().toISOString()
+    };
+    save('bigRocks', bigRocks);
+    renderBigRocksSummary();
+    renderTodayRockSuggestions();
+    toast('🪨 Week locked in. Reality awaits.');
+  }
+  brCurrentStep = n;
+  renderBigRocksStep();
+}
+
+// ── TODAY VIEW: Big Rocks Suggestions ──
+function renderTodayRockNudge(){
+  const c = document.getElementById('br-today-nudge'); if(!c) return;
+  // Show weekend nudge banner if no plan yet
+  if(hasPlanThisWeek()){ c.innerHTML=''; return; }
+  if(!isWeekend()){ c.innerHTML=''; return; }
+  c.innerHTML = '<div class="br-banner" onclick="openBigRocks()" style="margin-bottom:12px">'
+    +'<div class="br-banner-ico">🪨</div>'
+    +'<div class="br-banner-body">'
+      +'<div class="br-banner-title">Plan the week ahead</div>'
+      +'<div class="br-banner-sub">8 minutes now saves a reactive Tuesday.</div>'
+    +'</div>'
+    +'<div class="br-banner-arrow">→</div>'
+    +'</div>';
+}
+
+function renderTodayRockSuggestions(){
+  const c = document.getElementById('br-today-suggest'); if(!c) return;
+  if(!hasPlanThisWeek()){ c.innerHTML=''; return; }
+  // If priorities already at 3, don't suggest
+  if(priorities.length >= 3){ c.innerHTML=''; return; }
+  const data = bigRocks[getThisWeekKey()];
+  const today = getDayOfWeekShort();
+  // Filter: undone rocks, not already a priority by title, prioritize today's planned rocks
+  const usedTitles = priorities.map(p=>(p.title||'').trim().toLowerCase());
+  let candidates = data.rocks.filter(r=>!r.done && !usedTitles.includes((r.title||'').trim().toLowerCase()));
+  // Sort: today's planned > any-day > other days
+  candidates.sort((a,b)=>{
+    const aw = a.plannedDay===today ? 0 : (!a.plannedDay ? 1 : 2);
+    const bw = b.plannedDay===today ? 0 : (!b.plannedDay ? 1 : 2);
+    return aw-bw;
+  });
+  // Cap suggestions at 3-priorities.length, max 3
+  const cap = Math.min(3 - priorities.length, 3);
+  candidates = candidates.slice(0, cap);
+  if(!candidates.length){ c.innerHTML=''; return; }
+
+  c.innerHTML = '<div class="rock-suggest">'
+    +'<div class="rock-suggest-hdr">'
+      +'<div class="rock-suggest-title">🪨 From this week\'s plan</div>'
+      +'<button class="rock-suggest-skip" onclick="skipRockSuggestions()">Skip</button>'
+    +'</div>'
+    +'<div class="rock-suggest-list">'
+      + candidates.map(r=>{
+          const role = roles.find(x=>x.id===r.roleId);
+          return '<div class="rock-suggest-item">'
+            +'<span class="rock-suggest-item-ico">'+(role?role.icon:'⭐')+'</span>'
+            +'<span class="rock-suggest-item-title">'+escapeHtml(r.title)+(r.plannedDay===today?' <span style="color:var(--gold);font-size:9px;font-weight:800;letter-spacing:.5px;text-transform:uppercase">· planned for today</span>':'')+'</span>'
+            +'<button class="rock-suggest-use" onclick="useRockAsPriority(\''+r.id+'\')">Use</button>'
+            +'</div>';
+        }).join('')
+    +'</div>'
+    +'</div>';
+}
+
+function useRockAsPriority(rockId){
+  const data = bigRocks[getThisWeekKey()]; if(!data) return;
+  const r = data.rocks.find(x=>x.id===rockId); if(!r) return;
+  if(priorities.length >= 3){ toast('Max 3 priorities. Finish one first.'); return; }
+  priorities.push({
+    id:'p'+Date.now(),
+    title:r.title,
+    roleId:r.roleId,
+    quadrant:'2',
+    done:false,
+    fromRockId:r.id
+  });
+  saveTodayState();
+  renderPriorities();
+  renderTodayRockSuggestions();
+  toast('✓ Added. Now go do it.');
+}
+
+function skipRockSuggestions(){
+  // Hide for the rest of the day via session flag
+  sessionStorage.setItem('df3_skip_rock_suggest_'+TODAY, '1');
+  document.getElementById('br-today-suggest').innerHTML = '';
+}
+
+// Auto-mark rock done when matching priority is completed
+const _originalTogglePriority = window.togglePriority;
+// Hook is defined inline in togglePriority below — see modification
+
+
 function renderEndInMind(){
   const md=document.getElementById('mission-display'); if(md) md.textContent=missionStatement||'Click Edit to write your mission statement.';
   const fs=document.getElementById('future-self-inp'); if(fs) fs.value=futureself;
@@ -2006,8 +2587,8 @@ async function testGeminiKey(){
 }
 function removeGeminiKey(){ geminiKey=''; localStorage.removeItem('df3_gemini'); document.getElementById('gemini-key').value=''; updateAiBadge(); toast('🗑️ Key removed'); }
 function updateAiBadge(){ const b=document.getElementById('ai-badge'); if(!b) return; b.textContent=geminiKey?'✅ Connected':'Not Connected'; b.className='settings-badge '+(geminiKey?'badge-on':'badge-off'); }
-function exportData(){ const data={roles,habits,habitLogs,relationships,goals,missionStatement,futureself,values,reflections,exportedAt:new Date().toISOString(),user:currentUser?.name}; const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:'application/json'})); a.download='dayflow-v3-'+(currentUser?.name||'data').toLowerCase()+'-'+TODAY+'.json'; a.click(); toast('📤 Exported'); }
-function importData(e){ const f=e.target.files[0]; if(!f) return; const r=new FileReader(); r.onload=ev=>{ try{ const d=JSON.parse(ev.target.result); if(d.roles){roles=d.roles;save('roles',roles);} if(d.habits){habits=d.habits;save('habits',habits);} if(d.habitLogs){habitLogs=d.habitLogs;save('habitLogs',habitLogs);} if(d.relationships){relationships=d.relationships;save('relationships',relationships);} if(d.goals){goals=d.goals;save('goals',goals);} if(d.missionStatement){missionStatement=d.missionStatement;save('mission',missionStatement);} if(d.values){values=d.values;save('values',values);} if(d.reflections){reflections=d.reflections;save('reflections',reflections);} toast('📥 Data imported!'); renderSettings(); }catch(err){ toast('❌ Import failed'); } }; r.readAsText(f); e.target.value=''; }
+function exportData(){ const data={roles,habits,habitLogs,relationships,goals,bigRocks,missionStatement,futureself,values,reflections,exportedAt:new Date().toISOString(),user:currentUser?.name}; const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:'application/json'})); a.download='dayflow-v3-'+(currentUser?.name||'data').toLowerCase()+'-'+TODAY+'.json'; a.click(); toast('📤 Exported'); }
+function importData(e){ const f=e.target.files[0]; if(!f) return; const r=new FileReader(); r.onload=ev=>{ try{ const d=JSON.parse(ev.target.result); if(d.roles){roles=d.roles;save('roles',roles);} if(d.habits){habits=d.habits;save('habits',habits);} if(d.habitLogs){habitLogs=d.habitLogs;save('habitLogs',habitLogs);} if(d.relationships){relationships=d.relationships;save('relationships',relationships);} if(d.goals){goals=d.goals;save('goals',goals);} if(d.bigRocks){bigRocks=d.bigRocks;save('bigRocks',bigRocks);} if(d.missionStatement){missionStatement=d.missionStatement;save('mission',missionStatement);} if(d.values){values=d.values;save('values',values);} if(d.reflections){reflections=d.reflections;save('reflections',reflections);} toast('📥 Data imported!'); renderSettings(); }catch(err){ toast('❌ Import failed'); } }; r.readAsText(f); e.target.value=''; }
 // ══════════════════════════════════════════════
 // AUTOMATIC BACKUP — JSON export every 7 days + manual button
 // ══════════════════════════════════════════════
@@ -2057,10 +2638,10 @@ function checkAutoBackup(){
 
 function clearAllData(){
   if(!confirm('⚠️ Delete ALL your data? This removes it from all devices.')) return;
-  roles=[];habits=[];habitLogs={};relationships=[];goals=[];
+  roles=[];habits=[];habitLogs={};relationships=[];goals=[];bigRocks={};
   missionStatement='';futureself='';values=[...DEFAULT_VALUES];
   reflections=[];priorities=[];renewalState={};q2State={};roleServed={};
-  ['roles','habits','habitLogs','relationships','goals','mission','futureself','values','reflections'].forEach(k=>{
+  ['roles','habits','habitLogs','relationships','goals','bigRocks','mission','futureself','values','reflections'].forEach(k=>{
     localStorage.removeItem(uid_key(k));
     if(window._fbReady && currentUser?.uid){
       const ref = window._fbDoc(window._db,'users',currentUser.uid,'data',k);
@@ -2459,6 +3040,7 @@ async function manualSync(){
   habitLogs     = load('habitLogs', {});
   relationships = load('relationships', []);
   goals         = load('goals', []);
+  bigRocks      = load('bigRocks', {});
   missionStatement = load('mission', '');
   futureself    = load('futureself', '');
   values        = load('values', [...DEFAULT_VALUES]);
