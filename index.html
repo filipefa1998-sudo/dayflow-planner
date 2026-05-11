@@ -644,34 +644,54 @@ body.dark .proactive-nudge{background:rgba(27,58,107,.2);color:var(--gold)}
 
 </style>
 
-<!-- Firebase SDK -->
-<script type="module">
-import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
-import { getFirestore, doc, setDoc, getDoc, collection, getDocs, deleteDoc }
-  from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
+<!-- Firebase SDK — dynamic import fixes ES module timing race -->
+<script>
+(async function(){
+  try {
+    const { initializeApp } = await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js');
+    const { getFirestore, doc, setDoc, getDoc, collection, getDocs, deleteDoc }
+      = await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js');
 
-const firebaseConfig = {
-  apiKey: "AIzaSyDlGerHCkauECpu9uOXT-BUPAQATTwoVk0",
-  authDomain: "dayflow-a2c14.firebaseapp.com",
-  projectId: "dayflow-a2c14",
-  storageBucket: "dayflow-a2c14.firebasestorage.app",
-  messagingSenderId: "722247388632",
-  appId: "1:722247388632:web:7534715e8b89c876de36ad"
-};
+    const firebaseConfig = {
+      apiKey: "AIzaSyDlGerHCkauECpu9uOXT-BUPAQATTwoVk0",
+      authDomain: "dayflow-a2c14.firebaseapp.com",
+      projectId: "dayflow-a2c14",
+      storageBucket: "dayflow-a2c14.firebasestorage.app",
+      messagingSenderId: "722247388632",
+      appId: "1:722247388632:web:7534715e8b89c876de36ad"
+    };
 
-const fbApp = initializeApp(firebaseConfig);
-const db    = getFirestore(fbApp);
+    const fbApp = initializeApp(firebaseConfig);
+    const db    = getFirestore(fbApp);
 
-// Expose to global scope so the main script can use them
-window._db      = db;
-window._fbDoc   = doc;
-window._fbSetDoc = setDoc;
-window._fbGetDoc = getDoc;
-window._fbCollection = collection;
-window._fbGetDocs = getDocs;
-window._fbDeleteDoc = deleteDoc;
-window._fbReady = true;
-console.log('Firebase ready');
+    window._db           = db;
+    window._fbDoc        = doc;
+    window._fbSetDoc     = setDoc;
+    window._fbGetDoc     = getDoc;
+    window._fbCollection = collection;
+    window._fbGetDocs    = getDocs;
+    window._fbDeleteDoc  = deleteDoc;
+    window._fbReady      = true;
+    console.log('Firebase ready');
+
+    // Flush any writes that were queued before Firebase was ready
+    if(window._fbPendingWrites && window._fbPendingUID){
+      console.log('Flushing', window._fbPendingWrites.size, 'pending writes to Firestore...');
+      for(const [k, v] of window._fbPendingWrites){
+        try {
+          const ref = doc(db, 'users', window._fbPendingUID, 'data', k);
+          await setDoc(ref, { value: JSON.stringify(v), updatedAt: new Date().toISOString() });
+          console.log('Flushed:', k);
+        } catch(e){ console.warn('Flush failed for', k, e.message); }
+      }
+      window._fbPendingWrites = null;
+      window._fbPendingUID = null;
+      localStorage.setItem('df3_lastSync', new Date().toISOString());
+    }
+  } catch(e){
+    console.error('Firebase load failed:', e);
+  }
+})();
 </script>
 
 </head>
@@ -1369,19 +1389,17 @@ async function save(k, v){
     waited += 100;
   }
   if(!window._fbReady){
-    console.warn('⚠️ Firebase not ready — write to '+k+' is LOCAL ONLY');
-    if(!window._fbWarnedNotReady){ window._fbWarnedNotReady=true; toast('⚠️ Cloud sync offline — saving locally only'); }
+    // Queue the write — Firebase init block flushes these once ready
+    if(!window._fbPendingWrites) window._fbPendingWrites = new Map();
+    if(!window._fbPendingUID) window._fbPendingUID = currentUser.uid;
+    window._fbPendingWrites.set(k, v); // Map deduplicates by key automatically
+    console.log('⏳ Firebase not ready yet — queued write for:', k);
     return;
   }
   try{
     const ref = window._fbDoc(window._db, 'users', currentUser.uid, 'data', k);
     const payload = { value: JSON.stringify(v), updatedAt: new Date().toISOString() };
     await window._fbSetDoc(ref, payload);
-    // VERIFIED WRITE: read it back to confirm it actually landed
-    const verify = await window._fbGetDoc(ref);
-    if(!verify.exists() || verify.data().updatedAt !== payload.updatedAt){
-      throw new Error('write verification failed for '+k);
-    }
     // Track last successful sync time
     localStorage.setItem('df3_lastSync', new Date().toISOString());
   } catch(e){
@@ -1435,7 +1453,7 @@ async function loadAllFromFirestore(){
   }
   showSyncIndicator('☁️ Syncing your data...');
   const keys = ['roles','habits','habitLogs','relationships','goals','mission',
-                 'futureself','values','reflections'];
+                 'futureself','values','reflections','bigRocks','coiItems','weeklyReports'];
   // Load today's data keys for past 7 days
   for(let i=0;i<7;i++){
     const d=new Date(); d.setDate(d.getDate()-i);
@@ -1522,6 +1540,8 @@ function loadAll(){
     futureself    = load('futureself', futureself);
     values        = load('values', values);
     reflections   = load('reflections', reflections);
+    coiItems      = load('coiItems', coiItems);
+    weeklyReports = load('weeklyReports', weeklyReports);
     loadTodayState();
     // Re-render current view
     const activeView = document.querySelector('.view.active')?.id?.replace('view-','');
