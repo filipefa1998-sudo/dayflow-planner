@@ -168,6 +168,39 @@ body.dark .coach-title{color:var(--gold)}
 .p-del{opacity:0;cursor:pointer;color:var(--ink-lt);font-size:14px;padding:4px;transition:opacity var(--trans);background:none;border:none;font-family:inherit}
 .p-slot:hover .p-del{opacity:1}
 .p-del:hover{color:var(--red)}
+.p-time-badge{font-size:10px;font-weight:800;color:var(--navy-2);background:rgba(27,58,107,.09);padding:2px 8px;border-radius:20px;white-space:nowrap;cursor:pointer;transition:all var(--trans)}
+.p-time-badge:hover{background:rgba(27,58,107,.18)}
+body.dark .p-time-badge{color:var(--gold);background:rgba(201,168,76,.12)}
+
+/* ══ DAY TIMELINE ══ */
+.timeline-wrap{margin-top:6px;margin-bottom:16px;border-radius:var(--r);overflow:hidden;border:1px solid var(--border);background:var(--surface)}
+.timeline-hdr{display:flex;align-items:center;justify-content:space-between;padding:12px 16px 0;margin-bottom:8px}
+.timeline-hdr-lbl{font-size:9.5px;font-weight:800;text-transform:uppercase;letter-spacing:1.6px;color:var(--ink-m);display:flex;align-items:center;gap:6px}
+.timeline-now-pill{font-size:10px;font-weight:800;color:var(--gold);background:rgba(201,168,76,.12);padding:2px 9px;border-radius:20px}
+.timeline-body{position:relative;padding:0 16px 16px}
+.tl-axis{display:flex;flex-direction:column;position:relative}
+.tl-hour-row{display:flex;align-items:flex-start;gap:10px;min-height:44px;position:relative}
+.tl-hour-lbl{font-size:10px;font-weight:700;color:var(--ink-lt);width:42px;flex-shrink:0;padding-top:2px;text-align:right}
+.tl-hour-line{position:absolute;left:52px;right:0;top:10px;height:1px;background:var(--border-lt)}
+.tl-slot-area{flex:1;padding-left:8px;padding-top:2px;min-height:44px;position:relative}
+.tl-block{border-radius:9px;padding:7px 12px;margin-bottom:4px;cursor:pointer;transition:all var(--trans);position:relative;overflow:hidden}
+.tl-block:hover{filter:brightness(1.06);transform:translateX(2px)}
+.tl-block.done{opacity:.45}
+.tl-block::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;border-radius:9px 0 0 9px}
+.tl-b-title{font-size:13px;font-weight:700;line-height:1.3}
+.tl-b-meta{font-size:10px;font-weight:600;opacity:.7;margin-top:2px}
+.tl-b-done{position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:16px}
+.tl-now-line{position:absolute;left:52px;right:16px;height:2px;background:var(--red);border-radius:1px;z-index:10;pointer-events:none}
+.tl-now-dot{position:absolute;left:48px;width:8px;height:8px;border-radius:50%;background:var(--red);margin-top:-3px;z-index:11;pointer-events:none}
+.tl-empty{text-align:center;padding:18px 0;font-size:13px;color:var(--ink-lt);font-style:italic}
+.tl-unscheduled{margin:0 16px 14px;background:var(--surface-2);border:1.5px dashed var(--border);border-radius:10px;padding:10px 14px}
+.tl-unsched-lbl{font-size:9.5px;font-weight:800;text-transform:uppercase;letter-spacing:1.4px;color:var(--ink-lt);margin-bottom:8px}
+.tl-unsched-item{display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid var(--border-lt);cursor:pointer}
+.tl-unsched-item:last-child{border-bottom:none}
+.tl-unsched-item:hover .tl-unsched-title{color:var(--navy-2)}
+.tl-unsched-title{font-size:13px;font-weight:600;color:var(--ink-l);flex:1}
+.tl-unsched-add{font-size:10px;font-weight:800;color:var(--gold);background:rgba(201,168,76,.1);padding:2px 8px;border-radius:20px;white-space:nowrap}
+body.dark .tl-unsched-add{color:var(--gold)}
 .add-p-btn{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--ink-m);cursor:pointer;padding:10px 14px;border:1.5px dashed var(--border);border-radius:10px;transition:all var(--trans);background:transparent;font-family:'DM Sans',sans-serif;font-weight:600;width:100%}
 .add-p-btn:hover{border-color:var(--navy-2);color:var(--navy-2)}
 .p-cap{font-size:11px;color:var(--gold);font-weight:700;text-align:center;padding:8px;opacity:.85}
@@ -794,6 +827,21 @@ body.dark .proactive-nudge{background:rgba(27,58,107,.2);color:var(--gold)}
     <div class="card-label"><span class="dot" style="background:var(--red)"></span>Top 3 Priorities — What moves the needle today?</div>
     <div id="priority-slots"></div>
   </div>
+
+  <!-- DAY TIMELINE -->
+  <div class="timeline-wrap" id="timeline-wrap">
+    <div class="timeline-hdr">
+      <div class="timeline-hdr-lbl">⏱ Day Timeline</div>
+      <div class="timeline-now-pill" id="tl-now-pill"></div>
+    </div>
+    <div class="tl-unscheduled" id="tl-unscheduled" style="display:none">
+      <div class="tl-unsched-lbl">⚡ Unscheduled — tap to add a time</div>
+      <div id="tl-unsched-list"></div>
+    </div>
+    <div class="timeline-body">
+      <div class="tl-axis" id="tl-axis"></div>
+    </div>
+  </div>
   <div class="card">
     <div class="card-label"><span class="dot" style="background:var(--navy-2)"></span>Role Alignment — Is today serving who you're becoming?</div>
     <div id="role-alignment"></div>
@@ -1117,7 +1165,7 @@ body.dark .proactive-nudge{background:rgba(27,58,107,.2);color:var(--gold)}
 
 <div class="overlay" id="m-role"><div class="modal"><div class="m-hdr"><div class="m-title" id="role-modal-title">Add Role</div><button class="m-close" onclick="closeModal('m-role')">✕</button></div><div class="m-body"><div style="display:grid;grid-template-columns:1fr 1fr;gap:12px"><div class="fg"><label class="flbl">Role Name</label><input class="fi" id="r-name" placeholder="Father, Builder, Leader"></div><div class="fg"><label class="flbl">Icon (emoji)</label><input class="fi" id="r-icon" placeholder="👨‍👩‍👧" maxlength="4"></div></div><div class="fg"><label class="flbl">Definition of Success</label><input class="fi" id="r-success" placeholder="What does success look like in this role?"></div><div class="fg"><label class="flbl">This Week's Commitment</label><textarea class="fta" id="r-commit" placeholder="What one result would make the biggest difference this week?" style="min-height:72px"></textarea></div><div id="role-delete-row" style="display:none;margin-top:4px"><button class="btn btn-danger" onclick="deleteRole()" style="width:100%">🗑️ Delete This Role</button></div></div><div class="m-foot"><button class="btn btn-ghost" onclick="closeModal('m-role')">Cancel</button><button class="btn btn-primary" onclick="saveRole()">Save Role</button></div></div></div>
 
-<div class="overlay" id="m-priority"><div class="modal"><div class="m-hdr"><div class="m-title" id="priority-modal-title">Add Priority</div><button class="m-close" onclick="closeModal('m-priority')">✕</button></div><div class="m-body"><div class="fg"><label class="flbl">Priority</label><input class="fi" id="p-title" placeholder="What needs to happen today?"></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:12px"><div class="fg"><label class="flbl">Role</label><select class="fsel" id="p-role"></select></div><div class="fg"><label class="flbl">Quadrant</label><select class="fsel" id="p-quadrant"><option value="2">🔵 Q2 — Important</option><option value="1">🔴 Q1 — Urgent+Important</option><option value="3">🟡 Q3 — Urgent Only</option><option value="4">⬜ Q4 — Eliminate</option></select></div></div></div><div class="m-foot"><button class="btn btn-ghost" onclick="closeModal('m-priority')">Cancel</button><button class="btn btn-primary" onclick="savePriority()">Save Priority</button></div></div></div>
+<div class="overlay" id="m-priority"><div class="modal"><div class="m-hdr"><div class="m-title" id="priority-modal-title">Add Priority</div><button class="m-close" onclick="closeModal('m-priority')">✕</button></div><div class="m-body"><div class="fg"><label class="flbl">Priority</label><input class="fi" id="p-title" placeholder="What needs to happen today?"></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:12px"><div class="fg"><label class="flbl">Role</label><select class="fsel" id="p-role"></select></div><div class="fg"><label class="flbl">Quadrant</label><select class="fsel" id="p-quadrant"><option value="2">🔵 Q2 — Important</option><option value="1">🔴 Q1 — Urgent+Important</option><option value="3">🟡 Q3 — Urgent Only</option><option value="4">⬜ Q4 — Eliminate</option></select></div></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:12px"><div class="fg"><label class="flbl">Start Time <span style="font-weight:400;text-transform:none;letter-spacing:0">(optional)</span></label><input class="fi" type="time" id="p-start"></div><div class="fg"><label class="flbl">End Time <span style="font-weight:400;text-transform:none;letter-spacing:0">(optional)</span></label><input class="fi" type="time" id="p-end"></div></div></div><div class="m-foot"><button class="btn btn-ghost" onclick="closeModal('m-priority')">Cancel</button><button class="btn btn-primary" onclick="savePriority()">Save Priority</button></div></div></div>
 
 <div class="overlay" id="m-rel"><div class="modal"><div class="m-hdr"><div class="m-title" id="rel-modal-title">Add Relationship</div><button class="m-close" onclick="closeModal('m-rel')">✕</button></div><div class="m-body"><div style="display:grid;grid-template-columns:1fr 1fr;gap:12px"><div class="fg"><label class="flbl">Name</label><input class="fi" id="rel-name" placeholder="Full name"></div><div class="fg"><label class="flbl">Type</label><input class="fi" id="rel-type" placeholder="Spouse, Mentor, Friend..."></div></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:12px"><div class="fg"><label class="flbl">Emoji</label><input class="fi" id="rel-emoji" placeholder="👤" maxlength="4"></div><div class="fg"><label class="flbl">Energy</label><select class="fsel" id="rel-energy"><option value="high">🟢 Energizing</option><option value="med" selected>🟡 Steady</option><option value="low">🔴 Needs care</option></select></div></div><div id="rel-delete-row" style="display:none;margin-top:4px"><button class="btn btn-danger" onclick="deleteRel()" style="width:100%">🗑️ Remove</button></div></div><div class="m-foot"><button class="btn btn-ghost" onclick="closeModal('m-rel')">Cancel</button><button class="btn btn-primary" onclick="saveRel()">Save</button></div></div></div>
 
@@ -1773,6 +1821,7 @@ function renderToday(){
   if(!sessionStorage.getItem('df3_skip_rock_suggest_'+TODAY)){
     renderTodayRockSuggestions();
   }
+  renderTimeline();
   const el=document.getElementById('eim-mission-text');
   if(el) el.textContent=missionStatement?(missionStatement.length>130?missionStatement.slice(0,130)+'...':missionStatement):'Define your mission statement in End in Mind.';
   // Restore gratitude button state
@@ -1787,11 +1836,15 @@ function renderPriorities(){
   let html=items.map((p,i)=>{
     const role=roles.find(r=>r.id===p.roleId);
     const qColor={'1':'var(--red)','2':'var(--navy-2)','3':'var(--amber)','4':'var(--ink-m)'}[p.quadrant]||'var(--navy-2)';
+    const timeBadge = p.startTime
+      ? '<span class="p-time-badge" onclick="event.stopPropagation();editPriority(\''+p.id+'\')">⏱ '+fmtTime(p.startTime)+(p.endTime?'–'+fmtTime(p.endTime):'')+'</span>'
+      : '<span class="p-time-badge" style="opacity:.4;font-weight:600" onclick="event.stopPropagation();editPriority(\''+p.id+'\')">+ time</span>';
     return '<div class="p-slot'+(p.done?' done':'')+'" id="psl-'+p.id+'">'
       +'<div class="p-num">'+(i+1)+'</div>'
-      +'<div class="p-body"><div class="p-title">'+p.title+'</div>'
+      +'<div class="p-body" onclick="editPriority(\''+p.id+'\')" style="cursor:pointer"><div class="p-title">'+p.title+'</div>'
       +'<div class="p-meta">'+(role?'<span class="p-tag p-tag-role">'+role.icon+' '+role.name+'</span>':'')
-      +'<span class="p-tag" style="background:'+qColor+'20;color:'+qColor+'">Q'+(p.quadrant||2)+'</span></div></div>'
+      +'<span class="p-tag" style="background:'+qColor+'20;color:'+qColor+'">Q'+(p.quadrant||2)+'</span>'
+      +timeBadge+'</div></div>'
       +'<div class="p-chk'+(p.done?' done':'')+'" onclick="togglePriority(\''+p.id+'\')">'+(p.done?'✓':'')+'</div>'
       +'<button class="p-del" onclick="deletePriority(\''+p.id+'\')">✕</button>'
       +'</div>';
@@ -1800,12 +1853,124 @@ function renderPriorities(){
   else html+='<div class="p-cap">✦ Max 3 priorities. Finish one, then add another.</div>';
   c.innerHTML=html;
   updateScores();
+  renderTimeline();
+}
+
+// ── TIME HELPERS ──
+function fmtTime(t){
+  if(!t) return '';
+  const [h,m] = t.split(':').map(Number);
+  const ampm = h>=12?'pm':'am';
+  const hr = h%12||12;
+  return m===0 ? hr+ampm : hr+':'+String(m).padStart(2,'0')+ampm;
+}
+function timeToMinutes(t){
+  if(!t) return null;
+  const [h,m]=t.split(':').map(Number);
+  return h*60+m;
+}
+
+// ── TIMELINE RENDERER ──
+function renderTimeline(){
+  const wrap = document.getElementById('timeline-wrap'); if(!wrap) return;
+  const axis = document.getElementById('tl-axis'); if(!axis) return;
+  const unschedWrap = document.getElementById('tl-unscheduled');
+  const unschedList = document.getElementById('tl-unsched-list');
+  const nowPill = document.getElementById('tl-now-pill');
+
+  const scheduled = priorities.filter(p=>p.startTime);
+  const unscheduled = priorities.filter(p=>!p.startTime);
+
+  // Update "now" pill
+  const now = new Date();
+  const nowMins = now.getHours()*60 + now.getMinutes();
+  if(nowPill) nowPill.textContent = fmtTime(String(now.getHours()).padStart(2,'0')+':'+String(now.getMinutes()).padStart(2,'0'));
+
+  // Unscheduled tray
+  if(unscheduled.length > 0 && unschedWrap && unschedList){
+    unschedWrap.style.display = 'block';
+    unschedList.innerHTML = unscheduled.map(p=>{
+      const qColor={'1':'var(--red)','2':'var(--navy-2)','3':'var(--amber)','4':'var(--ink-m)'}[p.quadrant]||'var(--navy-2)';
+      return '<div class="tl-unsched-item" onclick="editPriority(\''+p.id+'\')">'
+        +'<div style="width:8px;height:8px;border-radius:50%;background:'+qColor+';flex-shrink:0"></div>'
+        +'<div class="tl-unsched-title'+(p.done?' done':'')+'">'+p.title+'</div>'
+        +'<span class="tl-unsched-add">+ add time</span>'
+        +'</div>';
+    }).join('');
+  } else if(unschedWrap){
+    unschedWrap.style.display='none';
+  }
+
+  // Determine hour range — 6am–9pm default, expand to fit blocks
+  let startHour = 6, endHour = 21;
+  scheduled.forEach(p=>{
+    const sm = timeToMinutes(p.startTime);
+    const em = p.endTime ? timeToMinutes(p.endTime) : sm + 60;
+    if(sm !== null) startHour = Math.min(startHour, Math.floor(sm/60));
+    if(em !== null) endHour   = Math.max(endHour,   Math.ceil(em/60));
+  });
+  startHour = Math.max(0, startHour - 1);
+  endHour   = Math.min(24, endHour + 1);
+
+  // Q colors
+  const qColors = {'1':'var(--red)','2':'var(--navy-2)','3':'var(--amber)','4':'var(--ink-m)'};
+  const qBgs    = {'1':'rgba(192,57,43,.09)','2':'rgba(27,58,107,.09)','3':'rgba(212,160,23,.09)','4':'rgba(127,140,141,.08)'};
+
+  // Build hour rows
+  let rows = '';
+  for(let h = startHour; h <= endHour; h++){
+    const hMins = h*60;
+    const label = h===0?'12am':h<12?h+'am':h===12?'12pm':(h-12)+'pm';
+    // Find any priority blocks that START in this hour
+    const blocksHere = scheduled.filter(p=>{
+      const sm = timeToMinutes(p.startTime);
+      return sm !== null && Math.floor(sm/60)===h;
+    });
+    let blockHtml = '';
+    blocksHere.forEach(p=>{
+      const sm = timeToMinutes(p.startTime);
+      const em = p.endTime ? timeToMinutes(p.endTime) : sm+60;
+      const dur = em - sm;
+      const role = roles.find(r=>r.id===p.roleId);
+      const qc = qColors[p.quadrant]||qColors['2'];
+      const qb = qBgs[p.quadrant]||qBgs['2'];
+      const durationLbl = dur>=60 ? Math.floor(dur/60)+'h'+(dur%60?Math.floor(dur%60)+'m':'') : dur+'m';
+      blockHtml += '<div class="tl-block'+(p.done?' done':'')+'" onclick="editPriority(\''+p.id+'\')" style="background:'+qb+';border:1px solid '+qc+'22">'
+        +'<div style="position:absolute;left:0;top:0;bottom:0;width:3px;background:'+qc+';border-radius:9px 0 0 9px"></div>'
+        +'<div class="tl-b-title" style="color:var(--ink);padding-left:4px">'+p.title+'</div>'
+        +'<div class="tl-b-meta" style="padding-left:4px">'+fmtTime(p.startTime)+(p.endTime?' – '+fmtTime(p.endTime):'')+' · '+durationLbl+(role?' · '+role.icon+' '+role.name:'')+'</div>'
+        +(p.done?'<div class="tl-b-done">✓</div>':'')
+        +'</div>';
+    });
+
+    // "Now" indicator — show at the current hour row
+    let nowIndicator = '';
+    if(nowMins >= hMins && nowMins < hMins+60){
+      const pct = ((nowMins - hMins)/60)*100;
+      nowIndicator = '<div class="tl-now-line" style="top:'+(10 + pct*0.44)+'px"></div>'
+                   + '<div class="tl-now-dot" style="top:'+(7 + pct*0.44)+'px"></div>';
+    }
+
+    rows += '<div class="tl-hour-row">'
+      +'<div class="tl-hour-lbl">'+label+'</div>'
+      +'<div class="tl-hour-line"></div>'
+      +'<div class="tl-slot-area">'+nowIndicator+blockHtml+'</div>'
+      +'</div>';
+  }
+
+  if(scheduled.length===0){
+    rows = '<div class="tl-empty">No time blocks yet — tap a priority\'s time badge to schedule it</div>';
+  }
+
+  axis.innerHTML = rows;
 }
 function openAddPriority(){
   if(priorities.length>=3){ toast('✦ Max 3 priorities. Finish one first.'); return; }
   document.getElementById('priority-modal-title').textContent='Add Priority';
   document.getElementById('p-title').value='';
   document.getElementById('p-quadrant').value='2';
+  document.getElementById('p-start').value='';
+  document.getElementById('p-end').value='';
   const sel=document.getElementById('p-role');
   sel.innerHTML='<option value="">— No role —</option>'+roles.map(r=>'<option value="'+r.id+'">'+r.icon+' '+r.name+'</option>').join('');
   openModal('m-priority');
@@ -1813,12 +1978,42 @@ function openAddPriority(){
 }
 function savePriority(){
   const title=document.getElementById('p-title').value.trim(); if(!title){ toast('Enter a priority'); return; }
-  priorities.push({id:'p'+Date.now(),title,roleId:document.getElementById('p-role').value,quadrant:document.getElementById('p-quadrant').value,done:false});
-  saveTodayState(); closeModal('m-priority'); renderPriorities();
+  const startVal=document.getElementById('p-start').value;
+  const endVal=document.getElementById('p-end').value;
+  // If editing existing priority
+  const editId = document.getElementById('m-priority').dataset.editId;
+  if(editId){
+    const p=priorities.find(x=>x.id===editId);
+    if(p){
+      p.title=title;
+      p.roleId=document.getElementById('p-role').value;
+      p.quadrant=document.getElementById('p-quadrant').value;
+      p.startTime=startVal||'';
+      p.endTime=endVal||'';
+    }
+    delete document.getElementById('m-priority').dataset.editId;
+  } else {
+    priorities.push({id:'p'+Date.now(),title,roleId:document.getElementById('p-role').value,quadrant:document.getElementById('p-quadrant').value,done:false,startTime:startVal||'',endTime:endVal||''});
+  }
+  saveTodayState(); closeModal('m-priority'); renderPriorities(); renderTimeline();
+}
+function editPriority(id){
+  const p=priorities.find(x=>x.id===id); if(!p) return;
+  document.getElementById('priority-modal-title').textContent='Edit Priority';
+  document.getElementById('p-title').value=p.title;
+  document.getElementById('p-quadrant').value=p.quadrant||'2';
+  document.getElementById('p-start').value=p.startTime||'';
+  document.getElementById('p-end').value=p.endTime||'';
+  const sel=document.getElementById('p-role');
+  sel.innerHTML='<option value="">— No role —</option>'+roles.map(r=>'<option value="'+r.id+'">'+r.icon+' '+r.name+'</option>').join('');
+  sel.value=p.roleId||'';
+  document.getElementById('m-priority').dataset.editId=id;
+  openModal('m-priority');
+  setTimeout(()=>document.getElementById('p-title').focus(),120);
 }
 function togglePriority(id){
   const p=priorities.find(x=>x.id===id); if(!p) return;
-  p.done=!p.done; saveTodayState(); renderPriorities();
+  p.done=!p.done; saveTodayState(); renderPriorities(); renderTimeline();
   // If linked to a Big Rock, sync its done state
   if(p.fromRockId){
     const data = bigRocks[getThisWeekKey()];
@@ -2752,7 +2947,13 @@ async function genCoach(){
 // UTILITIES
 // ══════════════════════════════
 function openModal(id){ document.getElementById(id).classList.add('open'); }
-function closeModal(id){ document.getElementById(id).classList.remove('open'); }
+function closeModal(id){ 
+  document.getElementById(id).classList.remove('open');
+  // Clear edit state when priority modal closes
+  if(id === 'm-priority'){
+    delete document.getElementById('m-priority').dataset.editId;
+  }
+}
 let _toastT;
 function toast(msg){ const el=document.getElementById('toast'); el.textContent=msg; el.classList.add('show'); clearTimeout(_toastT); _toastT=setTimeout(()=>el.classList.remove('show'),2800); }
 function toggleDark(){ document.body.classList.toggle('dark'); const on=document.body.classList.contains('dark'); document.getElementById('dark-icon').textContent=on?'☀️':'🌙'; document.getElementById('dark-btn-float').textContent=on?'☀️':'🌙'; localStorage.setItem('df3_dark',on?'1':'0'); }
@@ -3084,7 +3285,7 @@ async function migrateLocalToFirebase(){
   const el = document.getElementById('sync-status');
   if(el) el.textContent = '📤 Migrating...';
   const keys = ['roles','habits','habitLogs','relationships','goals','mission',
-                 'futureself','values','reflections'];
+                 'futureself','values','reflections','bigRocks','coiItems','weeklyReports'];
   // Add today and past 30 days
   for(let i=0;i<30;i++){
     const d=new Date(); d.setDate(d.getDate()-i);
