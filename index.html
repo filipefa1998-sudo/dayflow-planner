@@ -3,29 +3,30 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DayFlow v3.1 — Decision Architecture</title>
+<title>DayFlow v4 — Decision Architecture</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&display=swap" rel="stylesheet">
 <style>
 :root{
-  --navy:#0F2447;--navy-2:#1B3A6B;--navy-3:#243F6E;
-  --gold:#C9A84C;--gold-lt:rgba(201,168,76,.12);--gold-dim:rgba(201,168,76,.35);
-  --bg:#F2F5F9;--surface:#FFFFFF;--surface-2:#F8FAFC;
-  --border:#D8E0EC;--border-lt:#EBF0F7;
-  --ink:#0F1B2D;--ink-l:#2C3E50;--ink-m:#6B7A8D;--ink-lt:#9AAABE;
-  --red:#C0392B;--red-lt:rgba(192,57,43,.1);
-  --green:#2E7D32;--green-lt:rgba(46,125,50,.1);
-  --amber:#D4A017;--amber-lt:rgba(212,160,23,.1);
-  --q1:#C0392B;--q1-bg:#FDEDEC;--q2:#1B3A6B;--q2-bg:#EBF0F9;
-  --q3:#D4A017;--q3-bg:#FEF9E7;--q4:#7F8C8D;--q4-bg:#F2F3F4;
-  --sidebar-w:260px;--sidebar-coll:58px;
+  --navy:#0D1F3C;--navy-2:#1A3560;--navy-3:#22406A;
+  --gold:#C8A84B;--gold-lt:rgba(200,168,75,.13);--gold-dim:rgba(200,168,75,.35);
+  --bg:#F0EDE6;--surface:#FEFCF8;--surface-2:#F7F4EE;--cream:#FAF7F2;
+  --border:#DDD8CE;--border-lt:#EAE6DE;
+  --ink:#0D1A2B;--ink-l:#2A3A4E;--ink-m:#6A7585;--ink-lt:#9BA8B8;
+  --red:#B8341F;--red-lt:rgba(184,52,31,.1);
+  --green:#2A6E2E;--green-lt:rgba(42,110,46,.1);
+  --amber:#C8930A;--amber-lt:rgba(200,147,10,.1);
+  --q1:#B8341F;--q1-bg:#FCECEA;--q2:#1A3560;--q2-bg:#EBF0F9;
+  --q3:#C8930A;--q3-bg:#FEF6E4;--q4:#7A8590;--q4-bg:#F2F3F4;
+  --sidebar-w:252px;--sidebar-coll:56px;
   --r:14px;--rs:10px;
-  --sh:0 1px 4px rgba(15,27,45,.08);--sh2:0 4px 16px rgba(15,27,45,.14);--sh3:0 12px 40px rgba(15,27,45,.18);
+  --sh:0 1px 3px rgba(13,26,43,.07),0 1px 8px rgba(13,26,43,.04);
+  --sh2:0 4px 16px rgba(13,26,43,.12);--sh3:0 12px 40px rgba(13,26,43,.18);
   --trans:.18s cubic-bezier(.4,0,.2,1);
 }
 body.dark{
-  --bg:#0A1628;--surface:#0F2040;--surface-2:#162035;
-  --border:#1E3A5F;--border-lt:#1A2F50;
-  --ink:#E8EDF5;--ink-l:#B0BFD4;--ink-m:#6B85A8;--ink-lt:#3D5070;
+  --bg:#080F1E;--surface:#0D1C35;--surface-2:#111F3A;--cream:#0D1C35;
+  --border:#1A2F50;--border-lt:#162440;
+  --ink:#E4EAF4;--ink-l:#A8BAD0;--ink-m:#5A78A0;--ink-lt:#2E4870;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
@@ -135,9 +136,9 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--ink);min-
 @keyframes blink{0%,100%{opacity:.2}50%{opacity:1}}
 
 /* ══ TODAY VIEW ══ */
-#view-today{background:#FAFAF7}
+#view-today{background:var(--cream)}
 body.dark #view-today{background:var(--bg)}
-#view-today .card:nth-child(4){border-left:4px solid var(--gold);box-shadow:0 2px 12px rgba(201,168,76,.12),var(--sh);padding-left:18px}
+#view-today .card:nth-child(4){border-left:4px solid var(--gold);box-shadow:0 2px 12px rgba(200,168,75,.12),var(--sh);padding-left:18px}
 
 .coach-card{background:linear-gradient(135deg,rgba(15,36,71,.05),rgba(201,168,76,.06));border:1px solid rgba(201,168,76,.22);border-radius:var(--r);padding:16px 20px;margin-bottom:18px;position:relative;overflow:hidden}
 .coach-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--navy-2),var(--gold));border-radius:var(--r) var(--r) 0 0}
@@ -480,9 +481,7 @@ body.dark .q2-title{color:var(--gold)}
   .score-grid,.renewal-grid,.quad-grid{grid-template-columns:1fr}
 }
 
-/* ════ v3.2 ════ */
-:root{--surface:#FEFCF8;--surface-2:#F9F6F0;--bg:#F0EDE6;--cream:#FAF7F2}
-body.dark{--surface:#0F2040;--surface-2:#162035;--bg:#0A1628;--cream:#0F2040}
+/* ════ v4 ════ */
 
 /* EBA */
 .eba-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);margin-bottom:10px;overflow:hidden;box-shadow:var(--sh);transition:all var(--trans)}
@@ -803,8 +802,6 @@ body.dark .proactive-nudge{background:rgba(27,58,107,.2);color:var(--gold)}
   <div class="sb-section">
     <span class="sb-section-label">Advanced</span>
     <div class="ni" data-view="report" onclick="nav('report')" title="Weekly AI Report"><span class="ni-icon">📋</span><span class="ni-text">Weekly Report</span></div>
-    <div class="ni" data-view="influence" onclick="nav('influence')" title="Circle of Influence"><span class="ni-icon">⭕</span><span class="ni-text">My Influence</span></div>
-    <div class="ni" data-view="patterns" onclick="nav('patterns')" title="Patterns — 8 Weeks"><span class="ni-icon">📊</span><span class="ni-text">Patterns</span></div>
     <div class="ni" data-view="goals" onclick="nav('goals')" title="Goals & Milestones"><span class="ni-icon">🎯</span><span class="ni-text">Goals</span></div>
     <div class="ni" data-view="quadrant" onclick="nav('quadrant')" title="Covey Quadrant"><span class="ni-icon">⊞</span><span class="ni-text">Quadrant</span></div>
     <div class="ni" data-view="habits" onclick="nav('habits')" title="Habits"><span class="ni-icon">🔥</span><span class="ni-text">Habits</span></div>
@@ -829,9 +826,12 @@ body.dark .proactive-nudge{background:rgba(27,58,107,.2);color:var(--gold)}
 <div class="view active" id="view-today">
   <div class="pg-hdr">
     <div><div class="pg-title" id="greeting">Good morning ☀️</div><div class="pg-sub" id="today-date"></div></div>
-    <button class="btn btn-primary" onclick="openAddPriority()">+ Priority</button>
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <button class="btn" onclick="openStartMyDay()" style="background:linear-gradient(135deg,var(--navy-2),var(--navy));color:var(--gold);font-size:13px">▶ Start My Day</button>
+      <button class="btn btn-primary" onclick="openAddPriority()">+ Priority</button>
+    </div>
   </div>
-  <button class="grat-trigger-btn" id="grat-trigger-btn" onclick="openGratitude()">🌅 Morning Gratitude Practice — Open</button>
+  <button class="grat-trigger-btn" id="grat-trigger-btn" onclick="openGratitude()">🌅 Morning Intention — Open</button>
   <div id="br-today-nudge"></div>
   <div id="br-today-suggest"></div>
   <div class="coach-card">
@@ -857,6 +857,7 @@ body.dark .proactive-nudge{background:rgba(27,58,107,.2);color:var(--gold)}
       <div class="tl-axis" id="tl-axis"></div>
     </div>
   </div>
+
   <div class="card">
     <div class="card-label"><span class="dot" style="background:var(--navy-2)"></span>Role Alignment — Is today serving who you're becoming?</div>
     <div id="role-alignment"></div>
@@ -870,6 +871,13 @@ body.dark .proactive-nudge{background:rgba(27,58,107,.2);color:var(--gold)}
     <div class="card-label"><span class="dot" style="background:var(--green)"></span>Renewal — Sharpen the saw</div>
     <div class="renewal-grid" id="renewal-grid"></div>
   </div>
+
+  <!-- Circle of Influence — modal button, not full nav -->
+  <button onclick="openInfluenceModal()" style="width:100%;padding:13px 18px;background:var(--surface);border:1.5px solid var(--border);border-radius:var(--r);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:700;color:var(--ink-l);cursor:pointer;transition:all var(--trans);display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;box-shadow:var(--sh)" id="coi-today-btn">
+    <span>⭕ Circle of Influence — Clear mental energy</span>
+    <span id="coi-today-count" style="font-size:11px;font-weight:800;padding:2px 9px;border-radius:20px;background:rgba(26,53,96,.09);color:var(--navy-2)">0 active</span>
+  </button>
+
   <button class="eve-trigger-btn" id="eve-trigger-btn" onclick="openEvening()">🌙 Evening Review — Open</button>
 
   <div class="eim-card">
@@ -899,6 +907,11 @@ body.dark .proactive-nudge{background:rgba(27,58,107,.2);color:var(--gold)}
   </div>
   <div style="font-size:9.5px;font-weight:800;text-transform:uppercase;letter-spacing:1.6px;color:var(--ink-m);margin-bottom:14px">One Commitment Per Role This Week</div>
   <div id="role-commitments"></div>
+  <div style="background:rgba(184,52,31,.05);border:1.5px solid rgba(184,52,31,.15);border-radius:var(--r);padding:16px 20px;margin-bottom:16px">
+    <div style="font-size:9.5px;font-weight:800;text-transform:uppercase;letter-spacing:1.6px;color:var(--red);margin-bottom:10px;display:flex;align-items:center;gap:6px">🚫 This Week I Will NOT</div>
+    <div style="font-size:12px;color:var(--ink-m);margin-bottom:10px;line-height:1.6">Commitment devices — proactive constraints that protect your Q2 time. Be specific.</div>
+    <textarea class="fta" id="week-not-todo" placeholder="e.g. Check email before my top priority is done&#10;Say yes to meetings without a clear agenda&#10;Open social media before 10am" style="min-height:80px;font-size:13px" oninput="saveLocal('week_not_todo',this.value)"></textarea>
+  </div>
   <div style="background:rgba(201,168,76,.07);border:1px solid rgba(201,168,76,.18);border-radius:12px;padding:14px 18px;font-size:13px;color:#8B6914;line-height:1.6"><strong>Covey:</strong> Plan by role, not by task list. Your weekly commitment to each role is the bridge between your identity and your schedule.</div>
 </div>
 
@@ -993,90 +1006,49 @@ body.dark .proactive-nudge{background:rgba(27,58,107,.2);color:var(--gold)}
   </div>
 </div>
 
-<!-- CIRCLE OF INFLUENCE -->
-<div class="view" id="view-influence">
-  <div class="pg-hdr">
-    <div>
-      <div class="pg-title">Circle of Influence ⭕</div>
-      <div class="pg-sub">Habit 1: Be Proactive — focus your energy where you have control</div>
-    </div>
-  </div>
-
-  <!-- Covey framing -->
-  <div style="background:rgba(27,58,107,.04);border:1px solid rgba(27,58,107,.12);border-radius:var(--r);padding:16px 20px;margin-bottom:20px;font-size:13px;color:var(--ink-l);line-height:1.7">
-    Reactive people focus on their <strong style="color:var(--red)">Circle of Concern</strong> — things outside their control. Proactive people focus on their <strong style="color:var(--navy-2)">Circle of Influence</strong> — things they can actually affect. Log what's on your mind, classify it, and train yourself to redirect energy toward what you can control.
-  </div>
-
-  <!-- Stats -->
-  <div class="coi-stat-row" id="coi-stats"></div>
-
-  <!-- AI Insight -->
-  <div id="coi-ai-insight" style="display:none" class="coi-insight-card"></div>
-
-  <!-- Add form — styled like coach card -->
-  <div style="background:linear-gradient(135deg,rgba(15,36,71,.05),rgba(201,168,76,.06));border:1px solid rgba(201,168,76,.22);border-radius:var(--r);padding:20px 22px;margin-bottom:20px;position:relative;overflow:hidden">
-    <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--navy-2),var(--gold));border-radius:var(--r) var(--r) 0 0"></div>
-    <div style="font-weight:800;font-size:14px;color:var(--ink);margin-bottom:14px">What's occupying your mental energy?</div>
-    <input class="fi" id="coi-text" placeholder="e.g. Worried about team performance, anxious about the product launch..." style="margin-bottom:16px">
-
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px">
+<!-- CIRCLE OF INFLUENCE MODAL -->
+<div class="overlay" id="m-influence" style="align-items:flex-start;padding:20px">
+  <div class="modal" style="max-width:600px;margin-top:20px;max-height:88vh">
+    <div class="m-hdr">
       <div>
-        <label class="flbl" style="margin-bottom:8px">Classification</label>
+        <div class="m-title">Circle of Influence ⭕</div>
+        <div style="font-size:11px;color:var(--ink-m);margin-top:3px">Habit 1: Be Proactive — redirect energy toward what you control</div>
+      </div>
+      <button class="m-close" onclick="closeModal('m-influence')">✕</button>
+    </div>
+    <div class="m-body">
+      <div class="coi-stat-row" id="coi-stats"></div>
+      <div id="coi-ai-insight" style="display:none" class="coi-insight-card"></div>
+      <div style="background:var(--surface-2);border:1px solid var(--border);border-radius:var(--r);padding:16px 18px;margin-bottom:16px">
+        <input class="fi" id="coi-text" placeholder="What's occupying your mental energy right now?" style="margin-bottom:12px">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px">
+          <div>
+            <label class="flbl" style="margin-bottom:6px">Classification</label>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
+              <button class="btn" id="coi-type-inf" onclick="setCoiType('influence')" style="background:var(--navy-2);color:var(--gold);justify-content:center;font-size:12px;padding:9px 6px">Influence</button>
+              <button class="btn btn-ghost" id="coi-type-con" onclick="setCoiType('concern')" style="justify-content:center;font-size:12px;padding:9px 6px">Concern</button>
+            </div>
+          </div>
+          <div>
+            <label class="flbl" style="margin-bottom:6px">Energy drain</label>
+            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:5px">
+              <button class="btn btn-ghost" id="coi-e-h" onclick="setCoiEnergy('high')" style="justify-content:center;font-size:11px;padding:9px 3px;color:var(--red);border-color:rgba(184,52,31,.3)">High</button>
+              <button class="btn" id="coi-e-m" onclick="setCoiEnergy('med')" style="background:var(--amber-lt);color:var(--amber);border:1.5px solid rgba(200,147,10,.35);justify-content:center;font-size:11px;padding:9px 3px">Med</button>
+              <button class="btn btn-ghost" id="coi-e-l" onclick="setCoiEnergy('low')" style="justify-content:center;font-size:11px;padding:9px 3px;color:var(--green);border-color:rgba(42,110,46,.3)">Low</button>
+            </div>
+          </div>
+        </div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
-          <button class="btn" id="coi-type-inf" onclick="setCoiType('influence')" style="background:var(--navy-2);color:var(--gold);justify-content:center;font-size:12px;padding:10px 8px">In Influence</button>
-          <button class="btn btn-ghost" id="coi-type-con" onclick="setCoiType('concern')" style="justify-content:center;font-size:12px;padding:10px 8px">In Concern</button>
+          <button class="btn btn-primary" onclick="addCoiItem()" style="justify-content:center;padding:11px;font-size:13px">+ Log This</button>
+          <button class="btn btn-ghost" onclick="aiClassifyCoi()" style="justify-content:center;padding:11px;font-size:13px">✨ AI Classify</button>
         </div>
       </div>
-      <div>
-        <label class="flbl" style="margin-bottom:8px">Energy drain</label>
-        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px">
-          <button class="btn btn-ghost" id="coi-e-h" onclick="setCoiEnergy('high')" style="justify-content:center;font-size:12px;padding:10px 4px;color:var(--red);border-color:rgba(192,57,43,.3)">High</button>
-          <button class="btn" id="coi-e-m" onclick="setCoiEnergy('med')" style="background:var(--amber-lt);color:var(--amber);border:1.5px solid rgba(212,160,23,.35);justify-content:center;font-size:12px;padding:10px 4px">Med</button>
-          <button class="btn btn-ghost" id="coi-e-l" onclick="setCoiEnergy('low')" style="justify-content:center;font-size:12px;padding:10px 4px;color:var(--green);border-color:rgba(46,125,50,.3)">Low</button>
-        </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+        <div id="coi-influence-col"></div>
+        <div id="coi-concern-col"></div>
       </div>
+      <div id="coi-empty" style="display:none;text-align:center;padding:24px;color:var(--ink-m);font-size:13px;font-style:italic">Nothing logged yet. What's on your mind?</div>
     </div>
-
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
-      <button class="btn btn-primary" onclick="addCoiItem()" style="justify-content:center;padding:12px;font-size:13px">+ Log This</button>
-      <button class="btn btn-ghost" onclick="aiClassifyCoi()" style="justify-content:center;padding:12px;font-size:13px">✨ AI Classify</button>
-    </div>
-  </div>
-
-  <!-- Column headers -->
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px">
-    <div style="background:rgba(27,58,107,.06);border:1.5px solid rgba(27,58,107,.18);border-radius:10px;padding:12px 16px;text-align:center">
-      <div style="font-weight:800;font-size:13px;color:var(--navy-2);margin-bottom:3px">Circle of Influence</div>
-      <div style="font-size:11px;color:var(--ink-m)">Things you can affect — put your energy here</div>
-    </div>
-    <div style="background:rgba(192,57,43,.05);border:1.5px solid rgba(192,57,43,.18);border-radius:10px;padding:12px 16px;text-align:center">
-      <div style="font-weight:800;font-size:13px;color:var(--red);margin-bottom:3px">Circle of Concern</div>
-      <div style="font-size:11px;color:var(--ink-m)">Outside your control — notice how much energy goes here</div>
-    </div>
-  </div>
-
-  <!-- Items grid -->
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
-    <div id="coi-influence-col"></div>
-    <div id="coi-concern-col"></div>
-  </div>
-
-  <div id="coi-empty" style="display:none;text-align:center;padding:32px;color:var(--ink-m);font-size:13px;font-style:italic">
-    Nothing logged yet. What's on your mind that you're spending energy on?
-  </div>
-</div>
-
-<!-- PATTERNS -->
-<div class="view" id="view-patterns">
-  <div class="pg-hdr"><div><div class="pg-title">Patterns 📊</div><div class="pg-sub">8 weeks of role coverage — behavioral drift made visible</div></div></div>
-  <div id="heatmap-week-labels" style="display:flex;gap:0;padding-left:122px;margin-bottom:6px"></div>
-  <div class="heatmap-grid" id="heatmap-grid"></div>
-  <div style="display:flex;align-items:center;gap:10px;margin-top:16px;font-size:11px;color:var(--ink-m);flex-wrap:wrap">
-    Intensity:
-    <span style="display:flex;align-items:center;gap:4px"><span style="width:14px;height:14px;border-radius:3px;background:var(--border-lt);display:inline-block"></span> None</span>
-    <span style="display:flex;align-items:center;gap:4px"><span style="width:14px;height:14px;border-radius:3px;background:rgba(27,58,107,.3);display:inline-block"></span> Light</span>
-    <span style="display:flex;align-items:center;gap:4px"><span style="width:14px;height:14px;border-radius:3px;background:rgba(27,58,107,.6);display:inline-block"></span> Moderate</span>
-    <span style="display:flex;align-items:center;gap:4px"><span style="width:14px;height:14px;border-radius:3px;background:var(--navy-2);display:inline-block"></span> Full</span>
   </div>
 </div>
 
@@ -1102,7 +1074,7 @@ body.dark .proactive-nudge{background:rgba(27,58,107,.2);color:var(--gold)}
 
 <!-- SETTINGS -->
 <div class="view" id="view-settings">
-  <div class="pg-hdr"><div><div class="pg-title">Settings ⚙️</div><div class="pg-sub">Configure DayFlow v3.1</div></div></div>
+  <div class="pg-hdr"><div><div class="pg-title">Settings ⚙️</div><div class="pg-sub">Configure DayFlow v4</div></div></div>
   <div class="settings-card">
     <div class="settings-hdr"><div class="settings-ico" style="background:linear-gradient(135deg,#4285F4,#34A853)">✨</div><div><div class="settings-title">AI Decision Coach — Gemini</div><div class="settings-sub">Free · 1,500 requests/day</div></div><div id="ai-badge" class="settings-badge badge-off">Not Connected</div></div>
     <div class="settings-body">
@@ -1162,8 +1134,7 @@ body.dark .proactive-nudge{background:rgba(27,58,107,.2);color:var(--gold)}
   <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:0 16px">
     <button class="mob-drawer-btn" onclick="mobNavTo('relationships')"><span>🤝</span><span>People</span></button>
     <button class="mob-drawer-btn" onclick="mobNavTo('report')"><span>📋</span><span>Report</span></button>
-    <button class="mob-drawer-btn" onclick="mobNavTo('influence')"><span>⭕</span><span>Influence</span></button>
-    <button class="mob-drawer-btn" onclick="mobNavTo('patterns')"><span>📊</span><span>Patterns</span></button>
+    <button class="mob-drawer-btn" onclick="closeMobDrawer();openInfluenceModal()"><span>⭕</span><span>Influence</span></button>
     <button class="mob-drawer-btn" onclick="mobNavTo('goals')"><span>🎯</span><span>Goals</span></button>
     <button class="mob-drawer-btn" onclick="mobNavTo('quadrant')"><span>⊞</span><span>Quadrant</span></button>
     <button class="mob-drawer-btn" onclick="mobNavTo('habits')"><span>🔥</span><span>Habits</span></button>
@@ -1184,7 +1155,7 @@ body.dark .proactive-nudge{background:rgba(27,58,107,.2);color:var(--gold)}
 
 <div class="overlay" id="m-rel"><div class="modal"><div class="m-hdr"><div class="m-title" id="rel-modal-title">Add Relationship</div><button class="m-close" onclick="closeModal('m-rel')">✕</button></div><div class="m-body"><div style="display:grid;grid-template-columns:1fr 1fr;gap:12px"><div class="fg"><label class="flbl">Name</label><input class="fi" id="rel-name" placeholder="Full name"></div><div class="fg"><label class="flbl">Type</label><input class="fi" id="rel-type" placeholder="Spouse, Mentor, Friend..."></div></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:12px"><div class="fg"><label class="flbl">Emoji</label><input class="fi" id="rel-emoji" placeholder="👤" maxlength="4"></div><div class="fg"><label class="flbl">Energy</label><select class="fsel" id="rel-energy"><option value="high">🟢 Energizing</option><option value="med" selected>🟡 Steady</option><option value="low">🔴 Needs care</option></select></div></div><div id="rel-delete-row" style="display:none;margin-top:4px"><button class="btn btn-danger" onclick="deleteRel()" style="width:100%">🗑️ Remove</button></div></div><div class="m-foot"><button class="btn btn-ghost" onclick="closeModal('m-rel')">Cancel</button><button class="btn btn-primary" onclick="saveRel()">Save</button></div></div></div>
 
-<div class="overlay" id="m-habit"><div class="modal"><div class="m-hdr"><div class="m-title" id="habit-modal-title">Add Habit</div><button class="m-close" onclick="closeModal('m-habit')">✕</button></div><div class="m-body"><div style="display:grid;grid-template-columns:1fr 1fr;gap:12px"><div class="fg"><label class="flbl">Habit Name</label><input class="fi" id="h-name" placeholder="Morning workout, Read 20min..."></div><div class="fg"><label class="flbl">Icon</label><input class="fi" id="h-icon" placeholder="💪" maxlength="4"></div></div><div class="fg"><label class="flbl">Covey Habit Alignment</label><select class="fsel" id="h-covey"><option value="h7">H7 · Sharpen the Saw</option><option value="h1">H1 · Be Proactive</option><option value="h2">H2 · End in Mind</option><option value="h3">H3 · First Things First</option><option value="none">General habit</option></select></div><div id="habit-delete-row" style="display:none;margin-top:4px"><button class="btn btn-danger" onclick="deleteHabit()" style="width:100%">🗑️ Delete Habit</button></div></div><div class="m-foot"><button class="btn btn-ghost" onclick="closeModal('m-habit')">Cancel</button><button class="btn btn-primary" onclick="saveHabit()">Save Habit</button></div></div></div>
+<div class="overlay" id="m-habit"><div class="modal"><div class="m-hdr"><div class="m-title" id="habit-modal-title">Add Habit</div><button class="m-close" onclick="closeModal('m-habit')">✕</button></div><div class="m-body"><div style="display:grid;grid-template-columns:1fr 1fr;gap:12px"><div class="fg"><label class="flbl">Habit Name</label><input class="fi" id="h-name" placeholder="Morning workout, Read 20min..."></div><div class="fg"><label class="flbl">Icon</label><input class="fi" id="h-icon" placeholder="💪" maxlength="4"></div></div><div class="fg"><label class="flbl">Covey Habit Alignment</label><select class="fsel" id="h-covey"><option value="h7">H7 · Sharpen the Saw</option><option value="h1">H1 · Be Proactive</option><option value="h2">H2 · End in Mind</option><option value="h3">H3 · First Things First</option><option value="none">General habit</option></select></div><div class="fg"><label class="flbl">Habit Stack — After I... <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--ink-m)">(optional)</span></label><input class="fi" id="h-stack" placeholder="e.g. Pour my morning coffee, brush my teeth..."><div style="font-size:10px;color:var(--ink-m);margin-top:5px;line-height:1.5">James Clear: attach this habit to something you already do every day.</div></div><div class="fg"><label class="flbl">Identity Statement — This makes me a... <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--ink-m)">(optional)</span></label><input class="fi" id="h-identity" placeholder="e.g. person who invests in their health..."><div style="font-size:10px;color:var(--ink-m);margin-top:5px;line-height:1.5">Every rep of this habit is a vote for the identity you want.</div></div><div id="habit-delete-row" style="display:none;margin-top:4px"><button class="btn btn-danger" onclick="deleteHabit()" style="width:100%">🗑️ Delete Habit</button></div></div><div class="m-foot"><button class="btn btn-ghost" onclick="closeModal('m-habit')">Cancel</button><button class="btn btn-primary" onclick="saveHabit()">Save Habit</button></div></div></div>
 
 <div class="overlay" id="m-goal"><div class="modal" style="max-width:600px"><div class="m-hdr"><div class="m-title" id="goal-modal-title">New Goal</div><button class="m-close" onclick="closeModal('m-goal')">✕</button></div><div class="m-body"><div class="fg"><label class="flbl">Goal — The End in Mind</label><input class="fi" id="g-title" placeholder="e.g. Launch Solo Passport, Run a marathon..."></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:12px"><div class="fg"><label class="flbl">Attached Role</label><select class="fsel" id="g-role"></select></div><div class="fg"><label class="flbl">Target Date</label><input class="fi" type="date" id="g-date"></div></div><div class="fg"><label class="flbl">Why This Matters</label><input class="fi" id="g-why" placeholder="When I achieve this, I will..."></div><div class="fg"><label class="flbl">Milestones — Working Backward</label><div style="font-size:11px;color:var(--ink-m);margin-bottom:8px">What must be true 3 months before? 1 month? Name checkpoints backward from target.</div><div id="milestone-list" style="margin-bottom:8px"></div><div style="display:flex;gap:8px"><input class="fi" id="ms-title-inp" placeholder="Milestone..." style="flex:1"><input class="fi" type="date" id="ms-date-inp" style="width:150px"><button class="btn btn-primary" onclick="addMilestone()" style="padding:10px 14px">+</button></div><button onclick="aiMilestones()" style="margin-top:8px;padding:7px 14px;background:rgba(27,58,107,.08);border:1px solid rgba(27,58,107,.15);border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;color:var(--navy-2);font-family:'DM Sans',sans-serif">✨ AI: Generate milestones</button></div><div id="goal-delete-row" style="display:none;margin-top:4px"><button class="btn btn-danger" onclick="deleteGoal()" style="width:100%">🗑️ Delete Goal</button></div></div><div class="m-foot"><button class="btn btn-ghost" onclick="closeModal('m-goal')">Cancel</button><button class="btn btn-primary" onclick="saveGoal()">Save Goal</button></div></div></div>
 
@@ -1264,27 +1235,20 @@ body.dark .proactive-nudge{background:rgba(27,58,107,.2);color:var(--gold)}
 <div class="grat-overlay" id="m-gratitude">
   <div class="grat-card">
     <div class="grat-header">
-      <div class="grat-header-title" id="grat-time-title">Good Morning 🌅</div>
+      <div class="grat-header-title" id="grat-time-title">Morning Intention 🌅</div>
       <button class="m-close" onclick="closeGratitude()">✕</button>
     </div>
     <div class="grat-body">
-      <div style="font-size:12px;color:var(--ink-m);line-height:1.6;margin-bottom:16px;font-style:italic">Gratitude is a proactive practice — aligning your mindset with abundance and your daily actions with your deepest values.</div>
-      <div id="grat-gap-alert" style="display:none" class="grat-gap-alert"><strong style="display:block;margin-bottom:3px">⚠️ Values-Behavior Gap Detected</strong><span id="grat-gap-msg"></span></div>
+      <div style="font-size:12px;color:var(--ink-m);line-height:1.6;margin-bottom:18px;font-style:italic">"Begin with the end in mind." 60 seconds to set your direction before the day sets it for you.</div>
       <div class="grat-section">
-        <div class="grat-section-title">Gratitude by Role — what in each role are you thankful for?</div>
-        <div id="grat-roles-container"></div>
-        <div class="grat-role-row" style="margin-top:4px">
-          <div class="grat-role-tag" style="background:rgba(201,168,76,.1);color:var(--gold)">✦ General</div>
-          <input class="grat-role-inp" id="grat-general" placeholder="Something else I'm grateful for...">
-        </div>
+        <div class="grat-section-title">What am I grateful for right now?</div>
+        <textarea class="grat-role-inp" id="grat-general" placeholder="One specific thing — a person, a moment, a capability you have..." style="width:100%;min-height:72px;resize:none;border-radius:10px;padding:11px 14px;border:1.5px solid var(--border);background:var(--surface-2);font-family:inherit;font-size:13px;color:var(--ink);outline:none" oninput="saveLocal('grat_general_'+TODAY,this.value)"></textarea>
       </div>
-      <div class="abundance-card">
-        <div class="abundance-label">Abundance Mindset — Habit 4: Think Win-Win</div>
-        <div style="font-size:11px;color:var(--ink-m);margin-bottom:8px;line-height:1.5">Where did you notice scarcity thinking yesterday? What's the abundance reframe?</div>
-        <input class="abundance-inp" id="grat-scarcity" placeholder="Scarcity thought I noticed...">
-        <input class="abundance-inp" id="grat-abundance" placeholder="Abundance reframe..." style="margin-top:7px">
+      <div class="grat-section" style="margin-top:14px">
+        <div class="grat-section-title">What is my one intention for today?</div>
+        <textarea class="grat-role-inp" id="grat-intention" placeholder="Not a task — a way of being. e.g. 'I will be fully present in every conversation today.'" style="width:100%;min-height:72px;resize:none;border-radius:10px;padding:11px 14px;border:1.5px solid var(--border);background:var(--surface-2);font-family:inherit;font-size:13px;color:var(--ink);outline:none" oninput="saveLocal('grat_intention_'+TODAY,this.value)"></textarea>
       </div>
-      <div class="grat-section">
+      <div class="grat-section" style="margin-top:14px">
         <div class="grat-section-title">How are you starting this day?</div>
         <div class="grat-mood-row">
           <button class="grat-mood-btn" data-mood="drained" onclick="setMood(this)">😔</button>
@@ -1868,8 +1832,6 @@ function nav(view){
   else if(view==='relationships') renderRelationships();
   else if(view==='reflection') renderReflection();
   else if(view==='report') renderWeeklyReportView();
-  else if(view==='influence') renderInfluence();
-  else if(view==='patterns') renderPatterns();
   else if(view==='goals') renderGoals();
   else if(view==='quadrant') renderQuadrant();
   else if(view==='habits') renderHabits();
@@ -1924,17 +1886,54 @@ function renderToday(){
   renderRenewal();
   updateScores();
   renderTodayRockNudge();
-  // Only show rock suggestions if user hasn't skipped them today
   if(!sessionStorage.getItem('df3_skip_rock_suggest_'+TODAY)){
     renderTodayRockSuggestions();
   }
   renderTimeline();
+  // Update COI count badge
+  loadCoiItems();
+  const active = coiItems.filter(x=>!x.resolved).length;
+  const badge = document.getElementById('coi-today-count');
+  if(badge) badge.textContent = active + ' active';
   const el=document.getElementById('eim-mission-text');
   if(el) el.textContent=missionStatement?(missionStatement.length>130?missionStatement.slice(0,130)+'...':missionStatement):'Define your mission statement in End in Mind.';
-  // Restore gratitude button state
   if(loadLocal('grat_done_'+TODAY)){
-    const tb=document.getElementById('grat-trigger-btn'); if(tb){ tb.textContent='🌅 Gratitude Practice — Done ✓'; tb.classList.add('done'); }
+    const tb=document.getElementById('grat-trigger-btn'); if(tb){ tb.textContent='🌅 Morning Intention — Done ✓'; tb.classList.add('done'); }
   }
+}
+
+// ── CIRCLE OF INFLUENCE MODAL ──
+function openInfluenceModal(){
+  loadCoiItems();
+  renderInfluence();
+  openModal('m-influence');
+}
+
+// ── START MY DAY — linear 60-second flow ──
+let _smdStep = 0;
+const _smdSteps = ['intention','priorities','rocks'];
+function openStartMyDay(){
+  _smdStep = 0;
+  // If no gratitude done today, start there
+  if(!loadLocal('grat_done_'+TODAY)){
+    openGratitude();
+    return;
+  }
+  _runSmdStep();
+}
+function _runSmdStep(){
+  if(_smdStep === 0){
+    // Show priorities modal if less than 3
+    if(priorities.length < 3){ openAddPriority(); return; }
+    _smdStep++;
+  }
+  if(_smdStep === 1){
+    // Check big rocks
+    if(!hasPlanThisWeek()){ openBigRocks(); return; }
+    _smdStep++;
+  }
+  // Done
+  toast('✦ Day set. Your 3 priorities are locked in.');
 }
 function renderPriorities(){
   const c=document.getElementById('priority-slots'); if(!c) return;
@@ -2176,6 +2175,8 @@ function renderWeek(){
   const cw=document.getElementById('role-cap-warning'); if(cw) cw.style.display=roles.length>=4?'block':'none';
   renderBigRocksSummary();
   renderQ2List(); renderRoleCommitments();
+  // Restore not-to-do field
+  const ntd=document.getElementById('week-not-todo'); if(ntd) ntd.value=loadLocal('week_not_todo')||'';
 }
 function renderQ2List(){
   const c=document.getElementById('q2-list'); if(!c) return;
@@ -2858,15 +2859,17 @@ function renderHabits(){
     let streak=0; for(let i=0;i<365;i++){ const d=new Date(); d.setDate(d.getDate()-i); const ds=d.toISOString().slice(0,10); if(logs[ds]) streak++; else if(i>0) break; }
     const days=[]; for(let i=6;i>=0;i--){ const d=new Date(); d.setDate(d.getDate()-i); days.push({ds:d.toISOString().slice(0,10),lbl:d.toLocaleDateString('en-US',{weekday:'narrow'}),isToday:i===0}); }
     const wd=days.filter(d=>logs[d.ds]).length;
-    return '<div class="habit-card"><div class="h-icon">'+(h.icon||'⭐')+'</div><div class="h-body"><div style="display:flex;align-items:center;gap:8px"><div class="h-name">'+h.name+'</div><button onclick="editHabit(\''+h.id+'\')" style="padding:3px 8px;border:1px solid var(--border);border-radius:6px;font-size:10px;font-weight:700;cursor:pointer;background:transparent;color:var(--ink-m);font-family:\'DM Sans\',sans-serif">✏️</button></div><div class="h-streak">🔥 <b>'+streak+'</b> day streak · '+wd+'/7 this week</div><div class="h-week">'+days.map(d=>'<div class="h-day'+(logs[d.ds]?' on':'')+(d.isToday?' today':'')+'" onclick="toggleHabitDay(\''+h.id+'\',\''+d.ds+'\')" title="'+d.ds+'">'+d.lbl+'</div>').join('')+'</div></div><button class="h-chk '+(todayDone?'on':'off')+'" onclick="toggleHabit(\''+h.id+'\')">'+(todayDone?'✅':'⭕')+'</button></div>';
+    const stackLine = h.habitStack ? '<div style="font-size:11px;color:var(--navy-2);font-weight:600;margin-top:3px">📎 After I '+esc(h.habitStack)+'</div>' : '';
+    const identityLine = h.identity ? '<div style="font-size:11px;color:var(--gold);font-weight:600;margin-top:2px">🪪 I am a '+esc(h.identity)+'</div>' : '';
+    return '<div class="habit-card"><div class="h-icon">'+(h.icon||'⭐')+'</div><div class="h-body"><div style="display:flex;align-items:center;gap:8px"><div class="h-name">'+esc(h.name)+'</div><button onclick="editHabit(\''+h.id+'\')" style="padding:3px 8px;border:1px solid var(--border);border-radius:6px;font-size:10px;font-weight:700;cursor:pointer;background:transparent;color:var(--ink-m);font-family:\'DM Sans\',sans-serif">✏️</button></div>'+stackLine+identityLine+'<div class="h-streak" style="margin-top:4px">🔥 <b>'+streak+'</b> day streak · '+wd+'/7 this week</div><div class="h-week">'+days.map(d=>'<div class="h-day'+(logs[d.ds]?' on':'')+(d.isToday?' today':'')+'" onclick="toggleHabitDay(\''+h.id+'\',\''+d.ds+'\')" title="'+d.ds+'">'+d.lbl+'</div>').join('')+'</div></div><button class="h-chk '+(todayDone?'on':'off')+'" onclick="toggleHabit(\''+h.id+'\')">'+(todayDone?'✅':'⭕')+'</button></div>';
   }).join('');
 }
 function toggleHabit(id){ if(!habitLogs[id]) habitLogs[id]={}; habitLogs[id][TODAY]=!habitLogs[id][TODAY]; save('habitLogs',habitLogs); renderHabits(); toast(habitLogs[id][TODAY]?'🔥 Habit done!':'⭕ Unchecked'); }
 function toggleHabitDay(id,ds){ if(!habitLogs[id]) habitLogs[id]={}; habitLogs[id][ds]=!habitLogs[id][ds]; save('habitLogs',habitLogs); renderHabits(); }
-function openAddHabit(){ editingHabitId=null; document.getElementById('habit-modal-title').textContent='Add Habit'; ['h-name','h-icon'].forEach(id=>document.getElementById(id).value=''); document.getElementById('h-covey').value='h7'; document.getElementById('habit-delete-row').style.display='none'; openModal('m-habit'); }
-function editHabit(id){ const h=habits.find(x=>x.id===id); if(!h) return; editingHabitId=id; document.getElementById('habit-modal-title').textContent='Edit Habit'; document.getElementById('h-name').value=h.name||''; document.getElementById('h-icon').value=h.icon||''; document.getElementById('h-covey').value=h.coveyHabit||'h7'; document.getElementById('habit-delete-row').style.display='block'; openModal('m-habit'); }
-function saveHabit(){ const name=document.getElementById('h-name').value.trim(); if(!name){ toast('Enter a habit name'); return; } const h={id:editingHabitId||'h'+Date.now(),name,icon:document.getElementById('h-icon').value.trim()||'⭐',coveyHabit:document.getElementById('h-covey').value}; if(editingHabitId){ const i=habits.findIndex(x=>x.id===editingHabitId); if(i>-1) habits[i]=h; toast('✅ Updated'); } else { habits.push(h); toast('🌱 Habit created'); } save('habits',habits); closeModal('m-habit'); renderHabits(); }
-function deleteHabit(){ if(!editingHabitId) return; const h=habits.find(x=>x.id===editingHabitId); if(!confirm('Delete "'+h?.name+'"?')) return; habits=habits.filter(x=>x.id!==editingHabitId); if(habitLogs[editingHabitId]) delete habitLogs[editingHabitId]; save('habits',habits); save('habitLogs',habitLogs); closeModal('m-habit'); renderHabits(); }
+function openAddHabit(){ editingHabitId=null; document.getElementById('habit-modal-title').textContent='Add Habit'; ['h-name','h-icon','h-stack','h-identity'].forEach(id=>{ const el=document.getElementById(id); if(el) el.value=''; }); document.getElementById('h-covey').value='h7'; document.getElementById('habit-delete-row').style.display='none'; openModal('m-habit'); setTimeout(()=>document.getElementById('h-name').focus(),120); }
+function editHabit(id){ const h=habits.find(x=>x.id===id); if(!h) return; editingHabitId=id; document.getElementById('habit-modal-title').textContent='Edit Habit'; document.getElementById('h-name').value=h.name||''; document.getElementById('h-icon').value=h.icon||''; document.getElementById('h-covey').value=h.coveyHabit||'h7'; document.getElementById('h-stack').value=h.habitStack||''; document.getElementById('h-identity').value=h.identity||''; document.getElementById('habit-delete-row').style.display='block'; openModal('m-habit'); }
+function saveHabit(){ const name=document.getElementById('h-name').value.trim(); if(!name){ toast('Enter a habit name'); return; } const h={id:editingHabitId||'h'+Date.now(),name,icon:document.getElementById('h-icon').value.trim()||'⭐',coveyHabit:document.getElementById('h-covey').value,habitStack:document.getElementById('h-stack').value.trim(),identity:document.getElementById('h-identity').value.trim()}; if(editingHabitId){ const i=habits.findIndex(x=>x.id===editingHabitId); if(i>-1) habits[i]=h; toast('✅ Updated'); } else { habits.push(h); toast('🌱 Habit created'); } save('habits',habits); closeModal('m-habit'); renderHabits(); }
+function deleteHabit(){ if(!editingHabitId) return; const h=habits.find(x=>x.id===editingHabitId); if(!confirm('Delete "'+esc(h?.name||'this habit')+'"?')) return; habits=habits.filter(x=>x.id!==editingHabitId); if(habitLogs[editingHabitId]) delete habitLogs[editingHabitId]; save('habits',habits); save('habitLogs',habitLogs); closeModal('m-habit'); renderHabits(); }
 
 // ══════════════════════════════
 // SETTINGS VIEW
@@ -2918,7 +2921,7 @@ function exportFullBackup(silent){
   if(silent === undefined) silent = false;
   try{
     const backup = {
-      version: 'v3.3',
+      version: 'v4',
       exportedAt: new Date().toISOString(),
       user: currentUser,
       data: {}
@@ -2988,43 +2991,30 @@ function clearAllData(){
 // ══════════════════════════════
 function openGratitude(){
   const h=new Date().getHours();
-  const tEl=document.getElementById('grat-time-title'); if(tEl) tEl.textContent=h<12?'Good Morning 🌅':h<17?'Afternoon Check-In ☀️':'Evening Reflection 🌙';
-  renderGratGapAlert();
-  const container=document.getElementById('grat-roles-container');
-  if(container) container.innerHTML=roles.slice(0,4).map(r=>'<div class="grat-role-row"><div class="grat-role-tag">'+r.icon+' '+r.name+'</div><input class="grat-role-inp" id="grat-r-'+r.id+'" value="'+(loadLocal('grat_role_'+TODAY+'_'+r.id)||'')+'" placeholder="What in '+r.name+' am I grateful for..."></div>').join('');
+  const tEl=document.getElementById('grat-time-title'); if(tEl) tEl.textContent=h<12?'Morning Intention 🌅':h<17?'Midday Check-In ☀️':'Evening Reflection 🌙';
   const gg=document.getElementById('grat-general'); if(gg) gg.value=loadLocal('grat_general_'+TODAY)||'';
-  const gs=document.getElementById('grat-scarcity'); if(gs) gs.value=loadLocal('grat_scarcity_'+TODAY)||'';
-  const ga=document.getElementById('grat-abundance'); if(ga) ga.value=loadLocal('grat_abundance_'+TODAY)||'';
+  const gi=document.getElementById('grat-intention'); if(gi) gi.value=loadLocal('grat_intention_'+TODAY)||'';
   gratMood=loadLocal('grat_mood_'+TODAY)||'steady';
-  document.querySelectorAll('.grat-mood-btn').forEach(b=>b.classList.toggle('active',b.dataset.mood===gratMood));
+  document.querySelectorAll('#m-gratitude .grat-mood-btn').forEach(b=>b.classList.toggle('active',b.dataset.mood===gratMood));
   document.getElementById('m-gratitude').classList.add('open');
 }
 function closeGratitude(){ document.getElementById('m-gratitude').classList.remove('open'); }
-function setMood(btn){ gratMood=btn.dataset.mood; document.querySelectorAll('.grat-mood-btn').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); saveLocal('grat_mood_'+TODAY,gratMood); }
-function renderGratGapAlert(){
-  const alertEl=document.getElementById('grat-gap-alert'), msgEl=document.getElementById('grat-gap-msg');
-  if(!alertEl||!msgEl) return;
-  const kwMap={'Family':/fam|parent|spouse|partner/i,'Health':/health|fitness|physical/i,'Growth':/learn|growth|develop/i,'Faith':/spirit|faith|church|prayer/i,'Service':/community|service|leader|ward/i};
-  const gaps=[];
-  values.forEach(v=>{ const kw=kwMap[v]; if(!kw) return; let any=false; for(let i=0;i<7;i++){ const d=new Date(); d.setDate(d.getDate()-i); const ds=d.toISOString().slice(0,10); const s=JSON.parse(localStorage.getItem(uid_key('today_'+ds))||'{}'); const rs=s.roleServed||{}; const matched=roles.filter(r=>kw.test(r.name+' '+(r.successDef||''))); if(matched.some(r=>rs[r.id]===true)){ any=true; break; } } if(!any) gaps.push(v); });
-  if(gaps.length){ alertEl.style.display='block'; msgEl.textContent=' You selected '+gaps.join(', ')+' as core values, but these had no role activity in 7 days. Gratitude without aligned action is decoration.'; }
-  else alertEl.style.display='none';
-}
+function setMood(btn){ gratMood=btn.dataset.mood; document.querySelectorAll('#m-gratitude .grat-mood-btn').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); saveLocal('grat_mood_'+TODAY,gratMood); }
 function saveGratitude(){
-  roles.forEach(r=>{ const el=document.getElementById('grat-r-'+r.id); if(el) saveLocal('grat_role_'+TODAY+'_'+r.id,el.value); });
   const gg=document.getElementById('grat-general'); if(gg) saveLocal('grat_general_'+TODAY,gg.value);
-  const gs=document.getElementById('grat-scarcity'); if(gs) saveLocal('grat_scarcity_'+TODAY,gs.value);
-  const ga=document.getElementById('grat-abundance'); if(ga) saveLocal('grat_abundance_'+TODAY,ga.value);
+  const gi=document.getElementById('grat-intention'); if(gi) saveLocal('grat_intention_'+TODAY,gi.value);
   saveLocal('grat_mood_'+TODAY,gratMood);
   saveLocal('grat_done_'+TODAY,'1');
-  const tb=document.getElementById('grat-trigger-btn'); if(tb){ tb.textContent='🌅 Gratitude Practice — Done ✓'; tb.classList.add('done'); }
+  const tb=document.getElementById('grat-trigger-btn'); if(tb){ tb.textContent='🌅 Morning Intention — Done ✓'; tb.classList.add('done'); }
   closeGratitude(); toast('✦ Day begun with intention.');
+  // If called from Start My Day flow, continue it
+  if(typeof _smdStep !== 'undefined'){ _smdStep=0; setTimeout(_runSmdStep,300); }
 }
 function checkAutoGratitude(){
   const done=loadLocal('grat_done_'+TODAY);
   const h=new Date().getHours();
   if(!done&&h>=5&&h<=11) setTimeout(openGratitude,1400);
-  else if(done){ const tb=document.getElementById('grat-trigger-btn'); if(tb){ tb.textContent='🌅 Gratitude Practice — Done ✓'; tb.classList.add('done'); } }
+  else if(done){ const tb=document.getElementById('grat-trigger-btn'); if(tb){ tb.textContent='🌅 Morning Intention — Done ✓'; tb.classList.add('done'); } }
 }
 
 // ══════════════════════════════
