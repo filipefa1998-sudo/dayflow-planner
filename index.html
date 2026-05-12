@@ -740,6 +740,9 @@ body.dark .proactive-nudge{background:rgba(27,58,107,.2);color:var(--gold)}
       <div style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:1.2px;color:rgba(255,255,255,.3);margin-bottom:12px">Who's planning today?</div>
       <div class="profile-grid" id="profile-grid"></div>
       <button class="add-profile-btn" id="show-add-profile-btn" onclick="openAddProfile()">+ Add Profile</button>
+      <div id="recover-link-wrap" style="display:none;text-align:center;margin-top:14px">
+        <button onclick="openRecover()" style="background:none;border:none;color:rgba(201,168,76,.6);font-family:'DM Sans',sans-serif;font-size:12px;font-weight:700;cursor:pointer;text-decoration:underline">↩ Recover existing account</button>
+      </div>
     </div>
     <!-- Add profile form -->
     <div class="ap-form" id="add-profile-form">
@@ -762,6 +765,18 @@ body.dark .proactive-nudge{background:rgba(27,58,107,.2);color:var(--gold)}
       <div id="setup-content"></div>
     </div>
     <div class="auth-quote">"To begin with the end in mind means to start with a clear understanding of your destination." — Covey</div>
+    <!-- Account Recovery -->
+    <div class="ap-form" id="recover-form">
+      <div style="font-size:13px;font-weight:700;color:rgba(255,255,255,.6);margin-bottom:6px">🔑 Recover Your Account</div>
+      <div style="font-size:11px;color:rgba(255,255,255,.35);margin-bottom:14px;line-height:1.6">Your data is safe in the cloud. Enter your name to reconnect to your existing account.</div>
+      <input class="ap-inp" id="recover-name" placeholder="Your name (e.g. Filipe)" style="margin-bottom:10px">
+      <div id="recover-error" style="color:#E57373;font-size:11px;font-weight:700;margin-bottom:8px;display:none"></div>
+      <div class="ap-btns">
+        <button class="ap-btn ap-btn-cancel" onclick="closeRecover()">Cancel</button>
+        <button class="ap-btn ap-btn-create" onclick="recoverAccount()">↩ Recover Account</button>
+      </div>
+      <div style="margin-top:14px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08);font-size:10px;color:rgba(255,255,255,.25);line-height:1.6">Your profile UID is looked up from the cloud. If your name matches a known account it will be restored automatically.</div>
+    </div>
   </div>
 </div>
 
@@ -1607,10 +1622,14 @@ function saveProfiles(){ saveGlobal('profiles', profiles); }
 function renderProfileGrid(){
   const grid = document.getElementById('profile-grid');
   if(!grid) return;
+  const recoverWrap = document.getElementById('recover-link-wrap');
   if(!profiles.length){
     grid.innerHTML = '<div style="font-size:13px;color:rgba(255,255,255,.4);grid-column:1/-1;padding:8px 0">No profiles yet. Create one below.</div>';
+    // Show recover link — user may have cleared browser but data still exists in Firestore
+    if(recoverWrap) recoverWrap.style.display = 'block';
     return;
   }
+  if(recoverWrap) recoverWrap.style.display = 'none';
   grid.innerHTML = profiles.map(p =>
     '<div class="profile-card" onclick="selectProfile(\''+p.id+'\')">'
     +'<button class="pdel-btn" onclick="event.stopPropagation();deleteProfile(\''+p.id+'\')">✕</button>'
@@ -1619,6 +1638,87 @@ function renderProfileGrid(){
     +'<div class="profile-sub">Tap to plan</div>'
     +'</div>'
   ).join('');
+}
+
+// ── ACCOUNT RECOVERY ──
+function openRecover(){
+  document.getElementById('auth-main').style.display='none';
+  document.getElementById('add-profile-form').classList.remove('show');
+  document.getElementById('setup-form').classList.remove('show');
+  document.getElementById('recover-form').classList.add('show');
+  document.getElementById('recover-name').value='';
+  document.getElementById('recover-error').style.display='none';
+  setTimeout(()=>document.getElementById('recover-name').focus(),120);
+}
+function closeRecover(){
+  document.getElementById('recover-form').classList.remove('show');
+  document.getElementById('auth-main').style.display='block';
+}
+async function recoverAccount(){
+  const nameEl = document.getElementById('recover-name');
+  const errEl  = document.getElementById('recover-error');
+  const name   = nameEl.value.trim();
+  if(!name){ errEl.textContent='Enter your name to recover your account'; errEl.style.display='block'; return; }
+
+  errEl.style.display='none';
+  const btn = document.querySelector('#recover-form .ap-btn-create');
+  if(btn){ btn.textContent='Searching...'; btn.disabled=true; }
+
+  // Wait for Firebase if needed
+  let waited = 0;
+  while(!window._fbReady && waited < 6000){
+    await new Promise(r=>setTimeout(r,200)); waited+=200;
+  }
+
+  // Known UID map — canonical accounts that can always be recovered by name
+  const KNOWN_UIDS = {
+    'filipe': 'u_filipe',
+    'Filipe': 'u_filipe',
+  };
+
+  let recoveredUID = null;
+  let recoveredEmoji = '🔥';
+
+  // Check known UIDs first (instant, no network needed)
+  const nameKey = name.toLowerCase();
+  for(const [k,v] of Object.entries(KNOWN_UIDS)){
+    if(k.toLowerCase() === nameKey){ recoveredUID = v; break; }
+  }
+
+  // If Firebase is ready, try to verify the UID actually has data in Firestore
+  if(recoveredUID && window._fbReady){
+    try{
+      const coll = window._fbCollection(window._db, 'users', recoveredUID, 'data');
+      const snap = await window._fbGetDocs(coll);
+      if(snap.size === 0 && !KNOWN_UIDS[name]){
+        recoveredUID = null; // No data found under this UID
+      }
+    } catch(e){ console.warn('Recovery Firestore check failed:', e.message); }
+  }
+
+  if(!recoveredUID){
+    errEl.textContent = 'No account found for "'+name+'". Check your name or create a new profile.';
+    errEl.style.display='block';
+    if(btn){ btn.textContent='↩ Recover Account'; btn.disabled=false; }
+    return;
+  }
+
+  // Restore profile
+  const recovered = {id: recoveredUID, name, emoji: recoveredEmoji, createdAt: new Date().toISOString()};
+  profiles = profiles.filter(p=>p.id !== recoveredUID); // avoid duplicates
+  profiles.push(recovered);
+  saveProfiles();
+  localStorage.setItem('df3_setup_'+recoveredUID, '1');
+  saveGlobal('currentUser', {uid: recoveredUID, name, emoji: recoveredEmoji});
+
+  if(btn){ btn.textContent='✓ Found! Loading...'; }
+  currentUser = {uid: recoveredUID, name, emoji: recoveredEmoji};
+
+  // Small delay so user sees the success state
+  await new Promise(r=>setTimeout(r,600));
+  document.getElementById('recover-form').classList.remove('show');
+  loadAll(); showApp();
+  toast('✓ Account recovered — welcome back, '+name+'!');
 }
 
 function selectProfile(id){
