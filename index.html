@@ -1374,7 +1374,14 @@ body.dark .proactive-nudge{background:rgba(27,58,107,.2);color:var(--gold)}
 // ════════════════════════════════════════════
 // DAYFLOW v3.1 — SINGLE CLEAN ENGINE
 // ════════════════════════════════════════════
-const TODAY = new Date().toISOString().slice(0,10);
+function getToday(){ return new Date().toISOString().slice(0,10); }
+const TODAY = getToday(); // snapshot at load — refreshed on nav() calls
+
+// ── SAFE STRING HELPERS ──
+// Use esc() whenever user-typed text appears inside HTML display
+// Use escAttr() when user-typed text appears inside an HTML attribute (onclick, value, placeholder)
+function esc(str){ return String(str||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function escAttr(str){ return String(str||'').replace(/\\/g,'\\\\').replace(/'/g,"\\'").replace(/"/g,'&quot;'); }
 const DEFAULT_VALUES = ['Integrity','Discipline','Family','Growth','Faith','Service','Excellence','Courage'];
 const Q2_ITEMS = [
   {id:'strategy',label:'Long-term Strategy & Planning'},
@@ -2614,7 +2621,7 @@ function renderEndInMindRoles(){
   if(maxNote) maxNote.style.display=roles.length>=4?'block':'none';
   if(addBtn) addBtn.style.display=roles.length>=4?'none':'inline-flex';
   if(!roles.length){ c.innerHTML='<div style="font-size:13px;color:var(--ink-m);font-style:italic">No roles defined yet. Add your first role above.</div>'; return; }
-  c.innerHTML=roles.slice(0,4).map(r=>'<div class="role-def-row"><div class="role-def-icon">'+r.icon+'</div><div class="role-def-body"><div class="role-def-name">'+r.name+'</div><div class="role-def-success">'+(r.successDef||'Define success')+'</div>'+(r.weeklyCommitment?'<div style="font-size:11px;color:var(--navy-2);margin-top:2px;font-weight:600">→ '+r.weeklyCommitment+'</div>':'')+'</div><div class="role-def-actions"><button class="role-def-btn" onclick="editRole(\''+r.id+'\')">✏️ Edit</button><button class="role-def-btn danger" onclick="editRole(\''+r.id+'\')">🗑️</button></div></div>').join('');
+  c.innerHTML=roles.slice(0,4).map(r=>'<div class="role-def-row"><div class="role-def-icon">'+r.icon+'</div><div class="role-def-body"><div class="role-def-name">'+esc(r.name)+'</div><div class="role-def-success">'+esc(r.successDef||'Define success')+'</div>'+(r.weeklyCommitment?'<div style="font-size:11px;color:var(--navy-2);margin-top:2px;font-weight:600">→ '+esc(r.weeklyCommitment)+'</div>':'')+'</div><div class="role-def-actions"><button class="role-def-btn" onclick="editRole(\''+r.id+'\')">✏️ Edit</button><button class="role-def-btn danger" onclick="editRole(\''+r.id+'\')">🗑️</button></div></div>').join('');
 }
 function openAddRole(){
   if(roles.length>=4){ toast('✦ Max 4 roles.'); return; }
@@ -2835,7 +2842,7 @@ async function aiMilestones(){
 function renderQuadrant(){
   const c=document.getElementById('quad-grid'); if(!c) return;
   const cells=[{q:'1',label:'Q1 — Do First',desc:'Urgent + Important',color:'var(--q1)',bgClass:'q1-cell'},{q:'2',label:'Q2 — Schedule',desc:'Important, not urgent',color:'var(--q2)',bgClass:'q2-cell'},{q:'3',label:'Q3 — Delegate',desc:'Urgent, not important',color:'var(--q3)',bgClass:'q3-cell'},{q:'4',label:'Q4 — Eliminate',desc:'Not urgent, not important',color:'var(--q4)',bgClass:'q4-cell'}];
-  c.innerHTML=cells.map(cell=>{ const items=priorities.filter(p=>(p.quadrant||'2')===cell.q); return '<div class="quad-cell '+cell.bgClass+'"><div class="quad-label" style="color:'+cell.color+'">'+cell.label+'</div><div class="quad-desc">'+cell.desc+'</div>'+items.map(p=>'<div class="quad-task-item'+(p.done?' done':'')+'" onclick="togglePriority(\''+p.id+'\')"><div class="qt-dot" style="background:'+cell.color+'"></div>'+p.title+'</div>').join('')+'<button class="quad-add-btn" onclick="openAddPriorityQ(\''+cell.q+'\')">+ Add Q'+cell.q+' priority</button></div>'; }).join('');
+  c.innerHTML=cells.map(cell=>{ const items=priorities.filter(p=>(p.quadrant||'2')===cell.q); return '<div class="quad-cell '+cell.bgClass+'"><div class="quad-label" style="color:'+cell.color+'">'+cell.label+'</div><div class="quad-desc">'+cell.desc+'</div>'+items.map(p=>'<div class="quad-task-item'+(p.done?' done':'')+'" onclick="togglePriority(\''+p.id+'\')"><div class="qt-dot" style="background:'+cell.color+'"></div>'+esc(p.title)+'</div>').join('')+'<button class="quad-add-btn" onclick="openAddPriorityQ(\''+cell.q+'\')">+ Add Q'+cell.q+' priority</button></div>'; }).join('');
 }
 function openAddPriorityQ(q){ if(priorities.length>=3){ toast('✦ Max 3 priorities'); return; } openAddPriority(); setTimeout(()=>{ document.getElementById('p-quadrant').value=q; },50); }
 
@@ -2953,16 +2960,26 @@ function checkAutoBackup(){
 
 function clearAllData(){
   if(!confirm('⚠️ Delete ALL your data? This removes it from all devices.')) return;
+  if(!confirm('Are you sure? This cannot be undone.')) return;
   roles=[];habits=[];habitLogs={};relationships=[];goals=[];bigRocks={};
   missionStatement='';futureself='';values=[...DEFAULT_VALUES];
   reflections=[];priorities=[];renewalState={};q2State={};roleServed={};
-  ['roles','habits','habitLogs','relationships','goals','bigRocks','mission','futureself','values','reflections'].forEach(k=>{
+  coiItems=[];weeklyReports=[];
+  const keysToDelete = ['roles','habits','habitLogs','relationships','goals','bigRocks',
+    'mission','futureself','values','reflections','coiItems','weeklyReports'];
+  // Also wipe today and past 30 days of state
+  for(let i=0;i<30;i++){
+    const d=new Date(); d.setDate(d.getDate()-i);
+    keysToDelete.push('today_'+d.toISOString().slice(0,10));
+  }
+  keysToDelete.forEach(k=>{
     localStorage.removeItem(uid_key(k));
     if(window._fbReady && currentUser?.uid){
       const ref = window._fbDoc(window._db,'users',currentUser.uid,'data',k);
       window._fbDeleteDoc(ref).catch(()=>{});
     }
   });
+  saveTodayState();
   toast('🗑️ Data cleared from all devices'); renderSettings();
 }
 
