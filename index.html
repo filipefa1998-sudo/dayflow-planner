@@ -2,7 +2,20 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="DayFlow">
+<meta name="application-name" content="DayFlow">
+<meta name="theme-color" content="#0D1F3C">
+<meta name="description" content="DayFlow — Decision architecture for intentional living">
+<link rel="apple-touch-icon" sizes="180x180" href="icons/icon-180.png">
+<link rel="apple-touch-icon" sizes="152x152" href="icons/icon-152.png">
+<link rel="apple-touch-icon" sizes="120x120" href="icons/icon-120.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="icons/icon-32.png">
+<link rel="manifest" href="manifest.json">
 <title>DayFlow v4 — Decision Architecture</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&display=swap" rel="stylesheet">
 <style>
@@ -465,20 +478,176 @@ body.dark .q2-title{color:var(--gold)}
 .mob-nav-btn.active{color:var(--gold)}
 .mob-nav-ico{font-size:20px}
 .mob-nav-lbl{font-size:9px;font-weight:700;letter-spacing:.3px}
-@media(max-width:768px){
-  #app{flex-direction:column}
-  .sidebar{display:none!important}
-  .main{padding-bottom:var(--mob-nav)}
-  .mob-header{display:flex!important}
-  .mob-nav{display:flex!important}
-  .view{padding:14px 16px;max-width:100%}
-  .pg-title{font-size:22px}
-  .renewal-grid,.score-grid,.quad-grid{grid-template-columns:1fr 1fr}
-  #toast{bottom:calc(var(--mob-nav) + 10px)}
-  .dark-btn{bottom:calc(var(--mob-nav) + 10px)}
+/* ── SAFE AREA (notch / Dynamic Island / home bar) ── */
+:root{
+  --sat:env(safe-area-inset-top,0px);
+  --sar:env(safe-area-inset-right,0px);
+  --sab:env(safe-area-inset-bottom,0px);
+  --sal:env(safe-area-inset-left,0px);
 }
+
+/* ── GLOBAL TOUCH FIXES ── */
+*{ -webkit-tap-highlight-color:transparent; }
+body{ -webkit-text-size-adjust:100%; }
+button,a{ touch-action:manipulation; cursor:pointer; }
+/* Prevent iOS Safari zoom on input focus — must be 16px+ */
+input,select,textarea{
+  -webkit-appearance:none;
+  touch-action:manipulation;
+  font-size:16px!important;
+  border-radius:var(--rs);
+}
+
+/* ── 768px BREAKPOINT ── */
+@media(max-width:768px){
+  #app{ flex-direction:column }
+  .sidebar{ display:none!important }
+
+  /* Main content — pad for bottom nav + iPhone home bar */
+  .main{ padding-bottom:calc(var(--mob-nav) + var(--sab)) }
+
+  /* Mobile header — respect top notch */
+  .mob-header{
+    display:flex!important;
+    padding-top:calc(12px + var(--sat));
+    padding-left:calc(16px + var(--sal));
+    padding-right:calc(16px + var(--sar));
+  }
+
+  /* Bottom nav — respect home indicator */
+  .mob-nav{
+    display:flex!important;
+    height:calc(var(--mob-nav) + var(--sab));
+    padding-bottom:var(--sab);
+    padding-left:var(--sal);
+    padding-right:var(--sar);
+  }
+
+  /* Toast + dark btn clear the nav + home bar */
+  #toast{ bottom:calc(var(--mob-nav) + var(--sab) + 10px) }
+  .dark-btn{ bottom:calc(var(--mob-nav) + var(--sab) + 10px); right:calc(16px + var(--sar)) }
+
+  /* Views */
+  .view{ padding:14px 16px; max-width:100% }
+  .pg-title{ font-size:22px }
+
+  /* Page header — stack title above button on mobile */
+  .pg-hdr{
+    flex-direction:column;
+    align-items:flex-start;
+    gap:10px;
+  }
+  .pg-hdr>div:last-child{ width:100%; display:flex; gap:8px; }
+  .pg-hdr .btn{ flex:1; justify-content:center; }
+
+  /* Grids */
+  .renewal-grid,.score-grid{ grid-template-columns:1fr 1fr }
+  .quad-grid{ grid-template-columns:1fr 1fr }
+  .report-score-row{ grid-template-columns:1fr 1fr }
+  .coi-stat-row{ grid-template-columns:1fr 1fr 1fr }
+  .profile-grid{ grid-template-columns:1fr 1fr }
+
+  /* Modals — full bottom sheet */
+  .overlay{
+    padding:0;
+    align-items:flex-end;
+  }
+  .overlay .modal{
+    border-radius:22px 22px 0 0;
+    max-height:92vh;
+    margin:0;
+    padding-bottom:var(--sab);
+  }
+  .grat-overlay{ padding:0; align-items:flex-end }
+  .grat-card{
+    border-radius:22px 22px 0 0;
+    max-height:90vh;
+    padding-bottom:calc(16px + var(--sab));
+  }
+  .eve-overlay{ padding:0; align-items:flex-end }
+  .eve-modal{
+    border-radius:22px 22px 0 0;
+    max-height:88vh;
+    padding-bottom:calc(16px + var(--sab));
+  }
+  .report-modal{ border-radius:22px 22px 0 0; max-height:92vh }
+
+  /* COI influence modal */
+  #m-influence .modal{ border-radius:22px 22px 0 0; max-height:92vh; margin:0; }
+
+  /* Auth card — less padding on phone */
+  .auth-card{ padding:26px 20px; border-radius:20px }
+
+  /* Timeline — tighter labels on phone */
+  .tl-hour-lbl{ font-size:9px; width:32px }
+  .tl-hour-line{ left:42px }
+  .tl-slot-area{ padding-left:6px }
+  .tl-now-line,.tl-now-dot{ left:42px }
+  .tl-block{ padding:6px 10px }
+
+  /* Drawer — respect home bar */
+  #mob-drawer{ padding-bottom:calc(20px + var(--sab))!important }
+
+  /* Role def rows stack on mobile */
+  .role-def-row{ flex-direction:column; align-items:flex-start; gap:8px }
+  .role-def-actions{ width:100%; display:flex; gap:6px }
+  .role-def-btn{ flex:1; text-align:center }
+
+  /* Priority time badge */
+  .p-time-badge{ font-size:9px; padding:2px 6px }
+
+  /* Milestone date input full width */
+  #ms-date-inp{ width:100%!important }
+
+  /* Goal modal 2-col grid single col */
+  .goal-date-grid{ grid-template-columns:1fr!important }
+
+  /* Card padding tighter */
+  .card{ padding:16px 14px }
+  .m-body{ padding:14px 16px }
+  .m-hdr{ padding:18px 16px 0 }
+  .m-foot{ padding:0 16px 16px }
+}
+
+/* ── 480px BREAKPOINT ── */
 @media(max-width:480px){
-  .score-grid,.renewal-grid,.quad-grid{grid-template-columns:1fr}
+  .score-grid,.renewal-grid,.quad-grid{ grid-template-columns:1fr }
+  .report-score-row{ grid-template-columns:1fr 1fr }
+  .coi-stat-row{ grid-template-columns:1fr 1fr }
+  .profile-grid{ grid-template-columns:1fr 1fr }
+  .pg-hdr .btn{ font-size:12px; padding:9px 14px }
+
+  /* Habit day dots — bigger touch target */
+  .h-day{
+    width:36px!important;
+    height:36px!important;
+    font-size:9px!important;
+    border-radius:8px!important;
+  }
+  .h-week{ gap:3px }
+
+  /* Auth tighter */
+  .auth-card{ padding:20px 14px }
+  .emoji-grid{ grid-template-columns:repeat(6,1fr) }
+
+  /* Timeline ultra-compact */
+  .tl-b-title{ font-size:12px }
+  .tl-b-meta{ font-size:9px }
+  .timeline-now-pill{ font-size:9px; padding:1px 7px }
+  .tl-hour-lbl{ font-size:8px; width:28px }
+  .tl-hour-line{ left:38px }
+  .tl-slot-area{ padding-left:4px }
+
+  /* EBA card compact */
+  .eba-header{ padding:10px 14px }
+  .eba-actions{ padding:0 14px 10px }
+  .eba-bar-row{ padding:0 14px 8px }
+
+  /* Big rocks step */
+  .br-step{ padding:0 }
+
+  /* COI stat row single on tiny */
+  .coi-stat-row{ grid-template-columns:1fr 1fr }
 }
 
 /* ════ v4 ════ */
@@ -1128,7 +1297,7 @@ body.dark .proactive-nudge{background:rgba(27,58,107,.2);color:var(--gold)}
 <div id="mob-drawer-overlay" onclick="closeMobDrawer()" style="display:none;position:fixed;inset:0;z-index:600;background:rgba(0,0,0,.55)"></div>
 
 <!-- MOBILE DRAWER -->
-<div id="mob-drawer" style="display:none;position:fixed;bottom:0;left:0;right:0;z-index:700;background:var(--navy);border-radius:20px 20px 0 0;padding:14px 0 36px;box-shadow:0 -8px 40px rgba(0,0,0,.5)">
+<div id="mob-drawer" style="display:none;position:fixed;bottom:0;left:0;right:0;z-index:700;background:var(--navy);border-radius:20px 20px 0 0;padding:14px 0 max(36px,calc(20px + env(safe-area-inset-bottom,0px)));box-shadow:0 -8px 40px rgba(0,0,0,.5)">
   <div style="width:40px;height:4px;background:rgba(255,255,255,.2);border-radius:2px;margin:0 auto 18px"></div>
   <div style="font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:2px;color:rgba(255,255,255,.3);text-align:center;margin-bottom:14px">All Screens</div>
   <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:0 16px">
@@ -1157,7 +1326,7 @@ body.dark .proactive-nudge{background:rgba(27,58,107,.2);color:var(--gold)}
 
 <div class="overlay" id="m-habit"><div class="modal"><div class="m-hdr"><div class="m-title" id="habit-modal-title">Add Habit</div><button class="m-close" onclick="closeModal('m-habit')">✕</button></div><div class="m-body"><div style="display:grid;grid-template-columns:1fr 1fr;gap:12px"><div class="fg"><label class="flbl">Habit Name</label><input class="fi" id="h-name" placeholder="Morning workout, Read 20min..."></div><div class="fg"><label class="flbl">Icon</label><input class="fi" id="h-icon" placeholder="💪" maxlength="4"></div></div><div class="fg"><label class="flbl">Covey Habit Alignment</label><select class="fsel" id="h-covey"><option value="h7">H7 · Sharpen the Saw</option><option value="h1">H1 · Be Proactive</option><option value="h2">H2 · End in Mind</option><option value="h3">H3 · First Things First</option><option value="none">General habit</option></select></div><div class="fg"><label class="flbl">Habit Stack — After I... <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--ink-m)">(optional)</span></label><input class="fi" id="h-stack" placeholder="e.g. Pour my morning coffee, brush my teeth..."><div style="font-size:10px;color:var(--ink-m);margin-top:5px;line-height:1.5">James Clear: attach this habit to something you already do every day.</div></div><div class="fg"><label class="flbl">Identity Statement — This makes me a... <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--ink-m)">(optional)</span></label><input class="fi" id="h-identity" placeholder="e.g. person who invests in their health..."><div style="font-size:10px;color:var(--ink-m);margin-top:5px;line-height:1.5">Every rep of this habit is a vote for the identity you want.</div></div><div id="habit-delete-row" style="display:none;margin-top:4px"><button class="btn btn-danger" onclick="deleteHabit()" style="width:100%">🗑️ Delete Habit</button></div></div><div class="m-foot"><button class="btn btn-ghost" onclick="closeModal('m-habit')">Cancel</button><button class="btn btn-primary" onclick="saveHabit()">Save Habit</button></div></div></div>
 
-<div class="overlay" id="m-goal"><div class="modal" style="max-width:600px"><div class="m-hdr"><div class="m-title" id="goal-modal-title">New Goal</div><button class="m-close" onclick="closeModal('m-goal')">✕</button></div><div class="m-body"><div class="fg"><label class="flbl">Goal — The End in Mind</label><input class="fi" id="g-title" placeholder="e.g. Launch Solo Passport, Run a marathon..."></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:12px"><div class="fg"><label class="flbl">Attached Role</label><select class="fsel" id="g-role"></select></div><div class="fg"><label class="flbl">Target Date</label><input class="fi" type="date" id="g-date"></div></div><div class="fg"><label class="flbl">Why This Matters</label><input class="fi" id="g-why" placeholder="When I achieve this, I will..."></div><div class="fg"><label class="flbl">Milestones — Working Backward</label><div style="font-size:11px;color:var(--ink-m);margin-bottom:8px">What must be true 3 months before? 1 month? Name checkpoints backward from target.</div><div id="milestone-list" style="margin-bottom:8px"></div><div style="display:flex;gap:8px"><input class="fi" id="ms-title-inp" placeholder="Milestone..." style="flex:1"><input class="fi" type="date" id="ms-date-inp" style="width:150px"><button class="btn btn-primary" onclick="addMilestone()" style="padding:10px 14px">+</button></div><button onclick="aiMilestones()" style="margin-top:8px;padding:7px 14px;background:rgba(27,58,107,.08);border:1px solid rgba(27,58,107,.15);border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;color:var(--navy-2);font-family:'DM Sans',sans-serif">✨ AI: Generate milestones</button></div><div id="goal-delete-row" style="display:none;margin-top:4px"><button class="btn btn-danger" onclick="deleteGoal()" style="width:100%">🗑️ Delete Goal</button></div></div><div class="m-foot"><button class="btn btn-ghost" onclick="closeModal('m-goal')">Cancel</button><button class="btn btn-primary" onclick="saveGoal()">Save Goal</button></div></div></div>
+<div class="overlay" id="m-goal"><div class="modal" style="max-width:600px"><div class="m-hdr"><div class="m-title" id="goal-modal-title">New Goal</div><button class="m-close" onclick="closeModal('m-goal')">✕</button></div><div class="m-body"><div class="fg"><label class="flbl">Goal — The End in Mind</label><input class="fi" id="g-title" placeholder="e.g. Launch Solo Passport, Run a marathon..."></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:12px" class="goal-date-grid"><div class="fg"><label class="flbl">Attached Role</label><select class="fsel" id="g-role"></select></div><div class="fg"><label class="flbl">Target Date</label><input class="fi" type="date" id="g-date"></div></div><div class="fg"><label class="flbl">Why This Matters</label><input class="fi" id="g-why" placeholder="When I achieve this, I will..."></div><div class="fg"><label class="flbl">Milestones — Working Backward</label><div style="font-size:11px;color:var(--ink-m);margin-bottom:8px">What must be true 3 months before? 1 month? Name checkpoints backward from target.</div><div id="milestone-list" style="margin-bottom:8px"></div><div style="display:flex;gap:8px;flex-wrap:wrap"><input class="fi" id="ms-title-inp" placeholder="Milestone..." style="flex:1;min-width:120px"><input class="fi" type="date" id="ms-date-inp" style="width:150px;flex-shrink:0"><button class="btn btn-primary" onclick="addMilestone()" style="padding:10px 14px;flex-shrink:0">+</button></div><button onclick="aiMilestones()" style="margin-top:8px;padding:7px 14px;background:rgba(27,58,107,.08);border:1px solid rgba(27,58,107,.15);border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;color:var(--navy-2);font-family:'DM Sans',sans-serif">✨ AI: Generate milestones</button></div><div id="goal-delete-row" style="display:none;margin-top:4px"><button class="btn btn-danger" onclick="deleteGoal()" style="width:100%">🗑️ Delete Goal</button></div></div><div class="m-foot"><button class="btn btn-ghost" onclick="closeModal('m-goal')">Cancel</button><button class="btn btn-primary" onclick="saveGoal()">Save Goal</button></div></div></div>
 
 <!-- BIG ROCKS RITUAL MODAL -->
 <div class="overlay" id="m-bigrocks">
