@@ -10,13 +10,28 @@
 <meta name="application-name" content="DayFlow">
 <meta name="theme-color" content="#0D1F3C">
 <meta name="description" content="DayFlow — Decision architecture for intentional living">
-<link rel="apple-touch-icon" sizes="180x180" href="icons/icon-180.png">
-<link rel="apple-touch-icon" sizes="152x152" href="icons/icon-152.png">
-<link rel="apple-touch-icon" sizes="120x120" href="icons/icon-120.png">
-<link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
-<link rel="icon" type="image/png" sizes="32x32" href="icons/icon-32.png">
-<link rel="manifest" href="manifest.json">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20512%20512'%3E%3Crect%20width='512'%20height='512'%20rx='115'%20fill='%230D1F3C'/%3E%3Ctext%20x='256'%20y='372'%20font-family='Georgia,serif'%20font-size='340'%20font-weight='700'%20fill='%23C9A84C'%20text-anchor='middle'%3ED%3C/text%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20512%20512'%3E%3Crect%20width='512'%20height='512'%20rx='115'%20fill='%230D1F3C'/%3E%3Ctext%20x='256'%20y='372'%20font-family='Georgia,serif'%20font-size='340'%20font-weight='700'%20fill='%23C9A84C'%20text-anchor='middle'%3ED%3C/text%3E%3C/svg%3E">
 <title>DayFlow v4 — Decision Architecture</title>
+<script>
+/* Inline PWA manifest — generated at runtime so the app stays a single file
+   with zero external assets (no manifest.json / icon PNGs needed in the repo). */
+(function(){
+  try{
+    var icon="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20512%20512'%3E%3Crect%20width='512'%20height='512'%20rx='115'%20fill='%230D1F3C'/%3E%3Ctext%20x='256'%20y='372'%20font-family='Georgia,serif'%20font-size='340'%20font-weight='700'%20fill='%23C9A84C'%20text-anchor='middle'%3ED%3C/text%3E%3C/svg%3E";
+    var manifest={
+      name:"DayFlow",short_name:"DayFlow",
+      description:"Decision architecture for intentional living",
+      start_url:".",scope:".",display:"standalone",
+      background_color:"#0D1F3C",theme_color:"#0D1F3C",
+      icons:[{src:icon,sizes:"any",type:"image/svg+xml",purpose:"any maskable"}]
+    };
+    var url=URL.createObjectURL(new Blob([JSON.stringify(manifest)],{type:"application/manifest+json"}));
+    var link=document.createElement('link');link.rel='manifest';link.href=url;
+    document.head.appendChild(link);
+  }catch(e){}
+})();
+</script>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -974,6 +989,7 @@ body.dark .proactive-nudge{background:rgba(27,58,107,.2);color:var(--gold)}
     <div class="ni" data-view="goals" onclick="nav('goals')" title="Goals & Milestones"><span class="ni-icon">🎯</span><span class="ni-text">Goals</span></div>
     <div class="ni" data-view="quadrant" onclick="nav('quadrant')" title="Covey Quadrant"><span class="ni-icon">⊞</span><span class="ni-text">Quadrant</span></div>
     <div class="ni" data-view="habits" onclick="nav('habits')" title="Habits"><span class="ni-icon">🔥</span><span class="ni-text">Habits</span></div>
+    <div class="ni" data-view="patterns" onclick="nav('patterns')" title="Patterns"><span class="ni-icon">📊</span><span class="ni-text">Patterns</span></div>
     <div class="ni" data-view="settings" onclick="nav('settings')" title="Settings"><span class="ni-icon">⚙️</span><span class="ni-text">Settings</span></div>
   </div>
   <div class="sb-eff" id="sb-eff">
@@ -1241,6 +1257,21 @@ body.dark .proactive-nudge{background:rgba(27,58,107,.2);color:var(--gold)}
   <div id="habits-list"></div>
 </div>
 
+<!-- PATTERNS -->
+<div class="view" id="view-patterns">
+  <div class="pg-hdr"><div><div class="pg-title">Patterns 📊</div><div class="pg-sub">8-week behavioral heatmap — which roles you actually showed up for</div></div></div>
+  <div class="card" style="overflow-x:auto">
+    <div class="card-label" style="margin-bottom:14px"><span style="display:flex;align-items:center;gap:7px"><span class="dot" style="background:var(--navy-2)"></span>Role Consistency — Last 56 Days</span></div>
+    <div id="heatmap-week-labels" style="display:flex;gap:10px;margin-bottom:8px;padding-left:140px"></div>
+    <div class="heatmap-grid" id="heatmap-grid"></div>
+    <div style="display:flex;align-items:center;justify-content:flex-end;gap:8px;margin-top:16px;font-size:10px;color:var(--ink-m)">
+      <span>Less</span>
+      <div class="hm-day hm-0"></div><div class="hm-day hm-1"></div><div class="hm-day hm-2"></div><div class="hm-day hm-3"></div>
+      <span>More</span>
+    </div>
+  </div>
+</div>
+
 <!-- SETTINGS -->
 <div class="view" id="view-settings">
   <div class="pg-hdr"><div><div class="pg-title">Settings ⚙️</div><div class="pg-sub">Configure DayFlow v4</div></div></div>
@@ -1307,6 +1338,7 @@ body.dark .proactive-nudge{background:rgba(27,58,107,.2);color:var(--gold)}
     <button class="mob-drawer-btn" onclick="mobNavTo('goals')"><span>🎯</span><span>Goals</span></button>
     <button class="mob-drawer-btn" onclick="mobNavTo('quadrant')"><span>⊞</span><span>Quadrant</span></button>
     <button class="mob-drawer-btn" onclick="mobNavTo('habits')"><span>🔥</span><span>Habits</span></button>
+    <button class="mob-drawer-btn" onclick="mobNavTo('patterns')"><span>📊</span><span>Patterns</span></button>
     <button class="mob-drawer-btn" onclick="mobNavTo('settings')"><span>⚙️</span><span>Settings</span></button>
     <button class="mob-drawer-btn" onclick="closeMobDrawer();signOut()"><span>↩️</span><span>Switch User</span></button>
   </div>
@@ -2004,6 +2036,7 @@ function nav(view){
   else if(view==='goals') renderGoals();
   else if(view==='quadrant') renderQuadrant();
   else if(view==='habits') renderHabits();
+  else if(view==='patterns') renderPatterns();
   else if(view==='settings') renderSettings();
 }
 function setMobActive(btn){ document.querySelectorAll('.mob-nav-btn').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); }
