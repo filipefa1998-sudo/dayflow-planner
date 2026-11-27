@@ -1,0 +1,14 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Only the signed-in owner can touch their own data. Nobody else, ever.
+    match /users/{uid}/data/{doc} {
+      allow read, delete: if request.auth != null && request.auth.uid == uid;
+      allow create, update: if request.auth != null && request.auth.uid == uid
+        && request.resource.data.keys().hasOnly(['value','updatedAt'])
+        && request.resource.data.value is string
+        && request.resource.data.value.size() < 500000;
+    }
+    match /{document=**} { allow read, write: if false; }
+  }
+}
