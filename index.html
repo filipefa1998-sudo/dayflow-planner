@@ -11,28 +11,13 @@
 <meta name="theme-color" content="#0D1F3C">
 <meta name="description" content="DayFlow — Decision architecture for intentional living">
 <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20512%20512'%3E%3Crect%20width='512'%20height='512'%20rx='115'%20fill='%230D1F3C'/%3E%3Ctext%20x='256'%20y='372'%20font-family='Georgia,serif'%20font-size='340'%20font-weight='700'%20fill='%23C9A84C'%20text-anchor='middle'%3ED%3C/text%3E%3C/svg%3E">
-<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20512%20512'%3E%3Crect%20width='512'%20height='512'%20rx='115'%20fill='%230D1F3C'/%3E%3Ctext%20x='256'%20y='372'%20font-family='Georgia,serif'%20font-size='340'%20font-weight='700'%20fill='%23C9A84C'%20text-anchor='middle'%3ED%3C/text%3E%3C/svg%3E">
-<title>DayFlow v4 — Decision Architecture</title>
-<script>
-/* Inline PWA manifest — generated at runtime so the app stays a single file
-   with zero external assets (no manifest.json / icon PNGs needed in the repo). */
-(function(){
-  try{
-    var icon="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20512%20512'%3E%3Crect%20width='512'%20height='512'%20rx='115'%20fill='%230D1F3C'/%3E%3Ctext%20x='256'%20y='372'%20font-family='Georgia,serif'%20font-size='340'%20font-weight='700'%20fill='%23C9A84C'%20text-anchor='middle'%3ED%3C/text%3E%3C/svg%3E";
-    var manifest={
-      name:"DayFlow",short_name:"DayFlow",
-      description:"Decision architecture for intentional living",
-      start_url:".",scope:".",display:"standalone",
-      background_color:"#0D1F3C",theme_color:"#0D1F3C",
-      icons:[{src:icon,sizes:"any",type:"image/svg+xml",purpose:"any maskable"}]
-    };
-    var url=URL.createObjectURL(new Blob([JSON.stringify(manifest)],{type:"application/manifest+json"}));
-    var link=document.createElement('link');link.rel='manifest';link.href=url;
-    document.head.appendChild(link);
-  }catch(e){}
-})();
-</script>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&display=swap" rel="stylesheet">
+<link rel="apple-touch-icon" href="icon-180.png">
+<title>DayFlow — Decision Architecture</title>
+<link rel="manifest" href="manifest.json">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&display=swap" rel="stylesheet"></noscript>
 <style>
 :root{
   --navy:#0D1F3C;--navy-2:#1A3560;--navy-3:#22406A;
@@ -58,7 +43,7 @@ body.dark{
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--ink);min-height:100vh;overflow-x:hidden;transition:background var(--trans),color var(--trans)}
+body{font-family:'DM Sans',-apple-system,system-ui,sans-serif;background:var(--bg);color:var(--ink);min-height:100vh;overflow-x:hidden;transition:background var(--trans),color var(--trans)}
 ::-webkit-scrollbar{width:5px;height:5px}
 ::-webkit-scrollbar-track{background:transparent}
 ::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
@@ -166,7 +151,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--ink);min-
 /* ══ TODAY VIEW ══ */
 #view-today{background:var(--cream)}
 body.dark #view-today{background:var(--bg)}
-#view-today .card:nth-child(4){border-left:4px solid var(--gold);box-shadow:0 2px 12px rgba(200,168,75,.12),var(--sh);padding-left:18px}
+#priorities-card{border-left:4px solid var(--gold);box-shadow:0 2px 12px rgba(200,168,75,.12),var(--sh);padding-left:18px}
 
 .coach-card{background:linear-gradient(135deg,rgba(15,36,71,.05),rgba(201,168,76,.06));border:1px solid rgba(201,168,76,.22);border-radius:var(--r);padding:16px 20px;margin-bottom:18px;position:relative;overflow:hidden}
 .coach-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--navy-2),var(--gold));border-radius:var(--r) var(--r) 0 0}
@@ -858,6 +843,36 @@ body.dark .proactive-nudge{background:rgba(27,58,107,.2);color:var(--gold)}
 .mob-drawer-btn span:first-child{font-size:26px;line-height:1}
 .mob-drawer-btn:active{background:rgba(201,168,76,.18);color:var(--gold)}
 
+
+/* ════ v5 — phone-first ════ */
+details.fold{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);margin-bottom:16px;box-shadow:var(--sh);overflow:hidden}
+details.fold>summary{list-style:none;padding:14px 18px;font-size:12px;font-weight:800;letter-spacing:.6px;text-transform:uppercase;color:var(--ink-m);cursor:pointer;display:flex;gap:10px;align-items:center;min-height:48px}
+details.fold>summary::-webkit-details-marker{display:none}
+details.fold>summary::after{content:'▾';margin-left:auto;transition:transform var(--trans)}
+details.fold[open]>summary::after{transform:rotate(180deg)}
+details.fold .timeline-wrap{border:none;margin:0;border-radius:0}
+details.fold .fold-body{padding:0 18px 16px}
+@media(max-width:768px){
+  .btn,.mob-add-btn{min-height:44px}
+  .p-slot{padding:12px}
+  .p-chk{width:40px;height:40px;font-size:15px}
+  .p-del{width:40px;height:40px;opacity:.7;font-size:16px}
+  .p-time-badge{padding:8px 10px;font-size:11px;min-height:32px;display:inline-flex;align-items:center}
+  .p-meta{gap:8px;align-items:center}
+  .coach-refresh{padding:10px 14px;font-size:12px;min-height:40px}
+  .ra-btn{padding:10px 14px;font-size:11px;min-height:40px}
+  .eim-check-btn{min-height:44px;padding:10px 20px}
+  .renewal-item{min-height:48px}
+  .coi-act-btn,.rel-log-btn,.br-row-edit,.role-def-btn{min-height:40px;padding:8px 12px}
+  .q2-chk,.ms-chk,.br-row-chk{width:28px;height:28px}
+  .br-day-pill{padding:9px 12px}
+  .h-chk{width:44px;height:44px}
+  .val-tag{padding:10px 16px}
+  .grat-mood-btn{min-height:48px}
+  .tl-unsched-item{padding:10px 0}
+  .dark-btn{display:none}
+  #view-today .pg-hdr>div:last-child{display:none!important}
+}
 </style>
 
 <!-- Firebase SDK — dynamic import fixes ES module timing race -->
@@ -896,7 +911,7 @@ body.dark .proactive-nudge{background:rgba(27,58,107,.2);color:var(--gold)}
       for(const [k, v] of window._fbPendingWrites){
         try {
           const ref = doc(db, 'users', window._fbPendingUID, 'data', k);
-          await setDoc(ref, { value: JSON.stringify(v), updatedAt: new Date().toISOString() });
+          await setDoc(ref, { value: v.json, updatedAt: v.ts });
           console.log('Flushed:', k);
         } catch(e){ console.warn('Flush failed for', k, e.message); }
       }
@@ -951,14 +966,15 @@ body.dark .proactive-nudge{background:rgba(27,58,107,.2);color:var(--gold)}
     <!-- Account Recovery -->
     <div class="ap-form" id="recover-form">
       <div style="font-size:13px;font-weight:700;color:rgba(255,255,255,.6);margin-bottom:6px">🔑 Recover Your Account</div>
-      <div style="font-size:11px;color:rgba(255,255,255,.35);margin-bottom:14px;line-height:1.6">Your data is safe in the cloud. Enter your name to reconnect to your existing account.</div>
-      <input class="ap-inp" id="recover-name" placeholder="Your name (e.g. Filipe)" style="margin-bottom:10px">
+      <div style="font-size:11px;color:rgba(255,255,255,.35);margin-bottom:14px;line-height:1.6">Your data is safe in the cloud. Enter your Account ID (find it in Settings → Cloud Sync on a device that is still signed in).</div>
+      <input class="ap-inp" id="recover-name" placeholder="Account ID (u_…)" autocapitalize="off" autocorrect="off" style="margin-bottom:10px">
+      <input class="ap-inp" id="recover-display" placeholder="Your name" style="margin-bottom:10px">
       <div id="recover-error" style="color:#E57373;font-size:11px;font-weight:700;margin-bottom:8px;display:none"></div>
       <div class="ap-btns">
         <button class="ap-btn ap-btn-cancel" onclick="closeRecover()">Cancel</button>
         <button class="ap-btn ap-btn-create" onclick="recoverAccount()">↩ Recover Account</button>
       </div>
-      <div style="margin-top:14px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08);font-size:10px;color:rgba(255,255,255,.25);line-height:1.6">Your profile UID is looked up from the cloud. If your name matches a known account it will be restored automatically.</div>
+      <div style="margin-top:14px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08);font-size:10px;color:rgba(255,255,255,.25);line-height:1.6">Your Account ID acts like a private key to your data. Keep it somewhere safe and never share it.</div>
     </div>
   </div>
 </div>
@@ -967,7 +983,7 @@ body.dark .proactive-nudge{background:rgba(27,58,107,.2);color:var(--gold)}
 <div id="app" style="display:none">
 <div class="mob-header">
   <div class="mob-logo">Day<span>Flow</span></div>
-  <button class="mob-add-btn" onclick="openAddPriority()">+ Priority</button>
+  <div style="display:flex;gap:8px"><button class="mob-add-btn" onclick="openStartMyDay()">▶ Start</button><button class="mob-add-btn" onclick="openAddPriority()">+ Priority</button></div>
 </div>
 
 <aside class="sidebar" id="sidebar">
@@ -1016,49 +1032,46 @@ body.dark .proactive-nudge{background:rgba(27,58,107,.2);color:var(--gold)}
       <button class="btn btn-primary" onclick="openAddPriority()">+ Priority</button>
     </div>
   </div>
-  <button class="grat-trigger-btn" id="grat-trigger-btn" onclick="openGratitude()">🌅 Morning Intention — Open</button>
   <div id="br-today-nudge"></div>
   <div id="br-today-suggest"></div>
-  <div class="coach-card">
-    <div class="coach-hdr"><div class="coach-icon">✦</div><div class="coach-title">Decision Coach</div><button class="coach-refresh" onclick="genCoach()">↺ Refresh</button></div>
-    <div class="coach-body" id="coach-body">Add your Gemini key in Settings to activate decision coaching.</div>
-  </div>
-  <div class="card">
+  <div class="card" id="priorities-card">
     <div class="card-label"><span class="dot" style="background:var(--red)"></span>Top 3 Priorities — What moves the needle today?</div>
     <div id="priority-slots"></div>
   </div>
-
-  <!-- DAY TIMELINE -->
-  <div class="timeline-wrap" id="timeline-wrap">
-    <div class="timeline-hdr">
-      <div class="timeline-hdr-lbl">⏱ Day Timeline</div>
-      <div class="timeline-now-pill" id="tl-now-pill"></div>
-    </div>
-    <div class="tl-unscheduled" id="tl-unscheduled" style="display:none">
-      <div class="tl-unsched-lbl">⚡ Unscheduled — tap to add a time</div>
-      <div id="tl-unsched-list"></div>
-    </div>
-    <div class="timeline-body">
-      <div class="tl-axis" id="tl-axis"></div>
-    </div>
+  <button class="grat-trigger-btn" id="grat-trigger-btn" onclick="openGratitude()">🌅 Morning Intention — Open</button>
+  <div class="coach-card">
+    <div class="coach-hdr"><div class="coach-icon">✦</div><div class="coach-title">Decision Coach</div><button class="coach-refresh" onclick="genCoach(true)">↺ Refresh</button></div>
+    <div class="coach-body" id="coach-body">Add your Gemini key in Settings to activate decision coaching.</div>
   </div>
-
   <div class="card">
     <div class="card-label"><span class="dot" style="background:var(--navy-2)"></span>Role Alignment — Is today serving who you're becoming?</div>
     <div id="role-alignment"></div>
-  </div>
-  <div class="card">
-    <div class="card-label"><span class="dot" style="background:var(--gold)"></span>Relationship Intention</div>
-    <div class="fg"><input class="fi" id="rel-intention" placeholder="Who needs your presence or support today?" oninput="saveLocal('rel_intention',this.value)"></div>
-    <div class="fg" style="margin-bottom:0"><input class="fi" id="rel-action" placeholder="What specific action will you take?" oninput="saveLocal('rel_action',this.value)"></div>
   </div>
   <div class="card">
     <div class="card-label"><span class="dot" style="background:var(--green)"></span>Renewal — Sharpen the saw</div>
     <div class="renewal-grid" id="renewal-grid"></div>
   </div>
 
-  <!-- Circle of Influence — modal button, not full nav -->
-  <button onclick="openInfluenceModal()" style="width:100%;padding:13px 18px;background:var(--surface);border:1.5px solid var(--border);border-radius:var(--r);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:700;color:var(--ink-l);cursor:pointer;transition:all var(--trans);display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;box-shadow:var(--sh)" id="coi-today-btn">
+  <details class="fold" id="fold-timeline">
+    <summary>⏱ Day Timeline <span class="timeline-now-pill" id="tl-now-pill"></span></summary>
+    <div class="timeline-wrap" id="timeline-wrap">
+      <div class="tl-unscheduled" id="tl-unscheduled" style="display:none">
+        <div class="tl-unsched-lbl">⚡ Unscheduled — tap to add a time</div>
+        <div id="tl-unsched-list"></div>
+      </div>
+      <div class="timeline-body"><div class="tl-axis" id="tl-axis"></div></div>
+    </div>
+  </details>
+
+  <details class="fold">
+    <summary>Relationship Intention</summary>
+    <div class="fold-body">
+      <div class="fg"><input class="fi" id="rel-intention" placeholder="Who needs your presence or support today?" oninput="saveLocal('rel_intention',this.value)"></div>
+      <div class="fg" style="margin-bottom:0"><input class="fi" id="rel-action" placeholder="What specific action will you take?" oninput="saveLocal('rel_action',this.value)"></div>
+    </div>
+  </details>
+
+  <button onclick="openInfluenceModal()" style="width:100%;padding:13px 18px;min-height:48px;background:var(--surface);border:1.5px solid var(--border);border-radius:var(--r);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:700;color:var(--ink-l);cursor:pointer;display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;box-shadow:var(--sh)" id="coi-today-btn">
     <span>⭕ Circle of Influence — Clear mental energy</span>
     <span id="coi-today-count" style="font-size:11px;font-weight:800;padding:2px 9px;border-radius:20px;background:rgba(26,53,96,.09);color:var(--navy-2)">0 active</span>
   </button>
@@ -1276,6 +1289,9 @@ body.dark .proactive-nudge{background:rgba(27,58,107,.2);color:var(--gold)}
 <div class="view" id="view-settings">
   <div class="pg-hdr"><div><div class="pg-title">Settings ⚙️</div><div class="pg-sub">Configure DayFlow v4</div></div></div>
   <div class="settings-card">
+    <div class="settings-hdr"><div class="settings-ico" style="background:var(--navy-2)">🌙</div><div><div class="settings-title">Appearance</div><div class="settings-sub">Dark mode</div></div><button class="btn btn-ghost" onclick="toggleDark()" style="margin-left:auto;font-size:12px">Toggle</button></div>
+  </div>
+  <div class="settings-card">
     <div class="settings-hdr"><div class="settings-ico" style="background:linear-gradient(135deg,#4285F4,#34A853)">✨</div><div><div class="settings-title">AI Decision Coach — Gemini</div><div class="settings-sub">Free · 1,500 requests/day</div></div><div id="ai-badge" class="settings-badge badge-off">Not Connected</div></div>
     <div class="settings-body">
       <div class="fg"><label class="flbl">Gemini API Key</label><div style="display:flex;gap:8px"><input class="fi" id="gemini-key" type="password" placeholder="AIzaSy..." style="flex:1;font-family:monospace;font-size:13px"><button class="btn btn-ghost" onclick="toggleKeyVis()" id="key-eye" style="padding:10px">👁️</button></div></div>
@@ -1302,6 +1318,12 @@ body.dark .proactive-nudge{background:rgba(27,58,107,.2);color:var(--gold)}
         <button class="btn btn-ghost" onclick="migrateLocalToFirebase()" style="font-size:12px">📤 Migrate Local Data</button>
       </div>
       <div id="sync-status" style="margin-top:8px;font-size:11px;color:var(--ink-m)"></div>
+      <div style="margin-top:14px;padding:12px 14px;background:var(--surface-2);border:1px solid var(--border);border-radius:10px">
+        <div class="flbl" style="margin-bottom:6px">Account ID — keep private</div>
+        <div id="acct-id" style="font-family:monospace;font-size:11px;word-break:break-all;color:var(--ink-l);margin-bottom:10px"></div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn btn-ghost" onclick="copyAccountId()" style="font-size:12px">📋 Copy</button><button class="btn btn-ghost" id="acct-upgrade-btn" onclick="upgradeAccountId()" style="font-size:12px;display:none">🔒 Make my ID private</button></div>
+        <div id="acct-weak" style="display:none;margin-top:8px;font-size:11px;color:var(--red);line-height:1.5">This ID is short/guessable. Tap “Make my ID private” to move your data to a random ID.</div>
+      </div>
       <div style="margin-top:14px;padding-top:14px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px">
         <div style="font-size:12px;color:var(--ink-m)" id="data-summary"></div>
        <button class="btn btn-primary" onclick="exportFullBackup(false)" style="font-size:12px">💾 Backup Now</button>
@@ -1348,6 +1370,7 @@ body.dark .proactive-nudge{background:rgba(27,58,107,.2);color:var(--gold)}
 <div id="toast"></div>
 
 <!-- MODALS -->
+<div class="overlay" id="m-ask"><div class="modal"><div class="m-hdr"><div class="m-title" id="ask-title"></div><button class="m-close" onclick="closeModal('m-ask')">✕</button></div><div class="m-body"><div class="fg"><input class="fi" id="ask-input" autocomplete="off"></div><div class="fg" id="ask-role-wrap" style="display:none"><label class="flbl">Role</label><select class="fsel" id="ask-role"></select></div></div><div class="m-foot"><button class="btn btn-danger" id="ask-del" style="display:none;margin-right:auto">Delete</button><button class="btn btn-ghost" onclick="closeModal('m-ask')">Cancel</button><button class="btn btn-primary" id="ask-ok">Save</button></div></div></div>
 <div class="overlay" id="m-mission"><div class="modal"><div class="m-hdr"><div class="m-title">Mission Statement</div><button class="m-close" onclick="closeModal('m-mission')">✕</button></div><div class="m-body"><div class="fg"><label class="flbl">Your Personal Mission Statement</label><textarea class="fta" id="mission-input" placeholder="I am a person who..." style="min-height:120px"></textarea></div><div style="background:rgba(27,58,107,.05);border-radius:9px;padding:12px;font-size:12px;color:var(--ink-l);line-height:1.6">Covey: Who do you want to <em>be</em>? What do you want to <em>do</em>? What <em>values</em> guide you?</div></div><div class="m-foot"><button class="btn btn-ghost" onclick="closeModal('m-mission')">Cancel</button><button class="btn btn-primary" onclick="saveMission()">Save Mission</button></div></div></div>
 
 <div class="overlay" id="m-role"><div class="modal"><div class="m-hdr"><div class="m-title" id="role-modal-title">Add Role</div><button class="m-close" onclick="closeModal('m-role')">✕</button></div><div class="m-body"><div style="display:grid;grid-template-columns:1fr 1fr;gap:12px"><div class="fg"><label class="flbl">Role Name</label><input class="fi" id="r-name" placeholder="Father, Builder, Leader"></div><div class="fg"><label class="flbl">Icon (emoji)</label><input class="fi" id="r-icon" placeholder="👨‍👩‍👧" maxlength="4"></div></div><div class="fg"><label class="flbl">Definition of Success</label><input class="fi" id="r-success" placeholder="What does success look like in this role?"></div><div class="fg"><label class="flbl">This Week's Commitment</label><textarea class="fta" id="r-commit" placeholder="What one result would make the biggest difference this week?" style="min-height:72px"></textarea></div><div id="role-delete-row" style="display:none;margin-top:4px"><button class="btn btn-danger" onclick="deleteRole()" style="width:100%">🗑️ Delete This Role</button></div></div><div class="m-foot"><button class="btn btn-ghost" onclick="closeModal('m-role')">Cancel</button><button class="btn btn-primary" onclick="saveRole()">Save Role</button></div></div></div>
@@ -1539,8 +1562,9 @@ body.dark .proactive-nudge{background:rgba(27,58,107,.2);color:var(--gold)}
 // ════════════════════════════════════════════
 // DAYFLOW v3.1 — SINGLE CLEAN ENGINE
 // ════════════════════════════════════════════
-function getToday(){ return new Date().toISOString().slice(0,10); }
-const TODAY = getToday(); // snapshot at load — refreshed on nav() calls
+function ymd(d){ return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
+function getToday(){ return ymd(new Date()); }
+let TODAY = getToday(); // refreshed by refreshDay() when the app returns to foreground
 
 // ── SAFE STRING HELPERS ──
 // Use esc() whenever user-typed text appears inside HTML display
@@ -1613,39 +1637,48 @@ function saveGlobal(k,v){ localStorage.setItem('df3_'+k, JSON.stringify(v)); }
 function loadGlobal(k,def=null){ try{ const v=localStorage.getItem('df3_'+k); return v!==null?JSON.parse(v):def; }catch(e){return def;} }
 
 // FIRESTORE — async save (fire and forget with local cache fallback)
-async function save(k, v){
-  // Always write to localStorage immediately (no lag)
-  localStorage.setItem(uid_key(k), JSON.stringify(v));
-  // Persist to Firestore — wait up to 4s for SDK if not ready yet
+const _pendingCloud = {};   // key -> {uid,json,ts}
+const _cloudTimers  = {};
+function save(k, v){
+  const json = JSON.stringify(v);
+  const ts = new Date().toISOString();
+  localStorage.setItem(uid_key(k), json);
+  localStorage.setItem(uid_key('meta_'+k), ts);
   if(!currentUser?.uid) return;
+  _pendingCloud[k] = {uid: currentUser.uid, json, ts};
+  clearTimeout(_cloudTimers[k]);
+  _cloudTimers[k] = setTimeout(()=>flushCloudKey(k), 700);   // debounce rapid taps
+}
+function flushCloudKey(k){
+  const p = _pendingCloud[k]; if(!p) return;
+  delete _pendingCloud[k]; clearTimeout(_cloudTimers[k]);
+  cloudWrite(p.uid, k, p.json, p.ts);
+}
+function flushAllCloud(){ Object.keys(_pendingCloud).forEach(flushCloudKey); }
+async function cloudWrite(uid, k, json, ts){
   let waited = 0;
-  while(!window._fbReady && waited < 4000){
-    await new Promise(r => setTimeout(r, 100));
-    waited += 100;
-  }
+  while(!window._fbReady && waited < 4000){ await new Promise(r=>setTimeout(r,100)); waited += 100; }
   if(!window._fbReady){
-    // Queue the write — Firebase init block flushes these once ready
     if(!window._fbPendingWrites) window._fbPendingWrites = new Map();
-    if(!window._fbPendingUID) window._fbPendingUID = currentUser.uid;
-    window._fbPendingWrites.set(k, v); // Map deduplicates by key automatically
-    console.log('⏳ Firebase not ready yet — queued write for:', k);
+    window._fbPendingUID = uid;
+    window._fbPendingWrites.set(k, {json, ts});
     return;
   }
   try{
-    const ref = window._fbDoc(window._db, 'users', currentUser.uid, 'data', k);
-    const payload = { value: JSON.stringify(v), updatedAt: new Date().toISOString() };
-    await window._fbSetDoc(ref, payload);
-    // Track last successful sync time
+    const ref = window._fbDoc(window._db, 'users', uid, 'data', k);
+    await window._fbSetDoc(ref, { value: json, updatedAt: ts });
     localStorage.setItem('df3_lastSync', new Date().toISOString());
   } catch(e){
-    console.error('❌ Firestore write FAILED for '+k+':', e.message);
+    console.error('Firestore write FAILED for '+k+':', e.message);
     if(!window._fbWriteErrorShown){
       window._fbWriteErrorShown = true;
-      toast('❌ Cloud save failed for "'+k+'" — your data is local only. Check Settings.');
+      toast('❌ Cloud save failed — your data is safe on this phone. Check Settings.');
       setTimeout(()=>{ window._fbWriteErrorShown=false; }, 30000);
     }
   }
 }
+document.addEventListener('visibilitychange', ()=>{ if(document.hidden) flushAllCloud(); });
+window.addEventListener('pagehide', flushAllCloud);
 
 // LOAD — try Firestore first, fall back to localStorage, fall back to default
 async function loadFromFirestore(k, def=null){
@@ -1672,45 +1705,49 @@ function load(k, def=null){
 }
 
 // Full load from Firestore — called once on login, populates localStorage cache
-async function loadAllFromFirestore(){
-  // Wait up to 5 seconds for Firebase SDK to initialise
+const CORE_KEYS = ['roles','habits','habitLogs','relationships','goals','mission',
+                   'futureself','values','reflections','bigRocks','coiItems','weeklyReports'];
+function dayKeys(n){ const out=[]; for(let i=0;i<n;i++){ const d=new Date(); d.setDate(d.getDate()-i); out.push('today_'+ymd(d)); } return out; }
+
+// Pull ONE doc; newest-wins against what is on this phone
+async function pullKey(uid, k){
+  try{
+    const snap = await window._fbGetDoc(window._fbDoc(window._db,'users',uid,'data',k));
+    if(!snap.exists()) return;
+    const d = snap.data();
+    const cloudTs = d.updatedAt || '';
+    const localTs = localStorage.getItem(uid_key('meta_'+k)) || '';
+    const hasLocal = localStorage.getItem(uid_key(k)) !== null;
+    if(!hasLocal || cloudTs > localTs){
+      localStorage.setItem(uid_key(k), d.value);
+      localStorage.setItem(uid_key('meta_'+k), cloudTs);
+    } else if(localTs > cloudTs){
+      cloudWrite(uid, k, localStorage.getItem(uid_key(k)), localTs);   // phone is newer — push up
+    }
+  } catch(e){ console.warn('pull failed for '+k, e.message); }
+}
+async function pullMany(uid, keys){
+  for(let i=0;i<keys.length;i+=10) await Promise.all(keys.slice(i,i+10).map(k=>pullKey(uid,k)));
+}
+
+// Full load: core docs + recent days only (56 days on first run / weekly / manual sync)
+async function loadAllFromFirestore(deep){
   if(!window._fbReady || !currentUser?.uid){
     let waited = 0;
-    while(!window._fbReady && waited < 5000){
-      await new Promise(r => setTimeout(r, 200));
-      waited += 200;
-    }
-    if(!window._fbReady || !currentUser?.uid){
-      console.log('Firestore not ready after wait — using localStorage cache');
-      return;
-    }
-    console.log('Firebase became ready after', waited, 'ms');
+    while(!window._fbReady && waited < 5000){ await new Promise(r=>setTimeout(r,200)); waited += 200; }
+    if(!window._fbReady || !currentUser?.uid) return;
   }
-  showSyncIndicator('☁️ Syncing your data...');
-  const keys = ['roles','habits','habitLogs','relationships','goals','mission',
-                 'futureself','values','reflections','bigRocks','coiItems','weeklyReports'];
-  // Load today's data keys for past 7 days
-  for(let i=0;i<7;i++){
-    const d=new Date(); d.setDate(d.getDate()-i);
-    keys.push('today_'+d.toISOString().slice(0,10));
-  }
-  // Also load EBA data for each relationship
-  const relCached = load('relationships',[]);
-  relCached.forEach(r => keys.push('eba_'+r.id));
-
+  const uid = currentUser.uid;
+  const lastDeep = parseInt(localStorage.getItem('df3_lastDeep_'+uid)||'0',10);
+  const doDeep = deep || !lastDeep || (Date.now()-lastDeep) > 7*86400000;
+  showSyncIndicator('☁️ Syncing...');
   try{
-    const coll = window._fbCollection(window._db, 'users', currentUser.uid, 'data');
-    const snap = await window._fbGetDocs(coll);
-    snap.forEach(docSnap => {
-      try{
-        const v = JSON.parse(docSnap.data().value);
-        localStorage.setItem(uid_key(docSnap.id), JSON.stringify(v));
-      } catch(e){}
-    });
-    console.log('Firestore sync complete — '+snap.size+' documents loaded');
-  } catch(e){
-    console.warn('Firestore full load failed, using cache:', e.message);
-  }
+    await pullMany(uid, CORE_KEYS.concat(dayKeys(doDeep?56:7)));
+    const rels = load('relationships', []);
+    await pullMany(uid, rels.map(r=>'eba_'+r.id));
+    if(doDeep) localStorage.setItem('df3_lastDeep_'+uid, String(Date.now()));
+    localStorage.setItem('df3_lastSync', new Date().toISOString());
+  } catch(e){ console.warn('Firestore load failed, using cache:', e.message); }
   hideSyncIndicator();
 }
 
@@ -1778,9 +1815,11 @@ function loadAll(){
     coiItems      = load('coiItems', coiItems);
     weeklyReports = load('weeklyReports', weeklyReports);
     loadTodayState();
-    // Re-render current view
+    // Re-render current view — but never while you're typing or a sheet is open
     const activeView = document.querySelector('.view.active')?.id?.replace('view-','');
-    if(activeView) nav(activeView);
+    const ae = document.activeElement;
+    const busy = (ae && /^(INPUT|TEXTAREA|SELECT)$/.test(ae.tagName)) || document.querySelector(OVERLAY_SEL);
+    if(activeView && !busy) nav(activeView,true);
     updateScores();
   });
 }
@@ -1805,8 +1844,8 @@ function renderProfileGrid(){
   grid.innerHTML = profiles.map(p =>
     '<div class="profile-card" onclick="selectProfile(\''+p.id+'\')">'
     +'<button class="pdel-btn" onclick="event.stopPropagation();deleteProfile(\''+p.id+'\')">✕</button>'
-    +'<div class="profile-avatar">'+p.emoji+'</div>'
-    +'<div class="profile-name">'+p.name+'</div>'
+    +'<div class="profile-avatar">'+esc(p.emoji)+'</div>'
+    +'<div class="profile-name">'+esc(p.name)+'</div>'
     +'<div class="profile-sub">Tap to plan</div>'
     +'</div>'
   ).join('');
@@ -1827,67 +1866,35 @@ function closeRecover(){
   document.getElementById('auth-main').style.display='block';
 }
 async function recoverAccount(){
-  const nameEl = document.getElementById('recover-name');
   const errEl  = document.getElementById('recover-error');
-  const name   = nameEl.value.trim();
-  if(!name){ errEl.textContent='Enter your name to recover your account'; errEl.style.display='block'; return; }
-
+  const uidIn  = document.getElementById('recover-name').value.trim();
+  const name   = (document.getElementById('recover-display').value.trim()) || 'Me';
+  if(!/^u_[A-Za-z0-9_]{3,64}$/.test(uidIn)){ errEl.textContent='Enter your Account ID (Settings → Cloud Sync → Account ID).'; errEl.style.display='block'; return; }
   errEl.style.display='none';
   const btn = document.querySelector('#recover-form .ap-btn-create');
   if(btn){ btn.textContent='Searching...'; btn.disabled=true; }
-
-  // Wait for Firebase if needed
   let waited = 0;
-  while(!window._fbReady && waited < 6000){
-    await new Promise(r=>setTimeout(r,200)); waited+=200;
-  }
-
-  // Known UID map — canonical accounts that can always be recovered by name
-  const KNOWN_UIDS = {
-    'filipe': 'u_filipe',
-    'Filipe': 'u_filipe',
-  };
-
-  let recoveredUID = null;
-  let recoveredEmoji = '🔥';
-
-  // Check known UIDs first (instant, no network needed)
-  const nameKey = name.toLowerCase();
-  for(const [k,v] of Object.entries(KNOWN_UIDS)){
-    if(k.toLowerCase() === nameKey){ recoveredUID = v; break; }
-  }
-
-  // If Firebase is ready, try to verify the UID actually has data in Firestore
-  if(recoveredUID && window._fbReady){
+  while(!window._fbReady && waited < 6000){ await new Promise(r=>setTimeout(r,200)); waited+=200; }
+  let found = false;
+  if(window._fbReady){
     try{
-      const coll = window._fbCollection(window._db, 'users', recoveredUID, 'data');
-      const snap = await window._fbGetDocs(coll);
-      if(snap.size === 0 && !KNOWN_UIDS[name]){
-        recoveredUID = null; // No data found under this UID
+      for(const k of ['roles','mission','habits']){
+        const snap = await window._fbGetDoc(window._fbDoc(window._db,'users',uidIn,'data',k));
+        if(snap.exists()){ found = true; break; }
       }
-    } catch(e){ console.warn('Recovery Firestore check failed:', e.message); }
+    } catch(e){ console.warn('Recovery check failed:', e.message); }
   }
-
-  if(!recoveredUID){
-    errEl.textContent = 'No account found for "'+name+'". Check your name or create a new profile.';
+  if(!found){
+    errEl.textContent = 'No data found for that Account ID. Check it and your connection.';
     errEl.style.display='block';
     if(btn){ btn.textContent='↩ Recover Account'; btn.disabled=false; }
     return;
   }
-
-  // Restore profile
-  const recovered = {id: recoveredUID, name, emoji: recoveredEmoji, createdAt: new Date().toISOString()};
-  profiles = profiles.filter(p=>p.id !== recoveredUID); // avoid duplicates
-  profiles.push(recovered);
-  saveProfiles();
-  localStorage.setItem('df3_setup_'+recoveredUID, '1');
-  saveGlobal('currentUser', {uid: recoveredUID, name, emoji: recoveredEmoji});
-
-  if(btn){ btn.textContent='✓ Found! Loading...'; }
-  currentUser = {uid: recoveredUID, name, emoji: recoveredEmoji};
-
-  // Small delay so user sees the success state
-  await new Promise(r=>setTimeout(r,600));
+  const recovered = {id: uidIn, name, emoji:'🔥', createdAt: new Date().toISOString()};
+  profiles = profiles.filter(p=>p.id !== uidIn); profiles.push(recovered); saveProfiles();
+  localStorage.setItem('df3_setup_'+uidIn, '1');
+  currentUser = {uid: uidIn, name, emoji:'🔥'};
+  saveGlobal('currentUser', currentUser);
   document.getElementById('recover-form').classList.remove('show');
   loadAll(); showApp();
   toast('✓ Account recovered — welcome back, '+name+'!');
@@ -1923,10 +1930,14 @@ function selectEmoji(e){
   selectedEmoji=e;
   document.querySelectorAll('.emoji-opt').forEach(el=>el.classList.toggle('selected', el.textContent===e));
 }
+function newAccountId(){
+  const a = new Uint8Array(16); crypto.getRandomValues(a);
+  return 'u_' + Array.from(a, b=>b.toString(16).padStart(2,'0')).join('');
+}
 function createProfile(){
   const name = document.getElementById('np-name').value.trim();
   if(!name){ showAuthError('Enter a name first'); return; }
-  const p = {id:'u_'+Date.now(), name, emoji:selectedEmoji, createdAt:new Date().toISOString()};
+  const p = {id:newAccountId(), name, emoji:selectedEmoji, createdAt:new Date().toISOString()};
   profiles.push(p);
   saveProfiles();
   closeAddProfile();
@@ -1964,9 +1975,9 @@ function renderSetup(){
   Array.from(dots).forEach((d,i)=>{ d.className='setup-dot'+(i===setupStep?' active':i<setupStep?' done':''); });
   const c = document.getElementById('setup-content');
   if(setupStep===0){
-    c.innerHTML='<p style="font-size:13px;color:rgba(255,255,255,.45);margin-bottom:16px;line-height:1.6">Welcome, <strong style="color:#fff">'+currentUser.name+'</strong>! Let\'s personalize DayFlow in 3 quick steps.</p>'
+    c.innerHTML='<p style="font-size:13px;color:rgba(255,255,255,.45);margin-bottom:16px;line-height:1.6">Welcome, <strong style="color:#fff">'+esc(currentUser.name)+'</strong>! Let\'s personalize DayFlow in 3 quick steps.</p>'
       +'<div style="margin-bottom:12px"><label style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.8px;color:rgba(255,255,255,.35);display:block;margin-bottom:6px">Your Name</label>'
-      +'<input id="setup-name" class="ap-inp" value="'+currentUser.name+'" placeholder="Your name"></div>'
+      +'<input id="setup-name" class="ap-inp" value="'+esc(currentUser.name)+'" placeholder="Your name"></div>'
       +'<button onclick="nextSetup()" class="ap-btn ap-btn-create" style="width:100%">Continue →</button>';
   } else if(setupStep===1){
     c.innerHTML='<p style="font-size:12px;color:rgba(255,255,255,.35);margin-bottom:14px;font-style:italic">"Begin with the end in mind."</p>'
@@ -2005,7 +2016,7 @@ function showApp(){
   updateGreeting();
   nav('today');
   updateScores();
-  genCoach();
+  genCoach(false);
   checkAutoGratitude();
     if (typeof checkAutoEvening === 'function') checkAutoEvening();
   // Update Firebase badge after SDK loads
@@ -2022,11 +2033,14 @@ function signOut(){
 }
 
 // ── NAV ──
-function nav(view){
+function nav(view,keepScroll){
   document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
   document.querySelectorAll('.ni').forEach(n=>n.classList.remove('active'));
   const el=document.getElementById('view-'+view); if(el) el.classList.add('active');
   const ni=document.querySelector('.ni[data-view="'+view+'"]'); if(ni) ni.classList.add('active');
+  document.querySelectorAll('.mob-nav-btn[data-view]').forEach(b=>b.classList.toggle('active',b.dataset.view===view));
+  const mm=document.getElementById('mob-more-btn'); if(mm) mm.classList.toggle('active',!document.querySelector('.mob-nav-btn[data-view="'+view+'"]'));
+  if(!keepScroll) window.scrollTo(0,0);
   if(view==='today') renderToday();
   else if(view==='week') renderWeek();
   else if(view==='endmind') renderEndInMind();
@@ -2052,7 +2066,7 @@ function updateGreeting(){
   const el=document.getElementById('greeting'); if(el) el.textContent=h<12?'Good morning ☀️':h<17?'Good afternoon 🌤️':'Good evening 🌙';
   const d=document.getElementById('today-date'); if(d) d.textContent=new Date().toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
   const wr=document.getElementById('week-range');
-  if(wr){ const n=new Date(),s=new Date(n); s.setDate(n.getDate()-n.getDay()); const e=new Date(s); e.setDate(s.getDate()+6); wr.textContent='Week of '+s.toLocaleDateString('en-US',{month:'long',day:'numeric'})+' – '+e.toLocaleDateString('en-US',{month:'long',day:'numeric'}); }
+  if(wr){ const n=planDate(),s=new Date(n); s.setDate(n.getDate()-((n.getDay()+6)%7)); const e=new Date(s); e.setDate(s.getDate()+6); wr.textContent='Week of '+s.toLocaleDateString('en-US',{month:'long',day:'numeric'})+' – '+e.toLocaleDateString('en-US',{month:'long',day:'numeric'}); }
 }
 
 // ── EFFECTIVENESS SCORES ──
@@ -2086,12 +2100,10 @@ function renderToday(){
   renderPriorities();
   renderRoleAlignment();
   renderRenewal();
-  updateScores();
   renderTodayRockNudge();
   if(!sessionStorage.getItem('df3_skip_rock_suggest_'+TODAY)){
     renderTodayRockSuggestions();
   }
-  renderTimeline();
   // Update COI count badge
   loadCoiItems();
   const active = coiItems.filter(x=>!x.resolved).length;
@@ -2099,9 +2111,10 @@ function renderToday(){
   if(badge) badge.textContent = active + ' active';
   const el=document.getElementById('eim-mission-text');
   if(el) el.textContent=missionStatement?(missionStatement.length>130?missionStatement.slice(0,130)+'...':missionStatement):'Define your mission statement in End in Mind.';
-  if(loadLocal('grat_done_'+TODAY)){
-    const tb=document.getElementById('grat-trigger-btn'); if(tb){ tb.textContent='🌅 Morning Intention — Done ✓'; tb.classList.add('done'); }
-  }
+  const gdone=!!loadLocal('grat_done_'+TODAY);
+  const tb=document.getElementById('grat-trigger-btn'); if(tb){ tb.textContent=gdone?'🌅 Morning Intention — Done ✓':'🌅 Morning Intention — Open'; tb.classList.toggle('done',gdone); }
+  const ec=loadLocal('eim_check_'+TODAY); const ey=document.getElementById('eim-yes'), en=document.getElementById('eim-no'), er=document.getElementById('eim-result');
+  if(ey&&en&&er){ ey.className='eim-check-btn'+(ec==='yes'?' yes':''); en.className='eim-check-btn'+(ec==='no'?' no':''); er.style.display=ec?'block':'none'; if(ec==='yes'){ er.style.color='var(--green)'; er.textContent='✓ Aligned. Keep compounding these days.'; } else if(ec==='no'){ er.style.color='var(--red)'; er.textContent='⚡ Misaligned. Take one action toward your mission before this day ends.'; } }
 }
 
 // ── CIRCLE OF INFLUENCE MODAL ──
@@ -2149,8 +2162,8 @@ function renderPriorities(){
       : '<span class="p-time-badge" style="opacity:.4;font-weight:600" onclick="event.stopPropagation();editPriority(\''+p.id+'\')">+ time</span>';
     return '<div class="p-slot'+(p.done?' done':'')+'" id="psl-'+p.id+'">'
       +'<div class="p-num">'+(i+1)+'</div>'
-      +'<div class="p-body" onclick="editPriority(\''+p.id+'\')" style="cursor:pointer"><div class="p-title">'+p.title+'</div>'
-      +'<div class="p-meta">'+(role?'<span class="p-tag p-tag-role">'+role.icon+' '+role.name+'</span>':'')
+      +'<div class="p-body" onclick="editPriority(\''+p.id+'\')" style="cursor:pointer"><div class="p-title">'+esc(p.title)+'</div>'
+      +'<div class="p-meta">'+(role?'<span class="p-tag p-tag-role">'+esc(role.icon)+' '+esc(role.name)+'</span>':'')
       +'<span class="p-tag" style="background:'+qColor+'20;color:'+qColor+'">Q'+(p.quadrant||2)+'</span>'
       +timeBadge+'</div></div>'
       +'<div class="p-chk'+(p.done?' done':'')+'" onclick="togglePriority(\''+p.id+'\')">'+(p.done?'✓':'')+'</div>'
@@ -2201,7 +2214,7 @@ function renderTimeline(){
       const qColor={'1':'var(--red)','2':'var(--navy-2)','3':'var(--amber)','4':'var(--ink-m)'}[p.quadrant]||'var(--navy-2)';
       return '<div class="tl-unsched-item" onclick="editPriority(\''+p.id+'\')">'
         +'<div style="width:8px;height:8px;border-radius:50%;background:'+qColor+';flex-shrink:0"></div>'
-        +'<div class="tl-unsched-title'+(p.done?' done':'')+'">'+p.title+'</div>'
+        +'<div class="tl-unsched-title'+(p.done?' done':'')+'">'+esc(p.title)+'</div>'
         +'<span class="tl-unsched-add">+ add time</span>'
         +'</div>';
     }).join('');
@@ -2245,8 +2258,8 @@ function renderTimeline(){
       const durationLbl = dur>=60 ? Math.floor(dur/60)+'h'+(dur%60?Math.floor(dur%60)+'m':'') : dur+'m';
       blockHtml += '<div class="tl-block'+(p.done?' done':'')+'" onclick="editPriority(\''+p.id+'\')" style="background:'+qb+';border:1px solid '+qc+'22">'
         +'<div style="position:absolute;left:0;top:0;bottom:0;width:3px;background:'+qc+';border-radius:9px 0 0 9px"></div>'
-        +'<div class="tl-b-title" style="color:var(--ink);padding-left:4px">'+p.title+'</div>'
-        +'<div class="tl-b-meta" style="padding-left:4px">'+fmtTime(p.startTime)+(p.endTime?' – '+fmtTime(p.endTime):'')+' · '+durationLbl+(role?' · '+role.icon+' '+role.name:'')+'</div>'
+        +'<div class="tl-b-title" style="color:var(--ink);padding-left:4px">'+esc(p.title)+'</div>'
+        +'<div class="tl-b-meta" style="padding-left:4px">'+fmtTime(p.startTime)+(p.endTime?' – '+fmtTime(p.endTime):'')+' · '+durationLbl+(role?' · '+esc(role.icon)+' '+esc(role.name):'')+'</div>'
         +(p.done?'<div class="tl-b-done">✓</div>':'')
         +'</div>';
     });
@@ -2280,7 +2293,7 @@ function openAddPriority(){
   document.getElementById('p-start').value='';
   document.getElementById('p-end').value='';
   const sel=document.getElementById('p-role');
-  sel.innerHTML='<option value="">— No role —</option>'+roles.map(r=>'<option value="'+r.id+'">'+r.icon+' '+r.name+'</option>').join('');
+  sel.innerHTML='<option value="">— No role —</option>'+roles.map(r=>'<option value="'+r.id+'">'+esc(r.icon)+' '+esc(r.name)+'</option>').join('');
   openModal('m-priority');
   setTimeout(()=>document.getElementById('p-title').focus(),120);
 }
@@ -2303,7 +2316,7 @@ function savePriority(){
   } else {
     priorities.push({id:'p'+Date.now(),title,roleId:document.getElementById('p-role').value,quadrant:document.getElementById('p-quadrant').value,done:false,startTime:startVal||'',endTime:endVal||''});
   }
-  saveTodayState(); closeModal('m-priority'); renderPriorities(); renderTimeline();
+  saveTodayState(); closeModal('m-priority'); renderPriorities();
 }
 function editPriority(id){
   const p=priorities.find(x=>x.id===id); if(!p) return;
@@ -2313,7 +2326,7 @@ function editPriority(id){
   document.getElementById('p-start').value=p.startTime||'';
   document.getElementById('p-end').value=p.endTime||'';
   const sel=document.getElementById('p-role');
-  sel.innerHTML='<option value="">— No role —</option>'+roles.map(r=>'<option value="'+r.id+'">'+r.icon+' '+r.name+'</option>').join('');
+  sel.innerHTML='<option value="">— No role —</option>'+roles.map(r=>'<option value="'+r.id+'">'+esc(r.icon)+' '+esc(r.name)+'</option>').join('');
   sel.value=p.roleId||'';
   document.getElementById('m-priority').dataset.editId=id;
   openModal('m-priority');
@@ -2321,7 +2334,7 @@ function editPriority(id){
 }
 function togglePriority(id){
   const p=priorities.find(x=>x.id===id); if(!p) return;
-  p.done=!p.done; saveTodayState(); renderPriorities(); renderTimeline();
+  p.done=!p.done; saveTodayState(); renderPriorities(); if(document.getElementById('view-quadrant').classList.contains('active')) renderQuadrant();
   // If linked to a Big Rock, sync its done state
   if(p.fromRockId){
     const data = bigRocks[getThisWeekKey()];
@@ -2342,7 +2355,7 @@ function renderRoleAlignment(){
     const s=rs[r.id];
     const label=s===true?'✓ Served':s===false?'✕ Not today':'Check in';
     const cls=s===true?'yes':s===false?'no':'none';
-    return '<div class="role-align-row"><div class="ra-icon">'+r.icon+'</div><div class="ra-body"><div class="ra-name">'+r.name+'</div><div class="ra-goal">'+(r.weeklyCommitment||r.successDef||'No commitment set')+'</div></div><button class="ra-btn '+cls+'" onclick="toggleRoleServed(\''+r.id+'\')">'+label+'</button></div>';
+    return '<div class="role-align-row"><div class="ra-icon">'+r.icon+'</div><div class="ra-body"><div class="ra-name">'+esc(r.name)+'</div><div class="ra-goal">'+esc(r.weeklyCommitment||r.successDef||'No commitment set')+'</div></div><button class="ra-btn '+cls+'" onclick="toggleRoleServed(\''+r.id+'\')">'+label+'</button></div>';
   }).join('');
 }
 function toggleRoleServed(roleId){
@@ -2393,7 +2406,7 @@ function toggleQ2(id){
 function renderRoleCommitments(){
   const c=document.getElementById('role-commitments'); if(!c) return;
   if(!roles.length){ c.innerHTML='<div style="font-size:13px;color:var(--ink-m);font-style:italic;margin-bottom:16px">Define your roles in End in Mind first.</div>'; return; }
-  c.innerHTML=roles.slice(0,4).map(r=>'<div class="role-week-card"><div class="rwc-header"><div class="rwc-icon">'+r.icon+'</div><div><div class="rwc-name">'+r.name+'</div><div class="rwc-def">'+(r.successDef||'Define success')+'</div></div><div class="rwc-tasks">'+priorities.filter(p=>p.roleId===r.id&&!p.done).length+' priorities</div></div><div class="rwc-body"><div class="rwc-commit-lbl">This week\'s commitment</div><input class="rwc-commit-inp" value="'+(r.weeklyCommitment||'')+'" placeholder="What one result would make the biggest difference in '+r.name+'?" onchange="updateRoleCommit(\''+r.id+'\',this.value)"></div></div>').join('');
+  c.innerHTML=roles.slice(0,4).map(r=>'<div class="role-week-card"><div class="rwc-header"><div class="rwc-icon">'+r.icon+'</div><div><div class="rwc-name">'+esc(r.name)+'</div><div class="rwc-def">'+esc(r.successDef||'Define success')+'</div></div><div class="rwc-tasks">'+priorities.filter(p=>p.roleId===r.id&&!p.done).length+' priorities</div></div><div class="rwc-body"><div class="rwc-commit-lbl">This week\'s commitment</div><input class="rwc-commit-inp" value="'+esc(r.weeklyCommitment||'')+'" placeholder="What one result would make the biggest difference in '+esc(r.name)+'?" onchange="updateRoleCommit(\''+r.id+'\',this.value)"></div></div>').join('');
 }
 function updateRoleCommit(roleId,val){ const r=roles.find(x=>x.id===roleId); if(!r) return; r.weeklyCommitment=val; save('roles',roles); renderRoleAlignment(); }
 
@@ -2410,8 +2423,9 @@ function getWeekKey(date){
   const weekNum = Math.ceil((((d - yearStart) / 86400000) + 1) / 7);
   return d.getUTCFullYear() + '-W' + String(weekNum).padStart(2,'0');
 }
-function getThisWeekKey(){ return getWeekKey(new Date()); }
-function getLastWeekKey(){ const d=new Date(); d.setDate(d.getDate()-7); return getWeekKey(d); }
+function planDate(){ const d=new Date(); if(d.getDay()===0) d.setDate(d.getDate()+1); return d; }
+function getThisWeekKey(){ return getWeekKey(planDate()); }
+function getLastWeekKey(){ const d=planDate(); d.setDate(d.getDate()-7); return getWeekKey(d); }
 function getDayOfWeekShort(){ return ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'][new Date().getDay()]; }
 function isWeekend(){ const d=new Date().getDay(); return d===0||d===6; }
 
@@ -2496,36 +2510,33 @@ function editRock(rockId){
   const wk = getThisWeekKey();
   const data = bigRocks[wk]; if(!data) return;
   const r = data.rocks.find(x=>x.id===rockId); if(!r) return;
-  const newTitle = prompt('Edit Big Rock:', r.title);
-  if(newTitle===null) return;
-  if(!newTitle.trim()){ if(confirm('Delete this Big Rock?')){ data.rocks = data.rocks.filter(x=>x.id!==rockId); save('bigRocks',bigRocks); renderBigRocksSummary(); renderTodayRockSuggestions(); } return; }
-  r.title = newTitle.trim();
-  save('bigRocks', bigRocks);
-  renderBigRocksSummary();
-  renderTodayRockSuggestions();
+  askSheet({title:'Edit Big Rock', value:r.title, allowDelete:true,
+    onOk:v=>{ r.title=v; save('bigRocks',bigRocks); renderBigRocksSummary(); renderTodayRockSuggestions(); },
+    onDelete:()=>{ data.rocks=data.rocks.filter(x=>x.id!==rockId); save('bigRocks',bigRocks); renderBigRocksSummary(); renderTodayRockSuggestions(); }});
 }
 
 function addRockMidWeek(){
   if(!roles.length){ toast('Define a role in End in Mind first.'); return; }
-  const title = prompt('New Big Rock for this week:');
-  if(!title || !title.trim()) return;
-  const roleNames = roles.map((r,i)=>(i+1)+') '+r.icon+' '+r.name).join('\n');
-  const roleIdx = prompt('Which role?\n\n'+roleNames+'\n\nEnter 1-'+roles.length+':');
-  const idx = parseInt(roleIdx,10)-1;
-  if(isNaN(idx)||idx<0||idx>=roles.length){ toast('Cancelled'); return; }
-  const data = getCurrentWeekRocks();
-  data.rocks.push({
-    id:'rock'+Date.now(),
-    title:title.trim(),
-    roleId:roles[idx].id,
-    done:false,
-    plannedDay:null,
-    addedMidWeek:true
-  });
-  save('bigRocks', bigRocks);
-  renderBigRocksSummary();
-  renderTodayRockSuggestions();
-  toast('🪨 Rock added. Now do it.');
+  askSheet({title:'New Big Rock', placeholder:'The one needle-mover...', withRole:true,
+    onOk:(v,roleId)=>{
+      const data = getCurrentWeekRocks();
+      data.rocks.push({ id:'rock'+Date.now(), title:v, roleId, done:false, plannedDay:null, addedMidWeek:true });
+      save('bigRocks', bigRocks); renderBigRocksSummary(); renderTodayRockSuggestions(); toast('🪨 Rock added. Now do it.');
+    }});
+}
+
+function askSheet(o){
+  document.getElementById('ask-title').textContent=o.title||'';
+  const inp=document.getElementById('ask-input'); inp.value=o.value||''; inp.placeholder=o.placeholder||'';
+  const rw=document.getElementById('ask-role-wrap'), rs=document.getElementById('ask-role');
+  rw.style.display=o.withRole?'block':'none';
+  if(o.withRole) rs.innerHTML=roles.map(r=>'<option value="'+esc(r.id)+'">'+esc(r.icon)+' '+esc(r.name)+'</option>').join('');
+  const del=document.getElementById('ask-del'); del.style.display=o.allowDelete?'inline-flex':'none';
+  const ok=()=>{ const v=inp.value.trim(); if(!v){ toast('Enter something first'); return; } closeModal('m-ask'); o.onOk(v, rs.value); };
+  document.getElementById('ask-ok').onclick=ok;
+  inp.onkeydown=e=>{ if(e.key==='Enter') ok(); };
+  del.onclick=()=>{ closeModal('m-ask'); o.onDelete&&o.onDelete(); };
+  openModal('m-ask'); setTimeout(()=>inp.focus(),120);
 }
 
 // ── RITUAL MODAL ──
@@ -2801,9 +2812,6 @@ function skipRockSuggestions(){
   document.getElementById('br-today-suggest').innerHTML = '';
 }
 
-// Auto-mark rock done when matching priority is completed
-const _originalTogglePriority = window.togglePriority;
-// Hook is defined inline in togglePriority below — see modification
 
 
 function renderEndInMind(){
@@ -2813,10 +2821,11 @@ function renderEndInMind(){
 }
 function renderValues(){
   const w=document.getElementById('values-wrap'); if(!w) return;
-  w.innerHTML=DEFAULT_VALUES.map(v=>'<div class="val-tag'+(values.includes(v)?' active':'')+'" onclick="toggleValue(\''+v+'\')">'+v+'</div>').join('')+'<button class="val-add-btn" onclick="addValue()">+ Add</button>';
+  const all=[...new Set([...DEFAULT_VALUES,...values])];
+  w.innerHTML=all.map(v=>'<div class="val-tag'+(values.includes(v)?' active':'')+'" data-v="'+esc(v)+'" onclick="toggleValue(this.dataset.v)">'+esc(v)+'</div>').join('')+'<button class="val-add-btn" onclick="addValue()">+ Add</button>';
 }
 function toggleValue(v){ if(values.includes(v)) values=values.filter(x=>x!==v); else values.push(v); save('values',values); renderValues(); }
-function addValue(){ const v=prompt('Add a core value:'); if(!v||!v.trim()) return; if(!values.includes(v.trim())){ values.push(v.trim()); save('values',values); renderValues(); } }
+function addValue(){ askSheet({title:'Add a core value',placeholder:'e.g. Gratitude',onOk:v=>{ if(!values.includes(v)){ values.push(v); save('values',values); renderValues(); } }}); }
 
 function renderEndInMindRoles(){
   const c=document.getElementById('endmind-roles'); if(!c) return;
@@ -2887,7 +2896,7 @@ function renderRelationships(){
   c.innerHTML=relationships.map(r=>{
     const days=r.lastInteraction?Math.floor((Date.now()-new Date(r.lastInteraction))/86400000):null;
     const urgent=days!==null&&days>7;
-    return '<div class="rel-card"><div class="rel-avatar">'+(r.emoji||'👤')+'</div><div class="rel-body"><div class="rel-name">'+r.name+'</div><div class="rel-type">'+(r.type||'Key relationship')+'</div><div class="rel-last'+(urgent?' urgent':'')+'">'+( days===null?'No interaction logged':days===0?'Connected today ✓':days+' days since last interaction')+'</div></div><div style="text-align:right;flex-shrink:0"><div class="rel-energy '+(r.energy||'med')+'">'+(r.energy==='high'?'🟢 Energizing':r.energy==='low'?'🔴 Needs care':'🟡 Steady')+'</div><button class="rel-log-btn" onclick="logInteraction(\''+r.id+'\')">Log today</button><button class="rel-log-btn" onclick="editRel(\''+r.id+'\')" style="margin-top:3px">Edit</button></div></div>';
+    return '<div class="rel-card"><div class="rel-avatar">'+(r.emoji||'👤')+'</div><div class="rel-body"><div class="rel-name">'+esc(r.name)+'</div><div class="rel-type">'+esc(r.type||'Key relationship')+'</div><div class="rel-last'+(urgent?' urgent':'')+'">'+( days===null?'No interaction logged':days===0?'Connected today ✓':days+' days since last interaction')+'</div></div><div style="text-align:right;flex-shrink:0"><div class="rel-energy '+(r.energy||'med')+'">'+(r.energy==='high'?'🟢 Energizing':r.energy==='low'?'🔴 Needs care':'🟡 Steady')+'</div><button class="rel-log-btn" onclick="logInteraction(\''+r.id+'\')">Log today</button><button class="rel-log-btn" onclick="editRel(\''+r.id+'\')" style="margin-top:3px">Edit</button></div></div>';
   }).join('');
 }
 function openAddRel(){ editingRelId=null; document.getElementById('rel-modal-title').textContent='Add Relationship'; ['rel-name','rel-type'].forEach(id=>document.getElementById(id).value=''); document.getElementById('rel-emoji').value='👤'; document.getElementById('rel-energy').value='med'; document.getElementById('rel-delete-row').style.display='none'; openModal('m-rel'); }
@@ -2931,7 +2940,7 @@ function renderValuesBehaviorGap(){
   values.forEach(v=>{ activity[v]=0; });
   for(let i=0;i<7;i++){
     const d=new Date(); d.setDate(d.getDate()-i);
-    const ds=d.toISOString().slice(0,10);
+    const ds=ymd(d);
     const dayState=JSON.parse(localStorage.getItem(uid_key('today_'+ds))||'{}');
     const rs=dayState.roleServed||{};
     const servedRoles=roles.filter(r=>rs[r.id]===true);
@@ -2954,7 +2963,7 @@ function saveReflection(){
 // ══════════════════════════════
 function renderPatterns(){
   const days=[];
-  for(let i=55;i>=0;i--){ const d=new Date(); d.setDate(d.getDate()-i); days.push(d.toISOString().slice(0,10)); }
+  for(let i=55;i>=0;i--){ const d=new Date(); d.setDate(d.getDate()-i); days.push(ymd(d)); }
   // Week labels
   const wl=document.getElementById('heatmap-week-labels');
   if(wl){ wl.innerHTML=Array.from({length:8},(_,w)=>{ const d=new Date(days[w*7]); return '<div style="width:'+(7*19)+'px;font-size:9px;color:var(--ink-lt);overflow:hidden;white-space:nowrap">'+d.toLocaleDateString('en-US',{month:'short',day:'numeric'})+'</div>'; }).join(''); }
@@ -2982,8 +2991,8 @@ function renderGoals(){
     const daysLeft=g.targetDate?Math.ceil((new Date(g.targetDate)-new Date())/86400000):null;
     const daysCls=daysLeft===null?'':daysLeft<0?'goal-days-over':daysLeft<30?'goal-days-warn':'goal-days-ok';
     const daysLabel=daysLeft===null?'':daysLeft<0?Math.abs(daysLeft)+' days over':daysLeft+' days left';
-    const msHTML=ms.length?ms.map(m=>{ const late=m.date&&m.date<TODAY&&!m.done; return '<div class="milestone-item"><div class="ms-chk'+(m.done?' done':late?' late':'')+'" onclick="toggleMilestone(\''+g.id+'\',\''+m.id+'\')">'+(m.done?'✓':'')+'</div><div class="ms-body"><div class="ms-title'+(m.done?' done':'')+'">'+m.title+'</div><div class="ms-date'+(late?' late':'')+'">'+( m.date||'')+'</div></div></div>'; }).join(''):'<div style="font-size:12px;color:var(--ink-m);padding:8px 0">No milestones yet.</div>';
-    return '<div class="goal-card"><div class="goal-header"><div class="goal-icon-box">'+(g.icon||'🎯')+'</div><div style="flex:1;min-width:0"><div class="goal-title-txt">'+g.title+'</div>'+(role?'<span class="goal-role-tag">'+role.icon+' '+role.name+'</span>':'')+(g.why?'<div style="font-size:11px;color:var(--ink-m);margin-top:4px;font-style:italic">"'+g.why+'"</div>':'')+'</div>'+(daysLabel?'<div class="goal-days-left '+daysCls+'">'+daysLabel+'</div>':'')+'</div><div class="goal-body"><div class="goal-prog-bar"><div class="goal-prog-fill" style="width:'+pct+'%"></div></div><div class="goal-prog-lbl">'+pct+'% complete ('+done+'/'+ms.length+')</div><div style="display:flex;gap:8px;margin-bottom:12px"><button class="btn btn-ghost" onclick="editGoal(\''+g.id+'\')" style="font-size:11px;padding:6px 12px">✏️ Edit</button><button onclick="addPriorityFromGoal(\''+g.id+'\')" style="padding:6px 12px;background:rgba(27,58,107,.08);border:1px solid rgba(27,58,107,.15);border-radius:8px;font-size:11px;font-weight:700;cursor:pointer;color:var(--navy-2);font-family:\'DM Sans\',sans-serif">→ Add as Priority</button></div>'+msHTML+'</div></div>';
+    const msHTML=ms.length?ms.map(m=>{ const late=m.date&&m.date<TODAY&&!m.done; return '<div class="milestone-item"><div class="ms-chk'+(m.done?' done':late?' late':'')+'" onclick="toggleMilestone(\''+g.id+'\',\''+m.id+'\')">'+(m.done?'✓':'')+'</div><div class="ms-body"><div class="ms-title'+(m.done?' done':'')+'">'+esc(m.title)+'</div><div class="ms-date'+(late?' late':'')+'">'+( m.date||'')+'</div></div></div>'; }).join(''):'<div style="font-size:12px;color:var(--ink-m);padding:8px 0">No milestones yet.</div>';
+    return '<div class="goal-card"><div class="goal-header"><div class="goal-icon-box">'+(g.icon||'🎯')+'</div><div style="flex:1;min-width:0"><div class="goal-title-txt">'+esc(g.title)+'</div>'+(role?'<span class="goal-role-tag">'+esc(role.icon)+' '+esc(role.name)+'</span>':'')+(g.why?'<div style="font-size:11px;color:var(--ink-m);margin-top:4px;font-style:italic">"'+esc(g.why)+'"</div>':'')+'</div>'+(daysLabel?'<div class="goal-days-left '+daysCls+'">'+daysLabel+'</div>':'')+'</div><div class="goal-body"><div class="goal-prog-bar"><div class="goal-prog-fill" style="width:'+pct+'%"></div></div><div class="goal-prog-lbl">'+pct+'% complete ('+done+'/'+ms.length+')</div><div style="display:flex;gap:8px;margin-bottom:12px"><button class="btn btn-ghost" onclick="editGoal(\''+g.id+'\')" style="font-size:11px;padding:6px 12px">✏️ Edit</button><button onclick="addPriorityFromGoal(\''+g.id+'\')" style="padding:6px 12px;background:rgba(27,58,107,.08);border:1px solid rgba(27,58,107,.15);border-radius:8px;font-size:11px;font-weight:700;cursor:pointer;color:var(--navy-2);font-family:\'DM Sans\',sans-serif">→ Add as Priority</button></div>'+msHTML+'</div></div>';
   }).join('');
 }
 function openAddGoal(){
@@ -2992,7 +3001,7 @@ function openAddGoal(){
   ['g-title','g-date','g-why'].forEach(id=>document.getElementById(id).value='');
   document.getElementById('goal-delete-row').style.display='none';
   renderMilestoneList();
-  const sel=document.getElementById('g-role'); sel.innerHTML='<option value="">— No role —</option>'+roles.map(r=>'<option value="'+r.id+'">'+r.icon+' '+r.name+'</option>').join('');
+  const sel=document.getElementById('g-role'); sel.innerHTML='<option value="">— No role —</option>'+roles.map(r=>'<option value="'+r.id+'">'+esc(r.icon)+' '+esc(r.name)+'</option>').join('');
   openModal('m-goal');
 }
 function editGoal(id){
@@ -3004,7 +3013,7 @@ function editGoal(id){
   document.getElementById('g-why').value=g.why||'';
   document.getElementById('goal-delete-row').style.display='block';
   renderMilestoneList();
-  const sel=document.getElementById('g-role'); sel.innerHTML='<option value="">— No role —</option>'+roles.map(r=>'<option value="'+r.id+'"'+(r.id===g.roleId?' selected':'')+'>'+r.icon+' '+r.name+'</option>').join('');
+  const sel=document.getElementById('g-role'); sel.innerHTML='<option value="">— No role —</option>'+roles.map(r=>'<option value="'+r.id+'"'+(r.id===g.roleId?' selected':'')+'>'+esc(r.icon)+' '+esc(r.name)+'</option>').join('');
   openModal('m-goal');
 }
 function saveGoal(){
@@ -3024,7 +3033,7 @@ function addMilestone(){
 function renderMilestoneList(){
   const c=document.getElementById('milestone-list'); if(!c) return;
   if(!goalMilestones.length){ c.innerHTML='<div style="font-size:12px;color:var(--ink-m);padding:6px">No milestones yet.</div>'; return; }
-  c.innerHTML=goalMilestones.map((m,i)=>'<div style="display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid var(--border-lt)"><span style="font-size:14px">'+(i===0?'🏁':'📅')+'</span><div style="flex:1"><div style="font-size:13px;font-weight:600">'+m.title+'</div><div style="font-size:10px;color:var(--ink-m)">'+(m.date||'No date')+'</div></div><span onclick="removeMilestone('+i+')" style="cursor:pointer;color:var(--ink-lt);font-size:13px">✕</span></div>').join('');
+  c.innerHTML=goalMilestones.map((m,i)=>'<div style="display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid var(--border-lt)"><span style="font-size:14px">'+(i===0?'🏁':'📅')+'</span><div style="flex:1"><div style="font-size:13px;font-weight:600">'+esc(m.title)+'</div><div style="font-size:10px;color:var(--ink-m)">'+(m.date||'No date')+'</div></div><span onclick="removeMilestone('+i+')" style="cursor:pointer;color:var(--ink-lt);font-size:13px">✕</span></div>').join('');
 }
 function removeMilestone(i){ goalMilestones.splice(i,1); renderMilestoneList(); }
 function toggleMilestone(goalId,msId){ const g=goals.find(x=>x.id===goalId); if(!g) return; const m=(g.milestones||[]).find(x=>x.id===msId); if(!m) return; m.done=!m.done; if(m.done) toast('✦ Milestone complete.'); save('goals',goals); renderGoals(); }
@@ -3058,8 +3067,8 @@ function renderHabits(){
   c.innerHTML=habits.map(h=>{
     const logs=habitLogs[h.id]||{};
     const todayDone=!!logs[TODAY];
-    let streak=0; for(let i=0;i<365;i++){ const d=new Date(); d.setDate(d.getDate()-i); const ds=d.toISOString().slice(0,10); if(logs[ds]) streak++; else if(i>0) break; }
-    const days=[]; for(let i=6;i>=0;i--){ const d=new Date(); d.setDate(d.getDate()-i); days.push({ds:d.toISOString().slice(0,10),lbl:d.toLocaleDateString('en-US',{weekday:'narrow'}),isToday:i===0}); }
+    let streak=0; for(let i=0;i<365;i++){ const d=new Date(); d.setDate(d.getDate()-i); const ds=ymd(d); if(logs[ds]) streak++; else if(i>0) break; }
+    const days=[]; for(let i=6;i>=0;i--){ const d=new Date(); d.setDate(d.getDate()-i); days.push({ds:ymd(d),lbl:d.toLocaleDateString('en-US',{weekday:'narrow'}),isToday:i===0}); }
     const wd=days.filter(d=>logs[d.ds]).length;
     const stackLine = h.habitStack ? '<div style="font-size:11px;color:var(--navy-2);font-weight:600;margin-top:3px">📎 After I '+esc(h.habitStack)+'</div>' : '';
     const identityLine = h.identity ? '<div style="font-size:11px;color:var(--gold);font-weight:600;margin-top:2px">🪪 I am a '+esc(h.identity)+'</div>' : '';
@@ -3080,9 +3089,39 @@ function renderSettings(){
   document.getElementById('gemini-key').value=geminiKey;
   updateAiBadge();
   updateFbBadge();
+  const aid=document.getElementById('acct-id'); if(aid) aid.textContent=currentUser?.uid||'';
+  const strong=isStrongId(currentUser?.uid);
+  const ub=document.getElementById('acct-upgrade-btn'); if(ub) ub.style.display=strong?'none':'inline-flex';
+  const aw=document.getElementById('acct-weak'); if(aw) aw.style.display=strong?'none':'block';
   const ds=document.getElementById('data-summary'); if(ds) ds.textContent='📦 '+roles.length+' roles · '+priorities.length+' priorities today · '+habits.length+' habits · '+relationships.length+' relationships · '+reflections.length+' reflections · '+goals.length+' goals';
 }
 
+function copyAccountId(){
+  const id=currentUser?.uid||'';
+  (navigator.clipboard?navigator.clipboard.writeText(id):Promise.reject()).then(()=>toast('📋 Account ID copied')).catch(()=>toast('Press and hold the ID to copy'));
+}
+function isStrongId(id){ return /^u_[0-9a-f]{32}$/.test(id||''); }
+async function upgradeAccountId(){
+  if(!window._fbReady || !currentUser?.uid){ toast('❌ Connect to the internet first'); return; }
+  if(!confirm('Copy all your data to a new private Account ID? Your old cloud copy is kept (not deleted) until you remove it.')) return;
+  flushAllCloud();
+  const oldUid=currentUser.uid, newUid=newAccountId();
+  const keys=CORE_KEYS.concat(dayKeys(120)); load('relationships',[]).forEach(r=>keys.push('eba_'+r.id));
+  showSyncIndicator('🔒 Moving data...');
+  try{
+    for(const k of keys){
+      const raw=localStorage.getItem('df3_'+k+'_'+oldUid); if(raw===null) continue;
+      const ts=localStorage.getItem('df3_meta_'+k+'_'+oldUid)||new Date().toISOString();
+      await window._fbSetDoc(window._fbDoc(window._db,'users',newUid,'data',k),{value:raw,updatedAt:ts});
+      localStorage.setItem('df3_'+k+'_'+newUid, raw); localStorage.setItem('df3_meta_'+k+'_'+newUid, ts);
+    }
+    localStorage.setItem('df3_setup_'+newUid,'1');
+    const p=profiles.find(x=>x.id===oldUid); if(p){ p.id=newUid; saveProfiles(); }
+    currentUser={...currentUser, uid:newUid}; saveGlobal('currentUser',currentUser);
+    hideSyncIndicator(); renderSettings();
+    toast('🔒 Done. Save your new Account ID.');
+  } catch(e){ hideSyncIndicator(); console.error(e); toast('❌ Move failed — nothing was changed'); }
+}
 function updateFbBadge(){
   const badge  = document.getElementById('fb-badge');
   const detail = document.getElementById('fb-status-detail');
@@ -3105,7 +3144,7 @@ function updateFbBadge(){
   }
 }
 function toggleKeyVis(){ const i=document.getElementById('gemini-key'); i.type=i.type==='password'?'text':'password'; document.getElementById('key-eye').textContent=i.type==='password'?'👁️':'🙈'; }
-function saveGeminiKey(){ const k=document.getElementById('gemini-key').value.trim(); if(!k){ toast('Enter a key'); return; } if(!k.startsWith('AIza')){ toast('Key should start with AIza...'); return; } geminiKey=k; localStorage.setItem('df3_gemini',k); updateAiBadge(); toast('✅ Gemini connected!'); genCoach(); }
+function saveGeminiKey(){ const k=document.getElementById('gemini-key').value.trim(); if(!k){ toast('Enter a key'); return; } if(!k.startsWith('AIza')){ toast('Key should start with AIza...'); return; } geminiKey=k; localStorage.setItem('df3_gemini',k); updateAiBadge(); toast('✅ Gemini connected!'); genCoach(true); }
 async function testGeminiKey(){
   const k=document.getElementById('gemini-key').value.trim(); if(!k){ toast('Enter a key first'); return; }
   const el=document.getElementById('key-result'); el.style.display='block'; el.style.background='var(--surface-2)'; el.textContent='⏳ Testing...';
@@ -3175,7 +3214,7 @@ function clearAllData(){
   // Also wipe today and past 30 days of state
   for(let i=0;i<30;i++){
     const d=new Date(); d.setDate(d.getDate()-i);
-    keysToDelete.push('today_'+d.toISOString().slice(0,10));
+    keysToDelete.push('today_'+ymd(d));
   }
   keysToDelete.forEach(k=>{
     localStorage.removeItem(uid_key(k));
@@ -3229,9 +3268,10 @@ async function callAI(prompt,maxTokens=200){
   if(data.error) throw new Error(data.error.message);
   return data.candidates?.[0]?.content?.parts?.[0]?.text||null;
 }
-async function genCoach(){
+async function genCoach(force){
   const el=document.getElementById('coach-body'); if(!el) return;
   if(!geminiKey){ el.textContent='Add your Gemini key in Settings to activate decision coaching.'; return; }
+  if(!force){ el.textContent=loadLocal('coach_'+TODAY)||'Tap ↺ Refresh for today\'s coaching question.'; return; }
   el.innerHTML='<div class="dots"><span>●</span><span>●</span><span>●</span></div>';
   const plist=priorities.map(p=>{ const r=roles.find(x=>x.id===p.roleId); return p.title+(r?' ['+r.name+']':' [no role]'); }).join(', ')||'none';
   const roleLines=roles.map(r=>r.name+': success="'+(r.successDef||'undefined')+'", week="'+(r.weeklyCommitment||'none')+'"').join('; ')||'none defined';
@@ -3248,7 +3288,7 @@ async function genCoach(){
     'TODAY ('+day+'): Priorities='+plist+' | Unserved='+( unserved.join(', ')||'all served')+' | Align='+s.align+'% Q2='+s.q2+'% Renewal='+rend,
     'Surface ONE gap between stated identity and actual behavior. Name their specific mission/role/value. 2 sentences max. Observation then hard question. Never start with I.'
   ];
-  try{ const text=await callAI(lines.join('\n'),140); el.textContent=text||'Your priorities and your mission — do they actually match?'; }
+  try{ const text=await callAI(lines.join('\n'),140); el.textContent=text||'Your priorities and your mission — do they actually match?'; if(text) saveLocal('coach_'+TODAY,text); }
   catch(e){ el.textContent='What does your mission require today — and is that in your Top 3?'; }
 }
 
@@ -3267,8 +3307,15 @@ let _toastT;
 function toast(msg){ const el=document.getElementById('toast'); el.textContent=msg; el.classList.add('show'); clearTimeout(_toastT); _toastT=setTimeout(()=>el.classList.remove('show'),2800); }
 function toggleDark(){ document.body.classList.toggle('dark'); const on=document.body.classList.contains('dark'); document.getElementById('dark-icon').textContent=on?'☀️':'🌙'; document.getElementById('dark-btn-float').textContent=on?'☀️':'🌙'; localStorage.setItem('df3_dark',on?'1':'0'); }
 
-document.addEventListener('click',e=>{ document.querySelectorAll('.overlay.open,.grat-overlay.open').forEach(m=>{ if(e.target===m) closeModal(m.id); }); });
-document.addEventListener('keydown',e=>{ if(e.key==='Escape') document.querySelectorAll('.overlay.open,.grat-overlay.open').forEach(m=>closeModal(m.id)); });
+function closeAnyOverlay(m){
+  if(m.id==='m-bigrocks') closeBigRocks();
+  else if(m.id==='m-evening') closeEvening();
+  else if(m.id==='m-report') closeReportModal();
+  else closeModal(m.id);
+}
+const OVERLAY_SEL='.overlay.open,.grat-overlay.open,.eve-overlay.open,.report-overlay.open';
+document.addEventListener('click',e=>{ document.querySelectorAll(OVERLAY_SEL).forEach(m=>{ if(e.target===m && m.id!=='m-bigrocks') closeAnyOverlay(m); }); });
+document.addEventListener('keydown',e=>{ if(e.key==='Escape') document.querySelectorAll(OVERLAY_SEL).forEach(closeAnyOverlay); });
 
 // ══════════════════════════════
 // INIT
@@ -3284,13 +3331,13 @@ document.addEventListener('keydown',e=>{ if(e.key==='Escape') document.querySele
   const saved=loadGlobal('currentUser');
   if(saved?.uid){
     let p=profiles.find(x=>x.id===saved.uid);
-    // RECOVERY: if Filipe profile lost, reattach to canonical u_filipe UID
-    if(!p && (saved.name==='Filipe' || saved.uid==='u_filipe')){
-      p={id:'u_filipe', name:'Filipe', emoji:saved.emoji||'🔥', createdAt:new Date().toISOString()};
+    // RECOVERY: profile list lost but last login remembered — rebuild it
+    if(!p && saved.name){
+      p={id:saved.uid, name:saved.name, emoji:saved.emoji||'🔥', createdAt:new Date().toISOString()};
       profiles.push(p);
       saveProfiles();
       localStorage.setItem('df3_setup_'+p.id,'1');
-      console.log('🔒 Restored canonical Filipe profile');
+      console.log('Restored profile from last login');
     }
     if(p && localStorage.getItem('df3_setup_'+p.id)){
       currentUser={uid:p.id,name:p.name,emoji:p.emoji};
@@ -3335,7 +3382,7 @@ function renderEbaList(){
     const hdr = document.createElement('div');
     hdr.className = 'eba-header';
     hdr.innerHTML = '<div class="eba-avatar">'+(r.emoji||'👤')+'</div>'
-      +'<div class="eba-meta"><div class="eba-name">'+r.name+'</div><div class="eba-type">'+(r.type||'Key relationship')+'</div></div>'
+      +'<div class="eba-meta"><div class="eba-name">'+esc(r.name)+'</div><div class="eba-type">'+esc(r.type||'Key relationship')+'</div></div>'
       +'<div class="eba-bal-wrap"><div class="eba-bal '+(bal>0?'pos':bal<0?'neg':'zero')+'">'+(bal>0?'+':'')+bal+'</div><div class="eba-bal-lbl">Balance</div></div>';
     card.appendChild(hdr);
 
@@ -3380,7 +3427,7 @@ function renderEbaList(){
           row.className = 'eba-tx-row';
           const isDep = tx.type==='deposit';
           row.innerHTML = '<div class="eba-tx-ico '+(isDep?'d':'w')+'">'+(isDep?'+':'-')+'</div>'
-            +'<div class="eba-tx-body"><div class="eba-tx-note">'+tx.note+'</div><div class="eba-tx-date">'+tx.date+'</div></div>'
+            +'<div class="eba-tx-body"><div class="eba-tx-note">'+esc(tx.note)+'</div><div class="eba-tx-date">'+tx.date+'</div></div>'
             +'<div class="eba-tx-amt '+(isDep?'p':'n')+'">'+(isDep?'+':'-')+tx.impact+'</div>';
           txList.appendChild(row);
         });
@@ -3551,10 +3598,9 @@ openModal = function(id){
 const _origRenderToday = renderToday;
 renderToday = function(){
   _origRenderToday();
-  if(loadLocal('eve_done_'+TODAY)){
-    const tb = document.getElementById('eve-trigger-btn');
-    if(tb){ tb.textContent = '🌙 Evening Review — Done ✓'; tb.classList.add('done'); }
-  }
+  const edone = !!loadLocal('eve_done_'+TODAY);
+  const tb = document.getElementById('eve-trigger-btn');
+  if(tb){ tb.textContent = edone ? '🌙 Evening Review — Done ✓' : '🌙 Evening Review — Open'; tb.classList.toggle('done', edone); }
 };
 
 
@@ -3564,7 +3610,7 @@ renderToday = function(){
 async function manualSync(){
   const el = document.getElementById('sync-status');
   if(el) el.textContent = '☁️ Syncing...';
-  await loadAllFromFirestore();
+  await loadAllFromFirestore(true);
   roles         = load('roles', []);
   habits        = load('habits', []);
   habitLogs     = load('habitLogs', {});
@@ -3577,7 +3623,7 @@ async function manualSync(){
   reflections   = load('reflections', []);
   loadTodayState();
   const activeView = document.querySelector('.view.active')?.id?.replace('view-','');
-  if(activeView) nav(activeView);
+  if(activeView) nav(activeView,true);
   updateScores();
   if(el) el.textContent = '✅ Synced at '+new Date().toLocaleTimeString();
   renderSettings();
@@ -3598,7 +3644,7 @@ async function migrateLocalToFirebase(){
   // Add today and past 30 days
   for(let i=0;i<30;i++){
     const d=new Date(); d.setDate(d.getDate()-i);
-    keys.push('today_'+d.toISOString().slice(0,10));
+    keys.push('today_'+ymd(d));
   }
   // Add EBA data
   const rels = load('relationships',[]);
@@ -3689,7 +3735,7 @@ async function generateWeeklyReport(){
       const kw = kwMap[v]; if(!kw) return false;
       for(let i=0;i<7;i++){
         const d=new Date(); d.setDate(d.getDate()-i);
-        const ds=d.toISOString().slice(0,10);
+        const ds=ymd(d);
         const st=JSON.parse(localStorage.getItem(uid_key('today_'+ds))||'{}');
         const rs=st.roleServed||{};
         if(roles.filter(r=>kw.test(r.name+' '+(r.successDef||''))).some(r=>rs[r.id]===true)) return false;
@@ -3771,7 +3817,7 @@ function openReportModal(report){
 
   // Parse sections from the report text
   const sections = ['HEADLINE','WHAT WORKED','THE GAP','VALUES CHECK','RECOMMENDATION'];
-  let formatted = report.text;
+  let formatted = esc(report.text);
 
   // Score summary
   const circ = 2*Math.PI*28;
@@ -3885,7 +3931,7 @@ function renderCoiColumns(){
     card.className = 'coi-item '+item.type+(item.resolved?' resolved':'');
     const energyLbl = item.energy==='high'?'🔴 High drain':item.energy==='low'?'🟢 Low drain':'🟡 Med drain';
     const energyCls = item.energy==='high'?'coi-energy-h':item.energy==='low'?'coi-energy-l':'coi-energy-m';
-    card.innerHTML = '<div class="coi-item-text">'+item.text+'</div>'
+    card.innerHTML = '<div class="coi-item-text">'+esc(item.text)+'</div>'
       +'<div class="coi-item-meta">'
         +'<span class="coi-item-energy '+energyCls+'">'+energyLbl+'</span>'
         +'<span class="coi-item-date">'+item.date+'</span>'
@@ -4022,7 +4068,7 @@ async function aiClassifyCoi(){
   toast('Classifying...');
   const pLines = [
     'Classify this into Circle of Influence (you can affect it) or Circle of Concern (outside your control).',
-    'Concern: "'+'" + text + "'+'"',
+    'Concern: "'+text+'"',
     'Respond exactly: CLASSIFICATION: [INFLUENCE or CONCERN] | REASON: [one sentence] | ACTION: [one action within their control]'
   ];
   const prompt = pLines.join(' ');
@@ -4079,10 +4125,30 @@ function mobNavTo(view){
   closeMobDrawer();
   setTimeout(() => {
     nav(view);
-    document.querySelectorAll('.mob-nav-btn').forEach(b => b.classList.remove('active'));
-    const moreBtn = document.getElementById('mob-more-btn');
-    if(moreBtn) moreBtn.classList.add('active');
   }, 120);
+}
+
+// ── Day rollover: PWA stays alive overnight, so re-check the date whenever you come back ──
+function refreshDay(){
+  if(!currentUser) return;
+  const t=getToday(); if(t===TODAY) return;
+  TODAY=t;
+  loadTodayState();
+  sessionStorage.removeItem('df3_skip_rock_suggest_'+TODAY);
+  updateGreeting();
+  const v=document.querySelector('.view.active')?.id?.replace('view-','')||'today';
+  nav(v,true);
+  updateScores();
+  genCoach(false);
+  checkAutoGratitude();
+}
+document.addEventListener('visibilitychange',()=>{ if(!document.hidden) refreshDay(); });
+window.addEventListener('pageshow',refreshDay);
+window.addEventListener('focus',refreshDay);
+
+// ── Service worker (needs http/https hosting; ignored on file://) ──
+if('serviceWorker' in navigator && location.protocol.indexOf('http')===0){
+  window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
 }
 
 </script>
