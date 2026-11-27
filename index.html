@@ -875,14 +875,13 @@ details.fold .fold-body{padding:0 18px 16px}
 }
 </style>
 
-<!-- Firebase SDK — dynamic import fixes ES module timing race -->
+<!-- Firebase (Firestore + email sign-in). App works fully offline from local storage if this fails to load. -->
 <script>
 (async function(){
   try {
     const { initializeApp } = await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js');
-    const { getFirestore, doc, setDoc, getDoc, collection, getDocs, deleteDoc }
-      = await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js');
-
+    const { getFirestore, doc, setDoc, getDoc } = await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js');
+    const A = await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js');
     const firebaseConfig = {
       apiKey: "AIzaSyDlGerHCkauECpu9uOXT-BUPAQATTwoVk0",
       authDomain: "dayflow-a2c14.firebaseapp.com",
@@ -891,96 +890,25 @@ details.fold .fold-body{padding:0 18px 16px}
       messagingSenderId: "722247388632",
       appId: "1:722247388632:web:7534715e8b89c876de36ad"
     };
-
     const fbApp = initializeApp(firebaseConfig);
-    const db    = getFirestore(fbApp);
-
-    window._db           = db;
-    window._fbDoc        = doc;
-    window._fbSetDoc     = setDoc;
-    window._fbGetDoc     = getDoc;
-    window._fbCollection = collection;
-    window._fbGetDocs    = getDocs;
-    window._fbDeleteDoc  = deleteDoc;
-    window._fbReady      = true;
-    console.log('Firebase ready');
-
-    // Flush any writes that were queued before Firebase was ready
-    if(window._fbPendingWrites && window._fbPendingUID){
-      console.log('Flushing', window._fbPendingWrites.size, 'pending writes to Firestore...');
-      for(const [k, v] of window._fbPendingWrites){
-        try {
-          const ref = doc(db, 'users', window._fbPendingUID, 'data', k);
-          await setDoc(ref, { value: v.json, updatedAt: v.ts });
-          console.log('Flushed:', k);
-        } catch(e){ console.warn('Flush failed for', k, e.message); }
-      }
-      window._fbPendingWrites = null;
-      window._fbPendingUID = null;
-      localStorage.setItem('df3_lastSync', new Date().toISOString());
-    }
-  } catch(e){
-    console.error('Firebase load failed:', e);
-  }
+    window._db = getFirestore(fbApp);
+    window._fbDoc = doc; window._fbSetDoc = setDoc; window._fbGetDoc = getDoc;
+    const auth = A.getAuth(fbApp);
+    window._fbSignIn  = (e,p) => A.signInWithEmailAndPassword(auth,e,p);
+    window._fbSignUp  = (e,p) => A.createUserWithEmailAndPassword(auth,e,p);
+    window._fbSignOut = () => A.signOut(auth);
+    window._fbReset   = (e) => A.sendPasswordResetEmail(auth,e);
+    window._fbReady = true;
+    A.onAuthStateChanged(auth, u => { window._fbUser = u; window._authResolved = true; window.dispatchEvent(new Event('fbauth')); });
+  } catch(e){ console.error('Firebase load failed:', e); }
 })();
 </script>
 
 </head>
 <body>
 
-<!-- ══ AUTH ══ -->
-<div id="auth">
-  <div class="auth-card">
-    <div class="auth-logo">Day<span>Flow</span> <span style="font-size:14px;font-family:'DM Sans',sans-serif;font-weight:600;color:rgba(255,255,255,.3)">v3.1</span></div>
-    <div class="auth-tagline">Decision architecture. Not a task manager.</div>
-    <!-- Profile picker -->
-    <div id="auth-main">
-      <div style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:1.2px;color:rgba(255,255,255,.3);margin-bottom:12px">Who's planning today?</div>
-      <div class="profile-grid" id="profile-grid"></div>
-      <button class="add-profile-btn" id="show-add-profile-btn" onclick="openAddProfile()">+ Add Profile</button>
-      <div id="recover-link-wrap" style="display:none;text-align:center;margin-top:14px">
-        <button onclick="openRecover()" style="background:none;border:none;color:rgba(201,168,76,.6);font-family:'DM Sans',sans-serif;font-size:12px;font-weight:700;cursor:pointer;text-decoration:underline">↩ Recover existing account</button>
-      </div>
-    </div>
-    <!-- Add profile form -->
-    <div class="ap-form" id="add-profile-form">
-      <div style="font-size:13px;font-weight:700;color:rgba(255,255,255,.5);margin-bottom:14px">Create New Profile</div>
-      <input class="ap-inp" id="np-name" placeholder="Your name">
-      <div style="font-size:11px;font-weight:700;color:rgba(255,255,255,.3);margin-bottom:8px">Pick your avatar:</div>
-      <div class="emoji-grid" id="emoji-grid"></div>
-      <div class="ap-btns">
-        <button class="ap-btn ap-btn-cancel" onclick="closeAddProfile()">Cancel</button>
-        <button class="ap-btn ap-btn-create" onclick="createProfile()">Create Profile</button>
-      </div>
-    </div>
-    <!-- Setup wizard -->
-    <div class="ap-form" id="setup-form">
-      <div class="setup-dots" id="setup-dots">
-        <div class="setup-dot active"></div>
-        <div class="setup-dot"></div>
-        <div class="setup-dot"></div>
-      </div>
-      <div id="setup-content"></div>
-    </div>
-    <div class="auth-quote">"To begin with the end in mind means to start with a clear understanding of your destination." — Covey</div>
-    <!-- Account Recovery -->
-    <div class="ap-form" id="recover-form">
-      <div style="font-size:13px;font-weight:700;color:rgba(255,255,255,.6);margin-bottom:6px">🔑 Recover Your Account</div>
-      <div style="font-size:11px;color:rgba(255,255,255,.35);margin-bottom:14px;line-height:1.6">Your data is safe in the cloud. Enter your Account ID (find it in Settings → Cloud Sync on a device that is still signed in).</div>
-      <input class="ap-inp" id="recover-name" placeholder="Account ID (u_…)" autocapitalize="off" autocorrect="off" style="margin-bottom:10px">
-      <input class="ap-inp" id="recover-display" placeholder="Your name" style="margin-bottom:10px">
-      <div id="recover-error" style="color:#E57373;font-size:11px;font-weight:700;margin-bottom:8px;display:none"></div>
-      <div class="ap-btns">
-        <button class="ap-btn ap-btn-cancel" onclick="closeRecover()">Cancel</button>
-        <button class="ap-btn ap-btn-create" onclick="recoverAccount()">↩ Recover Account</button>
-      </div>
-      <div style="margin-top:14px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08);font-size:10px;color:rgba(255,255,255,.25);line-height:1.6">Your Account ID acts like a private key to your data. Keep it somewhere safe and never share it.</div>
-    </div>
-  </div>
-</div>
-
 <!-- ══ APP ══ -->
-<div id="app" style="display:none">
+<div id="app" style="display:flex">
 <div class="mob-header">
   <div class="mob-logo">Day<span>Flow</span></div>
   <div style="display:flex;gap:8px"><button class="mob-add-btn" onclick="openStartMyDay()">▶ Start</button><button class="mob-add-btn" onclick="openAddPriority()">+ Priority</button></div>
@@ -1017,7 +945,6 @@ details.fold .fold-body{padding:0 18px 16px}
     <div class="sb-score-row"><div class="sb-score-lbl">Overall</div><div class="sb-score-bar-w"><div class="sb-score-bar" id="sb-bar-eff" style="width:0%;background:linear-gradient(90deg,var(--navy-2),var(--gold))"></div></div><div class="sb-score-val" id="sb-val-eff">0%</div></div>
   </div>
   <div class="sb-bottom">
-    <div class="ni" onclick="signOut()" title="Switch User"><span class="ni-icon">🔀</span><span class="ni-text">Switch User</span></div>
     <div class="ni" onclick="toggleDark()" title="Toggle Dark Mode"><span class="ni-icon" id="dark-icon">🌙</span><span class="ni-text">Dark Mode</span></div>
   </div>
 </aside>
@@ -1032,24 +959,20 @@ details.fold .fold-body{padding:0 18px 16px}
       <button class="btn btn-primary" onclick="openAddPriority()">+ Priority</button>
     </div>
   </div>
+  <div id="cloud-banner" onclick="nav('settings')" style="display:none;align-items:center;gap:8px;background:var(--amber-lt);border:1px solid rgba(200,147,10,.3);color:#8B6914;border-radius:10px;padding:10px 14px;font-size:12px;font-weight:700;margin-bottom:12px;cursor:pointer;min-height:44px">☁️ Not backed up to the cloud yet — tap to sign in</div>
   <div id="br-today-nudge"></div>
   <div id="br-today-suggest"></div>
   <div class="card" id="priorities-card">
     <div class="card-label"><span class="dot" style="background:var(--red)"></span>Top 3 Priorities — What moves the needle today?</div>
     <div id="priority-slots"></div>
   </div>
-  <button class="grat-trigger-btn" id="grat-trigger-btn" onclick="openGratitude()">🌅 Morning Intention — Open</button>
-  <div class="coach-card">
-    <div class="coach-hdr"><div class="coach-icon">✦</div><div class="coach-title">Decision Coach</div><button class="coach-refresh" onclick="genCoach(true)">↺ Refresh</button></div>
-    <div class="coach-body" id="coach-body">Add your Gemini key in Settings to activate decision coaching.</div>
-  </div>
-  <div class="card">
-    <div class="card-label"><span class="dot" style="background:var(--navy-2)"></span>Role Alignment — Is today serving who you're becoming?</div>
-    <div id="role-alignment"></div>
-  </div>
   <div class="card">
     <div class="card-label"><span class="dot" style="background:var(--green)"></span>Renewal — Sharpen the saw</div>
     <div class="renewal-grid" id="renewal-grid"></div>
+  </div>
+  <div class="coach-card">
+    <div class="coach-hdr"><div class="coach-icon">✦</div><div class="coach-title">Decision Coach</div><button class="coach-refresh" onclick="genCoach(true)">↺ Refresh</button></div>
+    <div class="coach-body" id="coach-body">Add your Gemini key in Settings to activate decision coaching.</div>
   </div>
 
   <details class="fold" id="fold-timeline">
@@ -1064,30 +987,29 @@ details.fold .fold-body{padding:0 18px 16px}
   </details>
 
   <details class="fold">
-    <summary>Relationship Intention</summary>
+    <summary>Check-ins — roles, people, mission</summary>
     <div class="fold-body">
+      <div class="card-label" style="margin-top:4px"><span class="dot" style="background:var(--navy-2)"></span>Role Alignment</div>
+      <div id="role-alignment" style="margin-bottom:16px"></div>
+      <div class="card-label"><span class="dot" style="background:var(--gold)"></span>Relationship Intention</div>
       <div class="fg"><input class="fi" id="rel-intention" placeholder="Who needs your presence or support today?" oninput="saveLocal('rel_intention',this.value)"></div>
-      <div class="fg" style="margin-bottom:0"><input class="fi" id="rel-action" placeholder="What specific action will you take?" oninput="saveLocal('rel_action',this.value)"></div>
+      <div class="fg"><input class="fi" id="rel-action" placeholder="What specific action will you take?" oninput="saveLocal('rel_action',this.value)"></div>
+      <div class="card-label" style="margin-top:16px"><span class="dot" style="background:var(--gold)"></span>End in Mind Check</div>
+      <div class="eim-mission" id="eim-mission-text">Define your mission statement in End in Mind.</div>
+      <div class="eim-btns">
+        <span style="font-size:13px;font-weight:700">Does today reflect your future self?</span>
+        <button class="eim-check-btn" id="eim-yes" onclick="eimCheck('yes')">✓ Yes</button>
+        <button class="eim-check-btn" id="eim-no" onclick="eimCheck('no')">✕ No</button>
+      </div>
+      <div id="eim-result" style="display:none;font-size:13px;font-weight:700;margin-top:10px"></div>
+      <button onclick="openInfluenceModal()" style="width:100%;padding:13px 18px;min-height:48px;margin-top:16px;background:var(--surface-2);border:1.5px solid var(--border);border-radius:var(--r);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:700;color:var(--ink-l);cursor:pointer;display:flex;align-items:center;justify-content:space-between" id="coi-today-btn">
+        <span>⭕ Circle of Influence</span>
+        <span id="coi-today-count" style="font-size:11px;font-weight:800;padding:2px 9px;border-radius:20px;background:rgba(26,53,96,.09);color:var(--navy-2)">0 active</span>
+      </button>
     </div>
   </details>
 
-  <button onclick="openInfluenceModal()" style="width:100%;padding:13px 18px;min-height:48px;background:var(--surface);border:1.5px solid var(--border);border-radius:var(--r);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:700;color:var(--ink-l);cursor:pointer;display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;box-shadow:var(--sh)" id="coi-today-btn">
-    <span>⭕ Circle of Influence — Clear mental energy</span>
-    <span id="coi-today-count" style="font-size:11px;font-weight:800;padding:2px 9px;border-radius:20px;background:rgba(26,53,96,.09);color:var(--navy-2)">0 active</span>
-  </button>
-
   <button class="eve-trigger-btn" id="eve-trigger-btn" onclick="openEvening()">🌙 Evening Review — Open</button>
-
-  <div class="eim-card">
-    <div class="card-label"><span class="dot" style="background:var(--gold)"></span>End in Mind Check</div>
-    <div class="eim-mission" id="eim-mission-text">Define your mission statement in End in Mind.</div>
-    <div class="eim-btns">
-      <span style="font-size:13px;font-weight:700">Does today reflect your future self?</span>
-      <button class="eim-check-btn" id="eim-yes" onclick="eimCheck('yes')">✓ Yes</button>
-      <button class="eim-check-btn" id="eim-no" onclick="eimCheck('no')">✕ No</button>
-    </div>
-    <div id="eim-result" style="display:none;font-size:13px;font-weight:700;margin-top:10px"></div>
-  </div>
 </div>
 
 <!-- THIS WEEK -->
@@ -1287,51 +1209,59 @@ details.fold .fold-body{padding:0 18px 16px}
 
 <!-- SETTINGS -->
 <div class="view" id="view-settings">
-  <div class="pg-hdr"><div><div class="pg-title">Settings ⚙️</div><div class="pg-sub">Configure DayFlow v4</div></div></div>
+  <div class="pg-hdr"><div><div class="pg-title">Settings ⚙️</div><div class="pg-sub">Your private DayFlow</div></div></div>
+
   <div class="settings-card">
-    <div class="settings-hdr"><div class="settings-ico" style="background:var(--navy-2)">🌙</div><div><div class="settings-title">Appearance</div><div class="settings-sub">Dark mode</div></div><button class="btn btn-ghost" onclick="toggleDark()" style="margin-left:auto;font-size:12px">Toggle</button></div>
-  </div>
-  <div class="settings-card">
-    <div class="settings-hdr"><div class="settings-ico" style="background:linear-gradient(135deg,#4285F4,#34A853)">✨</div><div><div class="settings-title">AI Decision Coach — Gemini</div><div class="settings-sub">Free · 1,500 requests/day</div></div><div id="ai-badge" class="settings-badge badge-off">Not Connected</div></div>
+    <div class="settings-hdr"><div class="settings-ico" style="background:linear-gradient(135deg,#F57C00,#FFA000)">☁️</div><div><div class="settings-title">Account &amp; Cloud Sync</div><div class="settings-sub">Only you can read your data</div></div><div id="fb-badge" class="settings-badge badge-off">Checking...</div></div>
     <div class="settings-body">
-      <div class="fg"><label class="flbl">Gemini API Key</label><div style="display:flex;gap:8px"><input class="fi" id="gemini-key" type="password" placeholder="AIzaSy..." style="flex:1;font-family:monospace;font-size:13px"><button class="btn btn-ghost" onclick="toggleKeyVis()" id="key-eye" style="padding:10px">👁️</button></div></div>
+      <div id="fb-status-detail" style="font-size:12px;color:var(--ink-m);margin-bottom:12px;line-height:1.6">Connecting...</div>
+      <div id="auth-signed-out" style="display:none">
+        <div class="fg"><label class="flbl">Email</label><input class="fi" id="auth-email" type="email" autocomplete="username" autocapitalize="off" placeholder="you@email.com"></div>
+        <div class="fg"><label class="flbl">Password</label><input class="fi" id="auth-pass" type="password" autocomplete="current-password" placeholder="At least 8 characters"></div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <button class="btn btn-primary" onclick="doSignIn()">Sign in</button>
+          <button class="btn btn-ghost" onclick="doSignUp()">Create account</button>
+          <button class="btn btn-ghost" onclick="doReset()">Forgot password</button>
+        </div>
+      </div>
+      <div id="auth-signed-in" style="display:none;gap:8px;flex-wrap:wrap">
+        <button class="btn btn-primary" onclick="manualSync()">☁️ Sync now</button>
+        <button class="btn btn-ghost" onclick="doSignOut()">Sign out</button>
+      </div>
+      <div id="auth-msg" style="margin-top:10px;font-size:12px;font-weight:700;display:none"></div>
+      <div id="sync-status" style="margin-top:8px;font-size:11px;color:var(--ink-m)"></div>
+    </div>
+  </div>
+
+  <div class="settings-card">
+    <div class="settings-hdr"><div class="settings-ico" style="background:linear-gradient(135deg,#2A6E2E,#4CAF50)">💾</div><div><div class="settings-title">Backup &amp; Restore</div><div class="settings-sub" id="backup-last">Never backed up to a file</div></div></div>
+    <div class="settings-body">
       <div style="display:flex;gap:8px;flex-wrap:wrap">
-        <button class="btn btn-primary" onclick="saveGeminiKey()">💾 Save & Connect</button>
+        <button class="btn btn-primary" onclick="exportFullBackup()">💾 Back up now</button>
+        <label class="btn btn-ghost" style="cursor:pointer">♻️ Restore from file<input type="file" accept=".json,application/json" onchange="restoreBackup(event)" style="display:none"></label>
+        <button class="btn btn-ghost" onclick="importOldCloud()">📥 Import from old ID</button>
+      </div>
+      <div style="margin-top:10px;font-size:11px;color:var(--ink-m);line-height:1.6">Your data is also synced to the cloud automatically once you sign in. The file backup is your own copy.</div>
+    </div>
+  </div>
+
+  <div class="settings-card">
+    <div class="settings-hdr"><div class="settings-ico" style="background:linear-gradient(135deg,#4285F4,#34A853)">✨</div><div><div class="settings-title">AI Decision Coach — Gemini</div><div class="settings-sub">Optional · free key</div></div><div id="ai-badge" class="settings-badge badge-off">Not Connected</div></div>
+    <div class="settings-body">
+      <div class="fg"><label class="flbl">Gemini API Key</label><div style="display:flex;gap:8px"><input class="fi" id="gemini-key" type="password" placeholder="AIzaSy..." style="flex:1;font-family:monospace"><button class="btn btn-ghost" onclick="toggleKeyVis()" id="key-eye" style="padding:10px">👁️</button></div></div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button class="btn btn-primary" onclick="saveGeminiKey()">💾 Save &amp; Connect</button>
         <button class="btn btn-ghost" onclick="testGeminiKey()">🧪 Test</button>
         <button class="btn btn-danger" onclick="removeGeminiKey()">🗑️ Remove</button>
       </div>
       <div id="key-result" style="margin-top:10px;font-size:13px;display:none;padding:9px 13px;border-radius:9px"></div>
-      <div style="margin-top:12px;font-size:12px;color:var(--ink-m);line-height:1.6">Get your free key at <strong>aistudio.google.com</strong> → Get API key</div>
+      <div style="margin-top:12px;font-size:12px;color:var(--ink-m);line-height:1.6">Free key: <strong>aistudio.google.com</strong> → Get API key</div>
     </div>
   </div>
+
   <div class="settings-card">
-    <div class="settings-hdr">
-      <div class="settings-ico" style="background:linear-gradient(135deg,#F57C00,#FFA000)">🔥</div>
-      <div><div class="settings-title">Firebase Sync</div><div class="settings-sub">dayflow-a2c14 · Cross-device persistence</div></div>
-      <div id="fb-badge" class="settings-badge badge-off">Checking...</div>
-    </div>
-    <div class="settings-body">
-      <div id="fb-status-detail" style="font-size:12px;color:var(--ink-m);margin-bottom:12px;line-height:1.6">Connecting to Firebase...</div>
-      <div id="fb-rules-warning" style="display:none;background:rgba(192,57,43,.08);border:1px solid rgba(192,57,43,.2);border-radius:8px;padding:10px 13px;font-size:12px;color:var(--red);margin-bottom:10px;line-height:1.6"><strong>⚠️ Firestore rules may be expired.</strong> Go to Firebase Console → Firestore → Rules and update them. <a href="https://console.firebase.google.com" target="_blank" style="color:var(--red);font-weight:800">Open Firebase Console →</a></div>
-      <div style="display:flex;gap:8px;flex-wrap:wrap">
-        <button class="btn btn-primary" onclick="manualSync()" style="font-size:12px">☁️ Sync Now</button>
-        <button class="btn btn-ghost" onclick="migrateLocalToFirebase()" style="font-size:12px">📤 Migrate Local Data</button>
-      </div>
-      <div id="sync-status" style="margin-top:8px;font-size:11px;color:var(--ink-m)"></div>
-      <div style="margin-top:14px;padding:12px 14px;background:var(--surface-2);border:1px solid var(--border);border-radius:10px">
-        <div class="flbl" style="margin-bottom:6px">Account ID — keep private</div>
-        <div id="acct-id" style="font-family:monospace;font-size:11px;word-break:break-all;color:var(--ink-l);margin-bottom:10px"></div>
-        <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn btn-ghost" onclick="copyAccountId()" style="font-size:12px">📋 Copy</button><button class="btn btn-ghost" id="acct-upgrade-btn" onclick="upgradeAccountId()" style="font-size:12px;display:none">🔒 Make my ID private</button></div>
-        <div id="acct-weak" style="display:none;margin-top:8px;font-size:11px;color:var(--red);line-height:1.5">This ID is short/guessable. Tap “Make my ID private” to move your data to a random ID.</div>
-      </div>
-      <div style="margin-top:14px;padding-top:14px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px">
-        <div style="font-size:12px;color:var(--ink-m)" id="data-summary"></div>
-       <button class="btn btn-primary" onclick="exportFullBackup(false)" style="font-size:12px">💾 Backup Now</button>
-        <button class="btn btn-danger" onclick="clearAllData()" style="font-size:12px">⚠️ Clear All Data</button>
-      </div>
-    </div>
+    <div class="settings-hdr"><div class="settings-ico" style="background:var(--navy-2)">🌙</div><div><div class="settings-title">Appearance</div><div class="settings-sub">Dark mode</div></div><button class="btn btn-ghost" onclick="toggleDark()" style="margin-left:auto;font-size:12px">Toggle</button></div>
   </div>
-  
 </div>
 
 </main>
@@ -1362,7 +1292,6 @@ details.fold .fold-body{padding:0 18px 16px}
     <button class="mob-drawer-btn" onclick="mobNavTo('habits')"><span>🔥</span><span>Habits</span></button>
     <button class="mob-drawer-btn" onclick="mobNavTo('patterns')"><span>📊</span><span>Patterns</span></button>
     <button class="mob-drawer-btn" onclick="mobNavTo('settings')"><span>⚙️</span><span>Settings</span></button>
-    <button class="mob-drawer-btn" onclick="closeMobDrawer();signOut()"><span>↩️</span><span>Switch User</span></button>
   </div>
 </div>
 
@@ -1456,38 +1385,34 @@ details.fold .fold-body{padding:0 18px 16px}
   </div>
 </div>
 
-<div class="grat-overlay" id="m-gratitude">
-  <div class="grat-card">
-    <div class="grat-header">
-      <div class="grat-header-title" id="grat-time-title">Morning Intention 🌅</div>
-      <button class="m-close" onclick="closeGratitude()">✕</button>
+<!-- MORNING FLOW (guided, 2 steps) -->
+<div class="overlay" id="m-morning">
+  <div class="modal" style="max-width:520px">
+    <div class="m-hdr"><div class="m-title" id="mo-title">Start My Day ☀️</div><button class="m-close" onclick="closeModal('m-morning')">✕</button></div>
+    <div class="m-body">
+      <div class="br-progress"><div class="br-progress-dot" id="mo-dot-1"></div><div class="br-progress-dot" id="mo-dot-2"></div></div>
+      <div class="br-step" id="mo-step-1">
+        <div class="br-mission-recall" id="mo-mission" style="display:none"><div class="br-mission-recall-lbl">Your mission</div><div class="br-mission-recall-txt" id="mo-mission-txt"></div></div>
+        <div class="fg"><label class="flbl">My one intention today</label><input class="fi" id="mo-intention" placeholder="A way of being — e.g. fully present" autocomplete="off"></div>
+        <div class="fg"><label class="flbl">Grateful for <span style="font-weight:400;text-transform:none;letter-spacing:0">(optional)</span></label><input class="fi" id="mo-grat" placeholder="One specific thing" autocomplete="off"></div>
+        <div class="fg"><label class="flbl">How am I starting?</label>
+          <div class="grat-mood-row" id="mo-mood">
+            <button class="grat-mood-btn" data-mood="drained" onclick="moSetMood(this)">😔</button>
+            <button class="grat-mood-btn" data-mood="tired" onclick="moSetMood(this)">😐</button>
+            <button class="grat-mood-btn" data-mood="steady" onclick="moSetMood(this)">🙂</button>
+            <button class="grat-mood-btn" data-mood="energized" onclick="moSetMood(this)">😄</button>
+            <button class="grat-mood-btn" data-mood="charged" onclick="moSetMood(this)">🔥</button>
+          </div></div>
+      </div>
+      <div class="br-step" id="mo-step-2">
+        <div class="br-step-title" style="font-size:18px">What are your top 3 today?</div>
+        <div id="mo-rocks"></div>
+        <div id="mo-rows"></div>
+      </div>
     </div>
-    <div class="grat-body">
-      <div style="font-size:12px;color:var(--ink-m);line-height:1.6;margin-bottom:18px;font-style:italic">"Begin with the end in mind." 60 seconds to set your direction before the day sets it for you.</div>
-      <div class="grat-section">
-        <div class="grat-section-title">What am I grateful for right now?</div>
-        <textarea class="grat-role-inp" id="grat-general" placeholder="One specific thing — a person, a moment, a capability you have..." style="width:100%;min-height:72px;resize:none;border-radius:10px;padding:11px 14px;border:1.5px solid var(--border);background:var(--surface-2);font-family:inherit;font-size:13px;color:var(--ink);outline:none" oninput="saveLocal('grat_general_'+TODAY,this.value)"></textarea>
-      </div>
-      <div class="grat-section" style="margin-top:14px">
-        <div class="grat-section-title">What is my one intention for today?</div>
-        <textarea class="grat-role-inp" id="grat-intention" placeholder="Not a task — a way of being. e.g. 'I will be fully present in every conversation today.'" style="width:100%;min-height:72px;resize:none;border-radius:10px;padding:11px 14px;border:1.5px solid var(--border);background:var(--surface-2);font-family:inherit;font-size:13px;color:var(--ink);outline:none" oninput="saveLocal('grat_intention_'+TODAY,this.value)"></textarea>
-      </div>
-      <div class="grat-section" style="margin-top:14px">
-        <div class="grat-section-title">How are you starting this day?</div>
-        <div class="grat-mood-row">
-          <button class="grat-mood-btn" data-mood="drained" onclick="setMood(this)">😔</button>
-          <button class="grat-mood-btn" data-mood="tired" onclick="setMood(this)">😐</button>
-          <button class="grat-mood-btn" data-mood="steady" onclick="setMood(this)">🙂</button>
-          <button class="grat-mood-btn" data-mood="energized" onclick="setMood(this)">😄</button>
-          <button class="grat-mood-btn" data-mood="charged" onclick="setMood(this)">🔥</button>
-        </div>
-      </div>
-      <button class="grat-save-btn" onclick="saveGratitude()">✦ Begin My Day with Intention</button>
-      <button onclick="closeGratitude()" style="width:100%;padding:9px;background:transparent;border:none;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--ink-m);cursor:pointer;margin-top:8px">Skip for now</button>
-    </div>
+    <div class="m-foot"><button class="btn btn-ghost" id="mo-back" onclick="moBack()">← Back</button><button class="btn btn-primary" id="mo-next" onclick="moNext()">Next →</button></div>
   </div>
 </div>
-
 
 <!-- EBA MODAL -->
 <div class="overlay" id="m-eba">
@@ -1588,7 +1513,7 @@ const RENEWAL_ITEMS = [
 const EMOJIS = ['🔥','⚡','🎯','🌟','👑','🧭','🏋️','🎓','🤝','👨🏽','👩🏽','👨🏻','👩🏻','🦁','🐯'];
 
 // ── STATE ──
-let currentUser = null;
+let currentUser = {uid:'me', name:'Me'};
 let profiles    = [];
 let roles       = [];
 let priorities  = [];
@@ -1628,7 +1553,8 @@ let weeklyReports  = [];
 // localStorage = fast, synchronous, used for per-device settings + daily state
 // Firestore   = persistent, cross-device, used for all user data
 
-function uid_key(k){ return 'df3_'+k+'_'+(currentUser?.uid||'guest'); }
+function uid_key(k){ return 'df3_'+k+'_me'; }
+function cloudUid(){ return window._fbUser ? window._fbUser.uid : null; }
 
 // LOCAL — device-only (dark mode, sidebar, daily text inputs, gratitude, etc.)
 function saveLocal(k,v){ localStorage.setItem('df3_local_'+k, v); }
@@ -1644,8 +1570,8 @@ function save(k, v){
   const ts = new Date().toISOString();
   localStorage.setItem(uid_key(k), json);
   localStorage.setItem(uid_key('meta_'+k), ts);
-  if(!currentUser?.uid) return;
-  _pendingCloud[k] = {uid: currentUser.uid, json, ts};
+  const cu = cloudUid(); if(!cu) return;           // signed out: stays on this phone until you sign in
+  _pendingCloud[k] = {uid: cu, json, ts};
   clearTimeout(_cloudTimers[k]);
   _cloudTimers[k] = setTimeout(()=>flushCloudKey(k), 700);   // debounce rapid taps
 }
@@ -1658,12 +1584,7 @@ function flushAllCloud(){ Object.keys(_pendingCloud).forEach(flushCloudKey); }
 async function cloudWrite(uid, k, json, ts){
   let waited = 0;
   while(!window._fbReady && waited < 4000){ await new Promise(r=>setTimeout(r,100)); waited += 100; }
-  if(!window._fbReady){
-    if(!window._fbPendingWrites) window._fbPendingWrites = new Map();
-    window._fbPendingUID = uid;
-    window._fbPendingWrites.set(k, {json, ts});
-    return;
-  }
+  if(!window._fbReady || cloudUid()!==uid) return;
   try{
     const ref = window._fbDoc(window._db, 'users', uid, 'data', k);
     await window._fbSetDoc(ref, { value: json, updatedAt: ts });
@@ -1672,29 +1593,13 @@ async function cloudWrite(uid, k, json, ts){
     console.error('Firestore write FAILED for '+k+':', e.message);
     if(!window._fbWriteErrorShown){
       window._fbWriteErrorShown = true;
-      toast('❌ Cloud save failed — your data is safe on this phone. Check Settings.');
+      toast('❌ Cloud save failed — your data is safe on this phone.');
       setTimeout(()=>{ window._fbWriteErrorShown=false; }, 30000);
     }
   }
 }
 document.addEventListener('visibilitychange', ()=>{ if(document.hidden) flushAllCloud(); });
 window.addEventListener('pagehide', flushAllCloud);
-
-// LOAD — try Firestore first, fall back to localStorage, fall back to default
-async function loadFromFirestore(k, def=null){
-  if(!window._fbReady || !currentUser?.uid) return def;
-  try{
-    const ref = window._fbDoc(window._db, 'users', currentUser.uid, 'data', k);
-    const snap = await window._fbGetDoc(ref);
-    if(snap.exists()){
-      const v = JSON.parse(snap.data().value);
-      // Update local cache
-      localStorage.setItem(uid_key(k), JSON.stringify(v));
-      return v;
-    }
-  } catch(e){ console.warn('Firestore read failed for '+k, e.message); }
-  return def;
-}
 
 // Synchronous load (from localStorage cache) — used during renders
 function load(k, def=null){
@@ -1713,7 +1618,11 @@ function dayKeys(n){ const out=[]; for(let i=0;i<n;i++){ const d=new Date(); d.s
 async function pullKey(uid, k){
   try{
     const snap = await window._fbGetDoc(window._fbDoc(window._db,'users',uid,'data',k));
-    if(!snap.exists()) return;
+    if(!snap.exists()){
+      const lv = localStorage.getItem(uid_key(k));
+      if(lv !== null) cloudWrite(uid, k, lv, localStorage.getItem(uid_key('meta_'+k)) || new Date().toISOString());   // first sign-in: push this phone's data up
+      return;
+    }
     const d = snap.data();
     const cloudTs = d.updatedAt || '';
     const localTs = localStorage.getItem(uid_key('meta_'+k)) || '';
@@ -1732,17 +1641,14 @@ async function pullMany(uid, keys){
 
 // Full load: core docs + recent days only (56 days on first run / weekly / manual sync)
 async function loadAllFromFirestore(deep){
-  if(!window._fbReady || !currentUser?.uid){
-    let waited = 0;
-    while(!window._fbReady && waited < 5000){ await new Promise(r=>setTimeout(r,200)); waited += 200; }
-    if(!window._fbReady || !currentUser?.uid) return;
-  }
-  const uid = currentUser.uid;
+  let waited = 0;
+  while((!window._fbReady || !window._authResolved) && waited < 6000){ await new Promise(r=>setTimeout(r,200)); waited += 200; }
+  const uid = cloudUid(); if(!uid) return;
   const lastDeep = parseInt(localStorage.getItem('df3_lastDeep_'+uid)||'0',10);
   const doDeep = deep || !lastDeep || (Date.now()-lastDeep) > 7*86400000;
   showSyncIndicator('☁️ Syncing...');
   try{
-    await pullMany(uid, CORE_KEYS.concat(dayKeys(doDeep?56:7)));
+    await pullMany(uid, CORE_KEYS.concat(dayKeys(doDeep?60:7)));
     const rels = load('relationships', []);
     await pullMany(uid, rels.map(r=>'eba_'+r.id));
     if(doDeep) localStorage.setItem('df3_lastDeep_'+uid, String(Date.now()));
@@ -1799,219 +1705,54 @@ function loadAll(){
   const fs=document.getElementById('future-self-inp'); if(fs) fs.value=futureself;
   ['r1','r2','r3','r4'].forEach((id,i)=>{ const el=document.getElementById(id); if(el) el.value=loadLocal(['r_win','r_reactive','r_aligned','r_commit'][i]); });
 
-  // Then sync from Firestore in background — updates cache and re-renders
-  loadAllFromFirestore().then(()=>{
-    // Re-read from updated cache
-    roles         = load('roles', roles);
-    habits        = load('habits', habits);
-    habitLogs     = load('habitLogs', habitLogs);
-    relationships = load('relationships', relationships);
-    goals         = load('goals', goals);
-    bigRocks      = load('bigRocks', bigRocks);
-    missionStatement = load('mission', missionStatement);
-    futureself    = load('futureself', futureself);
-    values        = load('values', values);
-    reflections   = load('reflections', reflections);
-    coiItems      = load('coiItems', coiItems);
-    weeklyReports = load('weeklyReports', weeklyReports);
-    loadTodayState();
-    // Re-render current view — but never while you're typing or a sheet is open
-    const activeView = document.querySelector('.view.active')?.id?.replace('view-','');
-    const ae = document.activeElement;
-    const busy = (ae && /^(INPUT|TEXTAREA|SELECT)$/.test(ae.tagName)) || document.querySelector(OVERLAY_SEL);
-    if(activeView && !busy) nav(activeView,true);
-    updateScores();
-  });
+  if(cloudUid()) syncNow(false);
+}
+function reloadFromCache(){
+  roles         = load('roles', roles);
+  habits        = load('habits', habits);
+  habitLogs     = load('habitLogs', habitLogs);
+  relationships = load('relationships', relationships);
+  goals         = load('goals', goals);
+  bigRocks      = load('bigRocks', bigRocks);
+  missionStatement = load('mission', missionStatement);
+  futureself    = load('futureself', futureself);
+  values        = load('values', values);
+  reflections   = load('reflections', reflections);
+  coiItems      = load('coiItems', coiItems);
+  weeklyReports = load('weeklyReports', weeklyReports);
+  loadTodayState();
+}
+// Pull from cloud, then redraw — but never while you're typing or a sheet is open
+async function syncNow(deep){
+  await loadAllFromFirestore(deep);
+  reloadFromCache();
+  const activeView = document.querySelector('.view.active')?.id?.replace('view-','');
+  const ae = document.activeElement;
+  const busy = (ae && /^(INPUT|TEXTAREA|SELECT)$/.test(ae.tagName)) || document.querySelector(OVERLAY_SEL);
+  if(activeView && !busy) nav(activeView,true);
+  updateScores();
 }
 
-// ── PROFILES ──
-function loadProfiles(){
-  profiles = loadGlobal('profiles', []);
-}
-function saveProfiles(){ saveGlobal('profiles', profiles); }
-
-function renderProfileGrid(){
-  const grid = document.getElementById('profile-grid');
-  if(!grid) return;
-  const recoverWrap = document.getElementById('recover-link-wrap');
-  if(!profiles.length){
-    grid.innerHTML = '<div style="font-size:13px;color:rgba(255,255,255,.4);grid-column:1/-1;padding:8px 0">No profiles yet. Create one below.</div>';
-    // Show recover link — user may have cleared browser but data still exists in Firestore
-    if(recoverWrap) recoverWrap.style.display = 'block';
-    return;
+// ── ONE-TIME: collapse old multi-profile keys into the single local user ──
+function migrateLocalKeys(){
+  if(localStorage.getItem('df3_single_user')) return;
+  let old = null;
+  try{ old = (JSON.parse(localStorage.getItem('df3_currentUser')||'null')||{}).uid; }catch(e){}
+  if(!old){ try{ const ps = JSON.parse(localStorage.getItem('df3_profiles')||'[]'); old = ps[0] && ps[0].id; }catch(e){} }
+  if(old && old !== 'me'){
+    const suffix = '_'+old, moves = [];
+    for(let i=0;i<localStorage.length;i++){
+      const k = localStorage.key(i);
+      if(k && k.indexOf('df3_')===0 && k.indexOf('df3_local_')!==0 && k.length>suffix.length && k.slice(-suffix.length)===suffix) moves.push(k);
+    }
+    moves.forEach(k=>{ const nk = k.slice(0,-suffix.length)+'_me'; if(localStorage.getItem(nk)===null) localStorage.setItem(nk, localStorage.getItem(k)); });
+    localStorage.setItem('df3_old_uid', old);
   }
-  if(recoverWrap) recoverWrap.style.display = 'none';
-  grid.innerHTML = profiles.map(p =>
-    '<div class="profile-card" onclick="selectProfile(\''+p.id+'\')">'
-    +'<button class="pdel-btn" onclick="event.stopPropagation();deleteProfile(\''+p.id+'\')">✕</button>'
-    +'<div class="profile-avatar">'+esc(p.emoji)+'</div>'
-    +'<div class="profile-name">'+esc(p.name)+'</div>'
-    +'<div class="profile-sub">Tap to plan</div>'
-    +'</div>'
-  ).join('');
-}
-
-// ── ACCOUNT RECOVERY ──
-function openRecover(){
-  document.getElementById('auth-main').style.display='none';
-  document.getElementById('add-profile-form').classList.remove('show');
-  document.getElementById('setup-form').classList.remove('show');
-  document.getElementById('recover-form').classList.add('show');
-  document.getElementById('recover-name').value='';
-  document.getElementById('recover-error').style.display='none';
-  setTimeout(()=>document.getElementById('recover-name').focus(),120);
-}
-function closeRecover(){
-  document.getElementById('recover-form').classList.remove('show');
-  document.getElementById('auth-main').style.display='block';
-}
-async function recoverAccount(){
-  const errEl  = document.getElementById('recover-error');
-  const uidIn  = document.getElementById('recover-name').value.trim();
-  const name   = (document.getElementById('recover-display').value.trim()) || 'Me';
-  if(!/^u_[A-Za-z0-9_]{3,64}$/.test(uidIn)){ errEl.textContent='Enter your Account ID (Settings → Cloud Sync → Account ID).'; errEl.style.display='block'; return; }
-  errEl.style.display='none';
-  const btn = document.querySelector('#recover-form .ap-btn-create');
-  if(btn){ btn.textContent='Searching...'; btn.disabled=true; }
-  let waited = 0;
-  while(!window._fbReady && waited < 6000){ await new Promise(r=>setTimeout(r,200)); waited+=200; }
-  let found = false;
-  if(window._fbReady){
-    try{
-      for(const k of ['roles','mission','habits']){
-        const snap = await window._fbGetDoc(window._fbDoc(window._db,'users',uidIn,'data',k));
-        if(snap.exists()){ found = true; break; }
-      }
-    } catch(e){ console.warn('Recovery check failed:', e.message); }
-  }
-  if(!found){
-    errEl.textContent = 'No data found for that Account ID. Check it and your connection.';
-    errEl.style.display='block';
-    if(btn){ btn.textContent='↩ Recover Account'; btn.disabled=false; }
-    return;
-  }
-  const recovered = {id: uidIn, name, emoji:'🔥', createdAt: new Date().toISOString()};
-  profiles = profiles.filter(p=>p.id !== uidIn); profiles.push(recovered); saveProfiles();
-  localStorage.setItem('df3_setup_'+uidIn, '1');
-  currentUser = {uid: uidIn, name, emoji:'🔥'};
-  saveGlobal('currentUser', currentUser);
-  document.getElementById('recover-form').classList.remove('show');
-  loadAll(); showApp();
-  toast('✓ Account recovered — welcome back, '+name+'!');
-}
-
-function selectProfile(id){
-  const p = profiles.find(x=>x.id===id);
-  if(!p) return;
-  currentUser = {uid:p.id, name:p.name, emoji:p.emoji};
-  saveGlobal('currentUser', currentUser);
-  if(!localStorage.getItem('df3_setup_'+p.id)){ showSetup(); return; }
-  loadAll(); showApp();
-}
-
-function openAddProfile(){
-  document.getElementById('auth-main').style.display='none';
-  document.getElementById('add-profile-form').classList.add('show');
-  document.getElementById('setup-form').classList.remove('show');
-  document.getElementById('np-name').value='';
-  selectedEmoji = EMOJIS[0];
-  renderEmojiGrid();
-  document.getElementById('np-name').focus();
-}
-function closeAddProfile(){
-  document.getElementById('add-profile-form').classList.remove('show');
-  document.getElementById('auth-main').style.display='block';
-}
-function renderEmojiGrid(){
-  const g = document.getElementById('emoji-grid'); if(!g) return;
-  g.innerHTML = EMOJIS.map(e=>'<div class="emoji-opt'+(e===selectedEmoji?' selected':'')+'" onclick="selectEmoji(\''+e+'\')">'+e+'</div>').join('');
-}
-function selectEmoji(e){
-  selectedEmoji=e;
-  document.querySelectorAll('.emoji-opt').forEach(el=>el.classList.toggle('selected', el.textContent===e));
-}
-function newAccountId(){
-  const a = new Uint8Array(16); crypto.getRandomValues(a);
-  return 'u_' + Array.from(a, b=>b.toString(16).padStart(2,'0')).join('');
-}
-function createProfile(){
-  const name = document.getElementById('np-name').value.trim();
-  if(!name){ showAuthError('Enter a name first'); return; }
-  const p = {id:newAccountId(), name, emoji:selectedEmoji, createdAt:new Date().toISOString()};
-  profiles.push(p);
-  saveProfiles();
-  closeAddProfile();
-  renderProfileGrid();
-  selectProfile(p.id);
-}
-function deleteProfile(id){
-  if(profiles.length<=1){ showAuthError('Keep at least one profile'); return; }
-  if(!confirm('Delete this profile and all their data?')) return;
-  profiles = profiles.filter(p=>p.id!==id);
-  saveProfiles();
-  renderProfileGrid();
-}
-function showAuthError(msg){
-  let el = document.getElementById('auth-error');
-  if(!el){
-    el = document.createElement('div');
-    el.id = 'auth-error';
-    el.style.cssText = 'color:#E57373;font-size:12px;font-weight:700;margin-top:8px;text-align:center';
-    document.querySelector('.auth-card').appendChild(el);
-  }
-  el.textContent = msg;
-  setTimeout(()=>el.textContent='', 3000);
-}
-
-// ── SETUP WIZARD ──
-function showSetup(){
-  document.getElementById('auth-main').style.display='none';
-  document.getElementById('add-profile-form').classList.remove('show');
-  document.getElementById('setup-form').classList.add('show');
-  setupStep=0; renderSetup();
-}
-function renderSetup(){
-  const dots = document.getElementById('setup-dots').children;
-  Array.from(dots).forEach((d,i)=>{ d.className='setup-dot'+(i===setupStep?' active':i<setupStep?' done':''); });
-  const c = document.getElementById('setup-content');
-  if(setupStep===0){
-    c.innerHTML='<p style="font-size:13px;color:rgba(255,255,255,.45);margin-bottom:16px;line-height:1.6">Welcome, <strong style="color:#fff">'+esc(currentUser.name)+'</strong>! Let\'s personalize DayFlow in 3 quick steps.</p>'
-      +'<div style="margin-bottom:12px"><label style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.8px;color:rgba(255,255,255,.35);display:block;margin-bottom:6px">Your Name</label>'
-      +'<input id="setup-name" class="ap-inp" value="'+esc(currentUser.name)+'" placeholder="Your name"></div>'
-      +'<button onclick="nextSetup()" class="ap-btn ap-btn-create" style="width:100%">Continue →</button>';
-  } else if(setupStep===1){
-    c.innerHTML='<p style="font-size:12px;color:rgba(255,255,255,.35);margin-bottom:14px;font-style:italic">"Begin with the end in mind."</p>'
-      +'<div style="margin-bottom:12px"><label style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.8px;color:rgba(255,255,255,.35);display:block;margin-bottom:6px">Mission Statement <span style="font-weight:400">(optional)</span></label>'
-      +'<textarea id="setup-mission" class="ap-inp" style="resize:none;min-height:72px;margin-bottom:0" placeholder="I am a principled leader who..."></textarea></div>'
-      +'<button onclick="nextSetup()" class="ap-btn ap-btn-create" style="width:100%;margin-bottom:8px">Continue →</button>'
-      +'<button onclick="nextSetup()" class="ap-btn ap-btn-cancel" style="width:100%">Skip for now</button>';
-  } else {
-    c.innerHTML='<p style="font-size:12px;color:rgba(255,255,255,.35);margin-bottom:14px;font-style:italic">"Identify your key roles." — Max 4</p>'
-      +'<div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:16px" id="role-chips">'
-      +['👨‍👩‍👧 Parent','💼 Professional','🙏 Spiritual Leader','🏃 Health','👫 Spouse','🎓 Learner','🤝 Community'].map(r=>'<div onclick="this.classList.toggle(\'sel\');this.style.color=this.classList.contains(\'sel\')?\'var(--gold)\':\'\';this.style.borderColor=this.classList.contains(\'sel\')?\'var(--gold)\':\'\';" style="padding:7px 13px;border-radius:20px;border:1.5px solid rgba(201,168,76,.2);font-size:12px;font-weight:700;cursor:pointer;color:rgba(255,255,255,.4);transition:all .2s">'+r+'</div>').join('')
-      +'</div>'
-      +'<button onclick="finishSetup()" class="ap-btn ap-btn-create" style="width:100%">🚀 Start DayFlow!</button>';
-  }
-}
-function nextSetup(){
-  if(setupStep===0){ const n=document.getElementById('setup-name')?.value.trim(); if(n) currentUser.name=n; }
-  else if(setupStep===1){ const m=document.getElementById('setup-mission')?.value.trim(); if(m) missionStatement=m; }
-  setupStep++; if(setupStep>=3){ finishSetup(); return; } renderSetup();
-}
-function finishSetup(){
-  const m=document.getElementById('setup-mission')?.value.trim(); if(m) missionStatement=m;
-  const sel=[...document.querySelectorAll('#role-chips .sel')];
-  roles=sel.map(el=>{ const txt=el.textContent; const icon=txt.match(/^\S+/)?.[0]||'⭐'; const name=txt.replace(/^\S+\s*/,''); return {id:'r'+Date.now()+Math.random(),name,icon,successDef:'Define success for this role',weeklyCommitment:''}; });
-  localStorage.setItem('df3_setup_'+currentUser.uid,'1');
-  save('roles',roles);
-  if(missionStatement) save('mission',missionStatement);
-  loadAll(); showApp();
+  localStorage.setItem('df3_single_user','1');
 }
 
 // ── SHOW APP ──
 function showApp(){
-  document.getElementById('auth').classList.add('hidden');
-  document.getElementById('app').style.display='flex';
   if(localStorage.getItem('df3_dark')==='1'){ document.body.classList.add('dark'); document.getElementById('dark-icon').textContent='☀️'; document.getElementById('dark-btn-float').textContent='☀️'; }
   updateGreeting();
   nav('today');
@@ -2020,18 +1761,8 @@ function showApp(){
   checkAutoGratitude();
     if (typeof checkAutoEvening === 'function') checkAutoEvening();
   // Update Firebase badge after SDK loads
-  setTimeout(updateFbBadge, 1500);
+  updateAuthUI();
 }
-function signOut(){
-  document.getElementById('app').style.display='none';
-  document.getElementById('auth').classList.remove('hidden');
-  document.getElementById('setup-form').classList.remove('show');
-  document.getElementById('add-profile-form').classList.remove('show');
-  document.getElementById('auth-main').style.display='block';
-  currentUser=null;
-  renderProfileGrid();
-}
-
 // ── NAV ──
 function nav(view,keepScroll){
   document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
@@ -2111,8 +1842,6 @@ function renderToday(){
   if(badge) badge.textContent = active + ' active';
   const el=document.getElementById('eim-mission-text');
   if(el) el.textContent=missionStatement?(missionStatement.length>130?missionStatement.slice(0,130)+'...':missionStatement):'Define your mission statement in End in Mind.';
-  const gdone=!!loadLocal('grat_done_'+TODAY);
-  const tb=document.getElementById('grat-trigger-btn'); if(tb){ tb.textContent=gdone?'🌅 Morning Intention — Done ✓':'🌅 Morning Intention — Open'; tb.classList.toggle('done',gdone); }
   const ec=loadLocal('eim_check_'+TODAY); const ey=document.getElementById('eim-yes'), en=document.getElementById('eim-no'), er=document.getElementById('eim-result');
   if(ey&&en&&er){ ey.className='eim-check-btn'+(ec==='yes'?' yes':''); en.className='eim-check-btn'+(ec==='no'?' no':''); er.style.display=ec?'block':'none'; if(ec==='yes'){ er.style.color='var(--green)'; er.textContent='✓ Aligned. Keep compounding these days.'; } else if(ec==='no'){ er.style.color='var(--red)'; er.textContent='⚡ Misaligned. Take one action toward your mission before this day ends.'; } }
 }
@@ -2124,32 +1853,82 @@ function openInfluenceModal(){
   openModal('m-influence');
 }
 
-// ── START MY DAY — linear 60-second flow ──
-let _smdStep = 0;
-const _smdSteps = ['intention','priorities','rocks'];
+// ── START MY DAY — one guided pass: intention → top 3 ──
+let moStep = 1, moRows = [], moMood = 'steady';
 function openStartMyDay(){
-  _smdStep = 0;
-  // If no gratitude done today, start there
-  if(!loadLocal('grat_done_'+TODAY)){
-    openGratitude();
-    return;
-  }
-  _runSmdStep();
+  moStep = loadLocal('grat_done_'+TODAY) ? 2 : 1;    // already did the intention today? jump to priorities
+  moMood = loadLocal('grat_mood_'+TODAY) || 'steady';
+  document.getElementById('mo-intention').value = loadLocal('grat_intention_'+TODAY) || '';
+  document.getElementById('mo-grat').value = loadLocal('grat_general_'+TODAY) || '';
+  document.querySelectorAll('#mo-mood .grat-mood-btn').forEach(b=>b.classList.toggle('active', b.dataset.mood===moMood));
+  const mm = document.getElementById('mo-mission');
+  if(missionStatement && missionStatement.trim()){ mm.style.display='block'; document.getElementById('mo-mission-txt').textContent = missionStatement; } else mm.style.display='none';
+  moRows = priorities.slice(0,3).map(p=>({id:p.id, title:p.title, roleId:p.roleId||'', fromRockId:p.fromRockId||null}));
+  while(moRows.length<3) moRows.push({id:null, title:'', roleId:'', fromRockId:null});
+  moRender(); openModal('m-morning');
 }
-function _runSmdStep(){
-  if(_smdStep === 0){
-    // Show priorities modal if less than 3
-    if(priorities.length < 3){ openAddPriority(); return; }
-    _smdStep++;
+function moSetMood(btn){ moMood = btn.dataset.mood; document.querySelectorAll('#mo-mood .grat-mood-btn').forEach(b=>b.classList.toggle('active', b===btn)); }
+function moRender(){
+  document.getElementById('mo-dot-1').className = 'br-progress-dot '+(moStep===1?'active':'done');
+  document.getElementById('mo-dot-2').className = 'br-progress-dot '+(moStep===2?'active':'');
+  document.getElementById('mo-step-1').classList.toggle('active', moStep===1);
+  document.getElementById('mo-step-2').classList.toggle('active', moStep===2);
+  document.getElementById('mo-back').style.display = moStep===2 ? 'inline-flex' : 'none';
+  document.getElementById('mo-next').textContent = moStep===1 ? 'Next →' : '✦ Start my day';
+  document.getElementById('mo-title').textContent = moStep===1 ? 'Start My Day ☀️' : 'Top 3 for today';
+  if(moStep!==2) return;
+  // Big Rock suggestions as one-tap chips
+  const rc = document.getElementById('mo-rocks'); rc.innerHTML = '';
+  if(hasPlanThisWeek()){
+    const used = moRows.map(r=>(r.title||'').trim().toLowerCase());
+    const today = getDayOfWeekShort();
+    const cands = bigRocks[getThisWeekKey()].rocks.filter(r=>!r.done && !used.includes((r.title||'').trim().toLowerCase()))
+      .sort((a,b)=>(a.plannedDay===today?0:1)-(b.plannedDay===today?0:1)).slice(0,4);
+    if(cands.length){
+      const lbl=document.createElement('div'); lbl.className='flbl'; lbl.textContent='🪨 From this week\'s plan — tap to add'; rc.appendChild(lbl);
+      const wrap=document.createElement('div'); wrap.style.cssText='display:flex;flex-direction:column;gap:6px;margin-bottom:14px';
+      cands.forEach(r=>{
+        const role = roles.find(x=>x.id===r.roleId);
+        const b=document.createElement('button'); b.className='btn btn-ghost'; b.style.cssText='justify-content:flex-start;text-align:left;font-size:13px;width:100%';
+        b.textContent=(role?role.icon+' ':'')+r.title+(r.plannedDay===today?'  · today':'');
+        b.addEventListener('click',()=>{ const slot=moRows.find(x=>!x.title.trim()); if(!slot){ toast('All 3 slots are full'); return; } slot.title=r.title; slot.roleId=r.roleId||''; slot.fromRockId=r.id; moRender(); });
+        wrap.appendChild(b);
+      });
+      rc.appendChild(wrap);
+    }
   }
-  if(_smdStep === 1){
-    // Check big rocks
-    if(!hasPlanThisWeek()){ openBigRocks(); return; }
-    _smdStep++;
-  }
-  // Done
-  toast('✦ Day set. Your 3 priorities are locked in.');
+  const rows = document.getElementById('mo-rows'); rows.innerHTML = '';
+  const opts = '<option value="">— role —</option>'+roles.map(r=>'<option value="'+esc(r.id)+'">'+esc(r.icon)+' '+esc(r.name)+'</option>').join('');
+  moRows.forEach((row,i)=>{
+    const d=document.createElement('div'); d.style.cssText='display:flex;gap:8px;margin-bottom:10px;align-items:center';
+    d.innerHTML='<div class="p-num" style="flex-shrink:0">'+(i+1)+'</div><input class="fi" placeholder="Priority '+(i+1)+'" value="'+esc(row.title)+'" autocomplete="off" style="flex:1;min-width:0"><select class="fsel" style="width:104px;flex-shrink:0">'+opts+'</select>';
+    const inp=d.querySelector('input'), sel=d.querySelector('select'); sel.value=row.roleId||'';
+    inp.addEventListener('input',()=>{ row.title=inp.value; });
+    sel.addEventListener('change',()=>{ row.roleId=sel.value; });
+    rows.appendChild(d);
+  });
 }
+function moBack(){ moStep=1; moRender(); }
+function moNext(){
+  if(moStep===1){
+    saveLocal('grat_intention_'+TODAY, document.getElementById('mo-intention').value.trim());
+    saveLocal('grat_general_'+TODAY, document.getElementById('mo-grat').value.trim());
+    saveLocal('grat_mood_'+TODAY, moMood);
+    moStep=2; moRender(); return;
+  }
+  const next = [];
+  moRows.forEach((row,i)=>{
+    const title=row.title.trim(); if(!title) return;
+    const old = row.id ? priorities.find(p=>p.id===row.id) : null;
+    if(old){ old.title=title; old.roleId=row.roleId; next.push(old); }
+    else next.push({id:'p'+Date.now()+i, title, roleId:row.roleId, quadrant:'2', done:false, startTime:'', endTime:'', fromRockId:row.fromRockId||undefined});
+  });
+  priorities = next.slice(0,3);
+  saveLocal('grat_done_'+TODAY,'1');
+  saveTodayState(); closeModal('m-morning'); renderToday();
+  toast(priorities.length ? '✦ Day set. Go do the first one.' : '✦ Intention set.');
+}
+
 function renderPriorities(){
   const c=document.getElementById('priority-slots'); if(!c) return;
   const items=priorities.slice(0,3);
@@ -3087,61 +2866,74 @@ function deleteHabit(){ if(!editingHabitId) return; const h=habits.find(x=>x.id=
 // ══════════════════════════════
 function renderSettings(){
   document.getElementById('gemini-key').value=geminiKey;
-  updateAiBadge();
-  updateFbBadge();
-  const aid=document.getElementById('acct-id'); if(aid) aid.textContent=currentUser?.uid||'';
-  const strong=isStrongId(currentUser?.uid);
-  const ub=document.getElementById('acct-upgrade-btn'); if(ub) ub.style.display=strong?'none':'inline-flex';
-  const aw=document.getElementById('acct-weak'); if(aw) aw.style.display=strong?'none':'block';
-  const ds=document.getElementById('data-summary'); if(ds) ds.textContent='📦 '+roles.length+' roles · '+priorities.length+' priorities today · '+habits.length+' habits · '+relationships.length+' relationships · '+reflections.length+' reflections · '+goals.length+' goals';
+  updateAiBadge(); updateAuthUI();
+  const last=localStorage.getItem('df3_lastBackup');
+  const bl=document.getElementById('backup-last');
+  if(bl) bl.textContent = last ? 'Last file backup: '+new Date(last).toLocaleDateString('en-US',{month:'short',day:'numeric',hour:'numeric',minute:'2-digit'}) : 'Never backed up to a file';
 }
 
-function copyAccountId(){
-  const id=currentUser?.uid||'';
-  (navigator.clipboard?navigator.clipboard.writeText(id):Promise.reject()).then(()=>toast('📋 Account ID copied')).catch(()=>toast('Press and hold the ID to copy'));
+function authMsg(text, ok){
+  const el=document.getElementById('auth-msg'); if(!el) return;
+  el.style.display=text?'block':'none'; el.textContent=text||''; el.style.color=ok?'var(--green)':'var(--red)';
 }
-function isStrongId(id){ return /^u_[0-9a-f]{32}$/.test(id||''); }
-async function upgradeAccountId(){
-  if(!window._fbReady || !currentUser?.uid){ toast('❌ Connect to the internet first'); return; }
-  if(!confirm('Copy all your data to a new private Account ID? Your old cloud copy is kept (not deleted) until you remove it.')) return;
-  flushAllCloud();
-  const oldUid=currentUser.uid, newUid=newAccountId();
-  const keys=CORE_KEYS.concat(dayKeys(120)); load('relationships',[]).forEach(r=>keys.push('eba_'+r.id));
-  showSyncIndicator('🔒 Moving data...');
-  try{
-    for(const k of keys){
-      const raw=localStorage.getItem('df3_'+k+'_'+oldUid); if(raw===null) continue;
-      const ts=localStorage.getItem('df3_meta_'+k+'_'+oldUid)||new Date().toISOString();
-      await window._fbSetDoc(window._fbDoc(window._db,'users',newUid,'data',k),{value:raw,updatedAt:ts});
-      localStorage.setItem('df3_'+k+'_'+newUid, raw); localStorage.setItem('df3_meta_'+k+'_'+newUid, ts);
-    }
-    localStorage.setItem('df3_setup_'+newUid,'1');
-    const p=profiles.find(x=>x.id===oldUid); if(p){ p.id=newUid; saveProfiles(); }
-    currentUser={...currentUser, uid:newUid}; saveGlobal('currentUser',currentUser);
-    hideSyncIndicator(); renderSettings();
-    toast('🔒 Done. Save your new Account ID.');
-  } catch(e){ hideSyncIndicator(); console.error(e); toast('❌ Move failed — nothing was changed'); }
+function authErr(e){
+  const c=(e&&e.code)||'';
+  return ({'auth/invalid-credential':'Wrong email or password.','auth/wrong-password':'Wrong email or password.','auth/user-not-found':'No account with that email — tap Create account.',
+    'auth/email-already-in-use':'That email already has an account — tap Sign in.','auth/weak-password':'Password needs at least 6 characters.','auth/invalid-email':'That email looks wrong.',
+    'auth/operation-not-allowed':'Email/Password sign-in is not switched on in Firebase yet.','auth/network-request-failed':'No connection — try again online.','auth/too-many-requests':'Too many tries — wait a minute.'})[c] || ('Sign-in problem: '+(c||(e&&e.message)||'unknown'));
 }
-function updateFbBadge(){
-  const badge  = document.getElementById('fb-badge');
-  const detail = document.getElementById('fb-status-detail');
-  if(!badge || !detail) return;
-  if(window._fbReady && currentUser?.uid){
-    badge.textContent = '✅ Connected';
-    badge.className   = 'settings-badge badge-on';
-    detail.textContent = 'Connected as '+currentUser.name+' · Project: dayflow-a2c14 · Data syncs automatically on every save.';
-    detail.style.color = 'var(--ink-m)';
-  } else if(window._fbReady && !currentUser?.uid){
-    badge.textContent = '⚠️ No Profile';
-    badge.className   = 'settings-badge';
-    badge.style.background = 'var(--amber-lt)';
-    badge.style.color = 'var(--amber)';
-    detail.textContent = 'Firebase is ready but no user is logged in.';
-  } else {
-    badge.textContent = '🔴 Not Connected';
-    badge.className   = 'settings-badge badge-off';
-    detail.textContent = 'Firebase is loading... If this persists, check your internet connection.';
-  }
+function updateAuthUI(){
+  const u=window._fbUser, resolved=!!window._authResolved;
+  const banner=document.getElementById('cloud-banner'); if(banner) banner.style.display=(resolved&&!u)?'flex':'none';
+  const badge=document.getElementById('fb-badge'), detail=document.getElementById('fb-status-detail');
+  const so=document.getElementById('auth-signed-out'), si=document.getElementById('auth-signed-in');
+  if(!badge||!detail) return;
+  if(!window._fbReady){ badge.textContent='🔴 Offline'; badge.className='settings-badge badge-off'; detail.textContent='Cloud not reachable. Everything still works and is saved on this phone.'; if(so) so.style.display='none'; if(si) si.style.display='none'; return; }
+  if(u){ badge.textContent='✅ Signed in'; badge.className='settings-badge badge-on'; detail.textContent='Signed in as '+u.email+'. Your data syncs automatically and only this account can read it.'; if(so) so.style.display='none'; if(si) si.style.display='flex'; }
+  else { badge.textContent='Signed out'; badge.className='settings-badge badge-off'; detail.textContent='Sign in once to back up and sync across devices. Until then your data stays on this phone.'; if(so) so.style.display='block'; if(si) si.style.display='none'; }
+}
+async function doSignIn(){
+  const e=document.getElementById('auth-email').value.trim(), p=document.getElementById('auth-pass').value;
+  if(!e||!p){ authMsg('Enter email and password.'); return; }
+  authMsg('Signing in...',true);
+  try{ await window._fbSignIn(e,p); authMsg('Signed in ✓ — syncing',true); document.getElementById('auth-pass').value=''; } catch(err){ authMsg(authErr(err)); }
+}
+async function doSignUp(){
+  const e=document.getElementById('auth-email').value.trim(), p=document.getElementById('auth-pass').value;
+  if(!e||p.length<6){ authMsg('Enter an email and a password of 6+ characters.'); return; }
+  authMsg('Creating account...',true);
+  try{ await window._fbSignUp(e,p); authMsg('Account created ✓ — backing up your data',true); document.getElementById('auth-pass').value=''; } catch(err){ authMsg(authErr(err)); }
+}
+async function doReset(){
+  const e=document.getElementById('auth-email').value.trim(); if(!e){ authMsg('Type your email first.'); return; }
+  try{ await window._fbReset(e); authMsg('Reset email sent ✓',true); } catch(err){ authMsg(authErr(err)); }
+}
+async function doSignOut(){
+  if(!confirm('Sign out? Your data stays on this phone but stops syncing.')) return;
+  flushAllCloud(); try{ await window._fbSignOut(); } catch(e){}
+  updateAuthUI();
+}
+// Pull data from the OLD (pre-sign-in) account ID — works only until the new rules are published
+async function importOldCloud(){
+  if(!window._fbReady){ toast('❌ Need a connection'); return; }
+  askSheet({title:'Old Account ID', value:localStorage.getItem('df3_old_uid')||'', placeholder:'u_...', onOk: async oldId=>{
+    showSyncIndicator('📥 Importing...');
+    let n=0;
+    try{
+      const keys=CORE_KEYS.concat(dayKeys(120)); (load('relationships',[])).forEach(r=>keys.push('eba_'+r.id));
+      for(let i=0;i<keys.length;i+=10){
+        await Promise.all(keys.slice(i,i+10).map(async k=>{
+          try{
+            const snap=await window._fbGetDoc(window._fbDoc(window._db,'users',oldId,'data',k));
+            if(snap.exists()){ const d=snap.data(); localStorage.setItem(uid_key(k),d.value); localStorage.setItem(uid_key('meta_'+k),new Date().toISOString()); n++; }
+          }catch(e){}
+        }));
+      }
+    } finally { hideSyncIndicator(); }
+    if(!n){ toast('Nothing found (or the old rules are already locked)'); return; }
+    reloadFromCache(); nav('today'); toast('✅ Imported '+n+' items');
+    if(cloudUid()) syncNow(true);
+  }});
 }
 function toggleKeyVis(){ const i=document.getElementById('gemini-key'); i.type=i.type==='password'?'text':'password'; document.getElementById('key-eye').textContent=i.type==='password'?'👁️':'🙈'; }
 function saveGeminiKey(){ const k=document.getElementById('gemini-key').value.trim(); if(!k){ toast('Enter a key'); return; } if(!k.startsWith('AIza')){ toast('Key should start with AIza...'); return; } geminiKey=k; localStorage.setItem('df3_gemini',k); updateAiBadge(); toast('✅ Gemini connected!'); genCoach(true); }
@@ -3153,109 +2945,65 @@ async function testGeminiKey(){
 }
 function removeGeminiKey(){ geminiKey=''; localStorage.removeItem('df3_gemini'); document.getElementById('gemini-key').value=''; updateAiBadge(); toast('🗑️ Key removed'); }
 function updateAiBadge(){ const b=document.getElementById('ai-badge'); if(!b) return; b.textContent=geminiKey?'✅ Connected':'Not Connected'; b.className='settings-badge '+(geminiKey?'badge-on':'badge-off'); }
-function exportData(){ const data={roles,habits,habitLogs,relationships,goals,bigRocks,missionStatement,futureself,values,reflections,exportedAt:new Date().toISOString(),user:currentUser?.name}; const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:'application/json'})); a.download='dayflow-v3-'+(currentUser?.name||'data').toLowerCase()+'-'+TODAY+'.json'; a.click(); toast('📤 Exported'); }
-function importData(e){ const f=e.target.files[0]; if(!f) return; const r=new FileReader(); r.onload=ev=>{ try{ const d=JSON.parse(ev.target.result); if(d.roles){roles=d.roles;save('roles',roles);} if(d.habits){habits=d.habits;save('habits',habits);} if(d.habitLogs){habitLogs=d.habitLogs;save('habitLogs',habitLogs);} if(d.relationships){relationships=d.relationships;save('relationships',relationships);} if(d.goals){goals=d.goals;save('goals',goals);} if(d.bigRocks){bigRocks=d.bigRocks;save('bigRocks',bigRocks);} if(d.missionStatement){missionStatement=d.missionStatement;save('mission',missionStatement);} if(d.values){values=d.values;save('values',values);} if(d.reflections){reflections=d.reflections;save('reflections',reflections);} toast('📥 Data imported!'); renderSettings(); }catch(err){ toast('❌ Import failed'); } }; r.readAsText(f); e.target.value=''; }
 // ══════════════════════════════════════════════
-// AUTOMATIC BACKUP — JSON export every 7 days + manual button
+// BACKUP & RESTORE — one tap to a file, one tap back
 // ══════════════════════════════════════════════
-function exportFullBackup(silent){
-  if(silent === undefined) silent = false;
+function collectBackup(){
+  const data = {};
+  for(let i=0;i<localStorage.length;i++){
+    const k = localStorage.key(i);
+    if(!k || k.indexOf('df3_')!==0) continue;
+    if(k.slice(-3)==='_me' || k.indexOf('df3_local_')===0 || k==='df3_dark') data[k] = localStorage.getItem(k);
+  }
+  return {app:'dayflow', version:'v6', exportedAt:new Date().toISOString(), data};
+}
+function exportFullBackup(){
   try{
-    const backup = {
-      version: 'v4',
-      exportedAt: new Date().toISOString(),
-      user: currentUser,
-      data: {}
-    };
-    // Grab every df3_ key for this user
-    for(let i=0;i<localStorage.length;i++){
-      const k = localStorage.key(i);
-      if(k && k.indexOf('df3_')===0){
-        const isUserKey = currentUser && currentUser.uid && k.indexOf(currentUser.uid) >= 0;
-        const isLocalKey = k.indexOf('df3_local_')===0;
-        const isGlobalKey = (k==='df3_profiles' || k==='df3_currentUser' || k==='df3_gemini' || k==='df3_lastBackup' || k==='df3_lastSync');
-        if(isUserKey || isLocalKey || isGlobalKey){
-          backup.data[k] = localStorage.getItem(k);
-        }
-      }
-    }
-    const blob = new Blob([JSON.stringify(backup,null,2)], {type:'application/json'});
+    const blob = new Blob([JSON.stringify(collectBackup())], {type:'application/json'});
     const a = document.createElement('a');
     a.href = URL.createObjectURL(blob);
-    const userName = (currentUser && currentUser.name) ? currentUser.name.toLowerCase() : 'user';
-    a.download = 'dayflow-backup-'+userName+'-'+TODAY+'.json';
-    a.click();
-    URL.revokeObjectURL(a.href);
+    a.download = 'dayflow-backup-'+TODAY+'.json';
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(()=>URL.revokeObjectURL(a.href), 4000);
     localStorage.setItem('df3_lastBackup', new Date().toISOString());
-    if(!silent) toast('💾 Backup downloaded: '+a.download);
-  } catch(e){
-    console.error('Backup failed:', e);
-    if(!silent) toast('❌ Backup failed — see console');
-  }
+    toast('💾 Backup saved: '+a.download); renderSettings();
+  } catch(e){ toast('❌ Backup failed'); console.error(e); }
 }
-function checkAutoBackup(){
-  if(!currentUser || !currentUser.uid) return;
-  const last = localStorage.getItem('df3_lastBackup');
-  const SEVEN_DAYS = 7*24*60*60*1000;
-  if(!last || (Date.now() - new Date(last).getTime()) > SEVEN_DAYS){
-    setTimeout(function(){ exportFullBackup(false); toast('💾 Weekly backup downloaded automatically'); }, 3000);
-  }
-}
-
-function clearAllData(){
-  if(!confirm('⚠️ Delete ALL your data? This removes it from all devices.')) return;
-  if(!confirm('Are you sure? This cannot be undone.')) return;
-  roles=[];habits=[];habitLogs={};relationships=[];goals=[];bigRocks={};
-  missionStatement='';futureself='';values=[...DEFAULT_VALUES];
-  reflections=[];priorities=[];renewalState={};q2State={};roleServed={};
-  coiItems=[];weeklyReports=[];
-  const keysToDelete = ['roles','habits','habitLogs','relationships','goals','bigRocks',
-    'mission','futureself','values','reflections','coiItems','weeklyReports'];
-  // Also wipe today and past 30 days of state
-  for(let i=0;i<30;i++){
-    const d=new Date(); d.setDate(d.getDate()-i);
-    keysToDelete.push('today_'+ymd(d));
-  }
-  keysToDelete.forEach(k=>{
-    localStorage.removeItem(uid_key(k));
-    if(window._fbReady && currentUser?.uid){
-      const ref = window._fbDoc(window._db,'users',currentUser.uid,'data',k);
-      window._fbDeleteDoc(ref).catch(()=>{});
-    }
-  });
-  saveTodayState();
-  toast('🗑️ Data cleared from all devices'); renderSettings();
+function restoreBackup(ev){
+  const f = ev.target.files[0]; ev.target.value = ''; if(!f) return;
+  const r = new FileReader();
+  r.onload = e => {
+    try{
+      const b = JSON.parse(e.target.result);
+      if(!b || typeof b.data!=='object') throw new Error('not a DayFlow backup');
+      const nKeys = Object.keys(b.data).length;
+      if(!confirm('Restore '+nKeys+' items from this backup? This replaces the data on this phone.')) return;
+      const now = new Date().toISOString();
+      let n = 0;
+      Object.keys(b.data).forEach(k=>{
+        const v = b.data[k]; if(typeof v!=='string') return;
+        if(k.indexOf('df3_local_')===0 || k==='df3_dark'){ localStorage.setItem(k,v); return; }
+        const m = k.match(/^df3_(.+)_(u_[A-Za-z0-9]+|me)$/);
+        if(!m || m[1].indexOf('meta_')===0 || m[1]==='setup' || m[1]==='lastDeep' ) return;
+        localStorage.setItem('df3_'+m[1]+'_me', v);
+        localStorage.setItem('df3_meta_'+m[1]+'_me', now);   // restored data wins over older cloud copies
+        n++;
+      });
+      toast('♻️ Restored '+n+' items'); setTimeout(()=>location.reload(), 900);
+    } catch(err){ toast('❌ That file is not a DayFlow backup'); }
+  };
+  r.readAsText(f);
 }
 
 // ══════════════════════════════
 // GRATITUDE PRACTICE
 // ══════════════════════════════
-function openGratitude(){
-  const h=new Date().getHours();
-  const tEl=document.getElementById('grat-time-title'); if(tEl) tEl.textContent=h<12?'Morning Intention 🌅':h<17?'Midday Check-In ☀️':'Evening Reflection 🌙';
-  const gg=document.getElementById('grat-general'); if(gg) gg.value=loadLocal('grat_general_'+TODAY)||'';
-  const gi=document.getElementById('grat-intention'); if(gi) gi.value=loadLocal('grat_intention_'+TODAY)||'';
-  gratMood=loadLocal('grat_mood_'+TODAY)||'steady';
-  document.querySelectorAll('#m-gratitude .grat-mood-btn').forEach(b=>b.classList.toggle('active',b.dataset.mood===gratMood));
-  document.getElementById('m-gratitude').classList.add('open');
-}
-function closeGratitude(){ document.getElementById('m-gratitude').classList.remove('open'); }
-function setMood(btn){ gratMood=btn.dataset.mood; document.querySelectorAll('#m-gratitude .grat-mood-btn').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); saveLocal('grat_mood_'+TODAY,gratMood); }
-function saveGratitude(){
-  const gg=document.getElementById('grat-general'); if(gg) saveLocal('grat_general_'+TODAY,gg.value);
-  const gi=document.getElementById('grat-intention'); if(gi) saveLocal('grat_intention_'+TODAY,gi.value);
-  saveLocal('grat_mood_'+TODAY,gratMood);
-  saveLocal('grat_done_'+TODAY,'1');
-  const tb=document.getElementById('grat-trigger-btn'); if(tb){ tb.textContent='🌅 Morning Intention — Done ✓'; tb.classList.add('done'); }
-  closeGratitude(); toast('✦ Day begun with intention.');
-  // If called from Start My Day flow, continue it
-  if(typeof _smdStep !== 'undefined'){ _smdStep=0; setTimeout(_runSmdStep,300); }
-}
 function checkAutoGratitude(){
-  const done=loadLocal('grat_done_'+TODAY);
   const h=new Date().getHours();
-  if(!done&&h>=5&&h<=11) setTimeout(openGratitude,1400);
-  else if(done){ const tb=document.getElementById('grat-trigger-btn'); if(tb){ tb.textContent='🌅 Morning Intention — Done ✓'; tb.classList.add('done'); } }
+  if(!loadLocal('grat_done_'+TODAY) && h>=5 && h<=11 && !sessionStorage.getItem('df3_mo_auto_'+TODAY)){
+    sessionStorage.setItem('df3_mo_auto_'+TODAY,'1');
+    setTimeout(openStartMyDay,900);
+  }
 }
 
 // ══════════════════════════════
@@ -3321,30 +3069,12 @@ document.addEventListener('keydown',e=>{ if(e.key==='Escape') document.querySele
 // INIT
 // ══════════════════════════════
 (function init(){
-  loadProfiles();
-  renderEmojiGrid();
-  renderProfileGrid();
-  // Restore dark mode
+  migrateLocalKeys();
   if(localStorage.getItem('df3_dark')==='1') document.body.classList.add('dark');
   initSidebar();
-  // Auto-login last user
-  const saved=loadGlobal('currentUser');
-  if(saved?.uid){
-    let p=profiles.find(x=>x.id===saved.uid);
-    // RECOVERY: profile list lost but last login remembered — rebuild it
-    if(!p && saved.name){
-      p={id:saved.uid, name:saved.name, emoji:saved.emoji||'🔥', createdAt:new Date().toISOString()};
-      profiles.push(p);
-      saveProfiles();
-      localStorage.setItem('df3_setup_'+p.id,'1');
-      console.log('Restored profile from last login');
-    }
-    if(p && localStorage.getItem('df3_setup_'+p.id)){
-      currentUser={uid:p.id,name:p.name,emoji:p.emoji};
-      loadAll(); showApp(); return;
-    }
-  }
-  // Show auth screen — no auto-seed, user must create profile
+  loadAll(); showApp();
+  window.addEventListener('fbauth', ()=>{ updateAuthUI(); if(cloudUid()) syncNow(true); });
+  if(window._authResolved){ updateAuthUI(); if(cloudUid()) syncNow(true); }
 })();
 
 
@@ -3609,63 +3339,12 @@ renderToday = function(){
 // ══════════════════════════════════════════════
 async function manualSync(){
   const el = document.getElementById('sync-status');
+  if(!cloudUid()){ toast('Sign in first'); return; }
   if(el) el.textContent = '☁️ Syncing...';
-  await loadAllFromFirestore(true);
-  roles         = load('roles', []);
-  habits        = load('habits', []);
-  habitLogs     = load('habitLogs', {});
-  relationships = load('relationships', []);
-  goals         = load('goals', []);
-  bigRocks      = load('bigRocks', {});
-  missionStatement = load('mission', '');
-  futureself    = load('futureself', '');
-  values        = load('values', [...DEFAULT_VALUES]);
-  reflections   = load('reflections', []);
-  loadTodayState();
-  const activeView = document.querySelector('.view.active')?.id?.replace('view-','');
-  if(activeView) nav(activeView,true);
-  updateScores();
+  await syncNow(true);
   if(el) el.textContent = '✅ Synced at '+new Date().toLocaleTimeString();
-  renderSettings();
-  toast('✅ Data synced from cloud');
+  toast('✅ Synced');
 }
-
-// One-time migration: push all existing localStorage data to Firestore
-async function migrateLocalToFirebase(){
-  if(!window._fbReady || !currentUser?.uid){
-    toast('❌ Not connected to Firebase');
-    return;
-  }
-  if(!confirm('Push all local data to Firebase? This will overwrite any cloud data.')) return;
-  const el = document.getElementById('sync-status');
-  if(el) el.textContent = '📤 Migrating...';
-  const keys = ['roles','habits','habitLogs','relationships','goals','mission',
-                 'futureself','values','reflections','bigRocks','coiItems','weeklyReports'];
-  // Add today and past 30 days
-  for(let i=0;i<30;i++){
-    const d=new Date(); d.setDate(d.getDate()-i);
-    keys.push('today_'+ymd(d));
-  }
-  // Add EBA data
-  const rels = load('relationships',[]);
-  rels.forEach(r => keys.push('eba_'+r.id));
-
-  let count = 0;
-  for(const k of keys){
-    const raw = localStorage.getItem(uid_key(k));
-    if(raw){
-      try{
-        const ref = window._fbDoc(window._db,'users',currentUser.uid,'data',k);
-        await window._fbSetDoc(ref,{ value:raw, updatedAt:new Date().toISOString() });
-        count++;
-      } catch(e){ console.warn('Migration failed for '+k, e); }
-    }
-  }
-  if(el) el.textContent = '✅ Migrated '+count+' items to Firebase';
-  toast('✅ '+count+' items migrated to cloud');
-}
-
-
 
 // ══════════════════════════════════════════════════════════
 // WEEKLY AI REPORT
